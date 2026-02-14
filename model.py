@@ -17,4 +17,3 @@ def get_vit_b_16():
         models.vit_b_16,
         models.ViT_B_16_Weights.IMAGENET1K_V1,
     )
-
