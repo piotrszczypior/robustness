@@ -1,16 +1,18 @@
-import torch
 from torchmetrics.classification import MulticlassAccuracy
-from config import Config
-from loader import get_imagenet_loader, get_imagenet_c_loader
-from model import get_resnet50
 import numpy as np
-
+import torch
 import matplotlib.pyplot as plt
 import matplotlib
 
 matplotlib.use("TkAgg")
 
+from config import Config
+from loader import get_imagenet_loader, get_imagenet_c_loader
+from model import get_resnet50
+
+
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(DEVICE)
 
 
 @torch.inference_mode()
@@ -63,7 +65,7 @@ def violin_box_with_markers(ax, data, y_pos, label):
     p10 = float(np.percentile(data, 10))
 
     ax.vlines(mean, y_pos - 0.12, y_pos + 0.12, linewidth=3)
-    ax.vlines(p5, y_pos - 0.12, y_pos + 0.12, linewidth=3) 
+    ax.vlines(p5, y_pos - 0.12, y_pos + 0.12, linewidth=3)
     ax.vlines(p10, y_pos - 0.12, y_pos + 0.12, linewidth=3)
 
     std = float(data.std(ddof=0))
