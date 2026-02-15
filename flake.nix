@@ -9,7 +9,10 @@
     outputs = { self, nixpkgs }:
         let
             system = "x86_64-linux";
-            pkgs = import nixpkgs { inherit system; };
+            pkgs = import nixpkgs {
+                inherit system;
+                config.allowUnfree = true;
+            };
         in {
             devShells.${system}.default = pkgs.mkShell {
                 packages = with pkgs; [
@@ -18,11 +21,16 @@
 
                     (pkgs.python312.withPackages (ps: with ps; [
                       gdown
-                      torch
                       ruff
-                      wandb
+                      tkinter
+                      matplotlib
                     ]))
                 ];
+
+                shellHook = ''
+                    source .venv/bin/activate
+                    pip install -r requirements.txt
+                '';
             };
         };
 }
