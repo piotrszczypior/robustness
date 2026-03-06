@@ -1,52 +1,85 @@
-from torch.utils.data import DataLoader
-from torchvision import datasets
-import torchvision.transforms as transforms
+from dataclasses import dataclass
+from enum import Enum
 from pathlib import Path
+from typing import Optional
+from torch.utils.data import Dataset, Subset
+from torchvision import transforms
+import torchvision.datasets as datasets
 
 from config import Config
 
+NORMALIZE = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 
 TRANSFORM = transforms.Compose(
     [
         transforms.Resize(256),
         transforms.CenterCrop(224),
         transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+        NORMALIZE,
     ]
 )
 
 
-def get_imagenet_loader():
-    dataset = datasets.ImageFolder(root=str(Config.IMAGENET_ROOT), transform=TRANSFORM)
-
-    return DataLoader(
-        dataset,
-        batch_size=Config.BATCH_SIZE,
-        shuffle=False,
-        pin_memory=True,
-        num_workers=Config.NUM_WORKERS,
-    )
+class DatasetType(Enum):
+    IMAGENET = "imagenet"
+    IMAGENET_C = "imagenet_c"
 
 
-def get_imagenet_c_loader(corruption="defocus_blur", severity=3):
-    path = Path(Config.IMAGENET_C_ROOT) / corruption / str(severity)
-    dataset = datasets.ImageFolder(root=str(path), transform=TRANSFORM)
+@dataclass(frozen=True)
+class DatasetConfig:
+    type: DatasetType = DatasetType.IMAGENET
+    corruption: Optional[str] = None
+    severity: Optional[int] = None
+    synset: Optional[str] = None
 
-    return DataLoader(
-        dataset,
-        batch_size=Config.BATCH_SIZE,
-        shuffle=False,
-        pin_memory=True,
-        num_workers=Config.NUM_WORKERS,
-    )
+    def should_load_full_dataset(self) -> bool:
+        return self.synset == None
+
+    def get_data_path(self) -> Path:
+        data_root = self._get_data_path()
+
+        if data_root.exists():
+            return data_root
+
+        raise FileNotFoundError(f"Directory does not exists: {data_root}")
+
+    def _get_data_path(self) -> Path:
+        base_path = Path(Config.DATA_ROOT)
+
+        if self.type == DatasetType.IMAGENET:
+            return base_path / "imagenet"
+
+        if self.type == DatasetType.IMAGENET_C:
+            if not self.corruption or self.severity is None:
+                raise ValueError(
+                    "Corruption and severity must be specified for ImageNet-C"
+                )
+            return base_path / "imagenet_c" / self.corruption / str(self.severity)
+
+        raise ValueError(f"Unknown dataset type: {self.type}")
+
+
+class ImageNetDataModule:
+    @staticmethod
+    def get_dataset(config: DatasetConfig) -> Dataset:
+        path = config.get_data_path()
+        dataset = datasets.ImageFolder(root=path, transform=TRANSFORM)
+
+        if config.should_load_full_dataset():
+            return dataset
+
+        target_idx = dataset.class_to_idx[config.synset]
+        indices = [
+            i for i, (_, label) in enumerate(dataset.samples) if label == target_idx
+        ]
+
+        return Subset(dataset, indices)
 
 
 if __name__ == "__main__":
-    imagenet = get_imagenet_loader()
-    imagenet_c = get_imagenet_c_loader()
-
-    print(f"ImageNet dataset size: {len(imagenet.dataset)}")
-    print(f"ImageNet-C dataset size: {len(imagenet_c.dataset)}")
-
-    print(f"ImageNet batches: {len(imagenet)}")
-    print(f"ImageNet-C batches: {len(imagenet_c)}")
+    imagenet = ImageNetDataModule.get_dataset(
+        DatasetConfig(type=DatasetType.IMAGENET, synset="n01695060")
+    )
+    for img, i in imagenet:
+        print(i)
+    print(f"Full ImageNet Val size: {len(imagenet)}")

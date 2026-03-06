@@ -15,7 +15,6 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(DEVICE)
 
 
-@torch.inference_mode()
 def evaluate_per_class(model, loader):
     model.eval()
 
@@ -24,11 +23,12 @@ def evaluate_per_class(model, loader):
     )
     accuracy_per_class.to(DEVICE)
 
-    for inputs, targets in loader:
-        inputs, targets = inputs.to(DEVICE), targets.to(DEVICE)
+    with torch.inference_mode():
+        for inputs, targets in loader:
+            inputs, targets = inputs.to(DEVICE), targets.to(DEVICE)
 
-        outputs = model(inputs)
-        accuracy_per_class.update(outputs, targets)
+            outputs = model(inputs)
+            accuracy_per_class.update(outputs, targets)
 
     return accuracy_per_class.compute().cpu().numpy()
 
