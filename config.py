@@ -1,6 +1,5 @@
 class Config:
-    IMAGENET_ROOT = "data/imagenet/"
-    IMAGENET_C_ROOT = "data/imagenet_c/"
+    DATA_ROOT = "data/"
     BATCH_SIZE = 128
     NUM_WORKERS = 2
     NUM_CLASSES = 1000
