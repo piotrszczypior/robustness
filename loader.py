@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
@@ -6,7 +8,7 @@ from torch.utils.data import Dataset, Subset
 from torchvision import transforms
 import torchvision.datasets as datasets
 
-from config import Config
+from src.config import Config
 
 NORMALIZE = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 
@@ -69,9 +71,7 @@ class ImageNetDataModule:
             return dataset
 
         target_idx = dataset.class_to_idx[config.synset]
-        indices = [
-            i for i, (_, label) in enumerate(dataset.samples) if label == target_idx
-        ]
+        indices = [i for i, label in enumerate(dataset.targets) if label == target_idx]
 
         return Subset(dataset, indices)
 

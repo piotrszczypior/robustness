@@ -12,6 +12,13 @@ def get_resnet50():
     )
 
 
+def get_resnet152():
+    return _build(
+        models.resnet152,
+        models.ResNet152_Weights.IMAGENET1K_V1,
+    )
+
+
 def get_vit_b_16():
     return _build(
         models.vit_b_16,
