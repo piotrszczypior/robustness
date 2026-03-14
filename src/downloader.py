@@ -25,7 +25,7 @@ class Downloader:
 
         for archive in IMAGENET_C_ARCHIVES:
 
-            archive_url = f"{Downloader.IMAGENET_C_BASE_URL}{archive}"
+            archive_url = f"{IMAGENET_C_BASE_URL}{archive}"
 
             with tempfile.TemporaryDirectory() as tmp:
                 archive_path = Path(tmp) / archive

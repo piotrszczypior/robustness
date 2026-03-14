@@ -40,11 +40,11 @@ def get_args_parser():
 def get_config(args: argparse.Namespace):
     data_path = Path(args.data_path)
 
-    if not data_path.is_dir() and not args.prepare:
-        raise FileNotFoundError(f"Data directory '{data_path}' does not exist. Use --prepare to download datasets.")
-
     if args.setup:
         data_path.mkdir(parents=True, exist_ok=True)
+
+    if not data_path.is_dir():
+        raise FileNotFoundError(f"Data directory '{data_path}' does not exist. Use --prepare to download datasets.")
 
     return GlobalConfig(
         model_name=args.model_name or DEFAULT_MODEL_NAME,
