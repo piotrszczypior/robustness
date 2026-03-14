@@ -1,0 +1,28 @@
+experiments:
+  - name: imagenet_clean
+    type: imagenet
+
+  - name: imagenet_c_noise
+    type: imagenet_c
+    corruptions: [gaussian_noise, shot_noise, impulse_noise]
+    severities: [1, 2, 3, 4, 5]
+
+  - name: imagenet_c_blur
+    type: imagenet_c
+    corruptions: [defocus_blur, glass_blur, motion_blur, zoom_blur]
+    severities: [1, 2, 3, 4, 5]
+
+  - name: imagenet_c_weather
+    type: imagenet_c
+    corruptions: [snow, frost, fog, brightness]
+    severities: [1, 2, 3, 4, 5]
+
+  - name: imagenet_c_digital
+    type: imagenet_c
+    corruptions: [contrast, elastic_transform, pixelate, jpeg_compression]
+    severities: [1, 2, 3, 4, 5]
+
+  - name: imagenet_c_extra
+    type: imagenet_c
+    corruptions: [speckle_noise, gaussian_blur, spatter, saturate]
+    severities: [1, 2, 3, 4, 5]
