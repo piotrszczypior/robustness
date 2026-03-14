@@ -13,6 +13,8 @@ from torch.utils.data import Dataset
 
 from config import Config
 
+__all__ = ["get_dataset"]
+
 
 NORMALIZE = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 
@@ -24,6 +26,12 @@ DEFAULT_TRANSFORM = transforms.Compose(
         NORMALIZE,
     ]
 )
+
+
+def get_dataset(
+    config: DatasetConfig, traform: Optional[transforms.Compose] = DEFAULT_TRANSFORM
+) -> ImageFolderWithMetadata:
+    return DatasetFactory.create(config=config, transform=traform)
 
 
 class DatasetType(Enum):
@@ -71,10 +79,6 @@ class DatasetConfig:
 
 
 class ImageFolderWithMetadata(datasets.ImageFolder):
-    def __init__(self, root: str, transform=None, metadata: Dict[str, Any] = None):
-        super().__init__(root, transform)
-        self.metadata = metadata or {}
-
     def __getitem__(self, index: int) -> Tuple[torch.Tensor, int, Dict[str, Any]]:
         path, target = self.samples[index]
         image = self.loader(path)
@@ -85,7 +89,7 @@ class ImageFolderWithMetadata(datasets.ImageFolder):
         filename = os.path.basename(path)
         synset = os.path.basename(os.path.dirname(path))
 
-        metadata = {"synset": synset, "filename": filename, **self.metadata}
+        metadata = {"synset": synset, "filename": filename}
 
         return image, target, metadata
 
@@ -100,7 +104,5 @@ class DatasetFactory:
             raise FileNotFoundError(f"Dataset path does not exist: {path}")
 
         return ImageFolderWithMetadata(
-            root=str(path),
-            transform=transform or DEFAULT_TRANSFORM,
-            metadata=config.metadata,
+            root=str(path), transform=transform or DEFAULT_TRANSFORM
         )
