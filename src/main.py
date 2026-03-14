@@ -9,6 +9,7 @@ from evaluate import run_evaluation
 from model import get_model
 from config import Config
 from experiment import read_experiments
+from downloader import Downloader
 
 
 def setup_logging():
@@ -25,6 +26,13 @@ def setup_logging():
 
 def main(config: GlobalConfig) -> int:
     logger = setup_logging()
+
+    if config.setup:
+        logger.info(f"Preparing data in {config.data_path}")
+        Downloader.download_imagenet_c(config.data_path)
+        logger.info("Data preparation finished.")
+        return 0
+
     logger.info(f"Starting evaluation of {config.model_name}")
     logger.info(f"Data path: {config.data_path}")
     logger.info(f"Output path: {config.output_path}")
