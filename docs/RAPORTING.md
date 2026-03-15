@@ -2,6 +2,6 @@
 
 The file contains raw model prediction results for every single image from the evaluation set. 
 
-| model | corruption | severity | synset | image_id | y_true | y_pred | is_correct | confidence |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| resnet50 | gaussian_noise | 3 | n02099601 | val_00000293.JPEG | 207 | 250 | 0 | 0.55 |
+| model | image | synset | y_true | y_pred | confidence | is_correct | dataset_type | corruption | severity | perturbation |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| resnet152 | n01440764_10026.JPEG | n01440764 | 0 | 0 | 0.99 | 1 | imagenet_c | gaussian_noise | 3 | none |
