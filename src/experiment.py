@@ -11,8 +11,27 @@ from dataset import DatasetConfig, DatasetType
 __all__ = ["read_experiments", "Experiment"]
 
 
+import logging
+
+logger = logging.getLogger(__name__)
+
+
 def read_experiments(config) -> list[Experiment]:
-    return list(ExperimentFactory.from_yaml(config.experiments_path))
+    experiments = list(ExperimentFactory.from_yaml(config.experiments_path))
+
+    if config.run is None:
+        logger.info(f"Loaded {len(experiments)} experiments from the configuration.")
+        return experiments
+
+    logger.info(f"Filtering experiments by prefix: '{config.run}'")
+
+    run_experiments = [exp for exp in experiments if exp.name.startswith(config.run)]
+
+    if not run_experiments:
+        logger.warning(f"No experiments match the filter '{config.run}'")
+
+    logger.info(f"Loaded {len(run_experiments)} experiments from the configuration.")
+    return run_experiments
 
 
 @dataclass(frozen=True)

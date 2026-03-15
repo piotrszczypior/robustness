@@ -6,3 +6,4 @@ class Config:
     BATCH_SIZE = 128
     NUM_WORKERS = 2
     NUM_CLASSES = 1000
+    GOOGLE_DRIVE_PATH = "/content/drive/MyDrive/robustness/results"

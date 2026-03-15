@@ -20,6 +20,8 @@ class GlobalConfig:
     experiments_path: str
     output_path: str
     setup: Optional[list[str]]
+    run: Optional[str]
+    sync_drive: bool
 
 
 def get_args_parser():
@@ -31,7 +33,9 @@ def get_args_parser():
     parser.add_argument("--data-path", default="data/", type=str, help="Path to data")
     parser.add_argument("--output-path", default="results/", type=str, help="Path to results")
     parser.add_argument("--experiments-path", type=str, help="Experiments")
-    parser.add_argument("--setup", nargs="*", help="Download datasets (e.g. imagenet_c blur.tar)")
+    parser.add_argument("--setup", nargs="*", help="Prepare/Download datasets (e.g. imagenet_c blur.tar)")
+    parser.add_argument("--run", type=str, help="Run specific experiment by name")
+    parser.add_argument("--sync-drive", action="store_true", help="Sync results to Google Drive")
     # fmt: on
 
     return parser
@@ -54,4 +58,6 @@ def get_config(args: argparse.Namespace):
         experiments_path=args.experiments_path,
         output_path=args.output_path or DEFAULT_OUTPUT_PATH,
         setup=args.setup,
+        run=args.run,
+        sync_drive=args.sync_drive,
     )

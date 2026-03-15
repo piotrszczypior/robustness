@@ -71,7 +71,8 @@ def resolve_device():
 
 
 def run_evaluation(config, model, experiments: list[Experiment]):
-    exporter = MetricsExporter(output_dir=config.output_path)
+    backup_dir = Config.GOOGLE_DRIVE_PATH if config.sync_drive else None
+    exporter = MetricsExporter(output_dir=config.output_path, backup_dir=backup_dir)
     device = resolve_device()
 
     for i, experiment in enumerate(experiments):

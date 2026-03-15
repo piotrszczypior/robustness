@@ -40,6 +40,10 @@ DOWNLOAD_REGISTRY = {
             "weather.tar",
         ],
     ),
+    DatasetType.IMAGENET_A: DatasetSourceConfig(
+        base_url="https://people.eecs.berkeley.edu/~hendrycks",
+        default_archives=["imagenet-a.tar"],
+    ),
 }
 
 

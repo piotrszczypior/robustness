@@ -13,6 +13,8 @@ class MetricsExporter:
         self.output_dir = output_dir
         self.backup_dir = backup_dir
         os.makedirs(self.output_dir, exist_ok=True)
+        if self.backup_dir:
+            os.makedirs(self.backup_dir, exist_ok=True)
 
     def export(self, data_df: pd.DataFrame, filename: str):
         if not filename.endswith(".csv"):

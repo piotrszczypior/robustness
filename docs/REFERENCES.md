@@ -12,7 +12,8 @@
 4. Mazda Moayeri, Phillip Pope, Yogesh Balaji, and Soheil Feizi. A comprehensive study of image classification model sensitivity to foregrounds, backgrounds, and visual attributes. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, pages 19087–19097, 2022.
     - https://arxiv.org/abs/2201.10766
 
-
+5. ImageNet: A Large-Scale Hierarchical Image Database Jia Deng, Wei Dong, Richard Socher, Li-Jia Li, Kai Li and Li Fei-Fei Dept. of Computer Science, Princeton University, USA
+    - https://image-net.org/static_files/papers/imagenet_cvpr09.pdf
 
 ## Topics
 
