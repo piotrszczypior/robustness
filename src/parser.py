@@ -19,7 +19,7 @@ class GlobalConfig:
     data_path: Path
     experiments_path: str
     output_path: str
-    setup: bool
+    setup: Optional[list[str]]
 
 
 def get_args_parser():
@@ -31,7 +31,7 @@ def get_args_parser():
     parser.add_argument("--data-path", default="data/", type=str, help="Path to data")
     parser.add_argument("--output-path", default="results/", type=str, help="Path to results")
     parser.add_argument("--experiments-path", type=str, help="Experiments")
-    parser.add_argument("--setup", action="store_true", help="Prepare/Download datasets")
+    parser.add_argument("--setup", nargs="*", help="Download datasets (e.g. imagenet_c blur.tar)")
     # fmt: on
 
     return parser
@@ -40,11 +40,13 @@ def get_args_parser():
 def get_config(args: argparse.Namespace):
     data_path = Path(args.data_path)
 
-    if args.setup:
+    if args.setup is not None:
         data_path.mkdir(parents=True, exist_ok=True)
 
-    if not data_path.is_dir():
-        raise FileNotFoundError(f"Data directory '{data_path}' does not exist. Use --prepare to download datasets.")
+    if args.setup is None and not data_path.is_dir():
+        raise FileNotFoundError(
+            f"Data directory '{data_path}' does not exist. Use --setup to download datasets."
+        )
 
     return GlobalConfig(
         model_name=args.model_name or DEFAULT_MODEL_NAME,
