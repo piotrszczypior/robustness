@@ -66,7 +66,9 @@ class _Downloader:
 
         source_config = DOWNLOAD_REGISTRY[dataset_type]
         specific_archives = args[1:] if len(args) > 1 else None
-        _Downloader._download_dataset(data_root, source_config, specific_archives)
+        _Downloader._download_dataset(
+            data_root, dataset_type, source_config, specific_archives
+        )
 
     @staticmethod
     def _download_dataset(
