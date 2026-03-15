@@ -35,7 +35,7 @@ def get_args_parser():
     parser.add_argument("--experiments-path", type=str, help="Experiments")
     parser.add_argument("--setup", nargs="*", help="Prepare/Download datasets (e.g. imagenet_c blur.tar)")
     parser.add_argument("--run", type=str, help="Run specific experiment by name")
-    parser.add_argument("--sync-drive", action="store_true", help="Sync results to Google Drive")
+    parser.add_argument("--sync-drive", action="store_true", default=False, help="Sync results to Google Drive")
     # fmt: on
 
     return parser

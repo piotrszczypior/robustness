@@ -14,3 +14,22 @@
 2026-03-14 22:16:37,475 [INFO] __main__: Found 96 experiments
 2026-03-14 22:16:37,602 [INFO] evaluate: Running experiment 1/96: imagenet
 2026-03-14 22:19:01,781 [INFO] evaluate: Running experiment 2/96: imagenet_c_noise_gaussian_noise_1
+2026-03-15 13:34:18,492 [INFO] __main__: Starting evaluation of resnet152
+2026-03-15 13:34:18,492 [INFO] __main__: Data path: data
+2026-03-15 13:34:18,492 [INFO] __main__: Output path: results/
+2026-03-15 13:35:08,267 [INFO] __main__: Starting evaluation of resnet152
+2026-03-15 13:35:08,267 [INFO] __main__: Data path: data
+2026-03-15 13:35:08,267 [INFO] __main__: Output path: results/
+2026-03-15 13:35:08,791 [INFO] experiment: Filtering experiments by prefix: 'imagenet'
+2026-03-15 13:35:08,791 [INFO] experiment: Loaded 96 experiments from the configuration.
+2026-03-15 13:35:08,791 [INFO] __main__: Found 96 experiments
+2026-03-15 13:35:08,946 [INFO] evaluate: Running experiment 1/96: imagenet
+2026-03-15 13:35:50,665 [INFO] __main__: Starting evaluation of resnet152
+2026-03-15 13:35:50,665 [INFO] __main__: Data path: data
+2026-03-15 13:35:50,665 [INFO] __main__: Output path: results/
+2026-03-15 13:35:51,186 [INFO] experiment: Filtering experiments by prefix: 'imagenet'
+2026-03-15 13:35:51,186 [INFO] experiment: Loaded 1 experiments from the configuration.
+2026-03-15 13:35:51,186 [INFO] __main__: Found 1 experiments
+2026-03-15 13:35:51,338 [INFO] evaluate: Running experiment 1/1: imagenet
+2026-03-15 13:38:14,763 [INFO] evaluate: Experiment imagenet finished. Accuracy: 0.7833, Error: 0.2167
+2026-03-15 13:38:14,890 [INFO] __main__: Evaluation finished.

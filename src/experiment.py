@@ -25,7 +25,7 @@ def read_experiments(config) -> list[Experiment]:
 
     logger.info(f"Filtering experiments by prefix: '{config.run}'")
 
-    run_experiments = [exp for exp in experiments if exp.name.startswith(config.run)]
+    run_experiments = [exp for exp in experiments if exp.name == config.run]
 
     if not run_experiments:
         logger.warning(f"No experiments match the filter '{config.run}'")
