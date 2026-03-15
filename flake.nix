@@ -17,7 +17,10 @@
                     rclone
 
                     (pkgs.python312.withPackages (ps: with ps; [
-                      ruff
+                        ruff
+                        notebook
+                        jupyter
+                        ipykernel
                     ]))
                 ];
             };

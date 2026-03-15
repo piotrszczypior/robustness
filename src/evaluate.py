@@ -90,13 +90,13 @@ def run_evaluation(config, model, experiments: list[Experiment]):
         results, run_accuracy, run_error = evaluate_per_file(
             model, data_loader, device, dataset_config.metadata, config.model_name
         )
-        
+
         logger.info(
             f"Experiment {experiment.name} finished. "
             f"Accuracy: {run_accuracy:.4f}, "
             f"Error: {run_error:.4f}"
         )
-        
+
         exporter.export(
             data_df=results.to_dataframe(),
             filename=f"{config.model_name}_{experiment.name}.csv",
@@ -107,7 +107,7 @@ def evaluate_per_file(model, data_loader, device, run_metadata, model_name):
     model.eval()
     model.to(device)
     results = ResultAccumulator(model_name=model_name).with_metadata(run_metadata)
-    
+
     total_correct = 0
 
     with torch.inference_mode():
@@ -115,10 +115,10 @@ def evaluate_per_file(model, data_loader, device, run_metadata, model_name):
             inputs, targets = inputs.to(device), targets.to(device)
 
             outputs = model(inputs)
-            
+
             probs = F.softmax(outputs, dim=1)
             confidences, predictions = torch.max(probs, dim=1)
-            
+
             total_correct += (predictions == targets).sum().item()
 
             results.update(
@@ -128,7 +128,7 @@ def evaluate_per_file(model, data_loader, device, run_metadata, model_name):
                 predictions=predictions.cpu().numpy(),
                 confidences=confidences.cpu().numpy(),
             )
-    
+
     accuracy = total_correct / len(data_loader.dataset)
     error = 1.0 - accuracy
 
