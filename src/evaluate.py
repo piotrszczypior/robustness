@@ -23,6 +23,7 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class ResultAccumulator:
+    model_name: str
     image: list[str] = field(default_factory=list)
     synset: list[str] = field(default_factory=list)
     y_true: list[int] = field(default_factory=list)
@@ -51,6 +52,7 @@ class ResultAccumulator:
     def to_dataframe(self) -> pd.DataFrame:
         df = pd.DataFrame(
             {
+                "model": self.model_name,
                 "image": self.image,
                 "synset": self.synset,
                 "y_true": self.y_true,
@@ -85,17 +87,19 @@ def run_evaluation(config, model, experiments: list[Experiment]):
             num_workers=Config.NUM_WORKERS,
         )
 
-        results = evaluate_per_file(model, data_loader, device, dataset_config.metadata)
+        results = evaluate_per_file(
+            model, data_loader, device, dataset_config.metadata, config.model_name
+        )
         exporter.export(
             data_df=results.to_dataframe(),
             filename=f"{config.model_name}_{experiment.name}.csv",
         )
 
 
-def evaluate_per_file(model, data_loader, device, run_metadata):
+def evaluate_per_file(model, data_loader, device, run_metadata, model_name):
     model.eval()
     model.to(device)
-    results = ResultAccumulator().with_metadata(run_metadata)
+    results = ResultAccumulator(model_name=model_name).with_metadata(run_metadata)
 
     with torch.inference_mode():
         for inputs, targets, batch_metadata in data_loader:
