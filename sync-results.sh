@@ -5,32 +5,29 @@ set -euo pipefail
 # 'push' (upload to GD)
 ACTION=${1:-"pull"}
 
-FILE=${2:-""}
+PATTERN=${2:-""}
 
 REMOTE="pwr-remote:robustness/results"
 LOCAL="results/"
 
+RCLONE_CMD="rclone copy --ignore-existing -P"
+
 if [ "$ACTION" == "pull" ]; then
-    if [ -z "$FILE" ]; then
-        echo "Pulling files from Google Drive to local $LOCAL/..."
-        rclone copy "$REMOTE" "$LOCAL" --ignore-existing -P
+    if [ -z "$PATTERN" ]; then
+        echo "Pulling all files from Google Drive to local $LOCAL/..."
+        $RCLONE_CMD "$REMOTE" "$LOCAL"
     else
-        echo "Pulling specific file: $FILE from Google Drive..."
-        rclone copy "$REMOTE/$FILE" "$LOCAL" --ignore-existing -P
+        echo "Pulling files matching '$PATTERN' from Google Drive..."
+        $RCLONE_CMD "$REMOTE" "$LOCAL" --include "$PATTERN"
     fi
 
 elif [ "$ACTION" == "push" ]; then
-    if [ -z "$FILE" ]; then
-        echo "Pushing local files from $LOCAL/ to Google Drive..."
-        rclone copy "$LOCAL" "$REMOTE" --ignore-existing -P
+    if [ -z "$PATTERN" ]; then
+        echo "Pushing all local files from $LOCAL/ to Google Drive..."
+        $RCLONE_CMD "$LOCAL" "$REMOTE"
     else
-        if [ -f "$LOCAL/$FILE" ]; then
-            echo "Pushing specific file: $FILE to Google Drive..."
-            rclone copy "$LOCAL/$FILE" "$REMOTE" --ignore-existing -P
-        else
-            echo "Error: File '$LOCAL/$FILE' does not exist locally."
-            exit 1
-        fi
+        echo "Pushing local files matching '$PATTERN' to Google Drive..."
+        $RCLONE_CMD "$LOCAL" "$REMOTE" --include "$PATTERN"
     fi
 
 else
