@@ -10,13 +10,13 @@ from task import Task
 
 import setup
 import evaluate
-import analyze
+import plots
 
 
 TASK_REGISTRY: Dict[str, Task] = {
     "setup": setup.get_task(),
     "evaluate": evaluate.get_task(),
-    "analyze": analyze.get_task(),
+    "plot": plots.get_task(),
 }
 
 
@@ -55,7 +55,7 @@ def main() -> int:
             return 1
 
         task.run(args)
-        logger.info(f"Task {args.task} completed successfully ---")
+        logger.info(f"Task {args.task} completed successfully")
         return 0
     except Exception as e:
         logger.exception(f"An unexpected error occurred: {e}")

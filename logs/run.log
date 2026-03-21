@@ -38,3 +38,118 @@
 2026-03-21 16:32:32,169 [INFO] __main__: Starting task: setup
 2026-03-21 16:32:32,169 [INFO] setup: Preparing data in data/
 2026-03-21 16:32:32,169 [INFO] setup.setup: Downloading https://zenodo.org/records/2235448/files/noise.tar...
+2026-03-21 19:36:32,570 [INFO] __main__: Starting task: analyze
+2026-03-21 19:36:32,570 [INFO] analyze: Starting analysis for model: resnet152
+2026-03-21 19:36:32,571 [INFO] analyze: Loading data from results/resnet152_imagenet.csv
+2026-03-21 19:36:32,612 [INFO] analyze: Generating scatter plot: resnet152_defocus_blur_3
+2026-03-21 19:36:32,625 [WARNING] analyze: No data found for filters: {'label': 'Accuracy (Defocus Blur 3)', 'dataset_type': 'imagenet_c', 'corruption': 'defocus_blur', 'severity': 3}
+2026-03-21 19:36:32,626 [WARNING] analyze: Skipping plot 'resnet152_defocus_blur_3' due to empty data.
+2026-03-21 19:36:32,626 [INFO] analyze: Analysis finished.
+2026-03-21 19:36:32,627 [INFO] __main__: Task analyze completed successfully ---
+2026-03-21 23:14:44,326 [INFO] __main__: Starting task: plot
+2026-03-21 23:14:44,326 [INFO] plot: Starting Plotting Task
+2026-03-21 23:14:44,326 [INFO] plot: Loading recipes from: plots/recipes.yaml
+2026-03-21 23:14:44,326 [INFO] plots.recipe: - Registering recipe 0: acc_to_acc
+2026-03-21 23:14:44,326 [ERROR] __main__: An unexpected error occurred: object of type 'generator' has no len()
+Traceback (most recent call last):
+  File "/home/piotrszczypior/master/robustness/src/main.py", line 57, in main
+    task.run(args)
+  File "/home/piotrszczypior/master/robustness/src/task.py", line 20, in run
+    self.run_fn(args)
+  File "/home/piotrszczypior/master/robustness/src/plots/cli.py", line 39, in run
+    register_recipes(args.recipes)
+  File "/home/piotrszczypior/master/robustness/src/plots/recipe.py", line 28, in register_recipes
+    logger.info(f"Total of {len(recipes)} has been registered")
+                            ^^^^^^^^^^^^
+TypeError: object of type 'generator' has no len()
+2026-03-21 23:15:18,644 [INFO] __main__: Starting task: plot
+2026-03-21 23:15:18,644 [INFO] plot: Starting Plotting Task
+2026-03-21 23:15:18,644 [INFO] plot: Loading recipes from: plots/recipes.yaml
+2026-03-21 23:15:18,645 [INFO] plots.recipe: - Registering recipe 0: acc_to_acc
+2026-03-21 23:15:18,645 [INFO] plots.recipe: Total of 0 has been registered
+2026-03-21 23:15:18,645 [INFO] plot: Loading plot specs from: plots/recipes.yaml
+2026-03-21 23:15:18,645 [WARNING] plot: Execution halted: No valid plot configurations found.
+2026-03-21 23:15:18,645 [INFO] __main__: Task plot completed successfully ---
+2026-03-21 23:16:16,175 [INFO] __main__: Starting task: plot
+2026-03-21 23:16:16,175 [INFO] plot: Starting Plotting Task
+2026-03-21 23:16:16,175 [INFO] plot: Loading recipes from: plots/recipes.yaml
+2026-03-21 23:16:16,176 [INFO] plots.recipe: - Registering recipe 0: acc_to_acc
+2026-03-21 23:16:16,176 [INFO] plots.recipe: Total of 0 has been registered
+2026-03-21 23:16:16,176 [INFO] plot: Loading plot specs from: plots/recipes.yaml
+2026-03-21 23:16:16,176 [WARNING] plot: Execution halted: No valid plot configurations found.
+2026-03-21 23:16:16,176 [INFO] __main__: Task plot completed successfully ---
+2026-03-21 23:16:55,617 [INFO] __main__: Starting task: plot
+2026-03-21 23:16:55,617 [INFO] plot: Starting Plotting Task
+2026-03-21 23:16:55,617 [INFO] plot: Loading recipes from: plots/recipes.yaml
+2026-03-21 23:16:55,618 [INFO] plots.recipe: - Registering recipe 0: acc_to_acc
+2026-03-21 23:16:55,618 [INFO] plots.recipe: Total of 0 has been registered
+2026-03-21 23:16:55,618 [INFO] plot: Loading plot specs from: plots/recipes.yaml
+2026-03-21 23:16:55,618 [WARNING] plot: Execution halted: No valid plot configurations found.
+2026-03-21 23:16:55,618 [INFO] __main__: Task plot completed successfully ---
+2026-03-21 23:17:39,217 [INFO] __main__: Starting task: plot
+2026-03-21 23:17:39,217 [INFO] plot: Starting Plotting Task
+2026-03-21 23:17:39,217 [INFO] plot: Loading recipes from: plots/recipes.yaml
+2026-03-21 23:17:39,218 [INFO] plots.recipe: - Registering recipe 0: acc_to_acc
+2026-03-21 23:17:39,218 [INFO] plots.recipe: Total of 1 has been registered
+2026-03-21 23:17:39,218 [INFO] plot: Loading plot specs from: plots/recipes.yaml
+2026-03-21 23:17:39,218 [WARNING] plot: Execution halted: No valid plot configurations found.
+2026-03-21 23:17:39,218 [INFO] __main__: Task plot completed successfully ---
+2026-03-21 23:21:38,553 [INFO] __main__: Starting task: plot
+2026-03-21 23:21:38,553 [INFO] plot: Starting Plotting Task
+2026-03-21 23:21:38,553 [INFO] plot: Loading recipes from: plots/plots.yaml
+2026-03-21 23:21:38,554 [INFO] plots.recipe: Total of 0 has been registered
+2026-03-21 23:21:38,554 [INFO] plot: Loading plot specs from: plots/recipes.yaml
+2026-03-21 23:21:38,554 [WARNING] plot: Execution halted: No valid plot configurations found.
+2026-03-21 23:21:38,554 [INFO] __main__: Task plot completed successfully
+2026-03-21 23:21:55,824 [INFO] __main__: Starting task: plot
+2026-03-21 23:21:55,824 [INFO] plot: Starting Plotting Task
+2026-03-21 23:21:55,825 [INFO] plot: Loading recipes from: plots/recipes.yaml
+2026-03-21 23:21:55,825 [INFO] plots.recipe: - Registering recipe 0: acc_to_acc
+2026-03-21 23:21:55,825 [INFO] plots.recipe: Total of 1 has been registered
+2026-03-21 23:21:55,825 [INFO] plot: Loading plot specs from: plots/plots.yaml
+2026-03-21 23:21:55,826 [INFO] plot: Orchestrating 1 visualization task(s).
+2026-03-21 23:21:55,826 [INFO] plot: [1/1] Rendering 'resnet152_defocus_blur_3'...
+2026-03-21 23:21:55,826 [ERROR] plot:   FAILED rendering 'resnet152_defocus_blur_3': 'Namespace' object has no attribute 'output_path'
+2026-03-21 23:21:55,826 [INFO] plot: All Plotting Tasks Completed Successfully ---
+2026-03-21 23:21:55,826 [INFO] __main__: Task plot completed successfully
+2026-03-21 23:22:22,389 [INFO] __main__: Starting task: plot
+2026-03-21 23:22:22,389 [INFO] plot: Starting Plotting Task
+2026-03-21 23:22:22,389 [INFO] plot: Loading recipes from: plots/recipes.yaml
+2026-03-21 23:22:22,390 [INFO] plots.recipe: - Registering recipe 0: acc_to_acc
+2026-03-21 23:22:22,390 [INFO] plots.recipe: Total of 1 has been registered
+2026-03-21 23:22:22,390 [INFO] plot: Loading plot specs from: plots/plots.yaml
+2026-03-21 23:22:22,390 [INFO] plot: Orchestrating 1 visualization task(s).
+2026-03-21 23:22:22,390 [INFO] plot: [1/1] Rendering 'resnet152_defocus_blur_3'...
+2026-03-21 23:22:22,390 [WARNING] plots.analyze: Skipping plot 'resnet152_defocus_blur_3': Data files missing.
+2026-03-21 23:22:22,391 [INFO] plot: All Plotting Tasks Completed Successfully ---
+2026-03-21 23:22:22,391 [INFO] __main__: Task plot completed successfully
+2026-03-21 23:23:29,068 [INFO] __main__: Starting task: plot
+2026-03-21 23:23:29,068 [INFO] plot: Starting Plotting Task
+2026-03-21 23:23:29,068 [INFO] plot: Loading recipes from: plots/recipes.yaml
+2026-03-21 23:23:29,069 [INFO] plots.recipe: - Registering recipe 0: acc_to_acc
+2026-03-21 23:23:29,069 [INFO] plots.recipe: Total of 1 has been registered
+2026-03-21 23:23:29,069 [INFO] plot: Loading plot specs from: plots/plots.yaml
+2026-03-21 23:23:29,069 [INFO] plot: Orchestrating 1 visualization task(s).
+2026-03-21 23:23:29,069 [INFO] plot: [1/1] Rendering 'resnet152_blur_defocus_blur_3'...
+2026-03-21 23:23:29,069 [INFO] plots.analyze: Loading data from results/resnet152_imagenet.csv
+2026-03-21 23:23:29,114 [INFO] plots.analyze: Loading data from results/resnet152_imagenet_c_blur_defocus_blur_3.csv
+2026-03-21 23:23:29,416 [INFO] plots.analyze: Plot 'ResNet-152: Clean vs Defocus Blur (Severity 3)' saved to images/resnet152_scatter_blur_defocus_blur_3.png
+2026-03-21 23:23:29,417 [INFO] plot: All Plotting Tasks Completed Successfully ---
+2026-03-21 23:23:29,417 [INFO] __main__: Task plot completed successfully
+2026-03-21 23:24:44,266 [INFO] __main__: Starting task: plot
+2026-03-21 23:24:44,266 [INFO] plot: Starting Plotting Task
+2026-03-21 23:24:44,266 [INFO] plot: Loading recipes from: plots/recipes.yaml
+2026-03-21 23:24:44,267 [INFO] plots.recipe: - Registering recipe 0: acc_to_acc
+2026-03-21 23:24:44,267 [INFO] plots.recipe: Total of 1 has been registered
+2026-03-21 23:24:44,267 [INFO] plot: Loading plot specs from: plots/plots.yaml
+2026-03-21 23:24:44,268 [INFO] plot: Orchestrating 2 visualization task(s).
+2026-03-21 23:24:44,268 [INFO] plot: [1/2] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-21 23:24:44,268 [INFO] plots.analyze: Loading data from results/resnet152_imagenet.csv
+2026-03-21 23:24:44,305 [INFO] plots.analyze: Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-21 23:24:44,590 [INFO] plots.analyze: Plot 'ResNet-152: Clean vs Defocus Blur (Severity 1)' saved to images/resnet152_scatter_blur_defocus_blur_1.png
+2026-03-21 23:24:44,591 [INFO] plot: [2/2] Rendering 'resnet152_blur_defocus_blur_3'...
+2026-03-21 23:24:44,591 [INFO] plots.analyze: Loading data from results/resnet152_imagenet.csv
+2026-03-21 23:24:44,626 [INFO] plots.analyze: Loading data from results/resnet152_imagenet_c_blur_defocus_blur_3.csv
+2026-03-21 23:24:44,890 [INFO] plots.analyze: Plot 'ResNet-152: Clean vs Defocus Blur (Severity 3)' saved to images/resnet152_scatter_blur_defocus_blur_3.png
+2026-03-21 23:24:44,891 [INFO] plot: All Plotting Tasks Completed Successfully ---
+2026-03-21 23:24:44,892 [INFO] __main__: Task plot completed successfully

@@ -10,3 +10,4 @@ torchmetrics
 pandas
 matplotlib
 seaborn
+pyyaml

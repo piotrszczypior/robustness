@@ -1,0 +1,6 @@
+recipes:
+  - name: acc_to_acc
+    type: scatter
+    groupby: y_true
+    column: is_correct
+    aggregate: mean
