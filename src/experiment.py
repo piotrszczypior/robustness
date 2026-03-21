@@ -1,9 +1,10 @@
 from __future__ import annotations
 
-from typing import List, Iterator, Dict, Any, Union
+from typing import Iterator, Dict, Any, Union
 from dataclasses import dataclass
 from pathlib import Path
 import yaml
+import logging
 
 from dataset import DatasetConfig, DatasetType
 
@@ -11,13 +12,11 @@ from dataset import DatasetConfig, DatasetType
 __all__ = ["read_experiments", "Experiment"]
 
 
-import logging
-
 logger = logging.getLogger(__name__)
 
 
 def read_experiments(config) -> list[Experiment]:
-    experiments = list(ExperimentFactory.from_yaml(config.experiments_path))
+    experiments = list(_ExperimentFactory.from_yaml(config.experiments))
 
     if config.run is None:
         logger.info(f"Loaded {len(experiments)} experiments from the configuration.")
@@ -40,12 +39,12 @@ class Experiment:
     dataset_config: DatasetConfig
 
 
-class ExperimentFactory:
+class _ExperimentFactory:
     @staticmethod
     def from_yaml(yaml_path: Union[str, Path]) -> Iterator[Experiment]:
         with open(yaml_path, "r") as f:
             config = yaml.safe_load(f)
-        return ExperimentFactory._from_dict(config)
+        return _ExperimentFactory._from_dict(config)
 
     @staticmethod
     def _from_dict(config: Dict[str, Any]) -> Iterator[Experiment]:

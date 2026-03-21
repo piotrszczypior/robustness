@@ -15,6 +15,12 @@
 5. ImageNet: A Large-Scale Hierarchical Image Database Jia Deng, Wei Dong, Richard Socher, Li-Jia Li, Kai Li and Li Fei-Fei Dept. of Computer Science, Princeton University, USA
     - https://image-net.org/static_files/papers/imagenet_cvpr09.pdf
 
+## Models 
+
+1. A ConvNet for the 2020s
+    - https://arxiv.org/abs/2201.03545
+
+
 ## Topics
 
 Methodological problems due to robustness:

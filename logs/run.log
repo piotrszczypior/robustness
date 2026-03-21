@@ -33,3 +33,8 @@
 2026-03-15 13:35:51,338 [INFO] evaluate: Running experiment 1/1: imagenet
 2026-03-15 13:38:14,763 [INFO] evaluate: Experiment imagenet finished. Accuracy: 0.7833, Error: 0.2167
 2026-03-15 13:38:14,890 [INFO] __main__: Evaluation finished.
+2026-03-20 23:56:00,764 [INFO] setup.task: Preparing data in data/
+2026-03-20 23:56:00,764 [INFO] setup.setup: Downloading https://zenodo.org/records/2235448/files/blur.tar...
+2026-03-21 16:32:32,169 [INFO] __main__: Starting task: setup
+2026-03-21 16:32:32,169 [INFO] setup: Preparing data in data/
+2026-03-21 16:32:32,169 [INFO] setup.setup: Downloading https://zenodo.org/records/2235448/files/noise.tar...

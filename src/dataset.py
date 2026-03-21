@@ -13,7 +13,7 @@ from torch.utils.data import Dataset
 
 from config import Config
 
-__all__ = ["get_dataset"]
+__all__ = ["get_dataset", "DatasetType", "DatasetConfig"]
 
 
 NORMALIZE = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
@@ -31,7 +31,7 @@ DEFAULT_TRANSFORM = transforms.Compose(
 def get_dataset(
     config: DatasetConfig, traform: Optional[transforms.Compose] = DEFAULT_TRANSFORM
 ) -> ImageFolderWithMetadata:
-    return DatasetFactory.create(config=config, transform=traform)
+    return _DatasetFactory.create(config=config, transform=traform)
 
 
 class DatasetType(Enum):
@@ -94,7 +94,7 @@ class ImageFolderWithMetadata(datasets.ImageFolder):
         return image, target, metadata
 
 
-class DatasetFactory:
+class _DatasetFactory:
     @staticmethod
     def create(
         config: DatasetConfig, transform: Optional[transforms.Compose] = None

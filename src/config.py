@@ -1,3 +1,8 @@
+from __future__ import annotations
+
+__all__ = ["Config"]
+
+
 class Config:
     DATA_ROOT = "data/"
     RESULTS_DIR = "results/"

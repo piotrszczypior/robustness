@@ -15,13 +15,13 @@ __all__ = ["setup_dataset"]
 
 
 @dataclass(frozen=True)
-class DatasetSourceConfig:
+class _DatasetSourceConfig:
     base_url: str
     default_archives: list[str]
 
 
 DOWNLOAD_REGISTRY = {
-    DatasetType.IMAGENET_C: DatasetSourceConfig(
+    DatasetType.IMAGENET_C: _DatasetSourceConfig(
         base_url="https://zenodo.org/records/2235448/files",
         default_archives=[
             "noise.tar",
@@ -31,7 +31,7 @@ DOWNLOAD_REGISTRY = {
             "extra.tar",
         ],
     ),
-    DatasetType.IMAGENET_P: DatasetSourceConfig(
+    DatasetType.IMAGENET_P: _DatasetSourceConfig(
         base_url="https://zenodo.org/records/3565846/files",
         default_archives=[
             "blur.tar",
@@ -40,24 +40,24 @@ DOWNLOAD_REGISTRY = {
             "weather.tar",
         ],
     ),
-    DatasetType.IMAGENET_A: DatasetSourceConfig(
+    DatasetType.IMAGENET_A: _DatasetSourceConfig(
         base_url="https://people.eecs.berkeley.edu/~hendrycks",
         default_archives=["imagenet-a.tar"],
     ),
 }
 
 
-def setup_dataset(data_root: Path, args: list[str]):
-    return _Downloader.setup(data_root=data_root, args=args)
+def setup_dataset(data_root: Path, dataset: str, archives: list[str]):
+    return _Downloader.setup(data_root, dataset, archives)
 
 
 class _Downloader:
     @staticmethod
-    def setup(data_root: Path, args: list[str]):
+    def setup(data_root: Path, dataset: str, archives: list[str]):
         try:
-            dataset_type = DatasetType(args[0].lower())
+            dataset_type = DatasetType(dataset.lower())
         except ValueError:
-            logger.error(f"Unknown dataset type: {args[0]}")
+            logger.error(f"Unknown dataset type: {dataset}")
             return
 
         if dataset_type not in DOWNLOAD_REGISTRY:
@@ -65,16 +65,14 @@ class _Downloader:
             return
 
         source_config = DOWNLOAD_REGISTRY[dataset_type]
-        specific_archives = args[1:] if len(args) > 1 else None
-        _Downloader._download_dataset(
-            data_root, dataset_type, source_config, specific_archives
-        )
+
+        _Downloader._download_dataset(data_root, dataset_type, source_config, archives)
 
     @staticmethod
     def _download_dataset(
         data_root: Path,
         dataset_type: DatasetType,
-        source_config: DatasetSourceConfig,
+        source_config: _DatasetSourceConfig,
         specific_archives: list[str] = None,
     ):
         data_root = Path(data_root)

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import torchvision.models as models
 import torch.nn as nn
 
@@ -15,7 +17,7 @@ class _ModelFactory:
         "resnet152": models.ResNet152_Weights.IMAGENET1K_V1,
         "efficientnet_b4": models.EfficientNet_B4_Weights.IMAGENET1K_V1,
         "vit_b_16": models.ViT_B_16_Weights.IMAGENET1K_V1,
-        "convnext_base": models.ConvNeXt_Base_Weights.IMAGENET1K_V1
+        "convnext_base": models.ConvNeXt_Base_Weights.IMAGENET1K_V1,
     }
 
     @classmethod

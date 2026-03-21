@@ -2,14 +2,22 @@ from __future__ import annotations
 
 import os
 import logging
-import torch
+import argparse
+from typing import Dict
 
-from parser import GlobalConfig, get_args_parser, get_config
-from evaluate import run_evaluation
-from model import get_model
 from config import Config
-from experiment import read_experiments
-from setup import setup_dataset
+from task import Task
+
+import setup
+import evaluate
+import analyze
+
+
+TASK_REGISTRY: Dict[str, Task] = {
+    "setup": setup.get_task(),
+    "evaluate": evaluate.get_task(),
+    "analyze": analyze.get_task(),
+}
 
 
 def setup_logging():
@@ -24,34 +32,35 @@ def setup_logging():
     return logging.getLogger(__name__)
 
 
-def main(config: GlobalConfig) -> int:
+def get_args():
+    parser = argparse.ArgumentParser(description="Robustness")
+    subparsers = parser.add_subparsers(dest="task", required=True)
+
+    for task in TASK_REGISTRY.values():
+        task.register(subparsers)
+
+    return parser.parse_args()
+
+
+def main() -> int:
     logger = setup_logging()
 
-    if config.setup is not None:
-        logger.info(f"Preparing data in {config.data_path}")
-        setup_dataset(config.data_path, config.setup)
-        logger.info("Data preparation finished.")
+    try:
+        args = get_args()
+        logger.info(f"Starting task: {args.task}")
+
+        task = TASK_REGISTRY.get(args.task)
+        if not task:
+            logger.error(f"Task '{args.task}' not found in registry.")
+            return 1
+
+        task.run(args)
+        logger.info(f"Task {args.task} completed successfully ---")
         return 0
-
-    logger.info(f"Starting evaluation of {config.model_name}")
-    logger.info(f"Data path: {config.data_path}")
-    logger.info(f"Output path: {config.output_path}")
-
-    model = get_model(config.model_name)
-    experiments = read_experiments(config)
-    logger.info(f"Found {len(experiments)} experiments")
-
-    run_evaluation(
-        config=config,
-        model=model,
-        experiments=experiments,
-    )
-
-    logger.info("Evaluation finished.")
-    return 0
+    except Exception as e:
+        logger.exception(f"An unexpected error occurred: {e}")
+        return 1
 
 
 if __name__ == "__main__":
-    args = get_args_parser().parse_args()
-    config = get_config(args=args)
-    main(config)
+    main()
