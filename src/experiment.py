@@ -25,12 +25,14 @@ def read_experiments(args: argparse.Namespace) -> list[Experiment]:
         logger.info(f"Filtering experiments by batch prefix: '{args.run_batch}'")
         experiments = [exp for exp in experiments if exp.batch_name == args.run_batch]
 
-    if args.run_single is not None: 
+    if args.run_single is not None:
         logger.info(f"Filtering experiments by single run prefix: '{args.run_single}'")
         experiments = [exp for exp in experiments if exp.name == args.run_single]
 
     if not experiments:
-        logger.warning(f"No experiments match the filter '{args.run_batch or args.run_single}'")
+        logger.warning(
+            f"No experiments match the filter '{args.run_batch or args.run_single}'"
+        )
 
     logger.info(f"Loaded {len(experiments)} experiments from the configuration.")
     return experiments
@@ -59,7 +61,7 @@ class _ExperimentFactory:
 
             dataset_type = DatasetType(experiment.get("type", "").lower())
             if dataset_type == "":
-                raise ValueError(f"Missing dataset type")
+                raise ValueError("Missing dataset type")
             dataset_type = DatasetType(dataset_type)
 
             if dataset_type == DatasetType.IMAGENET_C:
