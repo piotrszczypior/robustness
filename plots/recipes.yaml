@@ -1,6 +1,6 @@
 recipes:
   - name: acc_to_acc
     type: scatter
-    groupby: y_true
+    groupby: synset
     column: is_correct
     aggregate: mean

@@ -153,3 +153,45 @@ TypeError: object of type 'generator' has no len()
 2026-03-21 23:24:44,890 [INFO] plots.analyze: Plot 'ResNet-152: Clean vs Defocus Blur (Severity 3)' saved to images/resnet152_scatter_blur_defocus_blur_3.png
 2026-03-21 23:24:44,891 [INFO] plot: All Plotting Tasks Completed Successfully ---
 2026-03-21 23:24:44,892 [INFO] __main__: Task plot completed successfully
+2026-03-21 23:34:16,652 [INFO] __main__: Starting task: plot
+2026-03-21 23:34:16,652 [INFO] plot: Starting Plotting Task
+2026-03-21 23:34:16,652 [INFO] plot: Loading recipes from: plots/recipes.yaml
+2026-03-21 23:34:16,652 [INFO] plots.recipe: - Registering recipe 0: acc_to_acc
+2026-03-21 23:34:16,652 [INFO] plots.recipe: Total of 1 has been registered
+2026-03-21 23:34:16,652 [INFO] plot: Loading plot specs from: plots/plots.yaml
+2026-03-21 23:34:16,654 [INFO] plot: Orchestrating 3 visualization task(s).
+2026-03-21 23:34:16,654 [INFO] plot: [1/3] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-21 23:34:16,654 [INFO] plots.analyze: Loading data from results/resnet152_imagenet.csv
+2026-03-21 23:34:16,689 [INFO] plots.analyze: Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-21 23:34:16,970 [INFO] plots.analyze: Plot 'ResNet-152: Clean vs Defocus Blur (Severity 1)' saved to images/resnet152_scatter_blur_defocus_blur_1.png
+2026-03-21 23:34:16,972 [INFO] plot: [2/3] Rendering 'resnet152_blur_defocus_blur_3'...
+2026-03-21 23:34:16,972 [INFO] plots.analyze: Loading data from results/resnet152_imagenet.csv
+2026-03-21 23:34:17,005 [INFO] plots.analyze: Loading data from results/resnet152_imagenet_c_blur_defocus_blur_3.csv
+2026-03-21 23:34:17,266 [INFO] plots.analyze: Plot 'ResNet-152: Clean vs Defocus Blur (Severity 3)' saved to images/resnet152_scatter_blur_defocus_blur_3.png
+2026-03-21 23:34:17,267 [INFO] plot: [3/3] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-21 23:34:17,267 [INFO] plots.analyze: Loading data from results/resnet152_imagenet.csv
+2026-03-21 23:34:17,294 [INFO] plots.analyze: Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-21 23:34:17,556 [INFO] plots.analyze: Plot 'ResNet-152: Clean vs Zoom Blur (Severity 1)' saved to images/resnet152_scatter_blur_zoom_blur_1.png
+2026-03-21 23:34:17,557 [INFO] plot: All Plotting Tasks Completed Successfully ---
+2026-03-21 23:34:17,557 [INFO] __main__: Task plot completed successfully
+2026-03-21 23:39:13,236 [INFO] __main__: Starting task: plot
+2026-03-21 23:39:13,236 [INFO] plot: Starting Plotting Task
+2026-03-21 23:39:13,236 [INFO] plot: Loading recipes from: plots/recipes.yaml
+2026-03-21 23:39:13,237 [INFO] plots.recipe: - Registering recipe 0: acc_to_acc
+2026-03-21 23:39:13,237 [INFO] plots.recipe: Total of 1 has been registered
+2026-03-21 23:39:13,237 [INFO] plot: Loading plot specs from: plots/plots.yaml
+2026-03-21 23:39:13,238 [INFO] plot: Orchestrating 3 visualization task(s).
+2026-03-21 23:39:13,238 [INFO] plot: [1/3] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-21 23:39:13,238 [INFO] plots.analyze: Loading data from results/resnet152_imagenet.csv
+2026-03-21 23:39:13,275 [INFO] plots.analyze: Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-21 23:39:13,590 [INFO] plots.analyze: Plot 'ResNet-152: Clean vs Defocus Blur (Severity 1)' saved to images/resnet152_scatter_blur_defocus_blur_1.png
+2026-03-21 23:39:13,592 [INFO] plot: [2/3] Rendering 'resnet152_blur_defocus_blur_3'...
+2026-03-21 23:39:13,592 [INFO] plots.analyze: Loading data from results/resnet152_imagenet.csv
+2026-03-21 23:39:13,624 [INFO] plots.analyze: Loading data from results/resnet152_imagenet_c_blur_defocus_blur_3.csv
+2026-03-21 23:39:13,889 [INFO] plots.analyze: Plot 'ResNet-152: Clean vs Defocus Blur (Severity 3)' saved to images/resnet152_scatter_blur_defocus_blur_3.png
+2026-03-21 23:39:13,890 [INFO] plot: [3/3] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-21 23:39:13,891 [INFO] plots.analyze: Loading data from results/resnet152_imagenet.csv
+2026-03-21 23:39:13,920 [INFO] plots.analyze: Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-21 23:39:14,185 [INFO] plots.analyze: Plot 'ResNet-152: Clean vs Zoom Blur (Severity 1)' saved to images/resnet152_scatter_blur_zoom_blur_1.png
+2026-03-21 23:39:14,186 [INFO] plot: All Plotting Tasks Completed Successfully ---
+2026-03-21 23:39:14,186 [INFO] __main__: Task plot completed successfully

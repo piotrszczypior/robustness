@@ -22,3 +22,14 @@ plots:
       data: "resnet152_imagenet_c_blur_defocus_blur_3.csv"
     output: "images/resnet152_scatter_blur_defocus_blur_3.png"
 
+    
+  - name: resnet152_blur_zoom_blur_1
+    recipe: acc_to_acc
+    title: "ResNet-152: Clean vs Zoom Blur (Severity 1)"
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+    y:
+      label: "Accuracy (Defocus Zoom 1)"
+      data: "resnet152_imagenet_c_blur_zoom_blur_1.csv"
+    output: "images/resnet152_scatter_blur_zoom_blur_1.png"

@@ -26,8 +26,9 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     parser.add_argument("--model", default=DEFAULT_MODEL_NAME, type=str, help="Model name (e.g resnet152)")
     parser.add_argument("--data-path", default=DEFAULT_DATAPATH, type=str, help="Dataset path - data/")
     parser.add_argument("--output-path", default=DEFAULT_OUTPUT_PATH, type=str)
-    parser.add_argument("--experiments", type=str, help="Experiments")
-    parser.add_argument("--run", type=str, help="Run specific experiment by name")
+    parser.add_argument("--experiments", default="experiments/experiments.yaml" ,type=str, help="Experiments")
+    parser.add_argument("--run-single", type=str, help="Run specific experiment by name")
+    parser.add_argument("--run-batch", type=str, help="Run specific batch of experiment by name")
     parser.add_argument("--sync-drive", action="store_true", help="Sync results to Google Drive")
     # fmt: on
 
