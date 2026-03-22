@@ -26,7 +26,8 @@ def setup_logging():
 
     logging.basicConfig(
         level=logging.INFO,
-        format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+        format="%(asctime)s [%(levelname)s] %(name)-20s: %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
         handlers=[logging.FileHandler(log_file_path), logging.StreamHandler()],
     )
     return logging.getLogger(__name__)
