@@ -15,7 +15,7 @@ from checkpoint import MetricsExporter
 # FIXME
 from config import Config
 
-from experiment import Experiment
+from .experiment import Experiment
 
 __all__ = ["ResultAccumulator", "run_evaluation", "evaluate_per_file"]
 

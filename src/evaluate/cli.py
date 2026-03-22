@@ -6,7 +6,7 @@ import logging
 from const import DEFAULT_DATAPATH, DEFAULT_MODEL_NAME, DEFAULT_OUTPUT_PATH
 from model import get_model
 from task import Task
-from experiment import read_experiments
+from .experiment import read_experiments
 from .evaluate import run_evaluation
 
 __all__ = ["get_task", "register", "run"]
