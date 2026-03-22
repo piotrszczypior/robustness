@@ -30,22 +30,28 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     parser.add_argument("--run-single", type=str, help="Run specific experiment by name")
     parser.add_argument("--run-batch", type=str, help="Run specific batch of experiment by name")
     parser.add_argument("--sync-drive", action="store_true", help="Sync results to Google Drive")
+    parser.add_argument("--debug", action="store_true", help="Enable debug logging")
     # fmt: on
 
 
 def run(args: argparse.Namespace):
+    if args.debug:
+        logging.getLogger().setLevel(logging.DEBUG)
+
     logger.info(f"Starting evaluation of {args.model}")
     logger.info(f"Data path: {args.data_path}")
     logger.info(f"Output path: {args.output_path}")
 
-    model = get_model(args.model)
-    experiments = read_experiments(args)
-    logger.info(f"Found {len(experiments)} experiments")
+    try:
+        model = get_model(args.model)
+        experiments = read_experiments(args)
+        logger.info(f"Found {len(experiments)} experiments")
 
-    run_evaluation(
-        config=args,
-        model=model,
-        experiments=experiments,
-    )
-
-    logger.info("Evaluation finished.")
+        run_evaluation(
+            config=args,
+            model=model,
+            experiments=experiments,
+        )
+    except Exception as e:
+        logger.error(f"[ERROR] Evaluation failed: {e}")
+        raise RuntimeError(f"Evaluation task failed: {e}") from e

@@ -55,5 +55,6 @@ def run(args: argparse.Namespace):
             create_plot(plot, args.data, debug=args.debug)
         except Exception as e:
             logger.error(f"[ERROR] rendering '{plot.name}': {e}")
-
-    logger.info("All Plotting Tasks Completed Successfully ---")
+            raise RuntimeError(
+                f"Plotting task failed due to error in '{plot.name}'"
+            ) from e

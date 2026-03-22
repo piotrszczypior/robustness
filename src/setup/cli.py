@@ -25,12 +25,19 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     parser.add_argument("--dataset", help="Datasets to prepare", required=True)
     parser.add_argument("--data-path", default=DEFAULT_DATAPATH, type=str, help="Dataset path - data/")
     parser.add_argument("--archives", nargs="*", help="Specific archives to download (e.g. blur.tar)")
+    parser.add_argument("--debug", action="store_true", help="Enable debug logging")
     # fmt: on
 
 
 def run(args: argparse.Namespace):
+    if args.debug:
+        logging.getLogger().setLevel(logging.DEBUG)
+
     data_path = Path(args.data_path)
     logger.info(f"Preparing data in {args.data_path}")
 
-    setup_dataset(data_path, args.dataset, args.archives)
-    logger.info("Data preparation finished.")
+    try:
+        setup_dataset(data_path, args.dataset, args.archives)
+    except Exception as e:
+        logger.error(f"[ERROR] Setup failed: {e}")
+        raise RuntimeError(f"Setup task failed: {e}") from e

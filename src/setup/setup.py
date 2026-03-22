@@ -57,12 +57,14 @@ class _Downloader:
         try:
             dataset_type = DatasetType(dataset.lower())
         except ValueError:
-            logger.error(f"Unknown dataset type: {dataset}")
-            return
+            logger.error(f"[ERROR] Unknown dataset type: {dataset}")
+            raise ValueError(f"Unknown dataset type: {dataset}")
 
         if dataset_type not in DOWNLOAD_REGISTRY:
-            logger.warning(f"Downloading {dataset_type.value} not implemented")
-            return
+            logger.error(f"[ERROR] Downloading {dataset_type.value} not implemented")
+            raise NotImplementedError(
+                f"Downloading {dataset_type.value} not implemented"
+            )
 
         source_config = DOWNLOAD_REGISTRY[dataset_type]
 
@@ -104,8 +106,10 @@ class _Downloader:
                 try:
                     urllib.request.urlretrieve(archive_url, archive_path)
                 except Exception as e:
-                    logger.error(f"Error downloading {archive}: {e}")
-                    continue
+                    logger.error(f"[ERROR] Error downloading {archive}: {e}")
+                    raise RuntimeError(
+                        f"Failed to download {archive} from {archive_url}"
+                    ) from e
 
                 logger.info(f"Extracting {archive}...")
                 subprocess.run(

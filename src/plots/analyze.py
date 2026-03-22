@@ -94,16 +94,16 @@ class _PlotRenderer:
 
         renderer = renderers.get(plot_type)
         if not renderer:
-            logger.error(f"Unsupported plot type: {plot_type}")
+            logger.error(f"[ERROR] Unsupported plot type: {plot_type}")
             raise ValueError(f"Unsupported plot type: {plot_type}")
 
         if debug:
             logger.debug(f"[DEBUG]: {context.title}")
-            logger.debug(f"- plot type: {plot_type}")
-            logger.debug(f"- x label ({context.x_label})")
-            logger.debug(f"- x series: \n {context.x.head(3)}")
-            logger.debug(f"- y label ({context.y_label})")
-            logger.debug(f"- y series: \n {context.y.head(3)}")
+            logger.debug(f"Plot type: {plot_type}")
+            logger.debug(f"X label ({context.x_label})")
+            logger.debug(f"X series: \n {context.x.head(3)}")
+            logger.debug(f"Y label ({context.y_label})")
+            logger.debug(f"Y series: \n {context.y.head(3)}")
             return
 
         renderer(context)

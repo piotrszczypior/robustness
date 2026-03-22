@@ -17,7 +17,7 @@ def register_recipes(recipes_file_path: Union[str, Path]):
     recipe_path = Path(recipes_file_path)
 
     if not recipe_path.exists():
-        logger.error(f"Recipe file not found at: {recipe_path}")
+        logger.error(f"[ERROR] Recipe file not found at: {recipe_path}")
         raise FileNotFoundError(f"Required recipe file {recipe_path} is missing!")
 
     recipes = list(_ChartRecipeFactory.from_yaml(recipe_path))
@@ -53,8 +53,8 @@ class _ChartRecipeRegistry:
     @classmethod
     def get_recipe(cls, name: str) -> Recipe:
         if name not in cls._RECIPE_REGISTRY:
-            logger.error(f"Recipe '{name}' does not exists in registry!")
-            raise KeyError(f"ERROR: Recipe '{name}' does not exists in registry!")
+            logger.error(f"[ERROR] Recipe '{name}' does not exists in registry!")
+            raise KeyError(f"[ERROR]: Recipe '{name}' does not exists in registry!")
 
         return cls._RECIPE_REGISTRY[name]
 

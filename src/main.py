@@ -48,18 +48,18 @@ def main() -> int:
 
     try:
         args = get_args()
-        logger.info(f"Starting task: {args.task}")
+        logger.info(f"Task '{args.task}' initialization")
 
         task = TASK_REGISTRY.get(args.task)
         if not task:
-            logger.error(f"Task '{args.task}' not found in registry.")
+            logger.error(f"[ERROR] Task '{args.task}' not found in registry.")
             return 1
 
         task.run(args)
-        logger.info(f"Task {args.task} completed successfully")
+        logger.info(f"Task '{args.task}' completed successfully")
         return 0
     except Exception as e:
-        logger.exception(f"An unexpected error occurred: {e}")
+        logger.error(f"[ERROR] Task failed with error: {e}")
         return 1
 
 

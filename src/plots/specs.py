@@ -17,7 +17,7 @@ def get_plot_specs(config_path: Union[str, Path]) -> Iterator[ChartConfig]:
     plot_specs_path = Path(config_path)
 
     if not plot_specs_path.exists():
-        logger.error(f"Plot specs file not found at: {plot_specs_path}")
+        logger.error(f"[ERROR] Plot specs file not found at: {plot_specs_path}")
         raise FileNotFoundError(
             f"Required plot specs file {plot_specs_path} is missing!"
         )

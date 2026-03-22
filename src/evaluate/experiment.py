@@ -73,7 +73,7 @@ class _ExperimentFactory:
         try:
             dataset_type = DatasetType(type.lower())
         except ValueError:
-            logger.error(f"Unknown dataset type: {type}")
+            logger.error(f"[ERROR] Unknown dataset type: {type}")
             raise ValueError(f"Unknown dataset type: {type}")
 
         registry = {
