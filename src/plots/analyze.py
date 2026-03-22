@@ -18,7 +18,9 @@ __all__ = ["create_plot"]
 logger = logging.getLogger(__name__)
 
 
-def create_plot(plot_config: ChartConfig, base_results_path: Union[str, Path], debug: bool = False) -> None:
+def create_plot(
+    plot_config: ChartConfig, base_results_path: Union[str, Path], debug: bool = False
+) -> None:
     return _PlotFactory.create(plot_config, Path(base_results_path), debug)
 
 
@@ -41,7 +43,7 @@ class _PlotFactory:
         if not _DataLoader.exists(x_path, y_path):
             logger.warning(f"Skipping plot '{config.name}': Data files missing.")
             return
-        
+
         if config.x.data == config.y.data:
             x_df = y_df = _DataLoader.load(x_path)
         else:
@@ -94,7 +96,7 @@ class _PlotRenderer:
         if not renderer:
             logger.error(f"Unsupported plot type: {plot_type}")
             raise ValueError(f"Unsupported plot type: {plot_type}")
-        
+
         if debug:
             logger.debug(f"[DEBUG]: {context.title}")
             logger.debug(f"- plot type: {plot_type}")
@@ -127,8 +129,10 @@ class _PlotRenderer:
         plt.grid(True, linestyle=":", alpha=0.6)
 
         os.makedirs(context.output_path.parent, exist_ok=True)
-        if (context.output_path.exists()):
-            logger.info(f"[SKIP] Plot {context.title} already exists. Skipping saving...")
+        if context.output_path.exists():
+            logger.info(
+                f"[SKIP] Plot {context.title} already exists. Skipping saving..."
+            )
             return
 
         plt.savefig(context.output_path, dpi=300, bbox_inches="tight")
