@@ -18,8 +18,8 @@ __all__ = ["create_plot"]
 logger = logging.getLogger(__name__)
 
 
-def create_plot(plot_config: ChartConfig, base_results_path: Union[str, Path]) -> None:
-    return _PlotFactory.create(plot_config, Path(base_results_path))
+def create_plot(plot_config: ChartConfig, base_results_path: Union[str, Path], debug: bool = False) -> None:
+    return _PlotFactory.create(plot_config, Path(base_results_path), debug)
 
 
 @dataclass(frozen=True)
@@ -34,29 +34,38 @@ class PlotContext:
 
 class _PlotFactory:
     @staticmethod
-    def create(config: ChartConfig, results_dir: Path) -> None:
+    def create(config: ChartConfig, results_dir: Path, debug: bool = False) -> None:
         x_path = results_dir / config.x.data
         y_path = results_dir / config.y.data
 
         if not _DataLoader.exists(x_path, y_path):
             logger.warning(f"Skipping plot '{config.name}': Data files missing.")
             return
+        
+        if config.x.data == config.y.data:
+            x_df = y_df = _DataLoader.load(x_path)
+        else:
+            x_df = _DataLoader.load(x_path)
+            y_df = _DataLoader.load(y_path)
 
-        x_df = _DataLoader.load(x_path)
-        y_df = _DataLoader.load(y_path)
-
-        recipe = get_recipe(config.recipe)
+        x = _PlotFactory._apply_recipe(x_df, config.x.recipe)
+        y = _PlotFactory._apply_recipe(y_df, config.y.recipe)
 
         context = PlotContext(
-            x=recipe.apply(x_df),
-            y=recipe.apply(y_df),
+            x=x,
+            y=y,
             title=config.title,
             x_label=config.x.label,
             y_label=config.y.label,
             output_path=Path(config.output),
         )
 
-        _PlotRenderer.render(recipe.type, context)
+        _PlotRenderer.render(config.type, context, debug)
+
+    @staticmethod
+    def _apply_recipe(df: pd.DataFrame, recipe_name: str):
+        recipe = get_recipe(recipe_name)
+        return recipe.apply(df)
 
 
 class _DataLoader:
@@ -76,7 +85,7 @@ class _DataLoader:
 
 class _PlotRenderer:
     @staticmethod
-    def render(plot_type: str, context: PlotContext) -> None:
+    def render(plot_type: str, context: PlotContext, debug: bool) -> None:
         renderers = {
             "scatter": _PlotRenderer._scatter,
         }
@@ -84,6 +93,15 @@ class _PlotRenderer:
         renderer = renderers.get(plot_type)
         if not renderer:
             logger.error(f"Unsupported plot type: {plot_type}")
+            raise ValueError(f"Unsupported plot type: {plot_type}")
+        
+        if debug:
+            logger.debug(f"[DEBUG]: {context.title}")
+            logger.debug(f"- plot type: {plot_type}")
+            logger.debug(f"- x label ({context.x_label})")
+            logger.debug(f"- x series: \n {context.x.head(3)}")
+            logger.debug(f"- y label ({context.y_label})")
+            logger.debug(f"- y series: \n {context.y.head(3)}")
             return
 
         renderer(context)
@@ -109,6 +127,10 @@ class _PlotRenderer:
         plt.grid(True, linestyle=":", alpha=0.6)
 
         os.makedirs(context.output_path.parent, exist_ok=True)
+        if (context.output_path.exists()):
+            logger.info(f"[SKIP] Plot {context.title} already exists. Skipping saving...")
+            return
+
         plt.savefig(context.output_path, dpi=300, bbox_inches="tight")
         plt.close()
         logger.info(f"Plot '{context.title}' saved to {context.output_path}")

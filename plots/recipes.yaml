@@ -1,6 +1,10 @@
 recipes:
-  - name: acc_to_acc
-    type: scatter
+  - name: accuracy
     groupby: synset
     column: is_correct
+    aggregate: mean
+  
+  - name: confidence
+    groupby: synset
+    column: confidence
     aggregate: mean

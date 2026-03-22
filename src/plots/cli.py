@@ -26,10 +26,14 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     parser.add_argument("--recipes", default="plots/recipes.yaml", type=str, help="Recipes configuration file")
     parser.add_argument("--data", default="results/", type=str, help="Data directory with csv files")
     parser.add_argument("--sync-drive", action="store_true", help="Sync results to Google Drive")
+    parser.add_argument("--debug", action="store_true", help="Skip plot generation")
     # fmt: on
 
 
 def run(args: argparse.Namespace):
+    if args.debug:
+        logging.getLogger().setLevel(logging.DEBUG)
+
     logger.info("Starting Plotting Task")
 
     logger.info(f"Loading recipes from: {args.recipes}")
@@ -48,8 +52,8 @@ def run(args: argparse.Namespace):
     for i, plot in enumerate(plots, 1):
         logger.info(f"[{i}/{total_plots}] Rendering '{plot.name}'...")
         try:
-            create_plot(plot, args.data)
+            create_plot(plot, args.data, debug=args.debug)
         except Exception as e:
-            logger.error(f"  FAILED rendering '{plot.name}': {e}")
+            logger.error(f"[ERROR] rendering '{plot.name}': {e}")
 
     logger.info("All Plotting Tasks Completed Successfully ---")

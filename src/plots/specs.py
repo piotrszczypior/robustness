@@ -29,12 +29,13 @@ def get_plot_specs(config_path: Union[str, Path]) -> Iterator[ChartConfig]:
 class Axis:
     label: str
     data: str
+    recipe: str
 
 
 @dataclass(frozen=True)
 class ChartConfig:
     name: str
-    recipe: str
+    type: str
     title: str
     x: Optional[Axis]
     y: Optional[Axis]
@@ -55,19 +56,17 @@ class _PlotSpecsFactory:
 
         for plot in plots:
             name = plot.get("name")
-            recipe = plot.get("recipe")
+            type = plot.get("type")
             title = plot.get("title")
             output = plot.get("output")
 
             x = _PlotSpecsFactory._resolve_axis(plot.get("x"))
             y = _PlotSpecsFactory._resolve_axis(plot.get("y"))
 
-            yield ChartConfig(name, recipe, title, x, y, output)
+            yield ChartConfig(name, type, title, x, y, output)
 
     @staticmethod
     def _resolve_axis(axis: Dict[str, Any]) -> Optional[Axis]:
         if not axis:
             return None
-        label = axis.get("label")
-        data = axis.get("data")
-        return Axis(label=label, data=data)
+        return Axis(**axis)

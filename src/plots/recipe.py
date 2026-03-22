@@ -35,7 +35,6 @@ def get_recipe(name: str) -> Recipe:
 @dataclass(frozen=True)
 class Recipe:
     name: str
-    type: str
     groupby: Union[str, List[str]]
     column: str
     aggregate: str

@@ -195,3 +195,805 @@ TypeError: object of type 'generator' has no len()
 2026-03-21 23:39:14,185 [INFO] plots.analyze: Plot 'ResNet-152: Clean vs Zoom Blur (Severity 1)' saved to images/resnet152_scatter_blur_zoom_blur_1.png
 2026-03-21 23:39:14,186 [INFO] plot: All Plotting Tasks Completed Successfully ---
 2026-03-21 23:39:14,186 [INFO] __main__: Task plot completed successfully
+2026-03-22 13:15:14 [INFO] __main__            : Starting task: plot
+2026-03-22 13:15:14 [INFO] plot                : Starting Plotting Task
+2026-03-22 13:15:14 [INFO] plot                : Loading recipes from: plots/recipes.yaml
+2026-03-22 13:15:14 [INFO] plots.recipe        : - Registering recipe 0: acc_to_acc
+2026-03-22 13:15:14 [INFO] plots.recipe        : Total of 1 has been registered
+2026-03-22 13:15:14 [INFO] plot                : Loading plot specs from: plots/plots.yaml
+2026-03-22 13:15:14 [INFO] plot                : Orchestrating 1 visualization task(s).
+2026-03-22 13:15:14 [INFO] plot                : [1/1] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-22 13:15:14 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 13:15:14 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-22 13:15:14 [INFO] plots.analyze       : x df:            model                         image     synset  y_true  y_pred  confidence  is_correct dataset_type corruption  severity perturbation
+0      resnet152  ILSVRC2012_val_00000293.JPEG  n01440764       0       0    0.554449           1     imagenet       none         0         none
+1      resnet152  ILSVRC2012_val_00002138.JPEG  n01440764       0       0    0.964632           1     imagenet       none         0         none
+2      resnet152  ILSVRC2012_val_00003014.JPEG  n01440764       0     391    0.556202           0     imagenet       none         0         none
+3      resnet152  ILSVRC2012_val_00006697.JPEG  n01440764       0       0    0.999837           1     imagenet       none         0         none
+4      resnet152  ILSVRC2012_val_00007197.JPEG  n01440764       0       0    0.999945           1     imagenet       none         0         none
+...          ...                           ...        ...     ...     ...         ...         ...          ...        ...       ...          ...
+49995  resnet152  ILSVRC2012_val_00044368.JPEG  n15075141     999     896    0.823919           0     imagenet       none         0         none
+49996  resnet152  ILSVRC2012_val_00045266.JPEG  n15075141     999     999    0.849698           1     imagenet       none         0         none
+49997  resnet152  ILSVRC2012_val_00046353.JPEG  n15075141     999     999    0.120003           1     imagenet       none         0         none
+49998  resnet152  ILSVRC2012_val_00047144.JPEG  n15075141     999     333    0.998591           0     imagenet       none         0         none
+49999  resnet152  ILSVRC2012_val_00049174.JPEG  n15075141     999     700    0.830701           0     imagenet       none         0         none
+
+[50000 rows x 11 columns]
+2026-03-22 13:15:15 [INFO] plots.analyze       : Plot 'ResNet-152: Clean vs Defocus Blur (Severity 1)' saved to images/resnet152_scatter_blur_defocus_blur_1.png
+2026-03-22 13:15:15 [INFO] plot                : All Plotting Tasks Completed Successfully ---
+2026-03-22 13:15:15 [INFO] __main__            : Task plot completed successfully
+2026-03-22 13:16:11 [INFO] __main__            : Starting task: plot
+2026-03-22 13:16:11 [INFO] plot                : Starting Plotting Task
+2026-03-22 13:16:11 [INFO] plot                : Loading recipes from: plots/recipes.yaml
+2026-03-22 13:16:11 [INFO] plots.recipe        : - Registering recipe 0: acc_to_acc
+2026-03-22 13:16:11 [INFO] plots.recipe        : Total of 1 has been registered
+2026-03-22 13:16:11 [INFO] plot                : Loading plot specs from: plots/plots.yaml
+2026-03-22 13:16:11 [INFO] plot                : Orchestrating 1 visualization task(s).
+2026-03-22 13:16:11 [INFO] plot                : [1/1] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-22 13:16:11 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 13:16:11 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-22 13:16:11 [INFO] plots.analyze       : x df: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+n01491361    0.80
+n01494475    0.86
+             ... 
+n13044778    1.00
+n13052670    0.90
+n13054560    0.72
+n13133613    0.46
+n15075141    0.52
+Name: is_correct, Length: 1000, dtype: float64
+2026-03-22 13:16:11 [INFO] plots.analyze       : Plot 'ResNet-152: Clean vs Defocus Blur (Severity 1)' saved to images/resnet152_scatter_blur_defocus_blur_1.png
+2026-03-22 13:16:11 [INFO] plot                : All Plotting Tasks Completed Successfully ---
+2026-03-22 13:16:11 [INFO] __main__            : Task plot completed successfully
+2026-03-22 13:16:23 [INFO] __main__            : Starting task: plot
+2026-03-22 13:16:23 [INFO] plot                : Starting Plotting Task
+2026-03-22 13:16:23 [INFO] plot                : Loading recipes from: plots/recipes.yaml
+2026-03-22 13:16:23 [INFO] plots.recipe        : - Registering recipe 0: acc_to_acc
+2026-03-22 13:16:23 [INFO] plots.recipe        : Total of 1 has been registered
+2026-03-22 13:16:23 [INFO] plot                : Loading plot specs from: plots/plots.yaml
+2026-03-22 13:16:23 [INFO] plot                : Orchestrating 1 visualization task(s).
+2026-03-22 13:16:23 [INFO] plot                : [1/1] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-22 13:16:23 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 13:16:23 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-22 13:16:23 [INFO] plots.analyze       : x df: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+n01491361    0.80
+n01494475    0.86
+Name: is_correct, dtype: float64
+2026-03-22 13:16:23 [INFO] plots.analyze       : Plot 'ResNet-152: Clean vs Defocus Blur (Severity 1)' saved to images/resnet152_scatter_blur_defocus_blur_1.png
+2026-03-22 13:16:23 [INFO] plot                : All Plotting Tasks Completed Successfully ---
+2026-03-22 13:16:23 [INFO] __main__            : Task plot completed successfully
+2026-03-22 13:17:44 [INFO] __main__            : Starting task: plot
+2026-03-22 13:17:44 [INFO] plot                : Starting Plotting Task
+2026-03-22 13:17:44 [INFO] plot                : Loading recipes from: plots/recipes.yaml
+2026-03-22 13:17:44 [INFO] plots.recipe        : - Registering recipe 0: acc_to_acc
+2026-03-22 13:17:44 [INFO] plots.recipe        : Total of 1 has been registered
+2026-03-22 13:17:44 [INFO] plot                : Loading plot specs from: plots/plots.yaml
+2026-03-22 13:17:44 [INFO] plot                : Orchestrating 1 visualization task(s).
+2026-03-22 13:17:44 [INFO] plot                : [1/1] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-22 13:17:44 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 13:17:44 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-22 13:17:44 [INFO] plots.analyze       : x df: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+n01491361    0.80
+n01494475    0.86
+Name: is_correct, dtype: float64
+2026-03-22 13:17:44 [INFO] plots.analyze       : y df: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+n01491361    0.80
+n01494475    0.86
+Name: is_correct, dtype: float64
+2026-03-22 13:17:44 [INFO] plots.analyze       : Plot 'ResNet-152: Clean vs Defocus Blur (Severity 1)' saved to images/resnet152_scatter_blur_defocus_blur_1.png
+2026-03-22 13:17:44 [INFO] plot                : All Plotting Tasks Completed Successfully ---
+2026-03-22 13:17:44 [INFO] __main__            : Task plot completed successfully
+2026-03-22 13:17:57 [INFO] __main__            : Starting task: plot
+2026-03-22 13:17:57 [INFO] plot                : Starting Plotting Task
+2026-03-22 13:17:57 [INFO] plot                : Loading recipes from: plots/recipes.yaml
+2026-03-22 13:17:57 [INFO] plots.recipe        : - Registering recipe 0: acc_to_acc
+2026-03-22 13:17:57 [INFO] plots.recipe        : Total of 1 has been registered
+2026-03-22 13:17:57 [INFO] plot                : Loading plot specs from: plots/plots.yaml
+2026-03-22 13:17:57 [INFO] plot                : Orchestrating 1 visualization task(s).
+2026-03-22 13:17:57 [INFO] plot                : [1/1] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-22 13:17:57 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 13:17:57 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-22 13:17:58 [INFO] plots.analyze       : Plot 'ResNet-152: Clean vs Defocus Blur (Severity 1)' saved to images/resnet152_scatter_blur_defocus_blur_1.png
+2026-03-22 13:17:58 [INFO] plot                : All Plotting Tasks Completed Successfully ---
+2026-03-22 13:17:58 [INFO] __main__            : Task plot completed successfully
+2026-03-22 13:18:07 [INFO] __main__            : Starting task: plot
+2026-03-22 13:18:07 [INFO] plot                : Starting Plotting Task
+2026-03-22 13:18:07 [INFO] plot                : Loading recipes from: plots/recipes.yaml
+2026-03-22 13:18:07 [INFO] plots.recipe        : - Registering recipe 0: acc_to_acc
+2026-03-22 13:18:07 [INFO] plots.recipe        : Total of 1 has been registered
+2026-03-22 13:18:07 [INFO] plot                : Loading plot specs from: plots/plots.yaml
+2026-03-22 13:18:07 [INFO] plot                : Orchestrating 1 visualization task(s).
+2026-03-22 13:18:07 [INFO] plot                : [1/1] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-22 13:18:07 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 13:18:07 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-22 13:18:07 [INFO] plots.analyze       : x df: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+n01491361    0.80
+n01494475    0.86
+Name: is_correct, dtype: float64
+2026-03-22 13:18:07 [INFO] plots.analyze       : y df: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+n01491361    0.80
+n01494475    0.86
+Name: is_correct, dtype: float64
+2026-03-22 13:18:07 [INFO] plots.analyze       : Plot 'ResNet-152: Clean vs Defocus Blur (Severity 1)' saved to images/resnet152_scatter_blur_defocus_blur_1.png
+2026-03-22 13:18:07 [INFO] plot                : All Plotting Tasks Completed Successfully ---
+2026-03-22 13:18:07 [INFO] __main__            : Task plot completed successfully
+2026-03-22 13:18:33 [INFO] __main__            : Starting task: plot
+2026-03-22 13:18:33 [INFO] plot                : Starting Plotting Task
+2026-03-22 13:18:33 [INFO] plot                : Loading recipes from: plots/recipes.yaml
+2026-03-22 13:18:33 [INFO] plots.recipe        : - Registering recipe 0: acc_to_acc
+2026-03-22 13:18:33 [INFO] plots.recipe        : Total of 1 has been registered
+2026-03-22 13:18:33 [INFO] plot                : Loading plot specs from: plots/plots.yaml
+2026-03-22 13:18:33 [INFO] plot                : Orchestrating 1 visualization task(s).
+2026-03-22 13:18:33 [INFO] plot                : [1/1] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-22 13:18:33 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 13:18:33 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-22 13:18:33 [INFO] plots.analyze       : x df: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+n01491361    0.80
+n01494475    0.86
+Name: is_correct, dtype: float64
+2026-03-22 13:18:33 [INFO] plots.analyze       : y df: synset
+n01440764    0.94
+n01443537    0.86
+n01484850    0.74
+n01491361    0.62
+n01494475    0.78
+Name: is_correct, dtype: float64
+2026-03-22 13:18:33 [INFO] plots.analyze       : Plot 'ResNet-152: Clean vs Defocus Blur (Severity 1)' saved to images/resnet152_scatter_blur_defocus_blur_1.png
+2026-03-22 13:18:33 [INFO] plot                : All Plotting Tasks Completed Successfully ---
+2026-03-22 13:18:33 [INFO] __main__            : Task plot completed successfully
+2026-03-22 13:58:11 [INFO] __main__            : Starting task: plot
+2026-03-22 13:58:11 [INFO] plot                : Starting Plotting Task
+2026-03-22 13:58:11 [INFO] plot                : Loading recipes from: plots/recipes.yaml
+2026-03-22 13:58:11 [INFO] plots.recipe        : - Registering recipe 0: accuracy
+2026-03-22 13:58:11 [INFO] plots.recipe        : - Registering recipe 1: confidence
+2026-03-22 13:58:11 [INFO] plots.recipe        : Total of 2 has been registered
+2026-03-22 13:58:11 [INFO] plot                : Loading plot specs from: plots/plots.yaml
+2026-03-22 13:58:11 [INFO] plot                : Orchestrating 4 visualization task(s).
+2026-03-22 13:58:11 [INFO] plot                : [1/4] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-22 13:58:11 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 13:58:11 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-22 13:58:11 [ERROR] plots.analyze       : Unsupported plot type: None
+2026-03-22 13:58:11 [INFO] plot                : [2/4] Rendering 'resnet152_blur_defocus_blur_3'...
+2026-03-22 13:58:11 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 13:58:11 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_3.csv
+2026-03-22 13:58:11 [ERROR] plots.analyze       : Unsupported plot type: None
+2026-03-22 13:58:11 [INFO] plot                : [3/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 13:58:11 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 13:58:11 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 13:58:11 [ERROR] plots.analyze       : Unsupported plot type: None
+2026-03-22 13:58:11 [INFO] plot                : [4/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 13:58:11 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 13:58:11 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 13:58:11 [ERROR] plots.analyze       : Unsupported plot type: None
+2026-03-22 13:58:11 [INFO] plot                : All Plotting Tasks Completed Successfully ---
+2026-03-22 13:58:11 [INFO] __main__            : Task plot completed successfully
+2026-03-22 13:59:46 [INFO] __main__            : Starting task: plot
+2026-03-22 13:59:46 [INFO] plot                : Starting Plotting Task
+2026-03-22 13:59:46 [INFO] plot                : Loading recipes from: plots/recipes.yaml
+2026-03-22 13:59:46 [INFO] plots.recipe        : - Registering recipe 0: accuracy
+2026-03-22 13:59:46 [INFO] plots.recipe        : - Registering recipe 1: confidence
+2026-03-22 13:59:46 [INFO] plots.recipe        : Total of 2 has been registered
+2026-03-22 13:59:46 [INFO] plot                : Loading plot specs from: plots/plots.yaml
+2026-03-22 13:59:46 [INFO] plot                : Orchestrating 4 visualization task(s).
+2026-03-22 13:59:46 [INFO] plot                : [1/4] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-22 13:59:46 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 13:59:46 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-22 13:59:46 [ERROR] plots.analyze       : Unsupported plot type: None
+2026-03-22 13:59:46 [ERROR] plot                :   FAILED rendering 'resnet152_blur_defocus_blur_1': Unsupported plot type: None
+2026-03-22 13:59:46 [INFO] plot                : [2/4] Rendering 'resnet152_blur_defocus_blur_3'...
+2026-03-22 13:59:46 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 13:59:46 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_3.csv
+2026-03-22 13:59:46 [ERROR] plots.analyze       : Unsupported plot type: None
+2026-03-22 13:59:46 [ERROR] plot                :   FAILED rendering 'resnet152_blur_defocus_blur_3': Unsupported plot type: None
+2026-03-22 13:59:46 [INFO] plot                : [3/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 13:59:46 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 13:59:46 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 13:59:46 [ERROR] plots.analyze       : Unsupported plot type: None
+2026-03-22 13:59:46 [ERROR] plot                :   FAILED rendering 'resnet152_blur_zoom_blur_1': Unsupported plot type: None
+2026-03-22 13:59:46 [INFO] plot                : [4/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 13:59:46 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 13:59:46 [INFO] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 13:59:46 [ERROR] plots.analyze       : Unsupported plot type: None
+2026-03-22 13:59:46 [ERROR] plot                :   FAILED rendering 'resnet152_blur_zoom_blur_1': Unsupported plot type: None
+2026-03-22 13:59:46 [INFO] plot                : All Plotting Tasks Completed Successfully ---
+2026-03-22 13:59:46 [INFO] __main__            : Task plot completed successfully
+2026-03-22 14:01:20 [INFO ] __main__            : Starting task: plot
+2026-03-22 14:01:20 [INFO ] plot                : Starting Plotting Task
+2026-03-22 14:01:20 [INFO ] plot                : Loading recipes from: plots/recipes.yaml
+2026-03-22 14:01:20 [INFO ] plots.recipe        : - Registering recipe 0: accuracy
+2026-03-22 14:01:20 [INFO ] plots.recipe        : - Registering recipe 1: confidence
+2026-03-22 14:01:20 [INFO ] plots.recipe        : Total of 2 has been registered
+2026-03-22 14:01:20 [INFO ] plot                : Loading plot specs from: plots/plots.yaml
+2026-03-22 14:01:20 [INFO ] plot                : Orchestrating 4 visualization task(s).
+2026-03-22 14:01:20 [INFO ] plot                : [1/4] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-22 14:01:20 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:01:20 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-22 14:01:20 [ERROR] plots.analyze       : Unsupported plot type: None
+2026-03-22 14:01:20 [ERROR] plot                : [ERROR] rendering 'resnet152_blur_defocus_blur_1': Unsupported plot type: None
+2026-03-22 14:01:20 [INFO ] plot                : [2/4] Rendering 'resnet152_blur_defocus_blur_3'...
+2026-03-22 14:01:20 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:01:20 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_3.csv
+2026-03-22 14:01:20 [ERROR] plots.analyze       : Unsupported plot type: None
+2026-03-22 14:01:20 [ERROR] plot                : [ERROR] rendering 'resnet152_blur_defocus_blur_3': Unsupported plot type: None
+2026-03-22 14:01:20 [INFO ] plot                : [3/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:01:20 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:01:20 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:01:20 [ERROR] plots.analyze       : Unsupported plot type: None
+2026-03-22 14:01:20 [ERROR] plot                : [ERROR] rendering 'resnet152_blur_zoom_blur_1': Unsupported plot type: None
+2026-03-22 14:01:20 [INFO ] plot                : [4/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:01:20 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:01:20 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:01:20 [ERROR] plots.analyze       : Unsupported plot type: None
+2026-03-22 14:01:20 [ERROR] plot                : [ERROR] rendering 'resnet152_blur_zoom_blur_1': Unsupported plot type: None
+2026-03-22 14:01:20 [INFO ] plot                : All Plotting Tasks Completed Successfully ---
+2026-03-22 14:01:20 [INFO ] __main__            : Task plot completed successfully
+2026-03-22 14:02:21 [INFO ] __main__            : Starting task: plot
+2026-03-22 14:02:21 [INFO ] plot                : Starting Plotting Task
+2026-03-22 14:02:21 [INFO ] plot                : Loading recipes from: plots/recipes.yaml
+2026-03-22 14:02:21 [INFO ] plots.recipe        : - Registering recipe 0: accuracy
+2026-03-22 14:02:21 [INFO ] plots.recipe        : - Registering recipe 1: confidence
+2026-03-22 14:02:21 [INFO ] plots.recipe        : Total of 2 has been registered
+2026-03-22 14:02:21 [INFO ] plot                : Loading plot specs from: plots/plots.yaml
+2026-03-22 14:02:21 [INFO ] plot                : Orchestrating 4 visualization task(s).
+2026-03-22 14:02:21 [INFO ] plot                : [1/4] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-22 14:02:21 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:02:21 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-22 14:02:21 [ERROR] plots.analyze       : Unsupported plot type: None
+2026-03-22 14:02:21 [ERROR] plot                : [ERROR] rendering 'resnet152_blur_defocus_blur_1': Unsupported plot type: None
+2026-03-22 14:02:21 [INFO ] plot                : [2/4] Rendering 'resnet152_blur_defocus_blur_3'...
+2026-03-22 14:02:21 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:02:21 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_3.csv
+2026-03-22 14:02:21 [ERROR] plots.analyze       : Unsupported plot type: None
+2026-03-22 14:02:21 [ERROR] plot                : [ERROR] rendering 'resnet152_blur_defocus_blur_3': Unsupported plot type: None
+2026-03-22 14:02:21 [INFO ] plot                : [3/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:02:21 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:02:21 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:02:21 [ERROR] plots.analyze       : Unsupported plot type: None
+2026-03-22 14:02:21 [ERROR] plot                : [ERROR] rendering 'resnet152_blur_zoom_blur_1': Unsupported plot type: None
+2026-03-22 14:02:21 [INFO ] plot                : [4/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:02:21 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:02:21 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:02:21 [ERROR] plots.analyze       : Unsupported plot type: None
+2026-03-22 14:02:21 [ERROR] plot                : [ERROR] rendering 'resnet152_blur_zoom_blur_1': Unsupported plot type: None
+2026-03-22 14:02:21 [INFO ] plot                : All Plotting Tasks Completed Successfully ---
+2026-03-22 14:02:21 [INFO ] __main__            : Task plot completed successfully
+2026-03-22 14:03:56 [INFO ] __main__            : Starting task: plot
+2026-03-22 14:03:56 [INFO ] plot                : Starting Plotting Task
+2026-03-22 14:03:56 [INFO ] plot                : Loading recipes from: plots/recipes.yaml
+2026-03-22 14:03:56 [INFO ] plots.recipe        : - Registering recipe 0: accuracy
+2026-03-22 14:03:56 [INFO ] plots.recipe        : - Registering recipe 1: confidence
+2026-03-22 14:03:56 [INFO ] plots.recipe        : Total of 2 has been registered
+2026-03-22 14:03:56 [INFO ] plot                : Loading plot specs from: plots/plots.yaml
+2026-03-22 14:03:56 [INFO ] plot                : Orchestrating 4 visualization task(s).
+2026-03-22 14:03:56 [INFO ] plot                : [1/4] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-22 14:03:56 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:03:56 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-22 14:03:56 [ERROR] plots.analyze       : Unsupported plot type: None
+2026-03-22 14:03:56 [ERROR] plot                : [ERROR] rendering 'resnet152_blur_defocus_blur_1': Unsupported plot type: None
+2026-03-22 14:03:56 [INFO ] plot                : [2/4] Rendering 'resnet152_blur_defocus_blur_3'...
+2026-03-22 14:03:56 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:03:57 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_3.csv
+2026-03-22 14:03:57 [ERROR] plots.analyze       : Unsupported plot type: None
+2026-03-22 14:03:57 [ERROR] plot                : [ERROR] rendering 'resnet152_blur_defocus_blur_3': Unsupported plot type: None
+2026-03-22 14:03:57 [INFO ] plot                : [3/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:03:57 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:03:57 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:03:57 [ERROR] plots.analyze       : Unsupported plot type: None
+2026-03-22 14:03:57 [ERROR] plot                : [ERROR] rendering 'resnet152_blur_zoom_blur_1': Unsupported plot type: None
+2026-03-22 14:03:57 [INFO ] plot                : [4/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:03:57 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:03:57 [INFO ] plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:03:57 [ERROR] plots.analyze       : Unsupported plot type: None
+2026-03-22 14:03:57 [ERROR] plot                : [ERROR] rendering 'resnet152_blur_zoom_blur_1': Unsupported plot type: None
+2026-03-22 14:03:57 [INFO ] plot                : All Plotting Tasks Completed Successfully ---
+2026-03-22 14:03:57 [INFO ] __main__            : Task plot completed successfully
+2026-03-22 14:06:28 | INFO  | __main__            : Starting task: plot
+2026-03-22 14:06:28 | INFO  | plot                : Starting Plotting Task
+2026-03-22 14:06:28 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-22 14:06:28 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-22 14:06:28 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-22 14:06:28 | INFO  | plots.recipe        : Total of 2 has been registered
+2026-03-22 14:06:28 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-22 14:06:28 | INFO  | plot                : Orchestrating 4 visualization task(s).
+2026-03-22 14:06:28 | INFO  | plot                : [1/4] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-22 14:06:28 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:06:28 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-22 14:06:28 | ERROR | plots.analyze       : Unsupported plot type: None
+2026-03-22 14:06:28 | ERROR | plot                : [ERROR] rendering 'resnet152_blur_defocus_blur_1': Unsupported plot type: None
+2026-03-22 14:06:28 | INFO  | plot                : [2/4] Rendering 'resnet152_blur_defocus_blur_3'...
+2026-03-22 14:06:28 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:06:28 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_3.csv
+2026-03-22 14:06:28 | ERROR | plots.analyze       : Unsupported plot type: None
+2026-03-22 14:06:28 | ERROR | plot                : [ERROR] rendering 'resnet152_blur_defocus_blur_3': Unsupported plot type: None
+2026-03-22 14:06:28 | INFO  | plot                : [3/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:06:28 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:06:28 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:06:28 | ERROR | plots.analyze       : Unsupported plot type: None
+2026-03-22 14:06:28 | ERROR | plot                : [ERROR] rendering 'resnet152_blur_zoom_blur_1': Unsupported plot type: None
+2026-03-22 14:06:28 | INFO  | plot                : [4/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:06:28 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:06:28 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:06:28 | ERROR | plots.analyze       : Unsupported plot type: None
+2026-03-22 14:06:28 | ERROR | plot                : [ERROR] rendering 'resnet152_blur_zoom_blur_1': Unsupported plot type: None
+2026-03-22 14:06:28 | INFO  | plot                : All Plotting Tasks Completed Successfully ---
+2026-03-22 14:06:28 | INFO  | __main__            : Task plot completed successfully
+2026-03-22 14:07:18 | INFO  | __main__            : Starting task: plot
+2026-03-22 14:07:18 | INFO  | plot                : Starting Plotting Task
+2026-03-22 14:07:18 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-22 14:07:18 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-22 14:07:18 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-22 14:07:18 | INFO  | plots.recipe        : Total of 2 has been registered
+2026-03-22 14:07:18 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-22 14:07:18 | INFO  | plot                : Orchestrating 4 visualization task(s).
+2026-03-22 14:07:18 | INFO  | plot                : [1/4] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-22 14:07:18 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:07:18 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-22 14:07:18 | INFO  | plots.analyze       : [DEBUG]: ResNet-152: Clean vs Defocus Blur (Severity 1)
+2026-03-22 14:07:18 | INFO  | plots.analyze       : - plot type: scatter
+2026-03-22 14:07:18 | INFO  | plots.analyze       : - x label (Accuracy (Clean ImageNet))
+2026-03-22 14:07:18 | INFO  | plots.analyze       : - x series: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+Name: is_correct, dtype: float64
+2026-03-22 14:07:18 | INFO  | plots.analyze       : - y label (Accuracy (Clean ImageNet))
+2026-03-22 14:07:18 | INFO  | plots.analyze       : - y series: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+Name: is_correct, dtype: float64
+2026-03-22 14:07:18 | INFO  | plot                : [2/4] Rendering 'resnet152_blur_defocus_blur_3'...
+2026-03-22 14:07:18 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:07:18 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_3.csv
+2026-03-22 14:07:18 | INFO  | plots.analyze       : [DEBUG]: ResNet-152: Clean vs Defocus Blur (Severity 3)
+2026-03-22 14:07:18 | INFO  | plots.analyze       : - plot type: scatter
+2026-03-22 14:07:18 | INFO  | plots.analyze       : - x label (Accuracy (Clean ImageNet))
+2026-03-22 14:07:18 | INFO  | plots.analyze       : - x series: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+Name: is_correct, dtype: float64
+2026-03-22 14:07:18 | INFO  | plots.analyze       : - y label (Accuracy (Clean ImageNet))
+2026-03-22 14:07:18 | INFO  | plots.analyze       : - y series: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+Name: is_correct, dtype: float64
+2026-03-22 14:07:18 | INFO  | plot                : [3/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:07:18 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:07:18 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:07:18 | INFO  | plots.analyze       : [DEBUG]: ResNet-152: Clean vs Zoom Blur (Severity 1)
+2026-03-22 14:07:18 | INFO  | plots.analyze       : - plot type: scatter
+2026-03-22 14:07:18 | INFO  | plots.analyze       : - x label (Accuracy (Clean ImageNet))
+2026-03-22 14:07:18 | INFO  | plots.analyze       : - x series: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+Name: is_correct, dtype: float64
+2026-03-22 14:07:18 | INFO  | plots.analyze       : - y label (Accuracy (Clean ImageNet))
+2026-03-22 14:07:18 | INFO  | plots.analyze       : - y series: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+Name: is_correct, dtype: float64
+2026-03-22 14:07:18 | INFO  | plot                : [4/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:07:18 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:07:18 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:07:18 | INFO  | plots.analyze       : [DEBUG]: ResNet-152: Clean vs Zoom Blur (Severity 1)
+2026-03-22 14:07:18 | INFO  | plots.analyze       : - plot type: scatter
+2026-03-22 14:07:18 | INFO  | plots.analyze       : - x label (Accuracy (Clean ImageNet))
+2026-03-22 14:07:18 | INFO  | plots.analyze       : - x series: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+Name: is_correct, dtype: float64
+2026-03-22 14:07:18 | INFO  | plots.analyze       : - y label (Accuracy (Clean ImageNet))
+2026-03-22 14:07:18 | INFO  | plots.analyze       : - y series: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+Name: is_correct, dtype: float64
+2026-03-22 14:07:18 | INFO  | plot                : All Plotting Tasks Completed Successfully ---
+2026-03-22 14:07:18 | INFO  | __main__            : Task plot completed successfully
+2026-03-22 14:08:40 | INFO  | __main__            : Starting task: plot
+2026-03-22 14:08:40 | INFO  | plot                : Starting Plotting Task
+2026-03-22 14:08:40 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-22 14:08:40 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-22 14:08:40 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-22 14:08:40 | INFO  | plots.recipe        : Total of 2 has been registered
+2026-03-22 14:08:40 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-22 14:08:40 | INFO  | plot                : Orchestrating 4 visualization task(s).
+2026-03-22 14:08:40 | INFO  | plot                : [1/4] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-22 14:08:40 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:08:40 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-22 14:08:40 | INFO  | plots.analyze       : [DEBUG]: ResNet-152: Clean vs Defocus Blur (Severity 1)
+2026-03-22 14:08:40 | INFO  | plots.analyze       : - plot type: scatter
+2026-03-22 14:08:40 | INFO  | plots.analyze       : - x label (Accuracy (Clean ImageNet))
+2026-03-22 14:08:40 | INFO  | plots.analyze       : - x series: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+Name: is_correct, dtype: float64
+2026-03-22 14:08:40 | INFO  | plots.analyze       : - y label (Accuracy (Defocus Blur 1))
+2026-03-22 14:08:40 | INFO  | plots.analyze       : - y series: synset
+n01440764    0.94
+n01443537    0.86
+n01484850    0.74
+Name: is_correct, dtype: float64
+2026-03-22 14:08:40 | INFO  | plot                : [2/4] Rendering 'resnet152_blur_defocus_blur_3'...
+2026-03-22 14:08:40 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:08:40 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_3.csv
+2026-03-22 14:08:40 | INFO  | plots.analyze       : [DEBUG]: ResNet-152: Clean vs Defocus Blur (Severity 3)
+2026-03-22 14:08:40 | INFO  | plots.analyze       : - plot type: scatter
+2026-03-22 14:08:40 | INFO  | plots.analyze       : - x label (Accuracy (Clean ImageNet))
+2026-03-22 14:08:40 | INFO  | plots.analyze       : - x series: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+Name: is_correct, dtype: float64
+2026-03-22 14:08:40 | INFO  | plots.analyze       : - y label (Accuracy (Defocus Blur 3))
+2026-03-22 14:08:40 | INFO  | plots.analyze       : - y series: synset
+n01440764    0.62
+n01443537    0.74
+n01484850    0.68
+Name: is_correct, dtype: float64
+2026-03-22 14:08:40 | INFO  | plot                : [3/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:08:40 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:08:40 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:08:40 | INFO  | plots.analyze       : [DEBUG]: ResNet-152: Clean vs Zoom Blur (Severity 1)
+2026-03-22 14:08:40 | INFO  | plots.analyze       : - plot type: scatter
+2026-03-22 14:08:40 | INFO  | plots.analyze       : - x label (Accuracy (Clean ImageNet))
+2026-03-22 14:08:40 | INFO  | plots.analyze       : - x series: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+Name: is_correct, dtype: float64
+2026-03-22 14:08:40 | INFO  | plots.analyze       : - y label (Accuracy (Defocus Zoom 1))
+2026-03-22 14:08:40 | INFO  | plots.analyze       : - y series: synset
+n01440764    0.90
+n01443537    0.86
+n01484850    0.68
+Name: is_correct, dtype: float64
+2026-03-22 14:08:40 | INFO  | plot                : [4/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:08:40 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:08:40 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:08:40 | INFO  | plots.analyze       : [DEBUG]: ResNet-152: Clean vs Zoom Blur (Severity 1)
+2026-03-22 14:08:40 | INFO  | plots.analyze       : - plot type: scatter
+2026-03-22 14:08:40 | INFO  | plots.analyze       : - x label (Accuracy (Clean ImageNet))
+2026-03-22 14:08:40 | INFO  | plots.analyze       : - x series: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+Name: is_correct, dtype: float64
+2026-03-22 14:08:40 | INFO  | plots.analyze       : - y label (Accuracy (Defocus Zoom 1))
+2026-03-22 14:08:40 | INFO  | plots.analyze       : - y series: synset
+n01440764    0.90
+n01443537    0.86
+n01484850    0.68
+Name: is_correct, dtype: float64
+2026-03-22 14:08:40 | INFO  | plot                : All Plotting Tasks Completed Successfully ---
+2026-03-22 14:08:40 | INFO  | __main__            : Task plot completed successfully
+2026-03-22 14:10:38 | INFO  | __main__            : Starting task: plot
+2026-03-22 14:10:38 | INFO  | plot                : Starting Plotting Task
+2026-03-22 14:10:38 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-22 14:10:38 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-22 14:10:38 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-22 14:10:38 | INFO  | plots.recipe        : Total of 2 has been registered
+2026-03-22 14:10:38 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-22 14:10:38 | INFO  | plot                : Orchestrating 4 visualization task(s).
+2026-03-22 14:10:38 | INFO  | plot                : [1/4] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-22 14:10:38 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:10:38 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : [DEBUG]: ResNet-152: Clean vs Defocus Blur (Severity 1)
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : - plot type: scatter
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : - x label (Accuracy (Clean ImageNet))
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : - x series: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+Name: is_correct, dtype: float64
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : - y label (Accuracy (Defocus Blur 1))
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : - y series: synset
+n01440764    0.94
+n01443537    0.86
+n01484850    0.74
+Name: is_correct, dtype: float64
+2026-03-22 14:10:38 | INFO  | plot                : [2/4] Rendering 'resnet152_blur_defocus_blur_3'...
+2026-03-22 14:10:38 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:10:38 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_3.csv
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : [DEBUG]: ResNet-152: Clean vs Defocus Blur (Severity 3)
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : - plot type: scatter
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : - x label (Accuracy (Clean ImageNet))
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : - x series: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+Name: is_correct, dtype: float64
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : - y label (Accuracy (Defocus Blur 3))
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : - y series: synset
+n01440764    0.62
+n01443537    0.74
+n01484850    0.68
+Name: is_correct, dtype: float64
+2026-03-22 14:10:38 | INFO  | plot                : [3/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:10:38 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:10:38 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : [DEBUG]: ResNet-152: Clean vs Zoom Blur (Severity 1)
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : - plot type: scatter
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : - x label (Accuracy (Clean ImageNet))
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : - x series: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+Name: is_correct, dtype: float64
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : - y label (Accuracy (Defocus Zoom 1))
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : - y series: synset
+n01440764    0.90
+n01443537    0.86
+n01484850    0.68
+Name: is_correct, dtype: float64
+2026-03-22 14:10:38 | INFO  | plot                : [4/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:10:38 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:10:38 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : [DEBUG]: ResNet-152: Clean vs Zoom Blur (Severity 1)
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : - plot type: scatter
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : - x label (Accuracy (Clean ImageNet))
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : - x series: synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+Name: is_correct, dtype: float64
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : - y label (Accuracy (Defocus Zoom 1))
+2026-03-22 14:10:38 | DEBUG | plots.analyze       : - y series: synset
+n01440764    0.90
+n01443537    0.86
+n01484850    0.68
+Name: is_correct, dtype: float64
+2026-03-22 14:10:38 | INFO  | plot                : All Plotting Tasks Completed Successfully ---
+2026-03-22 14:10:38 | INFO  | __main__            : Task plot completed successfully
+2026-03-22 14:10:55 | INFO  | __main__            : Starting task: plot
+2026-03-22 14:10:55 | INFO  | plot                : Starting Plotting Task
+2026-03-22 14:10:55 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-22 14:10:55 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-22 14:10:55 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-22 14:10:55 | INFO  | plots.recipe        : Total of 2 has been registered
+2026-03-22 14:10:55 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-22 14:10:55 | INFO  | plot                : Orchestrating 4 visualization task(s).
+2026-03-22 14:10:55 | INFO  | plot                : [1/4] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-22 14:10:55 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:10:55 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : [DEBUG]: ResNet-152: Clean vs Defocus Blur (Severity 1)
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : - plot type: scatter
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : - x label (Accuracy (Clean ImageNet))
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : - x series: 
+ synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+Name: is_correct, dtype: float64
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : - y label (Accuracy (Defocus Blur 1))
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : - y series: 
+ synset
+n01440764    0.94
+n01443537    0.86
+n01484850    0.74
+Name: is_correct, dtype: float64
+2026-03-22 14:10:55 | INFO  | plot                : [2/4] Rendering 'resnet152_blur_defocus_blur_3'...
+2026-03-22 14:10:55 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:10:55 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_3.csv
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : [DEBUG]: ResNet-152: Clean vs Defocus Blur (Severity 3)
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : - plot type: scatter
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : - x label (Accuracy (Clean ImageNet))
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : - x series: 
+ synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+Name: is_correct, dtype: float64
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : - y label (Accuracy (Defocus Blur 3))
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : - y series: 
+ synset
+n01440764    0.62
+n01443537    0.74
+n01484850    0.68
+Name: is_correct, dtype: float64
+2026-03-22 14:10:55 | INFO  | plot                : [3/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:10:55 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:10:55 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : [DEBUG]: ResNet-152: Clean vs Zoom Blur (Severity 1)
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : - plot type: scatter
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : - x label (Accuracy (Clean ImageNet))
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : - x series: 
+ synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+Name: is_correct, dtype: float64
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : - y label (Accuracy (Defocus Zoom 1))
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : - y series: 
+ synset
+n01440764    0.90
+n01443537    0.86
+n01484850    0.68
+Name: is_correct, dtype: float64
+2026-03-22 14:10:55 | INFO  | plot                : [4/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:10:55 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:10:55 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : [DEBUG]: ResNet-152: Clean vs Zoom Blur (Severity 1)
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : - plot type: scatter
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : - x label (Accuracy (Clean ImageNet))
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : - x series: 
+ synset
+n01440764    0.90
+n01443537    0.94
+n01484850    0.82
+Name: is_correct, dtype: float64
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : - y label (Accuracy (Defocus Zoom 1))
+2026-03-22 14:10:55 | DEBUG | plots.analyze       : - y series: 
+ synset
+n01440764    0.90
+n01443537    0.86
+n01484850    0.68
+Name: is_correct, dtype: float64
+2026-03-22 14:10:55 | INFO  | plot                : All Plotting Tasks Completed Successfully ---
+2026-03-22 14:10:55 | INFO  | __main__            : Task plot completed successfully
+2026-03-22 14:12:25 | INFO  | __main__            : Starting task: plot
+2026-03-22 14:12:25 | INFO  | plot                : Starting Plotting Task
+2026-03-22 14:12:25 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-22 14:12:25 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-22 14:12:25 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-22 14:12:25 | INFO  | plots.recipe        : Total of 2 has been registered
+2026-03-22 14:12:25 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-22 14:12:25 | INFO  | plot                : Orchestrating 4 visualization task(s).
+2026-03-22 14:12:25 | INFO  | plot                : [1/4] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-22 14:12:25 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:12:25 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-22 14:12:26 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Defocus Blur (Severity 1)' saved to images/resnet152_scatter_blur_defocus_blur_1.png
+2026-03-22 14:12:26 | INFO  | plot                : [2/4] Rendering 'resnet152_blur_defocus_blur_3'...
+2026-03-22 14:12:26 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:12:26 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_3.csv
+2026-03-22 14:12:26 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Defocus Blur (Severity 3)' saved to images/resnet152_scatter_blur_defocus_blur_3.png
+2026-03-22 14:12:26 | INFO  | plot                : [3/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:12:26 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:12:26 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:12:26 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Zoom Blur (Severity 1)' saved to images/resnet152_scatter_blur_zoom_blur_1.png
+2026-03-22 14:12:26 | INFO  | plot                : [4/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:12:26 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:12:26 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:12:27 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Zoom Blur (Severity 1)' saved to images/resnet152_scatter_blur_zoom_blur_1.png
+2026-03-22 14:12:27 | INFO  | plot                : All Plotting Tasks Completed Successfully ---
+2026-03-22 14:12:27 | INFO  | __main__            : Task plot completed successfully
+2026-03-22 14:15:03 | INFO  | __main__            : Starting task: plot
+2026-03-22 14:15:03 | INFO  | plot                : Starting Plotting Task
+2026-03-22 14:15:03 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-22 14:15:03 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-22 14:15:03 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-22 14:15:03 | INFO  | plots.recipe        : Total of 2 has been registered
+2026-03-22 14:15:03 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-22 14:15:03 | INFO  | plot                : Orchestrating 4 visualization task(s).
+2026-03-22 14:15:03 | INFO  | plot                : [1/4] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-22 14:15:03 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:15:03 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-22 14:15:03 | INFO  | plots.analyze       : Plot ResNet-152: Clean vs Defocus Blur (Severity 1) already exists. Skipping saving
+2026-03-22 14:15:03 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Defocus Blur (Severity 1)' saved to images/resnet152_scatter_blur_defocus_blur_1.png
+2026-03-22 14:15:03 | INFO  | plot                : [2/4] Rendering 'resnet152_blur_defocus_blur_3'...
+2026-03-22 14:15:03 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:15:03 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_3.csv
+2026-03-22 14:15:03 | INFO  | plots.analyze       : Plot ResNet-152: Clean vs Defocus Blur (Severity 3) already exists. Skipping saving
+2026-03-22 14:15:03 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Defocus Blur (Severity 3)' saved to images/resnet152_scatter_blur_defocus_blur_3.png
+2026-03-22 14:15:03 | INFO  | plot                : [3/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:15:03 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:15:03 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:15:03 | INFO  | plots.analyze       : Plot ResNet-152: Clean vs Zoom Blur (Severity 1) already exists. Skipping saving
+2026-03-22 14:15:03 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Zoom Blur (Severity 1)' saved to images/resnet152_scatter_blur_zoom_blur_1.png
+2026-03-22 14:15:03 | INFO  | plot                : [4/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:15:03 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:15:03 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:15:04 | INFO  | plots.analyze       : Plot ResNet-152: Clean vs Zoom Blur (Severity 1) already exists. Skipping saving
+2026-03-22 14:15:04 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Zoom Blur (Severity 1)' saved to images/resnet152_scatter_blur_zoom_blur_1.png
+2026-03-22 14:15:04 | INFO  | plot                : All Plotting Tasks Completed Successfully ---
+2026-03-22 14:15:04 | INFO  | __main__            : Task plot completed successfully
+2026-03-22 14:15:23 | INFO  | __main__            : Starting task: plot
+2026-03-22 14:15:23 | INFO  | plot                : Starting Plotting Task
+2026-03-22 14:15:23 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-22 14:15:23 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-22 14:15:23 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-22 14:15:23 | INFO  | plots.recipe        : Total of 2 has been registered
+2026-03-22 14:15:23 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-22 14:15:23 | INFO  | plot                : Orchestrating 4 visualization task(s).
+2026-03-22 14:15:23 | INFO  | plot                : [1/4] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-22 14:15:23 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:15:23 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-22 14:15:23 | INFO  | plots.analyze       : [SKIP] Plot ResNet-152: Clean vs Defocus Blur (Severity 1) already exists. Skipping saving...
+2026-03-22 14:15:23 | INFO  | plot                : [2/4] Rendering 'resnet152_blur_defocus_blur_3'...
+2026-03-22 14:15:23 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:15:23 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_3.csv
+2026-03-22 14:15:23 | INFO  | plots.analyze       : [SKIP] Plot ResNet-152: Clean vs Defocus Blur (Severity 3) already exists. Skipping saving...
+2026-03-22 14:15:23 | INFO  | plot                : [3/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:15:23 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:15:23 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:15:23 | INFO  | plots.analyze       : [SKIP] Plot ResNet-152: Clean vs Zoom Blur (Severity 1) already exists. Skipping saving...
+2026-03-22 14:15:23 | INFO  | plot                : [4/4] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:15:23 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:15:23 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:15:23 | INFO  | plots.analyze       : [SKIP] Plot ResNet-152: Clean vs Zoom Blur (Severity 1) already exists. Skipping saving...
+2026-03-22 14:15:23 | INFO  | plot                : All Plotting Tasks Completed Successfully ---
+2026-03-22 14:15:23 | INFO  | __main__            : Task plot completed successfully
+2026-03-22 14:19:31 | INFO  | __main__            : Starting task: plot
+2026-03-22 14:19:31 | INFO  | plot                : Starting Plotting Task
+2026-03-22 14:19:31 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-22 14:19:31 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-22 14:19:31 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-22 14:19:31 | INFO  | plots.recipe        : Total of 2 has been registered
+2026-03-22 14:19:31 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-22 14:19:31 | INFO  | plot                : Orchestrating 5 visualization task(s).
+2026-03-22 14:19:31 | INFO  | plot                : [1/5] Rendering 'convnext_base_confidence_accuracy_imagenet_clean'...
+2026-03-22 14:19:31 | ERROR | plot                : [ERROR] rendering 'convnext_base_confidence_accuracy_imagenet_clean': 'NoneType' object has no attribute 'data'
+2026-03-22 14:19:31 | INFO  | plot                : [2/5] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-22 14:19:31 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:19:31 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-22 14:19:31 | INFO  | plots.analyze       : [SKIP] Plot ResNet-152: Clean vs Defocus Blur (Severity 1) already exists. Skipping saving...
+2026-03-22 14:19:31 | INFO  | plot                : [3/5] Rendering 'resnet152_blur_defocus_blur_3'...
+2026-03-22 14:19:31 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:19:31 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_3.csv
+2026-03-22 14:19:31 | INFO  | plots.analyze       : [SKIP] Plot ResNet-152: Clean vs Defocus Blur (Severity 3) already exists. Skipping saving...
+2026-03-22 14:19:31 | INFO  | plot                : [4/5] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:19:31 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:19:31 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:19:31 | INFO  | plots.analyze       : [SKIP] Plot ResNet-152: Clean vs Zoom Blur (Severity 1) already exists. Skipping saving...
+2026-03-22 14:19:31 | INFO  | plot                : [5/5] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:19:31 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:19:31 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:19:32 | INFO  | plots.analyze       : [SKIP] Plot ResNet-152: Clean vs Zoom Blur (Severity 1) already exists. Skipping saving...
+2026-03-22 14:19:32 | INFO  | plot                : All Plotting Tasks Completed Successfully ---
+2026-03-22 14:19:32 | INFO  | __main__            : Task plot completed successfully
+2026-03-22 14:20:26 | INFO  | __main__            : Starting task: plot
+2026-03-22 14:20:26 | INFO  | plot                : Starting Plotting Task
+2026-03-22 14:20:26 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-22 14:20:26 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-22 14:20:26 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-22 14:20:26 | INFO  | plots.recipe        : Total of 2 has been registered
+2026-03-22 14:20:26 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-22 14:20:26 | INFO  | plot                : Orchestrating 5 visualization task(s).
+2026-03-22 14:20:26 | INFO  | plot                : [1/5] Rendering 'convnext_base_confidence_accuracy_imagenet_clean'...
+2026-03-22 14:20:26 | INFO  | plots.analyze       : Loading data from results/convnext_base_imagenet.csv
+2026-03-22 14:20:26 | INFO  | plots.analyze       : Plot 'ConvNeXt-B: Accuracy vs Confidence (ImageNet-1K val)' saved to images/convnext_base_class_vulnerability_imagenet1k_val.png
+2026-03-22 14:20:26 | INFO  | plot                : [2/5] Rendering 'resnet152_blur_defocus_blur_1'...
+2026-03-22 14:20:26 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:20:26 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-22 14:20:26 | INFO  | plots.analyze       : [SKIP] Plot ResNet-152: Clean vs Defocus Blur (Severity 1) already exists. Skipping saving...
+2026-03-22 14:20:26 | INFO  | plot                : [3/5] Rendering 'resnet152_blur_defocus_blur_3'...
+2026-03-22 14:20:26 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:20:26 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_3.csv
+2026-03-22 14:20:26 | INFO  | plots.analyze       : [SKIP] Plot ResNet-152: Clean vs Defocus Blur (Severity 3) already exists. Skipping saving...
+2026-03-22 14:20:26 | INFO  | plot                : [4/5] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:20:26 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:20:26 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:20:26 | INFO  | plots.analyze       : [SKIP] Plot ResNet-152: Clean vs Zoom Blur (Severity 1) already exists. Skipping saving...
+2026-03-22 14:20:26 | INFO  | plot                : [5/5] Rendering 'resnet152_blur_zoom_blur_1'...
+2026-03-22 14:20:26 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-22 14:20:26 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_zoom_blur_1.csv
+2026-03-22 14:20:26 | INFO  | plots.analyze       : [SKIP] Plot ResNet-152: Clean vs Zoom Blur (Severity 1) already exists. Skipping saving...
+2026-03-22 14:20:26 | INFO  | plot                : All Plotting Tasks Completed Successfully ---
+2026-03-22 14:20:26 | INFO  | __main__            : Task plot completed successfully
