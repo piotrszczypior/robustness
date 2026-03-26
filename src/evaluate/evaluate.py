@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import logging
 import torch
 import torch.nn.functional as F
@@ -73,9 +74,9 @@ def resolve_device():
     return torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-def run_evaluation(config, model, experiments: list[Experiment]):
-    backup_dir = Config.GOOGLE_DRIVE_PATH if config.sync_drive else None
-    exporter = MetricsExporter(output_dir=config.output_path, backup_dir=backup_dir)
+def run_evaluation(args: argparse.Namespace, model, experiments: list[Experiment]):
+    backup_dir = Config.GOOGLE_DRIVE_PATH if args.sync_drive else None
+    exporter = MetricsExporter(output_dir=args.output_path, backup_dir=backup_dir)
     device = resolve_device()
 
     for i, experiment in enumerate(experiments):
@@ -89,7 +90,7 @@ def run_evaluation(config, model, experiments: list[Experiment]):
         )
 
         results, run_accuracy, run_error = evaluate_per_file(
-            model, data_loader, device, dataset_config.metadata, config.model_name
+            model, data_loader, device, dataset_config.metadata, args.model
         )
 
         logger.info(
@@ -100,7 +101,7 @@ def run_evaluation(config, model, experiments: list[Experiment]):
 
         exporter.export(
             data_df=results.to_dataframe(),
-            filename=f"{config.model_name}_{experiment.name}.csv",
+            filename=f"{args.model}_{experiment.name}.csv",
         )
 
 

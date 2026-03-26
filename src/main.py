@@ -56,7 +56,7 @@ def main() -> int:
             return 1
 
         task.run(args)
-        logger.info(f"Task '{args.task}' completed successfully")
+        logger.info(f"Task '{args.task}' completed")
         return 0
     except Exception as e:
         logger.error(f"[ERROR] Task failed with error: {e}")

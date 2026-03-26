@@ -48,7 +48,7 @@ def run(args: argparse.Namespace):
         logger.info(f"Found {len(experiments)} experiments")
 
         run_evaluation(
-            config=args,
+            args=args,
             model=model,
             experiments=experiments,
         )
