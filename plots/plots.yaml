@@ -67,3 +67,47 @@ plots:
       recipe: accuracy
     output: "images/resnet152_scatter_blur_zoom_blur_1.png"
 
+  - name: resnet152_accuracy_vs_difference_defocus_blur_1
+    title: "ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1)"
+    type: scatter
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy Drop (Clean - Defocus Blur 1)"
+      data: "resnet152_imagenet_c_blur_defocus_blur_1.csv"
+      recipe: accuracy
+      operation: diff
+    output: "images/resnet152_accuracy_vs_difference_defocus_blur_1.png"
+
+  - name: resnet152_accuracy_vs_difference_defocus_blur_1
+    title: "ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1)"
+    type: bar
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+      column: synset
+    y:
+      label: "Accuracy Drop (Clean - Defocus Blur 1)"
+      data: "resnet152_imagenet_c_blur_defocus_blur_1.csv"
+      recipe: accuracy
+      operation: diff
+    output: "images/resnet152_bar_accuracy_vs_difference_defocus_blur_1.png"
+
+  - name: convnext_base_accuracy_vs_difference_defocus_blur_1
+    title: "ConvNeXt-B: Accuracy vs. Accuracy Drop (Defocus Blur 1)"
+    type: scatter
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "convnext_base_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy Drop (Clean - Defocus Blur 1)"
+      data: "convnext_base_imagenet_c_blur_defocus_blur_1.csv"
+      recipe: accuracy
+      operation: diff
+    output: "images/convnext_base_accuracy_vs_difference_defocus_blur_1.png"
+
+

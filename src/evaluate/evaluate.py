@@ -78,6 +78,7 @@ def run_evaluation(args: argparse.Namespace, model, experiments: list[Experiment
     backup_dir = Config.GOOGLE_DRIVE_PATH if args.sync_drive else None
     exporter = MetricsExporter(output_dir=args.output_path, backup_dir=backup_dir)
     device = resolve_device()
+    logger.info(f"Using device: {device}")
 
     for i, experiment in enumerate(experiments):
         logger.info(f"Running experiment {i + 1}/{len(experiments)}: {experiment.name}")

@@ -8,3 +8,9 @@ recipes:
     groupby: synset
     column: confidence
     aggregate: mean
+
+  - name: confidence-log
+    groupby: synset
+    column: confidence
+    aggregate: mean
+    scale: log
