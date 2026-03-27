@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import logging
 from pathlib import Path
 from typing import Any, Dict, Iterator, Optional, Union
@@ -30,6 +30,9 @@ class Axis:
     label: str
     data: str
     recipe: str
+    column: Optional[str] = field(default=None)
+    operation: Optional[str] = field(default=None)
+    lim: Optional[list[float]] = field(default=None)
 
 
 @dataclass(frozen=True)
@@ -37,6 +40,7 @@ class ChartConfig:
     name: str
     type: str
     title: str
+    aux_line: Optional[str] = field(default=None)
     x: Optional[Axis]
     y: Optional[Axis]
     output: str

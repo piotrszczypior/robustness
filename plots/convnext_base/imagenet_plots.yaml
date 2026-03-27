@@ -1,0 +1,13 @@
+plots:
+  - name: convnext_base_confidence_accuracy_imagenet_clean
+    title: "ConvNeXt-B: Accuracy vs Confidence (ImageNet-1K val)"
+    type: scatter
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "convnext_base_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Confidence (Clean ImageNet)"
+      data: "convnext_base_imagenet.csv"
+      recipe: confidence
+    output: "images/convnext_base_class_vulnerability_imagenet1k_val.png"
