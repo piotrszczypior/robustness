@@ -1,0 +1,13 @@
+plots:
+  - name: resnet152_confidence_accuracy_imagenet_clean
+    title: "ResNet-152: Accuracy vs Confidence (ImageNet-1K val)"
+    type: scatter
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Confidence (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: confidence
+    output: "images/resnet152_class_vulnerability_imagenet1k_val.png"

@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 import logging
 from pathlib import Path
 import pandas as pd
-from typing import Any, Dict, Iterator, List, Optional, Union
+from typing import Any, Dict, Iterator, List, Union
 import yaml
 
 logger = logging.getLogger(__name__)
@@ -38,7 +38,6 @@ class Recipe:
     groupby: Union[str, List[str]]
     column: str
     aggregate: str
-    scale: Optional[str] = field(default=None)
 
     def apply(self, df: pd.DataFrame) -> pd.Series:
         return df.groupby(self.groupby)[self.column].agg(self.aggregate)

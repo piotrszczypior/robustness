@@ -32,6 +32,7 @@ class Axis:
     recipe: str
     column: Optional[str] = field(default=None)
     operation: Optional[str] = field(default=None)
+    lim: Optional[list[float]] = field(default=None)
 
 
 @dataclass(frozen=True)
@@ -39,6 +40,7 @@ class ChartConfig:
     name: str
     type: str
     title: str
+    aux_line: Optional[str] = field(default=None)
     x: Optional[Axis]
     y: Optional[Axis]
     output: str

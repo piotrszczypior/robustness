@@ -1619,3 +1619,227 @@ Name: is_correct, dtype: float64
 2026-03-27 08:15:20 | INFO  | plots.analyze       : Loading data from results/convnext_base_imagenet_c_jpeg_compression_5.csv
 2026-03-27 08:15:21 | INFO  | plots.analyze       : Plot 'ConvNeXt-Base: Clean vs JPEG Compression (Severity 5)' saved to images/convnext_base/convnext_base_scatter_imagenet_c_jpeg_compression_5.png
 2026-03-27 08:15:21 | INFO  | __main__            : Task 'plot' completed
+2026-03-27 08:31:29 | INFO  | __main__            : Task 'plot' initialization
+2026-03-27 08:31:29 | INFO  | plot                : Starting Plotting Task
+2026-03-27 08:31:29 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-27 08:31:29 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-27 08:31:29 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-27 08:31:29 | INFO  | plots.recipe        : - Registering recipe 2: confidence-log
+2026-03-27 08:31:29 | INFO  | plots.recipe        : Total of 3 has been registered
+2026-03-27 08:31:29 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-27 08:31:29 | INFO  | plot                : Orchestrating 1 visualization task(s).
+2026-03-27 08:31:29 | INFO  | plot                : [1/1] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_1'...
+2026-03-27 08:31:29 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:31:29 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-27 08:31:29 | INFO  | plots.analyze       : [SKIP] Plot ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1) already exists. Skipping saving...
+2026-03-27 08:31:29 | INFO  | __main__            : Task 'plot' completed
+2026-03-27 08:31:41 | INFO  | __main__            : Task 'plot' initialization
+2026-03-27 08:31:41 | INFO  | plot                : Starting Plotting Task
+2026-03-27 08:31:41 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-27 08:31:41 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-27 08:31:41 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-27 08:31:41 | INFO  | plots.recipe        : - Registering recipe 2: confidence-log
+2026-03-27 08:31:41 | INFO  | plots.recipe        : Total of 3 has been registered
+2026-03-27 08:31:41 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-27 08:31:41 | INFO  | plot                : Orchestrating 1 visualization task(s).
+2026-03-27 08:31:41 | INFO  | plot                : [1/1] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_1'...
+2026-03-27 08:31:41 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:31:41 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-27 08:31:42 | INFO  | plots.analyze       : Plot 'ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1)' saved to images/resnet152_accuracy_vs_2_difference_defocus_blur_1.png
+2026-03-27 08:31:42 | INFO  | __main__            : Task 'plot' completed
+2026-03-27 08:34:19 | INFO  | __main__            : Task 'plot' initialization
+2026-03-27 08:34:19 | INFO  | plot                : Starting Plotting Task
+2026-03-27 08:34:19 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-27 08:34:19 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-27 08:34:19 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-27 08:34:19 | INFO  | plots.recipe        : - Registering recipe 2: confidence-log
+2026-03-27 08:34:19 | INFO  | plots.recipe        : Total of 3 has been registered
+2026-03-27 08:34:19 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-27 08:34:19 | INFO  | plot                : Orchestrating 1 visualization task(s).
+2026-03-27 08:34:19 | INFO  | plot                : [1/1] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_1'...
+2026-03-27 08:34:19 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:34:19 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-27 08:34:19 | INFO  | plots.analyze       : Plot 'ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1)' saved to images/resnet152_accuracy_vs_2_difference_defocus_blur_1.png
+2026-03-27 08:34:19 | INFO  | __main__            : Task 'plot' completed
+2026-03-27 08:35:25 | INFO  | __main__            : Task 'plot' initialization
+2026-03-27 08:35:25 | INFO  | plot                : Starting Plotting Task
+2026-03-27 08:35:25 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-27 08:35:25 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-27 08:35:25 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-27 08:35:25 | INFO  | plots.recipe        : - Registering recipe 2: confidence-log
+2026-03-27 08:35:25 | INFO  | plots.recipe        : Total of 3 has been registered
+2026-03-27 08:35:25 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-27 08:35:25 | INFO  | plot                : Orchestrating 1 visualization task(s).
+2026-03-27 08:35:25 | INFO  | plot                : [1/1] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_1'...
+2026-03-27 08:35:25 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:35:25 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-27 08:35:25 | INFO  | plots.analyze       : [SKIP] Plot ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1) already exists. Skipping saving...
+2026-03-27 08:35:25 | INFO  | __main__            : Task 'plot' completed
+2026-03-27 08:35:59 | INFO  | __main__            : Task 'plot' initialization
+2026-03-27 08:35:59 | INFO  | plot                : Starting Plotting Task
+2026-03-27 08:35:59 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-27 08:35:59 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-27 08:35:59 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-27 08:35:59 | INFO  | plots.recipe        : - Registering recipe 2: confidence-log
+2026-03-27 08:35:59 | INFO  | plots.recipe        : Total of 3 has been registered
+2026-03-27 08:35:59 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-27 08:35:59 | INFO  | plot                : Orchestrating 1 visualization task(s).
+2026-03-27 08:35:59 | INFO  | plot                : [1/1] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_1'...
+2026-03-27 08:35:59 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:35:59 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-27 08:35:59 | INFO  | plots.analyze       : Plot 'ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1)' saved to images/resnet152_accuracy_vs_2_difference_defocus_blur_1.png
+2026-03-27 08:35:59 | INFO  | __main__            : Task 'plot' completed
+2026-03-27 08:37:26 | INFO  | __main__            : Task 'plot' initialization
+2026-03-27 08:37:26 | INFO  | plot                : Starting Plotting Task
+2026-03-27 08:37:26 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-27 08:37:26 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-27 08:37:26 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-27 08:37:26 | INFO  | plots.recipe        : - Registering recipe 2: confidence-log
+2026-03-27 08:37:26 | INFO  | plots.recipe        : Total of 3 has been registered
+2026-03-27 08:37:26 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-27 08:37:26 | INFO  | plot                : Orchestrating 1 visualization task(s).
+2026-03-27 08:37:26 | INFO  | plot                : [1/1] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_1'...
+2026-03-27 08:37:26 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:37:26 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-27 08:37:26 | INFO  | plots.analyze       : Plot 'ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1)' saved to images/resnet152_accuracy_vs_2_difference_defocus_blur_1.png
+2026-03-27 08:37:26 | INFO  | __main__            : Task 'plot' completed
+2026-03-27 08:38:24 | INFO  | __main__            : Task 'plot' initialization
+2026-03-27 08:38:24 | INFO  | plot                : Starting Plotting Task
+2026-03-27 08:38:24 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-27 08:38:24 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-27 08:38:24 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-27 08:38:24 | INFO  | plots.recipe        : - Registering recipe 2: confidence-log
+2026-03-27 08:38:24 | INFO  | plots.recipe        : Total of 3 has been registered
+2026-03-27 08:38:24 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-27 08:38:24 | INFO  | plot                : Orchestrating 1 visualization task(s).
+2026-03-27 08:38:24 | INFO  | plot                : [1/1] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_1'...
+2026-03-27 08:38:24 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:38:24 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-27 08:38:25 | INFO  | plots.analyze       : [SKIP] Plot ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1) already exists. Skipping saving...
+2026-03-27 08:38:25 | INFO  | __main__            : Task 'plot' completed
+2026-03-27 08:38:31 | INFO  | __main__            : Task 'plot' initialization
+2026-03-27 08:38:31 | INFO  | plot                : Starting Plotting Task
+2026-03-27 08:38:31 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-27 08:38:31 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-27 08:38:31 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-27 08:38:31 | INFO  | plots.recipe        : - Registering recipe 2: confidence-log
+2026-03-27 08:38:31 | INFO  | plots.recipe        : Total of 3 has been registered
+2026-03-27 08:38:31 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-27 08:38:31 | INFO  | plot                : Orchestrating 1 visualization task(s).
+2026-03-27 08:38:31 | INFO  | plot                : [1/1] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_1'...
+2026-03-27 08:38:31 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:38:31 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-27 08:38:32 | INFO  | plots.analyze       : Plot 'ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1)' saved to images/resnet152_accuracy_vs_2_difference_defocus_blur_1.png
+2026-03-27 08:38:32 | INFO  | __main__            : Task 'plot' completed
+2026-03-27 08:39:15 | INFO  | __main__            : Task 'plot' initialization
+2026-03-27 08:39:15 | INFO  | plot                : Starting Plotting Task
+2026-03-27 08:39:15 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-27 08:39:15 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-27 08:39:15 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-27 08:39:15 | INFO  | plots.recipe        : - Registering recipe 2: confidence-log
+2026-03-27 08:39:15 | INFO  | plots.recipe        : Total of 3 has been registered
+2026-03-27 08:39:15 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-27 08:39:15 | INFO  | plot                : Orchestrating 1 visualization task(s).
+2026-03-27 08:39:15 | INFO  | plot                : [1/1] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_1'...
+2026-03-27 08:39:15 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:39:15 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-27 08:39:15 | INFO  | plots.analyze       : Plot 'ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1)' saved to images/resnet152_accuracy_vs_2_difference_defocus_blur_1.png
+2026-03-27 08:39:15 | INFO  | __main__            : Task 'plot' completed
+2026-03-27 08:39:52 | INFO  | __main__            : Task 'plot' initialization
+2026-03-27 08:39:52 | INFO  | plot                : Starting Plotting Task
+2026-03-27 08:39:52 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-27 08:39:52 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-27 08:39:52 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-27 08:39:52 | INFO  | plots.recipe        : - Registering recipe 2: confidence-log
+2026-03-27 08:39:52 | INFO  | plots.recipe        : Total of 3 has been registered
+2026-03-27 08:39:52 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-27 08:39:52 | INFO  | plot                : Orchestrating 1 visualization task(s).
+2026-03-27 08:39:52 | INFO  | plot                : [1/1] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_1'...
+2026-03-27 08:39:52 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:39:52 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-27 08:39:52 | INFO  | plots.analyze       : Plot 'ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1)' saved to images/resnet152_accuracy_vs_2_difference_defocus_blur_1.png
+2026-03-27 08:39:52 | INFO  | __main__            : Task 'plot' completed
+2026-03-27 08:40:26 | INFO  | __main__            : Task 'plot' initialization
+2026-03-27 08:40:26 | INFO  | plot                : Starting Plotting Task
+2026-03-27 08:40:26 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-27 08:40:26 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-27 08:40:26 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-27 08:40:26 | INFO  | plots.recipe        : - Registering recipe 2: confidence-log
+2026-03-27 08:40:26 | INFO  | plots.recipe        : Total of 3 has been registered
+2026-03-27 08:40:26 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-27 08:40:26 | INFO  | plot                : Orchestrating 1 visualization task(s).
+2026-03-27 08:40:26 | INFO  | plot                : [1/1] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_1'...
+2026-03-27 08:40:26 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:40:26 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-27 08:40:26 | INFO  | plots.analyze       : [SKIP] Plot ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1) already exists. Skipping saving...
+2026-03-27 08:40:26 | INFO  | __main__            : Task 'plot' completed
+2026-03-27 08:41:28 | INFO  | __main__            : Task 'plot' initialization
+2026-03-27 08:41:28 | INFO  | plot                : Starting Plotting Task
+2026-03-27 08:41:28 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-27 08:41:28 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-27 08:41:28 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-27 08:41:28 | INFO  | plots.recipe        : - Registering recipe 2: confidence-log
+2026-03-27 08:41:28 | INFO  | plots.recipe        : Total of 3 has been registered
+2026-03-27 08:41:28 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-27 08:41:28 | INFO  | plot                : Orchestrating 1 visualization task(s).
+2026-03-27 08:41:28 | INFO  | plot                : [1/1] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_1'...
+2026-03-27 08:41:28 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:41:28 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-27 08:41:28 | INFO  | plots.analyze       : [SKIP] Plot ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1) already exists. Skipping saving...
+2026-03-27 08:41:28 | INFO  | __main__            : Task 'plot' completed
+2026-03-27 08:41:33 | INFO  | __main__            : Task 'plot' initialization
+2026-03-27 08:41:33 | INFO  | plot                : Starting Plotting Task
+2026-03-27 08:41:33 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-27 08:41:33 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-27 08:41:33 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-27 08:41:33 | INFO  | plots.recipe        : - Registering recipe 2: confidence-log
+2026-03-27 08:41:33 | INFO  | plots.recipe        : Total of 3 has been registered
+2026-03-27 08:41:33 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-27 08:41:33 | INFO  | plot                : Orchestrating 1 visualization task(s).
+2026-03-27 08:41:33 | INFO  | plot                : [1/1] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_1'...
+2026-03-27 08:41:33 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:41:33 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-27 08:41:33 | INFO  | plots.analyze       : Plot 'ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1)' saved to images/resnet152_accuracy_vs_2_difference_defocus_blur_1.png
+2026-03-27 08:41:33 | INFO  | __main__            : Task 'plot' completed
+2026-03-27 08:41:44 | INFO  | __main__            : Task 'plot' initialization
+2026-03-27 08:41:44 | INFO  | plot                : Starting Plotting Task
+2026-03-27 08:41:44 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-27 08:41:44 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-27 08:41:44 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-27 08:41:44 | INFO  | plots.recipe        : - Registering recipe 2: confidence-log
+2026-03-27 08:41:44 | INFO  | plots.recipe        : Total of 3 has been registered
+2026-03-27 08:41:44 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-27 08:41:44 | INFO  | plot                : Orchestrating 1 visualization task(s).
+2026-03-27 08:41:44 | INFO  | plot                : [1/1] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_1'...
+2026-03-27 08:41:44 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:41:44 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-27 08:41:44 | INFO  | plots.analyze       : Plot 'ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1)' saved to images/resnet152_accuracy_vs_2_difference_defocus_blur_1.png
+2026-03-27 08:41:44 | INFO  | __main__            : Task 'plot' completed
+2026-03-27 08:42:49 | INFO  | __main__            : Task 'plot' initialization
+2026-03-27 08:42:49 | INFO  | plot                : Starting Plotting Task
+2026-03-27 08:42:49 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-27 08:42:49 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-27 08:42:49 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-27 08:42:49 | INFO  | plots.recipe        : - Registering recipe 2: confidence-log
+2026-03-27 08:42:49 | INFO  | plots.recipe        : Total of 3 has been registered
+2026-03-27 08:42:49 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-27 08:42:49 | INFO  | plot                : Orchestrating 1 visualization task(s).
+2026-03-27 08:42:49 | INFO  | plot                : [1/1] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_1'...
+2026-03-27 08:42:49 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:42:49 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-27 08:42:49 | INFO  | plots.analyze       : [SKIP] Plot ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1) already exists. Skipping saving...
+2026-03-27 08:42:49 | INFO  | __main__            : Task 'plot' completed
+2026-03-27 08:42:56 | INFO  | __main__            : Task 'plot' initialization
+2026-03-27 08:42:56 | INFO  | plot                : Starting Plotting Task
+2026-03-27 08:42:56 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-27 08:42:56 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-27 08:42:56 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-27 08:42:56 | INFO  | plots.recipe        : - Registering recipe 2: confidence-log
+2026-03-27 08:42:56 | INFO  | plots.recipe        : Total of 3 has been registered
+2026-03-27 08:42:56 | INFO  | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-27 08:42:56 | INFO  | plot                : Orchestrating 1 visualization task(s).
+2026-03-27 08:42:56 | INFO  | plot                : [1/1] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_1'...
+2026-03-27 08:42:56 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:42:56 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-27 08:42:56 | INFO  | plots.analyze       : Plot 'ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1)' saved to images/resnet152_accuracy_vs_2_difference_defocus_blur_1.png
+2026-03-27 08:42:56 | INFO  | __main__            : Task 'plot' completed

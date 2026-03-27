@@ -4,13 +4,13 @@ import logging
 import os
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional, Tuple, Union
+from typing import Optional, Union
 
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 
-from .recipe import Recipe, get_recipe
+from .recipe import get_recipe
 from .specs import ChartConfig
 
 __all__ = ["create_plot"]
@@ -29,15 +29,16 @@ class PlotContext:
     x: pd.Series
     y: pd.Series
     title: str
+    aux_line: str
     x_label: str
     y_label: str
     output_path: Path
-    x_scale: Optional[str] = None
-    y_scale: Optional[str] = None
     x_operation: Optional[str] = None
     y_operation: Optional[str] = None
     x_column: Optional[str] = None
     y_column: Optional[str] = None
+    x_lim: Optional[list[float]] = None
+    y_lim: Optional[list[float]] = None
 
 
 class _PlotFactory:
@@ -56,8 +57,8 @@ class _PlotFactory:
             x_df = _DataLoader.load(x_path)
             y_df = _DataLoader.load(y_path)
 
-        x, x_recipe = _PlotFactory._apply_recipe(x_df, config.x.recipe)
-        y, y_recipe = _PlotFactory._apply_recipe(y_df, config.y.recipe)
+        x = _PlotFactory._apply_recipe(x_df, config.x.recipe)
+        y = _PlotFactory._apply_recipe(y_df, config.y.recipe)
 
         if config.x and config.x.operation == "diff":
             x = y - x
@@ -71,20 +72,21 @@ class _PlotFactory:
             x_label=config.x.label,
             y_label=config.y.label,
             output_path=Path(config.output),
-            x_scale=x_recipe.scale,
-            y_scale=y_recipe.scale,
             x_operation=config.x.operation,
             y_operation=config.y.operation,
-            x_column = "x" if config.x.column is None else config.x.column,
-            y_column = "y" if config.y.column is None else config.y.column
+            x_column="x" if config.x.column is None else config.x.column,
+            y_column="y" if config.y.column is None else config.y.column,
+            x_lim=[0, 1.05] if config.x.lim is None else config.x.lim,
+            y_lim=[0, 1.05] if config.y.lim is None else config.y.lim,
+            aux_line="diagonal" if config.aux_line is None else config.aux_line,
         )
 
         _PlotRenderer.render(config.type, context, debug)
 
     @staticmethod
-    def _apply_recipe(df: pd.DataFrame, recipe_name: str) -> Tuple[pd.Series, Recipe]:
+    def _apply_recipe(df: pd.DataFrame, recipe_name: str) -> pd.Series:
         recipe = get_recipe(recipe_name)
-        return recipe.apply(df), recipe
+        return recipe.apply(df)
 
 
 class _DataLoader:
@@ -105,10 +107,7 @@ class _DataLoader:
 class _PlotRenderer:
     @staticmethod
     def render(plot_type: str, context: PlotContext, debug: bool) -> None:
-        renderers = {
-            "scatter": _PlotRenderer._scatter,
-            "bar": _PlotRenderer._bar
-        }
+        renderers = {"scatter": _PlotRenderer._scatter, "bar": _PlotRenderer._bar}
 
         renderer = renderers.get(plot_type)
         if not renderer:
@@ -138,26 +137,17 @@ class _PlotRenderer:
         plt.figure(figsize=(10, 10))
         sns.scatterplot(data=data, x="x", y="y", alpha=0.5)
 
-        # if context.y_operation == "diff":
-        #     plt.axhline(0, color="red", linestyle="--", alpha=0.7)
-        # elif context.x_operation == "diff":
-        #     plt.axvline(0, color="red", linestyle="--", alpha=0.7)
-        # else:
-        #     plt.plot([0, 1], [0, 1], color="red", linestyle="--", alpha=0.7)
+        if context.aux_line == "diagonal":
+            plt.plot([0, 0], [1, 0], color="red", linestyle="--", alpha=0.7)
+        elif context.aux_line == "y=0":
+            plt.axhline(0, color="red", linestyle="--", alpha=0.7)
 
         plt.title(context.title)
         plt.xlabel(context.x_label)
         plt.ylabel(context.y_label)
 
-        if context.x_scale:
-            plt.xscale(context.x_scale)
-        if context.y_scale:
-            plt.yscale(context.y_scale)
-
-        if not context.x_scale and not context.x_operation:
-            plt.xlim(0, 1.05)
-        if not context.y_scale and not context.y_operation:
-            plt.ylim(0, 1.05)
+        plt.xlim(context.x_lim[0], context.x_lim[1])
+        plt.ylim(context.y_lim[0], context.y_lim[1])
 
         plt.grid(True, linestyle=":", alpha=0.6)
 
@@ -190,7 +180,6 @@ class _PlotRenderer:
 
         plt.grid(True, linestyle=":", alpha=0.6)
 
-
         os.makedirs(context.output_path.parent, exist_ok=True)
         if context.output_path.exists():
             logger.info(
@@ -201,4 +190,3 @@ class _PlotRenderer:
         plt.savefig(context.output_path, dpi=300, bbox_inches="tight")
         plt.close()
         logger.info(f"Plot '{context.title}' saved to {context.output_path}")
-

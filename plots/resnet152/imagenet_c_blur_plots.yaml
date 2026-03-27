@@ -1,0 +1,55 @@
+plots:
+  - name: resnet152_blur_defocus_blur_1
+    title: "ResNet-152: Clean vs Defocus Blur (Severity 1)"
+    type: scatter
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy (Defocus Blur 1)"
+      data: "resnet152_imagenet_c_blur_defocus_blur_1.csv"
+      recipe: accuracy
+    output: "images/resnet152_scatter_blur_defocus_blur_1.png"
+
+
+  - name: resnet152_blur_defocus_blur_3
+    title: "ResNet-152: Clean vs Defocus Blur (Severity 3)"
+    type: scatter
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy (Defocus Blur 3)"
+      data: "resnet152_imagenet_c_blur_defocus_blur_3.csv"
+      recipe: accuracy
+    output: "images/resnet152_scatter_blur_defocus_blur_3.png"
+
+    
+  - name: resnet152_blur_zoom_blur_1
+    title: "ResNet-152: Clean vs Zoom Blur (Severity 1)"
+    type: scatter
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy (Defocus Zoom 1)"
+      data: "resnet152_imagenet_c_blur_zoom_blur_1.csv"
+      recipe: accuracy
+    output: "images/resnet152_scatter_blur_zoom_blur_1.png"
+
+
+  - name: resnet152_blur_zoom_blur_1
+    title: "ResNet-152: Clean vs Zoom Blur (Severity 1)"
+    type: scatter
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy (Defocus Zoom 1)"
+      data: "resnet152_imagenet_c_blur_zoom_blur_1.csv"
+      recipe: accuracy
+    output: "images/resnet152_scatter_blur_zoom_blur_1.png"
