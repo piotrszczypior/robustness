@@ -1,0 +1,134 @@
+plots:
+  ###############
+  # Digital - Contrast 
+  ############### 
+  - name: resnet152_imagenet_c_contrast_1
+    title: "ResNet-152: Clean vs Contrast (Severity 1)"
+    type: scatter
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy (Contrast 1)"
+      data: "resnet152_imagenet_c_contrast_1.csv"
+      recipe: accuracy
+    output: "images/resnet152/resnet152_scatter_imagenet_c_contrast_1.png"
+
+
+  - name: resnet152_imagenet_c_contrast_3
+    title: "ResNet-152: Clean vs Contrast (Severity 3)"
+    type: scatter
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy (Contrast 3)"
+      data: "resnet152_imagenet_c_contrast_3.csv"
+      recipe: accuracy
+    output: "images/resnet152/resnet152_scatter_imagenet_c_contrast_3.png"
+
+
+  - name: resnet152_imagenet_c_contrast_5
+    title: "ResNet-152: Clean vs Contrast (Severity 5)"
+    type: scatter
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy (Contrast 5)"
+      data: "resnet152_imagenet_c_contrast_5.csv"
+      recipe: accuracy
+    output: "images/resnet152/resnet152_scatter_imagenet_c_contrast_5.png"
+
+
+  ###############
+  # Digital - pixelate 
+  ############### 
+  - name: resnet152_imagenet_c_pixelate_1
+    title: "ResNet-152: Clean vs Pixelate (Severity 1)"
+    type: scatter
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy (Pixelate 1)"
+      data: "resnet152_imagenet_c_pixelate_1.csv"
+      recipe: accuracy
+    output: "images/resnet152/resnet152_scatter_imagenet_c_pixelate_1.png"
+
+
+  - name: resnet152_imagenet_c_pixelate_3
+    title: "ResNet-152: Clean vs Pixelate (Severity 3)"
+    type: scatter
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy (Pixelate 3)"
+      data: "resnet152_imagenet_c_pixelate_3.csv"
+      recipe: accuracy
+    output: "images/resnet152/resnet152_scatter_imagenet_c_pixelate_3.png"
+
+
+  - name: resnet152_imagenet_c_pixelate_5
+    title: "ResNet-152: Clean vs Pixelate (Severity 5)"
+    type: scatter
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy (Pixelate 5)"
+      data: "resnet152_imagenet_c_pixelate_5.csv"
+      recipe: accuracy
+    output: "images/resnet152/resnet152_scatter_imagenet_c_pixelate_5.png"
+
+
+  ###############
+  # Digital - JPEG Compression 
+  ############### 
+  - name: resnet152_imagenet_c_jpeg_compression_1
+    title: "ResNet-152: Clean vs JPEG Compression (Severity 1)"
+    type: scatter
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy (JPEG Compression 1)"
+      data: "resnet152_imagenet_c_jpeg_compression_1.csv"
+      recipe: accuracy
+    output: "images/resnet152/resnet152_scatter_imagenet_c_jpeg_compression_1.png"
+
+
+  - name: resnet152_imagenet_c_jpeg_compression_3
+    title: "ResNet-152: Clean vs JPEG Compression (Severity 3)"
+    type: scatter
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy (JPEG Compression 3)"
+      data: "resnet152_imagenet_c_jpeg_compression_3.csv"
+      recipe: accuracy
+    output: "images/resnet152/resnet152_scatter_imagenet_c_jpeg_compression_3.png"
+
+
+  - name: resnet152_imagenet_c_jpeg_compression_5
+    title: "ResNet-152: Clean vs JPEG Compression (Severity 5)"
+    type: scatter
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy (JPEG Compression 5)"
+      data: "resnet152_imagenet_c_jpeg_compression_5.csv"
+      recipe: accuracy
+    output: "images/resnet152/resnet152_scatter_imagenet_c_jpeg_compression_5.png"

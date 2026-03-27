@@ -5,10 +5,22 @@ set -euo pipefail
 # 'push' (upload to GD)
 ACTION=${1:-"pull"}
 
-PATTERN=${2:-""}
+TARGET=${2:-"results"}
 
-REMOTE="pwr-remote:robustness/results"
-LOCAL="results/"
+PATTERN=${3:-""}
+
+
+if [ "$TARGET" == "results" ]; then
+    REMOTE="pwr-remote:robustness/results"
+    LOCAL="results/"
+elif [ "$TARGET" == "images" ]; then
+    REMOTE="pwr-remote:robustness/images"
+    LOCAL="images/"
+else
+    echo "Error: Unknown target '$TARGET'. Please use 'results' or 'images'."
+    echo "Usage: $0 [pull|push] [results|images] [pattern]"
+    exit 1
+fi
 
 RCLONE_CMD="rclone copy --ignore-existing -P"
 

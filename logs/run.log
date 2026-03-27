@@ -997,3 +997,170 @@ Name: is_correct, dtype: float64
 2026-03-22 14:20:26 | INFO  | plots.analyze       : [SKIP] Plot ResNet-152: Clean vs Zoom Blur (Severity 1) already exists. Skipping saving...
 2026-03-22 14:20:26 | INFO  | plot                : All Plotting Tasks Completed Successfully ---
 2026-03-22 14:20:26 | INFO  | __main__            : Task plot completed successfully
+2026-03-27 07:55:42 | INFO  | __main__            : Task 'evaluate' initialization
+2026-03-27 07:55:42 | INFO  | evaluate            : Starting evaluation of efficientnet_b4
+2026-03-27 07:55:42 | INFO  | evaluate            : Data path: data/
+2026-03-27 07:55:42 | INFO  | evaluate            : Output path: results/
+2026-03-27 07:55:42 | INFO  | evaluate.experiment : Found 96 experiments in the configuration.
+2026-03-27 07:55:42 | INFO  | evaluate.experiment : Filtering experiments by single run prefix: 'imagenet_clean'
+2026-03-27 07:55:42 | WARNING | evaluate.experiment : No experiments match the filter 'imagenet_clean'
+2026-03-27 07:55:42 | INFO  | evaluate.experiment : Loaded 0 experiments from the configuration.
+2026-03-27 07:55:42 | INFO  | evaluate            : Found 0 experiments
+2026-03-27 07:55:42 | INFO  | __main__            : Task 'evaluate' completed
+2026-03-27 07:55:50 | INFO  | __main__            : Task 'evaluate' initialization
+2026-03-27 07:55:50 | INFO  | evaluate            : Starting evaluation of efficientnet_b4
+2026-03-27 07:55:50 | INFO  | evaluate            : Data path: data/
+2026-03-27 07:55:50 | INFO  | evaluate            : Output path: results/
+2026-03-27 07:55:50 | INFO  | evaluate.experiment : Found 96 experiments in the configuration.
+2026-03-27 07:55:50 | INFO  | evaluate.experiment : Filtering experiments by batch prefix: 'imagenet_clean'
+2026-03-27 07:55:50 | INFO  | evaluate.experiment : Loaded 1 experiments from the configuration.
+2026-03-27 07:55:50 | INFO  | evaluate            : Found 1 experiments
+2026-03-27 07:55:50 | INFO  | evaluate.evaluate   : Running experiment 1/1: imagenet
+2026-03-27 07:57:15 | INFO  | evaluate.evaluate   : Experiment imagenet finished. Accuracy: 0.7928, Error: 0.2072
+2026-03-27 07:57:15 | INFO  | __main__            : Task 'evaluate' completed
+2026-03-27 08:03:45 | INFO  | __main__            : Task 'plot' initialization
+2026-03-27 08:03:45 | INFO  | plot                : Starting Plotting Task
+2026-03-27 08:03:45 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-27 08:03:45 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-27 08:03:45 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-27 08:03:45 | INFO  | plots.recipe        : Total of 2 has been registered
+2026-03-27 08:03:45 | INFO  | plot                : Loading plot specs from: plots/efficientnet_plots.yaml
+2026-03-27 08:03:45 | INFO  | plot                : Orchestrating 9 visualization task(s).
+2026-03-27 08:03:45 | INFO  | plot                : [1/9] Rendering 'efficientnet_b4_imagenet_c_contrast_1'...
+2026-03-27 08:03:45 | INFO  | plots.analyze       : Loading data from results/efficientnet_b4_imagenet.csv
+2026-03-27 08:03:45 | INFO  | plots.analyze       : Loading data from results/efficientnet_b4_imagenet_c_contrast_1.csv
+2026-03-27 08:03:45 | INFO  | plots.analyze       : Plot 'EfficientNet-B4: Clean vs Contrast (Severity 1)' saved to images/efficientnet_b4/efficientnet_b4_scatter_imagenet_c_contrast_1.png
+2026-03-27 08:03:45 | INFO  | plot                : [2/9] Rendering 'efficientnet_b4_imagenet_c_contrast_3'...
+2026-03-27 08:03:45 | INFO  | plots.analyze       : Loading data from results/efficientnet_b4_imagenet.csv
+2026-03-27 08:03:45 | INFO  | plots.analyze       : Loading data from results/efficientnet_b4_imagenet_c_contrast_3.csv
+2026-03-27 08:03:45 | INFO  | plots.analyze       : Plot 'EfficientNet-B4: Clean vs Contrast (Severity 3)' saved to images/efficientnet_b4/efficientnet_b4_scatter_imagenet_c_contrast_3.png
+2026-03-27 08:03:45 | INFO  | plot                : [3/9] Rendering 'efficientnet_b4_imagenet_c_contrast_5'...
+2026-03-27 08:03:45 | INFO  | plots.analyze       : Loading data from results/efficientnet_b4_imagenet.csv
+2026-03-27 08:03:45 | INFO  | plots.analyze       : Loading data from results/efficientnet_b4_imagenet_c_contrast_5.csv
+2026-03-27 08:03:46 | INFO  | plots.analyze       : Plot 'EfficientNet-B4: Clean vs Contrast (Severity 5)' saved to images/efficientnet_b4/efficientnet_b4_scatter_imagenet_c_contrast_5.png
+2026-03-27 08:03:46 | INFO  | plot                : [4/9] Rendering 'efficientnet_b4_imagenet_c_pixelate_1'...
+2026-03-27 08:03:46 | INFO  | plots.analyze       : Loading data from results/efficientnet_b4_imagenet.csv
+2026-03-27 08:03:46 | INFO  | plots.analyze       : Loading data from results/efficientnet_b4_imagenet_c_pixelate_1.csv
+2026-03-27 08:03:46 | INFO  | plots.analyze       : Plot 'EfficientNet-B4: Clean vs Pixelate (Severity 1)' saved to images/efficientnet_b4/efficientnet_b4_scatter_imagenet_c_pixelate_1.png
+2026-03-27 08:03:46 | INFO  | plot                : [5/9] Rendering 'efficientnet_b4_imagenet_c_pixelate_3'...
+2026-03-27 08:03:46 | INFO  | plots.analyze       : Loading data from results/efficientnet_b4_imagenet.csv
+2026-03-27 08:03:46 | INFO  | plots.analyze       : Loading data from results/efficientnet_b4_imagenet_c_pixelate_3.csv
+2026-03-27 08:03:46 | INFO  | plots.analyze       : Plot 'EfficientNet-B4: Clean vs Pixelate (Severity 3)' saved to images/efficientnet_b4/efficientnet_b4_scatter_imagenet_c_pixelate_3.png
+2026-03-27 08:03:46 | INFO  | plot                : [6/9] Rendering 'efficientnet_b4_imagenet_c_pixelate_5'...
+2026-03-27 08:03:46 | INFO  | plots.analyze       : Loading data from results/efficientnet_b4_imagenet.csv
+2026-03-27 08:03:46 | INFO  | plots.analyze       : Loading data from results/efficientnet_b4_imagenet_c_pixelate_5.csv
+2026-03-27 08:03:46 | INFO  | plots.analyze       : Plot 'EfficientNet-B4: Clean vs Pixelate (Severity 5)' saved to images/efficientnet_b4/efficientnet_b4_scatter_imagenet_c_pixelate_5.png
+2026-03-27 08:03:46 | INFO  | plot                : [7/9] Rendering 'efficientnet_b4_imagenet_c_jpeg_compression_1'...
+2026-03-27 08:03:46 | INFO  | plots.analyze       : Loading data from results/efficientnet_b4_imagenet.csv
+2026-03-27 08:03:46 | INFO  | plots.analyze       : Loading data from results/efficientnet_b4_imagenet_c_jpeg_compression_1.csv
+2026-03-27 08:03:47 | INFO  | plots.analyze       : Plot 'EfficientNet-B4: Clean vs JPEG Compression (Severity 1)' saved to images/efficientnet_b4/efficientnet_b4_scatter_imagenet_c_jpeg_compression_1.png
+2026-03-27 08:03:47 | INFO  | plot                : [8/9] Rendering 'efficientnet_b4_imagenet_c_jpeg_compression_3'...
+2026-03-27 08:03:47 | INFO  | plots.analyze       : Loading data from results/efficientnet_b4_imagenet.csv
+2026-03-27 08:03:47 | INFO  | plots.analyze       : Loading data from results/efficientnet_b4_imagenet_c_jpeg_compression_3.csv
+2026-03-27 08:03:47 | INFO  | plots.analyze       : Plot 'EfficientNet-B4: Clean vs JPEG Compression (Severity 3)' saved to images/efficientnet_b4/efficientnet_b4_scatter_imagenet_c_jpeg_compression_3.png
+2026-03-27 08:03:47 | INFO  | plot                : [9/9] Rendering 'efficientnet_b4_imagenet_c_jpeg_compression_5'...
+2026-03-27 08:03:47 | INFO  | plots.analyze       : Loading data from results/efficientnet_b4_imagenet.csv
+2026-03-27 08:03:47 | INFO  | plots.analyze       : Loading data from results/efficientnet_b4_imagenet_c_jpeg_compression_5.csv
+2026-03-27 08:03:47 | INFO  | plots.analyze       : Plot 'EfficientNet-B4: Clean vs JPEG Compression (Severity 5)' saved to images/efficientnet_b4/efficientnet_b4_scatter_imagenet_c_jpeg_compression_5.png
+2026-03-27 08:03:47 | INFO  | __main__            : Task 'plot' completed
+2026-03-27 08:10:57 | INFO  | __main__            : Task 'plot' initialization
+2026-03-27 08:10:57 | INFO  | plot                : Starting Plotting Task
+2026-03-27 08:10:57 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-27 08:10:57 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-27 08:10:57 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-27 08:10:57 | INFO  | plots.recipe        : Total of 2 has been registered
+2026-03-27 08:10:57 | INFO  | plot                : Loading plot specs from: plots/resnet152/imagenet_c_digital_plots.yaml
+2026-03-27 08:10:57 | INFO  | plot                : Orchestrating 9 visualization task(s).
+2026-03-27 08:10:57 | INFO  | plot                : [1/9] Rendering 'resnet152_imagenet_c_contrast_1'...
+2026-03-27 08:10:57 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:10:57 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_contrast_1.csv
+2026-03-27 08:10:57 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Contrast (Severity 1)' saved to images/resnet152/resnet152_scatter_imagenet_c_contrast_1.png
+2026-03-27 08:10:57 | INFO  | plot                : [2/9] Rendering 'resnet152_imagenet_c_contrast_3'...
+2026-03-27 08:10:57 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:10:57 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_contrast_3.csv
+2026-03-27 08:10:58 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Contrast (Severity 3)' saved to images/resnet152/resnet152_scatter_imagenet_c_contrast_3.png
+2026-03-27 08:10:58 | INFO  | plot                : [3/9] Rendering 'resnet152_imagenet_c_contrast_5'...
+2026-03-27 08:10:58 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:10:58 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_contrast_5.csv
+2026-03-27 08:10:58 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Contrast (Severity 5)' saved to images/resnet152/resnet152_scatter_imagenet_c_contrast_5.png
+2026-03-27 08:10:58 | INFO  | plot                : [4/9] Rendering 'resnet152_imagenet_c_pixelate_1'...
+2026-03-27 08:10:58 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:10:58 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_pixelate_1.csv
+2026-03-27 08:10:58 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Pixelate (Severity 1)' saved to images/resnet152/resnet152_scatter_imagenet_c_pixelate_1.png
+2026-03-27 08:10:58 | INFO  | plot                : [5/9] Rendering 'resnet152_imagenet_c_pixelate_3'...
+2026-03-27 08:10:58 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:10:58 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_pixelate_3.csv
+2026-03-27 08:10:59 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Pixelate (Severity 3)' saved to images/resnet152/resnet152_scatter_imagenet_c_pixelate_3.png
+2026-03-27 08:10:59 | INFO  | plot                : [6/9] Rendering 'resnet152_imagenet_c_pixelate_5'...
+2026-03-27 08:10:59 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:10:59 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_pixelate_5.csv
+2026-03-27 08:10:59 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Pixelate (Severity 5)' saved to images/resnet152/resnet152_scatter_imagenet_c_pixelate_5.png
+2026-03-27 08:10:59 | INFO  | plot                : [7/9] Rendering 'resnet152_imagenet_c_jpeg_compression_1'...
+2026-03-27 08:10:59 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:10:59 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_jpeg_compression_1.csv
+2026-03-27 08:10:59 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs JPEG Compression (Severity 1)' saved to images/resnet152/resnet152_scatter_imagenet_c_jpeg_compression_1.png
+2026-03-27 08:10:59 | INFO  | plot                : [8/9] Rendering 'resnet152_imagenet_c_jpeg_compression_3'...
+2026-03-27 08:10:59 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:10:59 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_jpeg_compression_3.csv
+2026-03-27 08:11:00 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs JPEG Compression (Severity 3)' saved to images/resnet152/resnet152_scatter_imagenet_c_jpeg_compression_3.png
+2026-03-27 08:11:00 | INFO  | plot                : [9/9] Rendering 'resnet152_imagenet_c_jpeg_compression_5'...
+2026-03-27 08:11:00 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 08:11:00 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_jpeg_compression_5.csv
+2026-03-27 08:11:00 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs JPEG Compression (Severity 5)' saved to images/resnet152/resnet152_scatter_imagenet_c_jpeg_compression_5.png
+2026-03-27 08:11:00 | INFO  | __main__            : Task 'plot' completed
+2026-03-27 08:12:33 | INFO  | __main__            : Task 'evaluate' initialization
+2026-03-27 08:12:33 | INFO  | evaluate            : Starting evaluation of resnet50
+2026-03-27 08:12:33 | INFO  | evaluate            : Data path: data/
+2026-03-27 08:12:33 | INFO  | evaluate            : Output path: results/
+2026-03-27 08:12:35 | INFO  | evaluate.experiment : Found 96 experiments in the configuration.
+2026-03-27 08:12:35 | INFO  | evaluate.experiment : Filtering experiments by batch prefix: 'imagenet_clean'
+2026-03-27 08:12:35 | INFO  | evaluate.experiment : Loaded 1 experiments from the configuration.
+2026-03-27 08:12:35 | INFO  | evaluate            : Found 1 experiments
+2026-03-27 08:12:35 | INFO  | evaluate.evaluate   : Running experiment 1/1: imagenet
+2026-03-27 08:13:48 | INFO  | evaluate.evaluate   : Experiment imagenet finished. Accuracy: 0.8034, Error: 0.1966
+2026-03-27 08:13:48 | INFO  | __main__            : Task 'evaluate' completed
+2026-03-27 08:15:18 | INFO  | __main__            : Task 'plot' initialization
+2026-03-27 08:15:18 | INFO  | plot                : Starting Plotting Task
+2026-03-27 08:15:18 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-27 08:15:18 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-27 08:15:18 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-27 08:15:18 | INFO  | plots.recipe        : Total of 2 has been registered
+2026-03-27 08:15:18 | INFO  | plot                : Loading plot specs from: plots/convnext_base/imagenet_c_digital_plots.yaml
+2026-03-27 08:15:18 | INFO  | plot                : Orchestrating 9 visualization task(s).
+2026-03-27 08:15:18 | INFO  | plot                : [1/9] Rendering 'convnext_base_imagenet_c_contrast_1'...
+2026-03-27 08:15:18 | INFO  | plots.analyze       : Loading data from results/convnext_base_imagenet.csv
+2026-03-27 08:15:18 | INFO  | plots.analyze       : Loading data from results/convnext_base_imagenet_c_contrast_1.csv
+2026-03-27 08:15:18 | INFO  | plots.analyze       : Plot 'ConvNeXt-Base: Clean vs Contrast (Severity 1)' saved to images/convnext_base/convnext_base_scatter_imagenet_c_contrast_1.png
+2026-03-27 08:15:18 | INFO  | plot                : [2/9] Rendering 'convnext_base_imagenet_c_contrast_3'...
+2026-03-27 08:15:18 | INFO  | plots.analyze       : Loading data from results/convnext_base_imagenet.csv
+2026-03-27 08:15:18 | INFO  | plots.analyze       : Loading data from results/convnext_base_imagenet_c_contrast_3.csv
+2026-03-27 08:15:19 | INFO  | plots.analyze       : Plot 'ConvNeXt-Base: Clean vs Contrast (Severity 3)' saved to images/convnext_base/convnext_base_scatter_imagenet_c_contrast_3.png
+2026-03-27 08:15:19 | INFO  | plot                : [3/9] Rendering 'convnext_base_imagenet_c_contrast_5'...
+2026-03-27 08:15:19 | INFO  | plots.analyze       : Loading data from results/convnext_base_imagenet.csv
+2026-03-27 08:15:19 | INFO  | plots.analyze       : Loading data from results/convnext_base_imagenet_c_contrast_5.csv
+2026-03-27 08:15:19 | INFO  | plots.analyze       : Plot 'ConvNeXt-Base: Clean vs Contrast (Severity 5)' saved to images/convnext_base/convnext_base_scatter_imagenet_c_contrast_5.png
+2026-03-27 08:15:19 | INFO  | plot                : [4/9] Rendering 'convnext_base_imagenet_c_pixelate_1'...
+2026-03-27 08:15:19 | INFO  | plots.analyze       : Loading data from results/convnext_base_imagenet.csv
+2026-03-27 08:15:19 | INFO  | plots.analyze       : Loading data from results/convnext_base_imagenet_c_pixelate_1.csv
+2026-03-27 08:15:19 | INFO  | plots.analyze       : Plot 'ConvNeXt-Base: Clean vs Pixelate (Severity 1)' saved to images/convnext_base/convnext_base_scatter_imagenet_c_pixelate_1.png
+2026-03-27 08:15:19 | INFO  | plot                : [5/9] Rendering 'convnext_base_imagenet_c_pixelate_3'...
+2026-03-27 08:15:19 | INFO  | plots.analyze       : Loading data from results/convnext_base_imagenet.csv
+2026-03-27 08:15:19 | INFO  | plots.analyze       : Loading data from results/convnext_base_imagenet_c_pixelate_3.csv
+2026-03-27 08:15:20 | INFO  | plots.analyze       : Plot 'ConvNeXt-Base: Clean vs Pixelate (Severity 3)' saved to images/convnext_base/convnext_base_scatter_imagenet_c_pixelate_3.png
+2026-03-27 08:15:20 | INFO  | plot                : [6/9] Rendering 'convnext_base_imagenet_c_pixelate_5'...
+2026-03-27 08:15:20 | INFO  | plots.analyze       : Loading data from results/convnext_base_imagenet.csv
+2026-03-27 08:15:20 | INFO  | plots.analyze       : Loading data from results/convnext_base_imagenet_c_pixelate_5.csv
+2026-03-27 08:15:20 | INFO  | plots.analyze       : Plot 'ConvNeXt-Base: Clean vs Pixelate (Severity 5)' saved to images/convnext_base/convnext_base_scatter_imagenet_c_pixelate_5.png
+2026-03-27 08:15:20 | INFO  | plot                : [7/9] Rendering 'convnext_base_imagenet_c_jpeg_compression_1'...
+2026-03-27 08:15:20 | INFO  | plots.analyze       : Loading data from results/convnext_base_imagenet.csv
+2026-03-27 08:15:20 | INFO  | plots.analyze       : Loading data from results/convnext_base_imagenet_c_jpeg_compression_1.csv
+2026-03-27 08:15:20 | INFO  | plots.analyze       : Plot 'ConvNeXt-Base: Clean vs JPEG Compression (Severity 1)' saved to images/convnext_base/convnext_base_scatter_imagenet_c_jpeg_compression_1.png
+2026-03-27 08:15:20 | INFO  | plot                : [8/9] Rendering 'convnext_base_imagenet_c_jpeg_compression_3'...
+2026-03-27 08:15:20 | INFO  | plots.analyze       : Loading data from results/convnext_base_imagenet.csv
+2026-03-27 08:15:20 | INFO  | plots.analyze       : Loading data from results/convnext_base_imagenet_c_jpeg_compression_3.csv
+2026-03-27 08:15:20 | INFO  | plots.analyze       : Plot 'ConvNeXt-Base: Clean vs JPEG Compression (Severity 3)' saved to images/convnext_base/convnext_base_scatter_imagenet_c_jpeg_compression_3.png
+2026-03-27 08:15:20 | INFO  | plot                : [9/9] Rendering 'convnext_base_imagenet_c_jpeg_compression_5'...
+2026-03-27 08:15:20 | INFO  | plots.analyze       : Loading data from results/convnext_base_imagenet.csv
+2026-03-27 08:15:20 | INFO  | plots.analyze       : Loading data from results/convnext_base_imagenet_c_jpeg_compression_5.csv
+2026-03-27 08:15:21 | INFO  | plots.analyze       : Plot 'ConvNeXt-Base: Clean vs JPEG Compression (Severity 5)' saved to images/convnext_base/convnext_base_scatter_imagenet_c_jpeg_compression_5.png
+2026-03-27 08:15:21 | INFO  | __main__            : Task 'plot' completed
