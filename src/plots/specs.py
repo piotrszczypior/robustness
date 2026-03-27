@@ -40,10 +40,10 @@ class ChartConfig:
     name: str
     type: str
     title: str
-    aux_line: Optional[str] = field(default=None)
     x: Optional[Axis]
     y: Optional[Axis]
     output: str
+    aux_line: Optional[str] = field(default=None)
 
 
 class _PlotSpecsFactory:
@@ -63,11 +63,12 @@ class _PlotSpecsFactory:
             type = plot.get("type")
             title = plot.get("title")
             output = plot.get("output")
+            aux_line = plot.get("aux_line")
 
             x = _PlotSpecsFactory._resolve_axis(plot.get("x"))
             y = _PlotSpecsFactory._resolve_axis(plot.get("y"))
 
-            yield ChartConfig(name, type, title, x, y, output)
+            yield ChartConfig(name, type, title, x, y, output, aux_line)
 
     @staticmethod
     def _resolve_axis(axis: Dict[str, Any]) -> Optional[Axis]:

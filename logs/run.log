@@ -1843,3 +1843,90 @@ Name: is_correct, dtype: float64
 2026-03-27 08:42:56 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
 2026-03-27 08:42:56 | INFO  | plots.analyze       : Plot 'ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1)' saved to images/resnet152_accuracy_vs_2_difference_defocus_blur_1.png
 2026-03-27 08:42:56 | INFO  | __main__            : Task 'plot' completed
+2026-03-27 09:15:44 | INFO  | __main__            : Task 'plot' initialization
+2026-03-27 09:15:44 | INFO  | plot                : Starting Plotting Task
+2026-03-27 09:15:44 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-27 09:15:44 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-27 09:15:44 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-27 09:15:44 | INFO  | plots.recipe        : Total of 2 has been registered
+2026-03-27 09:15:44 | INFO  | plot                : Loading plot specs from: plots/resnet152/acc_to_diff/imagenet_c_blur_plots.yaml
+2026-03-27 09:15:44 | INFO  | plot                : Orchestrating 3 visualization task(s).
+2026-03-27 09:15:44 | INFO  | plot                : [1/3] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_1'...
+2026-03-27 09:15:44 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 09:15:44 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-27 09:15:45 | INFO  | plots.analyze       : Plot 'ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1)' saved to images/resnet152/acc_to_diff/resnet152_accuracy_vs_difference_defocus_blur_1.png
+2026-03-27 09:15:45 | INFO  | plot                : [2/3] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_3'...
+2026-03-27 09:15:45 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 09:15:45 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-27 09:15:45 | INFO  | plots.analyze       : Plot 'ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 3)' saved to images/resnet152_accuracy_vs_difference_defocus_blur_3.png
+2026-03-27 09:15:45 | INFO  | plot                : [3/3] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_5'...
+2026-03-27 09:15:45 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 09:15:45 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-27 09:15:45 | INFO  | plots.analyze       : Plot 'ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 5)' saved to images/resnet152_accuracy_vs_difference_defocus_blur_5.png
+2026-03-27 09:15:45 | INFO  | __main__            : Task 'plot' completed
+2026-03-27 09:16:41 | INFO  | __main__            : Task 'plot' initialization
+2026-03-27 09:16:41 | INFO  | plot                : Starting Plotting Task
+2026-03-27 09:16:41 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-27 09:16:41 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-27 09:16:41 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-27 09:16:41 | INFO  | plots.recipe        : Total of 2 has been registered
+2026-03-27 09:16:41 | INFO  | plot                : Loading plot specs from: plots/resnet152/acc_to_diff/imagenet_c_blur_plots.yaml
+2026-03-27 09:16:41 | INFO  | plot                : Orchestrating 3 visualization task(s).
+2026-03-27 09:16:41 | INFO  | plot                : [1/3] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_1'...
+2026-03-27 09:16:41 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 09:16:41 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-27 09:16:42 | INFO  | plots.analyze       : Plot 'ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1)' saved to images/resnet152/acc_to_diff/resnet152_accuracy_vs_difference_defocus_blur_1.png
+2026-03-27 09:16:42 | INFO  | plot                : [2/3] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_3'...
+2026-03-27 09:16:42 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 09:16:42 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_3.csv
+2026-03-27 09:16:42 | INFO  | plots.analyze       : Plot 'ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 3)' saved to images/acc_to_diff/resnet152_accuracy_vs_difference_defocus_blur_3.png
+2026-03-27 09:16:42 | INFO  | plot                : [3/3] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_5'...
+2026-03-27 09:16:42 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 09:16:42 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_5.csv
+2026-03-27 09:16:42 | INFO  | plots.analyze       : Plot 'ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 5)' saved to images/acc_to_diff/resnet152_accuracy_vs_difference_defocus_blur_5.png
+2026-03-27 09:16:42 | INFO  | __main__            : Task 'plot' completed
+2026-03-27 09:23:51 | INFO  | __main__            : Task 'plot' initialization
+2026-03-27 09:23:51 | INFO  | plot                : Starting Plotting Task
+2026-03-27 09:23:51 | INFO  | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-27 09:23:51 | INFO  | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-27 09:23:51 | INFO  | plots.recipe        : - Registering recipe 1: confidence
+2026-03-27 09:23:51 | INFO  | plots.recipe        : Total of 2 has been registered
+2026-03-27 09:23:51 | INFO  | plot                : Loading plot specs from: plots/resnet152/acc_to_diff/imagenet_c_digital_plots.yaml
+2026-03-27 09:23:51 | INFO  | plot                : Orchestrating 9 visualization task(s).
+2026-03-27 09:23:51 | INFO  | plot                : [1/9] Rendering 'resnet152_imagenet_c_contrast_1'...
+2026-03-27 09:23:51 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 09:23:51 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_contrast_1.csv
+2026-03-27 09:23:52 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Accuracy Drop (Contrast 1)' saved to images/resnet152/acc_to_diff/resnet152_accuracy_vs_difference_contrast_1.png
+2026-03-27 09:23:52 | INFO  | plot                : [2/9] Rendering 'resnet152_imagenet_c_contrast_3'...
+2026-03-27 09:23:52 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 09:23:52 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_contrast_3.csv
+2026-03-27 09:23:52 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Accuracy Drop (Contrast 3)' saved to images/resnet152/acc_to_diff/resnet152_accuracy_vs_difference_contrast_3.png
+2026-03-27 09:23:52 | INFO  | plot                : [3/9] Rendering 'resnet152_imagenet_c_contrast_5'...
+2026-03-27 09:23:52 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 09:23:52 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_contrast_5.csv
+2026-03-27 09:23:52 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Accuracy Drop (Contrast 5)' saved to images/resnet152/acc_to_diff/resnet152_accuracy_vs_difference_contrast_5.png
+2026-03-27 09:23:52 | INFO  | plot                : [4/9] Rendering 'resnet152_imagenet_c_pixelate_1'...
+2026-03-27 09:23:52 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 09:23:52 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_pixelate_1.csv
+2026-03-27 09:23:52 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Accuracy Drop (Pixelate 1)' saved to images/resnet152/acc_to_diff/resnet152_accuracy_vs_difference_pixelate_1.png
+2026-03-27 09:23:52 | INFO  | plot                : [5/9] Rendering 'resnet152_imagenet_c_pixelate_3'...
+2026-03-27 09:23:52 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 09:23:52 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_pixelate_3.csv
+2026-03-27 09:23:53 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Accuracy Drop (Pixelate 3)' saved to images/resnet152/acc_to_diff/resnet152_accuracy_vs_difference_pixelate_3.png
+2026-03-27 09:23:53 | INFO  | plot                : [6/9] Rendering 'resnet152_imagenet_c_pixelate_5'...
+2026-03-27 09:23:53 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 09:23:53 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_pixelate_5.csv
+2026-03-27 09:23:53 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Accuracy Drop (Pixelate 5)' saved to images/resnet152/acc_to_diff/resnet152_accuracy_vs_difference_pixelate_5.png
+2026-03-27 09:23:53 | INFO  | plot                : [7/9] Rendering 'resnet152_imagenet_c_jpeg_compression_1'...
+2026-03-27 09:23:53 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 09:23:53 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_jpeg_compression_1.csv
+2026-03-27 09:23:53 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Accuracy Drop (JPEG Compression 1)' saved to images/resnet152/acc_to_diff/resnet152_accuracy_vs_difference_jpeg_compression_1.png
+2026-03-27 09:23:53 | INFO  | plot                : [8/9] Rendering 'resnet152_imagenet_c_jpeg_compression_3'...
+2026-03-27 09:23:53 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 09:23:53 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_jpeg_compression_3.csv
+2026-03-27 09:23:54 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Accuracy Drop (JPEG Compression 3)' saved to images/resnet152/acc_to_diff/resnet152_accuracy_vs_difference_jpeg_compression_3.png
+2026-03-27 09:23:54 | INFO  | plot                : [9/9] Rendering 'resnet152_imagenet_c_jpeg_compression_5'...
+2026-03-27 09:23:54 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-27 09:23:54 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_jpeg_compression_5.csv
+2026-03-27 09:23:54 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Accuracy Drop (JPEG Compression 5)' saved to images/resnet152/acc_to_diff/resnet152_accuracy_vs_difference_jpeg_compression_5.png
+2026-03-27 09:23:54 | INFO  | __main__            : Task 'plot' completed

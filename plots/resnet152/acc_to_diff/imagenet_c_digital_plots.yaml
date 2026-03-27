@@ -1,0 +1,153 @@
+plots:
+  ###############
+  # Digital - Contrast 
+  ############### 
+  - name: resnet152_imagenet_c_contrast_1
+    title: "ResNet-152: Clean vs Accuracy Drop (Contrast 1)"
+    type: scatter
+    aux_line: "y=0"
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy (Contrast 1)"
+      data: "resnet152_imagenet_c_contrast_1.csv"
+      recipe: accuracy
+      operation: diff
+      lim: [-1, 1]
+    output: "images/resnet152/acc_to_diff/resnet152_accuracy_vs_difference_contrast_1.png"
+
+  - name: resnet152_imagenet_c_contrast_3
+    title: "ResNet-152: Clean vs Accuracy Drop (Contrast 3)"
+    type: scatter
+    aux_line: "y=0"
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy (Contrast 3)"
+      data: "resnet152_imagenet_c_contrast_3.csv"
+      recipe: accuracy
+      operation: diff
+      lim: [-1, 1]
+    output: "images/resnet152/acc_to_diff/resnet152_accuracy_vs_difference_contrast_3.png"
+
+  - name: resnet152_imagenet_c_contrast_5
+    title: "ResNet-152: Clean vs Accuracy Drop (Contrast 5)"
+    type: scatter
+    aux_line: "y=0"
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy (Contrast 5)"
+      data: "resnet152_imagenet_c_contrast_5.csv"
+      recipe: accuracy
+      operation: diff
+      lim: [-1, 1]
+    output: "images/resnet152/acc_to_diff/resnet152_accuracy_vs_difference_contrast_5.png"
+
+  ###############
+  # Digital - pixelate 
+  ############### 
+  - name: resnet152_imagenet_c_pixelate_1
+    title: "ResNet-152: Clean vs Accuracy Drop (Pixelate 1)"
+    type: scatter
+    aux_line: "y=0"
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy (Pixelate 1)"
+      data: "resnet152_imagenet_c_pixelate_1.csv"
+      recipe: accuracy
+      operation: diff
+      lim: [-1, 1]
+    output: "images/resnet152/acc_to_diff/resnet152_accuracy_vs_difference_pixelate_1.png"
+
+  - name: resnet152_imagenet_c_pixelate_3
+    title: "ResNet-152: Clean vs Accuracy Drop (Pixelate 3)"
+    type: scatter
+    aux_line: "y=0"
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy (Pixelate 3)"
+      data: "resnet152_imagenet_c_pixelate_3.csv"
+      recipe: accuracy
+      operation: diff
+      lim: [-1, 1]
+    output: "images/resnet152/acc_to_diff/resnet152_accuracy_vs_difference_pixelate_3.png"
+
+  - name: resnet152_imagenet_c_pixelate_5
+    title: "ResNet-152: Clean vs Accuracy Drop (Pixelate 5)"
+    type: scatter
+    aux_line: "y=0"
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy (Pixelate 5)"
+      data: "resnet152_imagenet_c_pixelate_5.csv"
+      recipe: accuracy
+      operation: diff
+      lim: [-1, 1]
+    output: "images/resnet152/acc_to_diff/resnet152_accuracy_vs_difference_pixelate_5.png"
+
+  ###############
+  # Digital - JPEG Compression 
+  ############### 
+  - name: resnet152_imagenet_c_jpeg_compression_1
+    title: "ResNet-152: Clean vs Accuracy Drop (JPEG Compression 1)"
+    type: scatter
+    aux_line: "y=0"
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy (JPEG Compression 1)"
+      data: "resnet152_imagenet_c_jpeg_compression_1.csv"
+      recipe: accuracy
+      operation: diff
+      lim: [-1, 1]
+    output: "images/resnet152/acc_to_diff/resnet152_accuracy_vs_difference_jpeg_compression_1.png"
+
+  - name: resnet152_imagenet_c_jpeg_compression_3
+    title: "ResNet-152: Clean vs Accuracy Drop (JPEG Compression 3)"
+    type: scatter
+    aux_line: "y=0"
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy (JPEG Compression 3)"
+      data: "resnet152_imagenet_c_jpeg_compression_3.csv"
+      recipe: accuracy
+      operation: diff
+      lim: [-1, 1]      
+    output: "images/resnet152/acc_to_diff/resnet152_accuracy_vs_difference_jpeg_compression_3.png"
+
+  - name: resnet152_imagenet_c_jpeg_compression_5
+    title: "ResNet-152: Clean vs Accuracy Drop (JPEG Compression 5)"
+    type: scatter
+    aux_line: "y=0"
+    x:
+      label: "Accuracy (Clean ImageNet)"
+      data: "resnet152_imagenet.csv"
+      recipe: accuracy
+    y:
+      label: "Accuracy (JPEG Compression 5)"
+      data: "resnet152_imagenet_c_jpeg_compression_5.csv"
+      recipe: accuracy
+      operation: diff
+      lim: [-1, 1]
+    output: "images/resnet152/acc_to_diff/resnet152_accuracy_vs_difference_jpeg_compression_5.png"
