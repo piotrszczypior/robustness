@@ -1930,3 +1930,21 @@ Name: is_correct, dtype: float64
 2026-03-27 09:23:54 | INFO  | plots.analyze       : Loading data from results/resnet152_imagenet_c_jpeg_compression_5.csv
 2026-03-27 09:23:54 | INFO  | plots.analyze       : Plot 'ResNet-152: Clean vs Accuracy Drop (JPEG Compression 5)' saved to images/resnet152/acc_to_diff/resnet152_accuracy_vs_difference_jpeg_compression_5.png
 2026-03-27 09:23:54 | INFO  | __main__            : Task 'plot' completed
+2026-03-29 16:51:05 | INFO    | __main__            : Task 'plot' initialization
+2026-03-29 16:51:05 | INFO    | plot                : Starting Plotting Task
+2026-03-29 16:51:05 | INFO    | plot                : Loading recipes from: plots/recipes.yaml
+2026-03-29 16:51:05 | INFO    | plots.recipe        : - Registering recipe 0: accuracy
+2026-03-29 16:51:05 | INFO    | plots.recipe        : - Registering recipe 1: confidence
+2026-03-29 16:51:05 | INFO    | plots.recipe        : - Registering recipe 2: mean-accuracy
+2026-03-29 16:51:05 | INFO    | plots.recipe        : Total of 3 has been registered
+2026-03-29 16:51:05 | INFO    | plot                : Loading plot specs from: plots/plots.yaml
+2026-03-29 16:51:05 | INFO    | plot                : Orchestrating 2 visualization task(s).
+2026-03-29 16:51:05 | INFO    | plot                : [1/2] Rendering 'resnet152_accuracy_vs_difference_defocus_blur_1'...
+2026-03-29 16:51:05 | INFO    | plots.analyze       : Loading data from results/resnet152_imagenet.csv
+2026-03-29 16:51:05 | INFO    | plots.analyze       : Loading data from results/resnet152_imagenet_c_blur_defocus_blur_1.csv
+2026-03-29 16:51:06 | INFO    | plots.analyze       : Plot 'ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1)' saved to images/test.png
+2026-03-29 16:51:06 | INFO    | plot                : [2/2] Rendering 'sample_values_plot'...
+2026-03-29 16:51:06 | INFO    | matplotlib.category : Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-03-29 16:51:06 | INFO    | matplotlib.category : Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-03-29 16:51:06 | INFO    | plots.analyze       : Plot 'Example with manual values' saved to images/sample_values.png
+2026-03-29 16:51:06 | INFO    | __main__            : Task 'plot' completed

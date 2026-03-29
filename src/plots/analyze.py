@@ -11,7 +11,7 @@ import pandas as pd
 import seaborn as sns
 
 from .recipe import get_recipe
-from .specs import ChartConfig
+from .specs import ChartConfig, Axis
 
 __all__ = ["create_plot"]
 
@@ -44,21 +44,12 @@ class PlotContext:
 class _PlotFactory:
     @staticmethod
     def create(config: ChartConfig, results_dir: Path, debug: bool = False) -> None:
-        x_path = results_dir / config.x.data
-        y_path = results_dir / config.y.data
+        x = _PlotFactory._get_series(results_dir, config.x)
+        y = _PlotFactory._get_series(results_dir, config.y)
 
-        if not _DataLoader.exists(x_path, y_path):
-            logger.warning(f"Skipping plot '{config.name}': Data files missing.")
+        if x.empty or y.empty:
+            logger.warning(f"Skipping plot '{config.name}': Data missing.")
             return
-
-        if config.x.data == config.y.data:
-            x_df = y_df = _DataLoader.load(x_path)
-        else:
-            x_df = _DataLoader.load(x_path)
-            y_df = _DataLoader.load(y_path)
-
-        x = _PlotFactory._apply_recipe(x_df, config.x.recipe)
-        y = _PlotFactory._apply_recipe(y_df, config.y.recipe)
 
         if config.x and config.x.operation == "diff":
             x = y - x
@@ -84,6 +75,31 @@ class _PlotFactory:
         _PlotRenderer.render(config.type, context, debug)
 
     @staticmethod
+    def _get_series(results_dir: Path, axis: Axis) -> pd.Series:
+        if axis.values is not None:
+            return pd.Series(axis.values)
+
+        if axis.data is None:
+            return pd.Series(dtype=float)
+        
+        file_list = [axis.data] if type(axis.data) is str else axis.data
+
+        series_list = []
+        for file_name in file_list:
+            path = results_dir / file_name
+            series_list.append(_PlotFactory._load_file(path, axis.recipe))
+
+        if not series_list:
+            return pd.Series(dtype=float)
+
+        return pd.concat(series_list, ignore_index=True)
+    
+    @staticmethod
+    def _load_file(file_path: str, recipe_name: str) -> pd.Series:
+        df = _DataLoader.load(file_path)
+        return _PlotFactory._apply_recipe(df, recipe_name)
+
+    @staticmethod
     def _apply_recipe(df: pd.DataFrame, recipe_name: str) -> pd.Series:
         recipe = get_recipe(recipe_name)
         return recipe.apply(df)
@@ -94,13 +110,16 @@ class _DataLoader:
     def exists(*paths: Path) -> bool:
         for p in paths:
             if not p.exists():
-                logger.debug(f"File not found: {p}")
+                logger.error(f"File not found: {p}")
                 return False
         return True
 
     @staticmethod
     def load(path: Path) -> pd.DataFrame:
         logger.info(f"Loading data from {path}")
+        if not _DataLoader.exists(path):
+            raise FileNotFoundError(f"File not found: {path}")
+
         return pd.read_csv(path)
 
 
@@ -170,7 +189,7 @@ class _PlotRenderer:
             logger.warning(f"No data points for '{context.title}'.")
             return
 
-        plt.figure(figsize=(20, 20))
+        plt.figure(figsize=(10, 10))
 
         plt.title(context.title)
         plt.xlabel(context.x_label)

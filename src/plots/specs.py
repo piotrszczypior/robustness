@@ -28,8 +28,9 @@ def get_plot_specs(config_path: Union[str, Path]) -> Iterator[ChartConfig]:
 @dataclass(frozen=True)
 class Axis:
     label: str
-    data: str
-    recipe: str
+    data: Optional[Union[str, list[str]]] = field(default=None)
+    recipe: Optional[str] = field(default=None)
+    values: Optional[list[Any]] = field(default=None)
     column: Optional[str] = field(default=None)
     operation: Optional[str] = field(default=None)
     lim: Optional[list[float]] = field(default=None)
@@ -41,7 +42,7 @@ class ChartConfig:
     type: str
     title: str
     x: Optional[Axis]
-    y: Optional[Axis]
+    y: Axis
     output: str
     aux_line: Optional[str] = field(default=None)
 

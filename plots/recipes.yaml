@@ -8,3 +8,8 @@ recipes:
     groupby: synset
     column: confidence
     aggregate: mean
+
+  - name: mean-accuracy
+    groupby: severity
+    column: is_correct
+    aggregate: mean

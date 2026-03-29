@@ -7,10 +7,20 @@ plots:
       data: "resnet152_imagenet.csv"
       recipe: accuracy
     y:
-      label: "Accuracy difference (Clean - Defocus Blur 1)"
+      label: "Accuracy "
       data: "resnet152_imagenet_c_blur_defocus_blur_1.csv"
-      recipe: accuracy
-      operation: diff
-      lim: [-1, 1]
-    output: "images/resnet152_accuracy_vs_2_difference_defocus_blur_1.png"
+      recipe: mean-accuracy
+    output: "images/test.png"
+
+  - name: sample_values_plot
+    title: "Example with manual values"
+    type: bar
+    x:
+      label: "Severity"
+      values: [1, 2, 3, 4, 5]
+    y:
+      label: "Value"
+      values: [0.9, 0.8, 0.7, 0.6, 0.5]
+    output: "images/sample_values.png"
+
 
