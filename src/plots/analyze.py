@@ -37,8 +37,8 @@ class PlotContext:
     y_operation: Optional[str] = None
     x_column: Optional[str] = None
     y_column: Optional[str] = None
-    x_lim: Optional[list[float]] = None
-    y_lim: Optional[list[float]] = None
+    x_lim: list[float] = [0, 1.05]
+    y_lim: list[float] = [0, 1.05]
 
 
 class _PlotFactory:
@@ -81,7 +81,7 @@ class _PlotFactory:
 
         if axis.data is None:
             return pd.Series(dtype=float)
-        
+
         file_list = [axis.data] if type(axis.data) is str else axis.data
 
         series_list = []
@@ -93,10 +93,10 @@ class _PlotFactory:
             return pd.Series(dtype=float)
 
         return pd.concat(series_list, ignore_index=True)
-    
+
     @staticmethod
     def _load_file(file_path: str, recipe_name: str) -> pd.Series:
-        df = _DataLoader.load(file_path)
+        df = _DataLoader.load(Path(file_path))
         return _PlotFactory._apply_recipe(df, recipe_name)
 
     @staticmethod
@@ -181,6 +181,7 @@ class _PlotRenderer:
         plt.close()
         logger.info(f"Plot '{context.title}' saved to {context.output_path}")
 
+    @staticmethod
     def _bar(context: PlotContext) -> None:
         data = pd.concat([context.x, context.y], axis=1, join="inner")
         data.columns = ["x", "y"]

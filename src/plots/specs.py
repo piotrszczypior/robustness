@@ -41,8 +41,9 @@ class ChartConfig:
     name: str
     type: str
     title: str
-    x: Optional[Axis]
-    y: Axis
+    x: Axis
+    y: Optional[Axis] = field(default=None)
+    y_series: Optional[list[Axis]] = field(default=None)
     output: str
     aux_line: Optional[str] = field(default=None)
 
@@ -60,16 +61,24 @@ class _PlotSpecsFactory:
         plots = content.get("plots", [])
 
         for plot in plots:
-            name = plot.get("name")
-            type = plot.get("type")
-            title = plot.get("title")
-            output = plot.get("output")
-            aux_line = plot.get("aux_line")
-
             x = _PlotSpecsFactory._resolve_axis(plot.get("x"))
             y = _PlotSpecsFactory._resolve_axis(plot.get("y"))
+            y_series = (
+                list(map(_PlotSpecsFactory._resolve_axis, plot.get("y_series")))
+                if plot.get("y_series")
+                else None
+            )
 
-            yield ChartConfig(name, type, title, x, y, output, aux_line)
+            yield ChartConfig(
+                name=plot.get("name"),
+                type=plot.get("type"),
+                title=plot.get("title"),
+                x=x,
+                y=y,
+                y_series=y_series,
+                output=plot.get("output"),
+                aux_line=plot.get("aux_line"),
+            )
 
     @staticmethod
     def _resolve_axis(axis: Dict[str, Any]) -> Optional[Axis]:

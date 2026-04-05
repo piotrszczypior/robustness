@@ -1,4 +1,9 @@
 {
     "python.analysis.indexing": true,
-    "python.analysis.autoImportCompletions": true
+    "python.analysis.autoImportCompletions": true,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "always"
+    },
+    "python-envs.pythonProjects": []
 }

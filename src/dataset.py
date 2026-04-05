@@ -98,7 +98,7 @@ class _DatasetFactory:
     @staticmethod
     def create(
         config: DatasetConfig, transform: Optional[transforms.Compose] = None
-    ) -> Dataset:
+    ) -> ImageFolderWithMetadata:
         path = config.get_data_path()
         if not path.exists():
             raise FileNotFoundError(f"Dataset path does not exist: {path}")
