@@ -4,7 +4,6 @@ import argparse
 import logging
 
 from task import Task
-from .recipe import register_recipes
 from .specs import get_plot_specs
 from .analyze import create_plot
 
@@ -23,7 +22,6 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     # fmt: off
     parser = subparsers.add_parser("plot", help="Generate analysis plots from results")
     parser.add_argument("--plots", default="plots/plots.yaml", type=str, help="Plots configuration file")
-    parser.add_argument("--recipes", default="plots/recipes.yaml", type=str, help="Recipes configuration file")
     parser.add_argument("--data", default="results/", type=str, help="Data directory with csv files")
     parser.add_argument("--sync-drive", action="store_true", help="Sync results to Google Drive")
     parser.add_argument("--debug", action="store_true", help="Skip plot generation")
@@ -35,9 +33,6 @@ def run(args: argparse.Namespace):
         logging.getLogger().setLevel(logging.DEBUG)
 
     logger.info("Starting Plotting Task")
-
-    logger.info(f"Loading recipes from: {args.recipes}")
-    register_recipes(args.recipes)
 
     logger.info(f"Loading plot specs from: {args.plots}")
     plots = list(get_plot_specs(args.plots))

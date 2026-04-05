@@ -1,19 +1,20 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 import logging
 from pathlib import Path
-from typing import Any, Dict, Iterator, Optional, Union
+from typing import Any, Dict, Iterator, Union
 
 import yaml
+from munch import DefaultMunch
 
+__all__ = ["get_plot_specs", "ChartConfig"]
 
-__all__ = ["get_plot_specs", "Axis", "ChartConfig"]
 
 logger = logging.getLogger(__name__)
 
 
-def get_plot_specs(config_path: Union[str, Path]) -> Iterator[ChartConfig]:
+def get_plot_specs(config_path: Union[str, Path]) -> Iterator[Any]:
     plot_specs_path = Path(config_path)
 
     if not plot_specs_path.exists():
@@ -26,25 +27,14 @@ def get_plot_specs(config_path: Union[str, Path]) -> Iterator[ChartConfig]:
 
 
 @dataclass(frozen=True)
-class Axis:
-    label: str
-    data: Optional[Union[str, list[str]]] = field(default=None)
-    recipe: Optional[str] = field(default=None)
-    values: Optional[list[Any]] = field(default=None)
-    column: Optional[str] = field(default=None)
-    operation: Optional[str] = field(default=None)
-    lim: Optional[list[float]] = field(default=None)
-
-
-@dataclass(frozen=True)
 class ChartConfig:
     name: str
-    type: str
     title: str
-    x: Optional[Axis]
-    y: Axis
+    x_label: str
+    y_label: str
+    type: str
     output: str
-    aux_line: Optional[str] = field(default=None)
+    content: Any
 
 
 class _PlotSpecsFactory:
@@ -60,19 +50,14 @@ class _PlotSpecsFactory:
         plots = content.get("plots", [])
 
         for plot in plots:
-            name = plot.get("name")
-            type = plot.get("type")
-            title = plot.get("title")
-            output = plot.get("output")
-            aux_line = plot.get("aux_line")
+            content = plot.get("content", {})
 
-            x = _PlotSpecsFactory._resolve_axis(plot.get("x"))
-            y = _PlotSpecsFactory._resolve_axis(plot.get("y"))
-
-            yield ChartConfig(name, type, title, x, y, output, aux_line)
-
-    @staticmethod
-    def _resolve_axis(axis: Dict[str, Any]) -> Optional[Axis]:
-        if not axis:
-            return None
-        return Axis(**axis)
+            yield ChartConfig(
+                name=plot.get("name"),
+                title=plot.get("title"),
+                type=plot.get("type"),
+                x_label=plot.get("x_label"),
+                y_label=plot.get("y_label"),
+                output=plot.get("output"),
+                content=DefaultMunch.fromDict(content),
+            )

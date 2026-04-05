@@ -11,12 +11,14 @@ from task import Task
 import setup
 import evaluate
 import plots
+import analyze
 
 
 TASK_REGISTRY: Dict[str, Task] = {
     "setup": setup.get_task(),
     "evaluate": evaluate.get_task(),
     "plot": plots.get_task(),
+    "analyze": analyze.get_task(),
 }
 
 
