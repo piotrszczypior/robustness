@@ -1,26 +1,44 @@
 plots:
   - name: resnet152_accuracy_vs_difference_defocus_blur_1
-    title: "ResNet-152: Accuracy vs. Accuracy Drop (Defocus Blur 1)"
-    type: scatter
-    x:
-      label: "Accuracy (Clean ImageNet)"
-      data: "resnet152_imagenet.csv"
-      recipe: accuracy
-    y:
-      label: "Accuracy "
-      data: "resnet152_imagenet_c_blur_defocus_blur_1.csv"
-      recipe: mean-accuracy
-    output: "images/test.png"
-
-  - name: sample_values_plot
-    title: "Example with manual values"
-    type: bar
-    x:
-      label: "Severity"
-      values: [1, 2, 3, 4, 5]
-    y:
-      label: "Value"
-      values: [0.9, 0.8, 0.7, 0.6, 0.5]
-    output: "images/sample_values.png"
+    title: "ResNet-152: Accuracy vs. Accuracy (Defocus Blur 1)"
+    type: accuracy_to_accuracy
+    x_label: "Accuracy (Clean ImageNet)"
+    y_label: "Accuracy Defocus Blur 1"
+    content:
+      x: "resnet152_imagenet.csv"
+      y: "resnet152_imagenet_c_blur_defocus_blur_1.csv"
+    output: "images/test_acc_1.png"
 
 
+  - name: resnet152_accuracy_vs_difference_defocus_blur_1
+    title: "ResNet-152: Accuracy vs. Accuracy (Defocus Blur 1)"
+    type: accuracy_to_drop
+    x_label: "Accuracy (Clean ImageNet)"
+    y_label: "Accuracy Defocus Blur 1"
+    content:
+      x: "resnet152_imagenet.csv"
+      y: "resnet152_imagenet_c_blur_defocus_blur_1.csv"
+    output: "images/test_acc_diff-1.png"
+
+
+  - name: "resnet152"
+    type: sorted_index
+    title: "ResNet-152: Defocus-Blur ImageNet-C Accuracy"
+    x_label: "Sorted descending class index on ImageNet-1K val"
+    y_label: "Accuracy"
+    content:
+      basefile:
+        label: "Clean"
+        file: "resnet152_imagenet.csv"
+      series:
+        - label: "Defocus Blur Sev 1"
+          file: "resnet152_imagenet_c_blur_defocus_blur_1.csv"
+        - label: "Defocus Blur Sev 2"
+          file: "resnet152_imagenet_c_blur_defocus_blur_2.csv"
+        - label: "Defocus Blur Sev 3"
+          file: "resnet152_imagenet_c_blur_defocus_blur_3.csv"
+        - label: "Defocus Blur Sev 4"
+          file: "resnet152_imagenet_c_blur_defocus_blur_4.csv"
+        - label: "Defocus Blur Sev 5"
+          file: "resnet152_imagenet_c_blur_defocus_blur_5.csv" 
+    output: "images/sorted_index-1.png"

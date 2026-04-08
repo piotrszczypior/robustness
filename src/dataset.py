@@ -9,7 +9,6 @@ from typing import Optional, Dict, Any, Tuple
 import torch
 import torchvision.datasets as datasets
 from torchvision import transforms
-from torch.utils.data import Dataset
 
 from config import Config
 
@@ -98,7 +97,7 @@ class _DatasetFactory:
     @staticmethod
     def create(
         config: DatasetConfig, transform: Optional[transforms.Compose] = None
-    ) -> Dataset:
+    ) -> ImageFolderWithMetadata:
         path = config.get_data_path()
         if not path.exists():
             raise FileNotFoundError(f"Dataset path does not exist: {path}")

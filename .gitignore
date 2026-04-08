@@ -6,3 +6,5 @@ data
 
 *.tar
 *.zip
+
+*.log
