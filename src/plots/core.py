@@ -10,6 +10,9 @@ from .plot import (
     AccuracyToAccuracy,
     AccuracyToAccuracyDrop,
     ClassDegradation,
+    CompareFragileClasses,
+    CompareFragileClasses2Pages,
+    CompareFragileClassesFreq,
 )
 
 __all__ = ["create_plot"]
@@ -21,6 +24,8 @@ RENDERERS_PIPELINES: dict[str, BasePlotPipeline] = {
     "accuracy_to_accuracy": AccuracyToAccuracy,
     "accuracy_to_drop": AccuracyToAccuracyDrop,
     "sorted_index": ClassDegradation,
+    "fragile_class": CompareFragileClasses,
+    "fragile_class_freq": CompareFragileClassesFreq
 }
 
 

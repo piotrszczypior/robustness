@@ -97,7 +97,7 @@ class _ExperimentFactory:
         for corruption, severity in itertools.product(corruptions, severities):
             yield Experiment(
                 name=f"{dataset_type.value}_{corruption}_{severity}",
-                filename_suffix=f"{dataset_type.value}_{corruption}_{severity}",
+                filename_suffix=f"{batch_name}_{corruption}_{severity}",
                 batch_name=batch_name,
                 dataset_config=DatasetConfig(
                     type=dataset_type,

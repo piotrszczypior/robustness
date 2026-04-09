@@ -1,44 +1,94 @@
 plots:
-  - name: resnet152_accuracy_vs_difference_defocus_blur_1
-    title: "ResNet-152: Accuracy vs. Accuracy (Defocus Blur 1)"
-    type: accuracy_to_accuracy
-    x_label: "Accuracy (Clean ImageNet)"
-    y_label: "Accuracy Defocus Blur 1"
+  # - name: resnet152_accuracy_vs_difference_defocus_blur_1
+  #   title: "ResNet-152: Accuracy vs. Accuracy (Defocus Blur 1)"
+  #   type: accuracy_to_accuracy
+  #   x_label: "Accuracy (Clean ImageNet)"
+  #   y_label: "Accuracy Defocus Blur 1"
+  #   content:
+  #     x: "resnet152_imagenet.csv"
+  #     y: "resnet152_imagenet_c_blur_defocus_blur_1.csv"
+  #   output: "images/test_acc_1.png"
+
+
+  # - name: resnet152_accuracy_vs_difference_defocus_blur_1
+  #   title: "ResNet-152: Accuracy vs. Accuracy (Defocus Blur 1)"
+  #   type: accuracy_to_drop
+  #   x_label: "Accuracy (Clean ImageNet)"
+  #   y_label: "Accuracy Defocus Blur 1"
+  #   content:
+  #     x: "resnet152_imagenet.csv"
+  #     y: "resnet152_imagenet_c_blur_defocus_blur_1.csv"
+  #   output: "images/test_acc_diff-1.png"
+
+
+  # - name: "resnet152"
+  #   type: sorted_index
+  #   title: "ResNet-152: Defocus-Blur ImageNet-C Accuracy"
+  #   x_label: "Sorted descending class index on ImageNet-1K val"
+  #   y_label: "Accuracy"
+  #   content:
+  #     basefile:
+  #       label: "Clean"
+  #       file: "resnet152_imagenet.csv"
+  #     series:
+  #       - label: "Defocus Blur Sev 1"
+  #         file: "resnet152_imagenet_c_blur_defocus_blur_1.csv"
+  #       - label: "Defocus Blur Sev 2"
+  #         file: "resnet152_imagenet_c_blur_defocus_blur_2.csv"
+  #       - label: "Defocus Blur Sev 3"
+  #         file: "resnet152_imagenet_c_blur_defocus_blur_3.csv"
+  #       - label: "Defocus Blur Sev 4"
+  #         file: "resnet152_imagenet_c_blur_defocus_blur_4.csv"
+  #       - label: "Defocus Blur Sev 5"
+  #         file: "resnet152_imagenet_c_blur_defocus_blur_5.csv" 
+  #   output: "images/sorted_index-1.png"
+
+
+  - name: "conv_resnet152"
+    type: "fragile_class"
+    title: "Comparison of Fragile Classes: ConvNeXt-Base vs ResNet152"
+    x_label: ""
+    y_label: "Class Index"
+    output: "results/comparison_heatmap.pdf"
     content:
-      x: "resnet152_imagenet.csv"
-      y: "resnet152_imagenet_c_blur_defocus_blur_1.csv"
-    output: "images/test_acc_1.png"
-
-
-  - name: resnet152_accuracy_vs_difference_defocus_blur_1
-    title: "ResNet-152: Accuracy vs. Accuracy (Defocus Blur 1)"
-    type: accuracy_to_drop
-    x_label: "Accuracy (Clean ImageNet)"
-    y_label: "Accuracy Defocus Blur 1"
+      models:
+        - name: "ConvNeXt-Base"
+          data: "convnext_base_blur_defocus_blur_1/convnext_base_blur_defocus_blur_1_clases.json"
+        - name: "ResNet-152"
+          data: "resnet152_blur_defocus_blur_1/resnet152_blur_defocus_blur_1_clases.json"
+    output: "images/fragile_classes1.png"
+    
+  - name: "conv_resnet152"
+    type: "fragile_class2"
+    title: "Comparison of Fragile Classes: ConvNeXt-Base vs ResNet152"
+    x_label: ""
+    y_label: "Class Index"
+    output: "results/comparison_heatmap.pdf"
     content:
-      x: "resnet152_imagenet.csv"
-      y: "resnet152_imagenet_c_blur_defocus_blur_1.csv"
-    output: "images/test_acc_diff-1.png"
+      models:
+        - name: "ResNet-152"
+          data: "resnet152_blur_defocus_blur_1/resnet152_blur_defocus_blur_1_clases.json"
+        - name: "ConvNeXt-Base"
+          data: "convnext_base_blur_defocus_blur_1/convnext_base_blur_defocus_blur_1_clases.json"
+        - name: "ViT-b-16"
+          data: "vit_b_16_blur_defocus_blur_1/vit_b_16_blur_defocus_blur_1_clases.json"
+   
+    output: "images/fragile_classes3.png"
 
-
-  - name: "resnet152"
-    type: sorted_index
-    title: "ResNet-152: Defocus-Blur ImageNet-C Accuracy"
-    x_label: "Sorted descending class index on ImageNet-1K val"
-    y_label: "Accuracy"
+  - name: "conv_resnet152"
+    type: "fragile_class_freq"
+    title: "Comparison of Fragile Classes: ConvNeXt-Base vs ResNet152"
+    x_label: ""
+    y_label: "Class Index"
+    output: "results/comparison_heatmap.pdf"
     content:
-      basefile:
-        label: "Clean"
-        file: "resnet152_imagenet.csv"
-      series:
-        - label: "Defocus Blur Sev 1"
-          file: "resnet152_imagenet_c_blur_defocus_blur_1.csv"
-        - label: "Defocus Blur Sev 2"
-          file: "resnet152_imagenet_c_blur_defocus_blur_2.csv"
-        - label: "Defocus Blur Sev 3"
-          file: "resnet152_imagenet_c_blur_defocus_blur_3.csv"
-        - label: "Defocus Blur Sev 4"
-          file: "resnet152_imagenet_c_blur_defocus_blur_4.csv"
-        - label: "Defocus Blur Sev 5"
-          file: "resnet152_imagenet_c_blur_defocus_blur_5.csv" 
-    output: "images/sorted_index-1.png"
+      models:
+        - name: "ResNet-152"
+          data: "resnet152_blur_defocus_blur_1/resnet152_blur_defocus_blur_1_clases.json"
+        - name: "ConvNeXt-Base"
+          data: "convnext_base_blur_defocus_blur_1/convnext_base_blur_defocus_blur_1_clases.json"
+        - name: "ViT-b-16"
+          data: "vit_b_16_blur_defocus_blur_1/vit_b_16_blur_defocus_blur_1_clases.json"
+   
+    output: "images/fragile_classes4.png"
+    

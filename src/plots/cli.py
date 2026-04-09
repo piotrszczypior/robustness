@@ -5,7 +5,7 @@ import logging
 
 from task import Task
 from .specs import get_plot_specs
-from .analyze import create_plot
+from .core import create_plot
 
 __all__ = ["get_task", "register", "run"]
 
@@ -38,7 +38,7 @@ def run(args: argparse.Namespace):
     plots = list(get_plot_specs(args.plots))
     total_plots = len(plots)
 
-    if len(plots) == 0:
+    if total_plots == 0:
         logger.warning("Execution halted: No valid plot configurations found.")
         return
 
