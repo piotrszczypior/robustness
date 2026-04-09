@@ -86,8 +86,8 @@ def run_evaluation(args: argparse.Namespace, model, experiments: list[Experiment
         dataset = get_dataset(config=dataset_config)
         data_loader = DataLoader(
             dataset=dataset,
-            batch_size=Config.BATCH_SIZE,
-            num_workers=Config.NUM_WORKERS,
+            batch_size=args.batch_size or Config.BATCH_SIZE,
+            num_workers=args.num_workers or Config.NUM_WORKERS,
         )
 
         results, run_accuracy, run_error = evaluate_per_file(
