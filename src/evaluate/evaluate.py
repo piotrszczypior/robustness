@@ -86,8 +86,8 @@ def run_evaluation(args: argparse.Namespace, model, experiments: list[Experiment
         dataset = get_dataset(config=dataset_config)
         data_loader = DataLoader(
             dataset=dataset,
-            batch_size=args.batch_size or Config.BATCH_SIZE,
-            num_workers=args.num_workers or Config.NUM_WORKERS,
+            num_workers=int(args.num_workers or Config.NUM_WORKERS),
+            batch_size=int(args.batch_size or Config.BATCH_SIZE),
         )
 
         results, run_accuracy, run_error = evaluate_per_file(
@@ -102,7 +102,7 @@ def run_evaluation(args: argparse.Namespace, model, experiments: list[Experiment
 
         exporter.export(
             data_df=results.to_dataframe(),
-            filename=f"{args.model}_{experiment.name}.csv",
+            filename=f"{args.model}_{experiment.filename_suffix}.csv",
         )
 
 

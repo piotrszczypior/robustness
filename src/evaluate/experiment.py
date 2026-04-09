@@ -42,6 +42,7 @@ def read_experiments(args: argparse.Namespace) -> list[Experiment]:
 @dataclass(frozen=True)
 class Experiment:
     name: str
+    filename_suffix: str
     batch_name: str
     dataset_config: DatasetConfig
 
@@ -96,6 +97,7 @@ class _ExperimentFactory:
         for corruption, severity in itertools.product(corruptions, severities):
             yield Experiment(
                 name=f"{dataset_type.value}_{corruption}_{severity}",
+                filename_suffix=f"{dataset_type.value}_{corruption}_{severity}",
                 batch_name=batch_name,
                 dataset_config=DatasetConfig(
                     type=dataset_type,
@@ -113,6 +115,7 @@ class _ExperimentFactory:
         for perturbation in perturbations:
             yield Experiment(
                 name=f"{dataset_type.value}_{perturbation}",
+                filename_suffix=f"{dataset_type.value}_{perturbation}",
                 batch_name=batch_name,
                 dataset_config=DatasetConfig(
                     type=dataset_type, perturbation=perturbation
@@ -123,6 +126,7 @@ class _ExperimentFactory:
     def _parse_default(batch_name: str, dataset_type: DatasetType) -> Experiment:
         return Experiment(
             name=dataset_type.value,
+            filename_suffix=dataset_type.value,
             batch_name=batch_name,
             dataset_config=DatasetConfig(type=dataset_type),
         )
