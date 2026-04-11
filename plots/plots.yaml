@@ -43,6 +43,34 @@ plots:
   #         file: "resnet152_imagenet_c_blur_defocus_blur_5.csv" 
   #   output: "images/sorted_index-1.png"
 
+  - name: "resnet152"
+    type: sorted_index
+    title: "ResNet-152: Defocus-Blur ImageNet-C Accuracy"
+    x_label: "Sorted descending class index on ImageNet-1K val"
+    y_label: "Accuracy"
+    content:
+      baseline:
+        label: "Clean"
+        data: "resnet152_imagenet.csv"
+      degraded:
+        label: "Defocus Blur Sev 1"
+        data: "resnet152_imagenet_c_blur_defocus_blur_1.csv"
+    output: "images/sorted_index-2.png"
+
+  - name: "resnet152"
+    type: sorted_index
+    title: "ResNet-152: Zoom-Blur ImageNet-C Accuracy"
+    x_label: "Sorted descending class index on ImageNet-1K val"
+    y_label: "Accuracy"
+    content:
+      baseline:
+        label: "Clean"
+        data: "resnet152_imagenet.csv"
+      degraded:
+        label: "Defocus Blur Sev 1"
+        data: "resnet152_imagenet_c_blur_zoom_blur_1.csv"
+    output: "images/sorted_index-3.png"
+
 
   - name: "conv_resnet152"
     type: "fragile_class"
@@ -51,27 +79,25 @@ plots:
     y_label: "Class Index"
     output: "results/comparison_heatmap.pdf"
     content:
-      models:
-        - name: "ConvNeXt-Base"
-          data: "convnext_base_blur_defocus_blur_1/convnext_base_blur_defocus_blur_1_clases.json"
-        - name: "ResNet-152"
-          data: "resnet152_blur_defocus_blur_1/resnet152_blur_defocus_blur_1_clases.json"
+      - name: "ConvNeXt-Base"
+        data: "convnext_base_blur_defocus_blur_1/convnext_base_blur_defocus_blur_1_clases.json"
+      - name: "ResNet-152"
+        data: "resnet152_blur_defocus_blur_1/resnet152_blur_defocus_blur_1_clases.json"
     output: "images/fragile_classes1.png"
     
   - name: "conv_resnet152"
-    type: "fragile_class2"
+    type: "fragile_class"
     title: "Comparison of Fragile Classes: ConvNeXt-Base vs ResNet152"
     x_label: ""
     y_label: "Class Index"
     output: "results/comparison_heatmap.pdf"
     content:
-      models:
-        - name: "ResNet-152"
-          data: "resnet152_blur_defocus_blur_1/resnet152_blur_defocus_blur_1_clases.json"
-        - name: "ConvNeXt-Base"
-          data: "convnext_base_blur_defocus_blur_1/convnext_base_blur_defocus_blur_1_clases.json"
-        - name: "ViT-b-16"
-          data: "vit_b_16_blur_defocus_blur_1/vit_b_16_blur_defocus_blur_1_clases.json"
+      - name: "ResNet-152"
+        data: "resnet152_blur_defocus_blur_1/resnet152_blur_defocus_blur_1_clases.json"
+      - name: "ConvNeXt-Base"
+        data: "convnext_base_blur_defocus_blur_1/convnext_base_blur_defocus_blur_1_clases.json"
+      - name: "ViT-b-16"
+        data: "vit_b_16_blur_defocus_blur_1/vit_b_16_blur_defocus_blur_1_clases.json"
    
     output: "images/fragile_classes3.png"
 
@@ -82,13 +108,32 @@ plots:
     y_label: "Class Index"
     output: "results/comparison_heatmap.pdf"
     content:
-      models:
-        - name: "ResNet-152"
-          data: "resnet152_blur_defocus_blur_1/resnet152_blur_defocus_blur_1_clases.json"
-        - name: "ConvNeXt-Base"
-          data: "convnext_base_blur_defocus_blur_1/convnext_base_blur_defocus_blur_1_clases.json"
-        - name: "ViT-b-16"
-          data: "vit_b_16_blur_defocus_blur_1/vit_b_16_blur_defocus_blur_1_clases.json"
-   
+      - name: "ResNet-152"
+        data: "resnet152_blur_defocus_blur_1/resnet152_blur_defocus_blur_1_clases.json"
+      - name: "ConvNeXt-Base"
+        data: "convnext_base_blur_defocus_blur_1/convnext_base_blur_defocus_blur_1_clases.json"
+      - name: "ViT-B/16"
+        data: "vit_b_16_blur_defocus_blur_1/vit_b_16_blur_defocus_blur_1_clases.json"
     output: "images/fragile_classes4.png"
+    
+
+  - name: "conv_resnet152"
+    type: "fragile_class_freq"
+    title: "Comparison of Fragile Classes: ConvNeXt-Base vs ResNet152"
+    x_label: ""
+    y_label: "Class Index"
+    output: "results/comparison_heatmap.pdf"
+    content:
+      - name: "ResNet-152"
+        data: "resnet152_blur_defocus_blur_1_2/resnet152_blur_defocus_blur_1_clases.json"
+      - name: "ResNet-50"
+        data: "resnet50_blur_defocus_blur_1_2/resnet50_blur_defocus_blur_1_clases.json"
+      - name: "EfficientNet-B4"
+        data: "efficientnet_b4_blur_defocus_blur_1_2/efficientnet_b4_blur_defocus_blur_1_clases.json"
+      - name: "ConvNeXt-Base"
+        data: "convnext_base_blur_defocus_blur_1_2/convnext_base_blur_defocus_blur_1_clases.json"
+      - name: "ViT-B/16"
+        data: "vit_b_16_blur_defocus_blur_1_2/vit_b_16_blur_defocus_blur_1_clases.json"
+   
+    output: "images/fragile_classes5.png"
     

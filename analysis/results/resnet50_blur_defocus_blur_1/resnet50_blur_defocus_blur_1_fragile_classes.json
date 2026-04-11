@@ -1,0 +1,155 @@
+{
+    "name": "resnet50_blur_defocus_blur_1",
+    "classes": [
+        {
+            "y_true": 6,
+            "synset": "n01498041",
+            "accuracy_clean": 0.88,
+            "accuracy_degraded": 0.38
+        },
+        {
+            "y_true": 30,
+            "synset": "n01641577",
+            "accuracy_clean": 0.82,
+            "accuracy_degraded": 0.42
+        },
+        {
+            "y_true": 49,
+            "synset": "n01697457",
+            "accuracy_clean": 0.82,
+            "accuracy_degraded": 0.36
+        },
+        {
+            "y_true": 50,
+            "synset": "n01698640",
+            "accuracy_clean": 0.88,
+            "accuracy_degraded": 0.44
+        },
+        {
+            "y_true": 58,
+            "synset": "n01737021",
+            "accuracy_clean": 0.84,
+            "accuracy_degraded": 0.34
+        },
+        {
+            "y_true": 119,
+            "synset": "n01978455",
+            "accuracy_clean": 0.8,
+            "accuracy_degraded": 0.38
+        },
+        {
+            "y_true": 303,
+            "synset": "n02168699",
+            "accuracy_clean": 0.88,
+            "accuracy_degraded": 0.5
+        },
+        {
+            "y_true": 313,
+            "synset": "n02231487",
+            "accuracy_clean": 0.84,
+            "accuracy_degraded": 0.46
+        },
+        {
+            "y_true": 411,
+            "synset": "n02730930",
+            "accuracy_clean": 0.82,
+            "accuracy_degraded": 0.32
+        },
+        {
+            "y_true": 489,
+            "synset": "n03000134",
+            "accuracy_clean": 0.82,
+            "accuracy_degraded": 0.32
+        },
+        {
+            "y_true": 511,
+            "synset": "n03100240",
+            "accuracy_clean": 0.94,
+            "accuracy_degraded": 0.5
+        },
+        {
+            "y_true": 546,
+            "synset": "n03272010",
+            "accuracy_clean": 0.84,
+            "accuracy_degraded": 0.5
+        },
+        {
+            "y_true": 595,
+            "synset": "n03496892",
+            "accuracy_clean": 0.88,
+            "accuracy_degraded": 0.34
+        },
+        {
+            "y_true": 679,
+            "synset": "n03814906",
+            "accuracy_clean": 0.92,
+            "accuracy_degraded": 0.5
+        },
+        {
+            "y_true": 709,
+            "synset": "n03908618",
+            "accuracy_clean": 0.8,
+            "accuracy_degraded": 0.48
+        },
+        {
+            "y_true": 721,
+            "synset": "n03938244",
+            "accuracy_clean": 0.9,
+            "accuracy_degraded": 0.34
+        },
+        {
+            "y_true": 754,
+            "synset": "n04041544",
+            "accuracy_clean": 0.8,
+            "accuracy_degraded": 0.3
+        },
+        {
+            "y_true": 775,
+            "synset": "n04136333",
+            "accuracy_clean": 0.82,
+            "accuracy_degraded": 0.46
+        },
+        {
+            "y_true": 778,
+            "synset": "n04141975",
+            "accuracy_clean": 0.8,
+            "accuracy_degraded": 0.44
+        },
+        {
+            "y_true": 788,
+            "synset": "n04200800",
+            "accuracy_clean": 0.88,
+            "accuracy_degraded": 0.44
+        },
+        {
+            "y_true": 792,
+            "synset": "n04208210",
+            "accuracy_clean": 0.8,
+            "accuracy_degraded": 0.42
+        },
+        {
+            "y_true": 794,
+            "synset": "n04209239",
+            "accuracy_clean": 0.8,
+            "accuracy_degraded": 0.44
+        },
+        {
+            "y_true": 866,
+            "synset": "n04465501",
+            "accuracy_clean": 0.92,
+            "accuracy_degraded": 0.38
+        },
+        {
+            "y_true": 879,
+            "synset": "n04507155",
+            "accuracy_clean": 0.82,
+            "accuracy_degraded": 0.4
+        },
+        {
+            "y_true": 910,
+            "synset": "n04597913",
+            "accuracy_clean": 0.82,
+            "accuracy_degraded": 0.46
+        }
+    ]
+}

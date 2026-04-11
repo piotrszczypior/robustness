@@ -9,7 +9,7 @@ from .specs import ChartConfig
 from .plot import (
     AccuracyToAccuracy,
     AccuracyToAccuracyDrop,
-    ClassDegradation,
+    SortedIndexClassDegradation,
     CompareFragileClasses,
     CompareFragileClassesFreq,
 )
@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 RENDERERS_PIPELINES: dict[str, BasePlotPipeline] = {
     "accuracy_to_accuracy": AccuracyToAccuracy,
     "accuracy_to_drop": AccuracyToAccuracyDrop,
-    "sorted_index": ClassDegradation,
+    "sorted_index": SortedIndexClassDegradation,
     "fragile_class": CompareFragileClasses,
     "fragile_class_freq": CompareFragileClassesFreq,
 }

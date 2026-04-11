@@ -13,6 +13,9 @@ PATTERN=${3:-""}
 if [ "$TARGET" == "results" ]; then
     REMOTE="pwr-remote:robustness/results"
     LOCAL="results/"
+elif [ "$TARGET" == "analysis" ]; then
+    REMOTE="pwr-remote:robustness/analysis"
+    LOCAL="analysis/"
 elif [ "$TARGET" == "images" ]; then
     REMOTE="pwr-remote:robustness/images"
     LOCAL="images/"

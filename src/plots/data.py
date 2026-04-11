@@ -8,7 +8,7 @@ import pandas as pd
 logger = logging.getLogger(__name__)
 
 
-def get_dataframe(data_dir: Path | str, filename: str) -> pd.DataFrame:
+def get_data(data_dir: Path | str, filename: str) -> pd.DataFrame:
     path = Path(data_dir) / filename
     return _DataLoader.load(path)
 

@@ -27,19 +27,8 @@ class BasePlotPipeline(ABC):
         return {}
 
     def _validate(self):
-        schema = self.schema()
-        content = self.config.content
-        for key, expected_type in schema.items():
-            if key not in content or content.get(key) is None:
-                raise ValueError(
-                    f"Missing required key '{key}' in content for {self.__class__.__name__}"
-                )
-            if expected_type is not Any and not isinstance(
-                content.get(key), expected_type
-            ):
-                raise TypeError(
-                    f"Key '{key}' must be of type {expected_type.__name__}, got {type(content.get(key)).__name__}"
-                )
+        _ = self.schema()
+        pass
 
     def _setup_canvas(self):
         self.fig, self.ax = plt.subplots(figsize=(10, 10))

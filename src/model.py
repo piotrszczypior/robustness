@@ -1,12 +1,11 @@
 from __future__ import annotations
 from typing import Callable, Tuple
-import webbrowser
 
 import torchvision.models as models
 import torch.nn as nn
 
 
-__all__ = ["get_model", "get_weights"]
+__all__ = ["get_model"]
 
 
 def get_model(name: str, pretrained: bool = True) -> Tuple[nn.Module, Callable]:

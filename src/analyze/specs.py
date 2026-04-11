@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import logging
 from pathlib import Path
-from typing import Any, Dict, Iterator, Tuple, Union
+from typing import Iterator, Union
 
 import yaml
 
@@ -17,7 +17,7 @@ def get_specs(config_path: Union[str, Path]) -> Iterator[AnalysisConfig]:
     specs_path = Path(config_path)
 
     if not specs_path.exists():
-        logger.error(f"")
+        logger.error("")
         raise FileNotFoundError()
 
     return _SpecsLoader.from_yaml(specs_path)
