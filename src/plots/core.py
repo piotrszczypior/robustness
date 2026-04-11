@@ -11,7 +11,6 @@ from .plot import (
     AccuracyToAccuracyDrop,
     ClassDegradation,
     CompareFragileClasses,
-    CompareFragileClasses2Pages,
     CompareFragileClassesFreq,
 )
 
@@ -25,7 +24,7 @@ RENDERERS_PIPELINES: dict[str, BasePlotPipeline] = {
     "accuracy_to_drop": AccuracyToAccuracyDrop,
     "sorted_index": ClassDegradation,
     "fragile_class": CompareFragileClasses,
-    "fragile_class_freq": CompareFragileClassesFreq
+    "fragile_class_freq": CompareFragileClassesFreq,
 }
 
 

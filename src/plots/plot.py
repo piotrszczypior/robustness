@@ -172,7 +172,7 @@ class CompareFragileClasses(BasePlotPipeline):
 
             for col_idx in range(1, col_num):
                 ax.axvline(col_idx, color="white", linewidth=5)
-            
+
             ax.set_ylabel("Class Index")
             ax.tick_params(axis="both", rotation=0)
 
@@ -248,7 +248,7 @@ class CompareFragileClassesFreq(BasePlotPipeline):
                 yticklabels=True,
                 linewidths=0,
                 vmin=0,
-                vmax=3
+                vmax=3,
             )
 
             indices = part_data.index
@@ -260,7 +260,7 @@ class CompareFragileClassesFreq(BasePlotPipeline):
 
             for col_idx in range(1, col_num):
                 ax.axvline(col_idx, color="white", linewidth=5)
-            
+
             ax.set_ylabel("Class Index")
             ax.tick_params(axis="both", rotation=0)
 

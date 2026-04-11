@@ -74,7 +74,9 @@ def resolve_device():
     return torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-def run_evaluation(args: argparse.Namespace, model, experiments: list[Experiment]):
+def run_evaluation(
+    args: argparse.Namespace, model, experiments: list[Experiment], transforms
+):
     backup_dir = Config.GOOGLE_DRIVE_PATH if args.sync_drive else None
     exporter = MetricsExporter(output_dir=args.output_path, backup_dir=backup_dir)
     device = resolve_device()
@@ -83,7 +85,7 @@ def run_evaluation(args: argparse.Namespace, model, experiments: list[Experiment
     for i, experiment in enumerate(experiments):
         logger.info(f"Running experiment {i + 1}/{len(experiments)}: {experiment.name}")
         dataset_config = experiment.dataset_config
-        dataset = get_dataset(config=dataset_config)
+        dataset = get_dataset(config=dataset_config, traform=transforms)
         data_loader = DataLoader(
             dataset=dataset,
             num_workers=int(args.num_workers or Config.NUM_WORKERS),

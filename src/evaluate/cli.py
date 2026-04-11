@@ -45,7 +45,7 @@ def run(args: argparse.Namespace):
     logger.info(f"Output path: {args.output_path}")
 
     try:
-        model = get_model(args.model)
+        model, transforms = get_model(args.model)
         experiments = read_experiments(args)
         logger.info(f"Found {len(experiments)} experiments")
 
@@ -53,6 +53,7 @@ def run(args: argparse.Namespace):
             args=args,
             model=model,
             experiments=experiments,
+            transforms=transforms,
         )
     except Exception as e:
         logger.error(f"[ERROR] Evaluation failed: {e}")

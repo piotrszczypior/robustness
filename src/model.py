@@ -1,13 +1,15 @@
 from __future__ import annotations
+from typing import Callable, Tuple
+import webbrowser
 
 import torchvision.models as models
 import torch.nn as nn
 
 
-__all__ = ["get_model"]
+__all__ = ["get_model", "get_weights"]
 
 
-def get_model(name: str, pretrained: bool = True) -> nn.Module:
+def get_model(name: str, pretrained: bool = True) -> Tuple[nn.Module, Callable]:
     return _ModelFactory.create(name, pretrained)
 
 
@@ -21,11 +23,12 @@ class _ModelFactory:
     }
 
     @classmethod
-    def create(cls, name: str, pretrained: bool = True) -> nn.Module:
+    def create(cls, name: str, pretrained: bool = True) -> Tuple[nn.Module, Callable]:
         name = name.lower()
 
         if name in cls._REGISTRY:
-            weights = cls._REGISTRY[name] if pretrained else None
-            return models.get_model(name, weights=weights)
+            weights = cls._REGISTRY[name]
+            model = models.get_model(name, weights=weights if pretrained else None)
+            return model, weights.transforms()
 
         raise ValueError(f"Model '{name}' not found in registry")
