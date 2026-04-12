@@ -17,8 +17,8 @@ def get_tasks(config_path: Union[str, Path]) -> Iterator[BaseAnalysisConfig]:
     specs_path = Path(config_path)
 
     if not specs_path.exists():
-        logger.error("")
-        raise FileNotFoundError()
+        logger.error(f"Settings file not found: {config_path}")
+        raise FileNotFoundError("Settings file not found")
 
     return _SpecsLoader.from_yaml(specs_path)
 

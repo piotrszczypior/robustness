@@ -1,0 +1,144 @@
+analyses:
+  - name: "convnext_base_blur_defocus_blur_1"
+    type: "accuracy_drop"
+    content:
+      data:
+        baseline: convnext_base_imagenet.csv
+        corruption: convnext_base_imagenet_c_blur_defocus_blur_1.csv
+
+  - name: "convnext_base_blur_glass_blur_1"
+    type: "accuracy_drop"
+    content:
+      data:
+        baseline: convnext_base_imagenet.csv
+        corruption: convnext_base_imagenet_c_blur_glass_blur_1.csv
+
+  - name: "convnext_base_blur_motion_blur_1"
+    type: "accuracy_drop"
+    content:
+      data:
+        baseline: convnext_base_imagenet.csv
+        corruption: convnext_base_imagenet_c_blur_motion_blur_1.csv
+
+  - name: "convnext_base_blur_zoom_blur_1"
+    type: "accuracy_drop"
+    content:
+      data:
+        baseline: convnext_base_imagenet.csv
+        corruption: convnext_base_imagenet_c_blur_zoom_blur_1.csv
+
+
+  - name: "efficientnet_b4_blur_defocus_blur_1"
+    type: "accuracy_drop"
+    content:
+      data:
+        baseline: efficientnet_b4_imagenet.csv
+        corruption: efficientnet_b4_imagenet_c_blur_defocus_blur_1.csv
+
+  - name: "efficientnet_b4_blur_glass_blur_1"
+    type: "accuracy_drop"
+    content:
+      data:
+        baseline: efficientnet_b4_imagenet.csv
+        corruption: efficientnet_b4_imagenet_c_blur_glass_blur_1.csv
+
+  - name: "efficientnet_b4_blur_motion_blur_1"
+    type: "accuracy_drop"
+    content:
+      data:
+        baseline: efficientnet_b4_imagenet.csv
+        corruption: efficientnet_b4_imagenet_c_blur_motion_blur_1.csv
+
+  - name: "efficientnet_b4_blur_zoom_blur_1"
+    type: "accuracy_drop"
+    content:
+      data:
+        baseline: efficientnet_b4_imagenet.csv
+        corruption: efficientnet_b4_imagenet_c_blur_zoom_blur_1.csv
+
+
+  - name: "resnet50_blur_defocus_blur_1"
+    type: "accuracy_drop"
+    content:
+      data:
+        baseline: resnet50_imagenet.csv
+        corruption: resnet50_imagenet_c_blur_defocus_blur_1.csv
+
+  - name: "resnet50_blur_glass_blur_1"
+    type: "accuracy_drop"
+    content:
+      data:
+        baseline: resnet50_imagenet.csv
+        corruption: resnet50_imagenet_c_blur_glass_blur_1.csv
+
+  - name: "resnet50_blur_motion_blur_1"
+    type: "accuracy_drop"
+    content:
+      data:
+        baseline: resnet50_imagenet.csv
+        corruption: resnet50_imagenet_c_blur_motion_blur_1.csv
+
+  - name: "resnet50_blur_zoom_blur_1"
+    type: "accuracy_drop"
+    content:
+      data:
+        baseline: resnet50_imagenet.csv
+        corruption: resnet50_imagenet_c_blur_zoom_blur_1.csv
+
+
+  - name: "resnet152_blur_defocus_blur_1"
+    type: "accuracy_drop"
+    content:
+      data:
+        baseline: resnet152_imagenet.csv
+        corruption: resnet152_imagenet_c_blur_defocus_blur_1.csv
+
+  - name: "resnet152_blur_glass_blur_1"
+    type: "accuracy_drop"
+    content:
+      data:
+        baseline: resnet152_imagenet.csv
+        corruption: resnet152_imagenet_c_blur_glass_blur_1.csv
+
+  - name: "resnet152_blur_motion_blur_1"
+    type: "accuracy_drop"
+    content:
+      data:
+        baseline: resnet152_imagenet.csv
+        corruption: resnet152_imagenet_c_blur_motion_blur_1.csv
+
+  - name: "resnet152_blur_zoom_blur_1"
+    type: "accuracy_drop"
+    content:
+      data:
+        baseline: resnet152_imagenet.csv
+        corruption: resnet152_imagenet_c_blur_zoom_blur_1.csv
+
+
+  - name: "vit_b_16_blur_defocus_blur_1"
+    type: "accuracy_drop"
+    content:
+      data:
+        baseline: vit_b_16_imagenet.csv
+        corruption: vit_b_16_imagenet_c_blur_defocus_blur_1.csv
+
+  - name: "vit_b_16_blur_glass_blur_1"
+    type: "accuracy_drop"
+    content:
+      data:
+        baseline: vit_b_16_imagenet.csv
+        corruption: vit_b_16_imagenet_c_blur_glass_blur_1.csv
+
+  - name: "vit_b_16_blur_motion_blur_1"
+    type: "accuracy_drop"
+    content:
+      data:
+        baseline: vit_b_16_imagenet.csv
+        corruption: vit_b_16_imagenet_c_blur_motion_blur_1.csv
+
+  - name: "vit_b_16_blur_zoom_blur_1"
+    type: "accuracy_drop"
+    content:
+      data:
+        baseline: vit_b_16_imagenet.csv
+        corruption: vit_b_16_imagenet_c_blur_zoom_blur_1.csv

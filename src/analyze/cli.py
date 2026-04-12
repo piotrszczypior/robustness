@@ -19,7 +19,7 @@ def get_task():
 def register(subparsers: argparse._SubParsersAction) -> None:
     # fmt: off
     parser = subparsers.add_parser("analyze", help="Analyze results")
-    parser.add_argument("--path", default="analysis/base.yaml", type=str, help="Analysis configuration file")
+    parser.add_argument("--path", default="analysis/settings/base.yaml", type=str, help="Analysis configuration file")
     parser.add_argument("--data", default="results/", type=str, help="Data directory with csv files")
     parser.add_argument("--output", default="analysis/results/", type=str, help="Data directory with csv files")
     parser.add_argument("--sync-drive", action="store_true", help="Sync results to Google Drive")

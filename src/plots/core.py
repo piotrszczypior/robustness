@@ -13,6 +13,7 @@ from .plot import (
     SortedIndexClassDegradation,
     CompareFragileClasses,
     CompareFragileClassesFreq,
+    SpearmanRankPlot,
 )
 
 __all__ = ["create_plot"]
@@ -27,6 +28,7 @@ RENDERERS_PIPELINES: dict[str, BasePlotPipeline] = {
     "fragile_class": CompareFragileClasses,
     "fragile_class_freq": CompareFragileClassesFreq,
     "similarity_matrix": FragileClassSimilarityMatrix,
+    "spearman_rank_correlation": SpearmanRankPlot
 }
 
 

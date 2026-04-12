@@ -1,6 +1,6 @@
 analyses:
   - name: "ImageNet-C: Defocus Blur Severity 1"
-    type: "fragile_class_overlap_test"
+    type: "fragile_class_overlap_chi2"
     content:
       tests:
         - label: "ResNet-50"
@@ -19,7 +19,7 @@ analyses:
           data: "efficientnet_b4_blur_defocus_blur_1/efficientnet_b4_blur_defocus_blur_1_classes.json"
 
   - name: "ImageNet-C: Defocus Blur Severity 1"
-    type: "fragile_class_overlap_test2"
+    type: "fragile_class_overlap_fisher"
     content:
       tests:
         - label: "ResNet-50"
