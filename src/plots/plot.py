@@ -7,6 +7,9 @@ import seaborn as sns
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import json
+from pathlib import Path
+from scipy.spatial.distance import pdist, squareform
 
 from .base import BasePlotPipeline
 from .data import get_data
@@ -181,7 +184,7 @@ class CompareFragileClasses(BasePlotPipeline):
             self.fig.add_subplot(self.gs[0, 1]),
         ]
 
-        for i, (ax, part_data) in enumerate(zip(axes, parts)):
+        for ax, part_data in zip(axes, parts):
             sns.heatmap(
                 part_data,
                 cmap=cmap,
@@ -208,10 +211,7 @@ class CompareFragileClasses(BasePlotPipeline):
         self.fig.suptitle(self.config.title, fontsize=14, fontweight="bold", y=0.98)
 
     def _get_data(self, filename: str):
-        import json
-        from pathlib import Path
-
-        path = Path("analysis_results") / filename
+        path = Path("analysis/results") / filename
 
         with open(path, "r") as f:
             data = json.load(f)
@@ -267,7 +267,7 @@ class CompareFragileClassesFreq(BasePlotPipeline):
             self.fig.add_subplot(self.gs[0, 1]),
         ]
 
-        for i, (ax, part_data) in enumerate(zip(axes, parts)):
+        for ax, part_data in zip(axes, parts):
             sns.heatmap(
                 part_data,
                 cmap=cmap,
@@ -305,6 +305,49 @@ class CompareFragileClassesFreq(BasePlotPipeline):
         import json
         from pathlib import Path
 
+        path = Path("analysis/results") / filename
+
+        with open(path, "r") as f:
+            data = json.load(f)
+
+        return pd.json_normalize(data, record_path=["classes"], meta=["name"])
+
+
+class FragileClassSimilarityMatrix(BasePlotPipeline):
+    def _setup_canvas(self):
+        self.fig, self.ax = plt.subplots(figsize=(10, 10))
+        self.ax.set_title(self.config.title)
+        self.ax.set_xlabel(self.config.x_label)
+        self.ax.set_ylabel(self.config.y_label)
+
+    def transform_data(self):
+        content = self.config.content
+
+        labels = [entry["name"] for entry in content]
+        vectors = np.array(
+            [self._get_data(entry["data"])["is_fragile"].values for entry in content]
+        )
+
+        dist = pdist(vectors, metric="jaccard")
+        similarity_matrix = squareform(1 - dist)
+        np.fill_diagonal(similarity_matrix, 1.0)
+
+        return pd.DataFrame(similarity_matrix, index=labels, columns=labels)
+
+    def render(self, data: pd.DataFrame):
+        sns.heatmap(
+            data,
+            annot=True,
+            cmap=sns.light_palette("seagreen", as_cmap=True),
+            fmt=".2f",
+            square=True,
+            linewidths=0.5,
+            cbar_kws={"shrink": 0.8, "label": "Jaccard Index"},
+            ax=self.ax,
+        )
+        self.ax.tick_params(top=True, labeltop=True, bottom=False, labelbottom=False)
+
+    def _get_data(self, filename: str):
         path = Path("analysis/results") / filename
 
         with open(path, "r") as f:

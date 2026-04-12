@@ -1,0 +1,39 @@
+analyses:
+  - name: "ImageNet-C: Defocus Blur Severity 1"
+    type: "fragile_class_overlap_test"
+    content:
+      tests:
+        - label: "ResNet-50"
+          data: "resnet50_blur_defocus_blur_1/resnet50_blur_defocus_blur_1_classes.json"
+
+        - label: "ResNet-152"
+          data: "resnet152_blur_defocus_blur_1/resnet152_blur_defocus_blur_1_classes.json"
+
+        - label: "ConvNeXt-Base"
+          data: "convnext_base_blur_defocus_blur_1/convnext_base_blur_defocus_blur_1_classes.json"
+
+        - label: "ViT-B/16"
+          data: "vit_b_16_blur_defocus_blur_1/vit_b_16_blur_defocus_blur_1_classes.json"
+
+        - label: "EfficientNet-B4"
+          data: "efficientnet_b4_blur_defocus_blur_1/efficientnet_b4_blur_defocus_blur_1_classes.json"
+
+  - name: "ImageNet-C: Defocus Blur Severity 1"
+    type: "fragile_class_overlap_test2"
+    content:
+      tests:
+        - label: "ResNet-50"
+          data: "resnet50_blur_defocus_blur_1/resnet50_blur_defocus_blur_1_classes.json"
+
+        - label: "ResNet-152"
+          data: "resnet152_blur_defocus_blur_1/resnet152_blur_defocus_blur_1_classes.json"
+
+        - label: "ConvNeXt-Base"
+          data: "convnext_base_blur_defocus_blur_1/convnext_base_blur_defocus_blur_1_classes.json"
+
+        - label: "ViT-B/16"
+          data: "vit_b_16_blur_defocus_blur_1/vit_b_16_blur_defocus_blur_1_classes.json"
+
+        - label: "EfficientNet-B4"
+          data: "efficientnet_b4_blur_defocus_blur_1/efficientnet_b4_blur_defocus_blur_1_classes.json"
+

@@ -1,0 +1,28 @@
+analyses:
+  - name: "vit_b_16_digital_contrast_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: vit_b_16_imagenet.csv
+        degraded: vit_b_16_imagenet_c_digital_contrast_1.csv
+
+  - name: "vit_b_16_digital_elastic_transform_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: vit_b_16_imagenet.csv
+        degraded: vit_b_16_imagenet_c_digital_elastic_transform_1.csv
+
+  - name: "vit_b_16_digital_pixelate_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: vit_b_16_imagenet.csv
+        degraded: vit_b_16_imagenet_c_digital_pixelate_1.csv
+
+  - name: "vit_b_16_digital_jpeg_compression_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: vit_b_16_imagenet.csv
+        degraded: vit_b_16_imagenet_c_digital_jpeg_compression_1.csv

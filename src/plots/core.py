@@ -9,6 +9,7 @@ from .specs import ChartConfig
 from .plot import (
     AccuracyToAccuracy,
     AccuracyToAccuracyDrop,
+    FragileClassSimilarityMatrix,
     SortedIndexClassDegradation,
     CompareFragileClasses,
     CompareFragileClassesFreq,
@@ -25,6 +26,7 @@ RENDERERS_PIPELINES: dict[str, BasePlotPipeline] = {
     "sorted_index": SortedIndexClassDegradation,
     "fragile_class": CompareFragileClasses,
     "fragile_class_freq": CompareFragileClassesFreq,
+    "similarity_matrix": FragileClassSimilarityMatrix,
 }
 
 

@@ -1,7 +1,20 @@
 analyses:
   - name: "Find Weak Classes for ResNet152 with Defocus Blur"
-    type: "class_degradation"
-    data:
-      baseline: resnet152_imagenet.csv
-      degraded: resnet152_imagenet_c_blur_defocus_blur_1.csv
+    type: "fragile_class"
+    content:
+      data:
+        baseline: resnet152_imagenet.csv
+        degraded: resnet152_imagenet_c_blur_defocus_blur_1.csv
     output_path: "analysis_results/resnet152_defocus_blur_1_weak_classes.json"
+
+
+  - name: "ImageNet-C: Defocus Blur Severity 1"
+    type: "fragile_class_overlap_test2"
+    content:
+      tests:
+        - label: "ResNet-50"
+          data: "resnet50_blur_defocus_blur_1/resnet50_blur_defocus_blur_1_classes.json"
+
+        - label: "ResNet-152"
+          data: "resnet152_blur_defocus_blur_1/resnet152_blur_defocus_blur_1_classes.json"
+      

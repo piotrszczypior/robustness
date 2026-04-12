@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 from abc import ABC, abstractmethod
 from typing import Any
 import pandas as pd
+import os
 
 from .specs import ChartConfig
 
@@ -38,6 +39,7 @@ class BasePlotPipeline(ABC):
         self.ax.grid(True, linestyle=":", alpha=0.6)
 
     def _save(self):
+        os.makedirs(Path(self.config.output).parent, exist_ok=True)
         plt.tight_layout()
         self.fig.savefig(self.config.output)
         plt.close(self.fig)

@@ -1,0 +1,28 @@
+analyses:
+  - name: "efficientnet_b4_blur_defocus_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: efficientnet_b4_imagenet.csv
+        degraded: efficientnet_b4_imagenet_c_blur_defocus_blur_1.csv
+
+  - name: "efficientnet_b4_blur_glass_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: efficientnet_b4_imagenet.csv
+        degraded: efficientnet_b4_imagenet_c_blur_glass_blur_1.csv
+
+  - name: "efficientnet_b4_blur_motion_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: efficientnet_b4_imagenet.csv
+        degraded: efficientnet_b4_imagenet_c_blur_motion_blur_1.csv
+
+  - name: "efficientnet_b4_blur_zoom_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: efficientnet_b4_imagenet.csv
+        degraded: efficientnet_b4_imagenet_c_blur_zoom_blur_1.csv

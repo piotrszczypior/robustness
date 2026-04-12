@@ -7,21 +7,35 @@ from pathlib import Path
 import pandas as pd
 import numpy as np
 
-from .specs import AnalysisConfig
+from analyze.settings import BaseAnalysisConfig
 
 logger = logging.getLogger(__name__)
 
 
-@dataclass
-class AnalysisResult:
+@dataclass(frozen=True)
+class DataSource:
+    baseline: str
+    degraded: str
+
+
+@dataclass(frozen=True)
+class FragileClassConfig:
     name: str
-    classes: pd.DataFrame
+    data: DataSource
+
+
+def run(config: BaseAnalysisConfig, output_dir: str):
+    fragile_config = FragileClassConfig(
+        name=config.name, data=DataSource(**config.content["data"])
+    )
+    task = ClassDegradationAnalysis(fragile_config, output_dir)
+    task.run()
 
 
 class ClassDegradationAnalysis:
     name = "Class degradation"
 
-    def __init__(self, config: AnalysisConfig, output_dir: str):
+    def __init__(self, config: FragileClassConfig, output_dir: str):
         self.config = config
         self.output_dir = Path(output_dir)
 
@@ -69,7 +83,7 @@ class ClassDegradationAnalysis:
         output_path = self.output_dir / self.config.name
         output_path.mkdir(parents=True, exist_ok=True)
 
-        filename = self.config.name + "_clases.json"
+        filename = self.config.name + "_classes.json"
         path_with_file = output_path / filename
 
         results_dict = results_df.to_dict(orient="records")

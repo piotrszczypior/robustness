@@ -1,0 +1,28 @@
+analyses:
+  - name: "convnext_base_blur_defocus_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: convnext_base_imagenet.csv
+        degraded: convnext_base_imagenet_c_blur_defocus_blur_1.csv
+
+  - name: "convnext_base_blur_glass_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: convnext_base_imagenet.csv
+        degraded: convnext_base_imagenet_c_blur_glass_blur_1.csv
+
+  - name: "convnext_base_blur_motion_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: convnext_base_imagenet.csv
+        degraded: convnext_base_imagenet_c_blur_motion_blur_1.csv
+
+  - name: "convnext_base_blur_zoom_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: convnext_base_imagenet.csv
+        degraded: convnext_base_imagenet_c_blur_zoom_blur_1.csv

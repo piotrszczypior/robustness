@@ -1,0 +1,28 @@
+analyses:
+  - name: "resnet50_blur_defocus_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: resnet50_imagenet.csv
+        degraded: resnet50_imagenet_c_blur_defocus_blur_1.csv
+
+  - name: "resnet50_blur_glass_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: resnet50_imagenet.csv
+        degraded: resnet50_imagenet_c_blur_glass_blur_1.csv
+
+  - name: "resnet50_blur_motion_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: resnet50_imagenet.csv
+        degraded: resnet50_imagenet_c_blur_motion_blur_1.csv
+
+  - name: "resnet50_blur_zoom_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: resnet50_imagenet.csv
+        degraded: resnet50_imagenet_c_blur_zoom_blur_1.csv

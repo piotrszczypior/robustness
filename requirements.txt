@@ -12,3 +12,5 @@ matplotlib
 seaborn
 pyyaml
 munch
+scipy
+scikit-learn
