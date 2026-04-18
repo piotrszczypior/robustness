@@ -10,7 +10,9 @@ from .base import BaseTask, ModelTest, VariantEntry, VariationSpace
 
 @dataclass(frozen=True)
 class FragileClassTask(BaseTask):
-    type: Literal["fragile_class"] = field(default="fragile_class", init=False)
+    type: Literal["task_fragile_class"] = field(
+        default="task_fragile_class", init=False
+    )
 
     baseline_csv: str = ""
     corrupted_csv: str = ""
@@ -25,7 +27,9 @@ class FragileClassTask(BaseTask):
 
 @dataclass(frozen=True)
 class AccuracyDropTask(BaseTask):
-    type: Literal["accuracy_drop"] = field(default="accuracy_drop", init=False)
+    type: Literal["task_accuracy_drop"] = field(
+        default="task_accuracy_drop", init=False
+    )
 
     baseline_csv: str = ""
     corrupted_csv: str = ""
@@ -40,8 +44,8 @@ class AccuracyDropTask(BaseTask):
 
 @dataclass(frozen=True)
 class CommonFragileClassTask(BaseTask):
-    type: Literal["common_fragile_class"] = field(
-        default="common_fragile_class", init=False
+    type: Literal["task_common_classes"] = field(
+        default="task_common_classes", init=False
     )
 
     fragile_class_files: tuple[str, ...] = field(default_factory=tuple)
@@ -57,7 +61,10 @@ class CommonFragileClassTask(BaseTask):
 
 @dataclass(frozen=True)
 class FragileClassOverlapTask(BaseTask):
-    type: str = "class_overlap_test"
+    type: Literal["task_classes_overlap_test"] = field(
+        default="task_classes_overlap_test", init=False
+    )
+
     test_type: str
     models: tuple[ModelTest, ...] = field(default_factory=tuple)
 
