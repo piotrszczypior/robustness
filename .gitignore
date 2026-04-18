@@ -8,3 +8,6 @@ data
 *.zip
 
 *.log
+
+# results in GDrive
+results/
