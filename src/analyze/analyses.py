@@ -165,3 +165,13 @@ def generate_common_fragile_tasks(
             space or VariationSpace()
         ).per_corruption()
     ]
+
+
+def get_settings():
+    space = VariationSpace(groups=["blur", "digital", "noise"])
+
+    return [
+        *generate_fragile_class_tasks(space),
+        *generate_common_fragile_tasks(space),
+        *generate_accuracy_drop_tasks(space),
+    ]

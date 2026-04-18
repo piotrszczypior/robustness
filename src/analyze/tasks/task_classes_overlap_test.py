@@ -1,74 +1,97 @@
 from __future__ import annotations
 
-from scipy.stats import fisher_exact
+import json
+import logging
 from itertools import combinations
+from pathlib import Path
+from typing import Callable
+
 import numpy as np
 import pandas as pd
+from scipy.stats import chi2_contingency, fisher_exact
 
-from .settings import BaseAnalysisConfig
+from analyze.analyses import FragileClassOverlapTask
 
-
-def run(config: BaseAnalysisConfig, output_dir: str):
-    content = config.content
-    tests = content["tests"]
-    loaded_data = {item["label"]: _get_data(item["data"]) for item in tests}
-    labels = [item["label"] for item in tests]
-    test_pairs = list(combinations(labels, 2))
-
-    all_results = []
-
-    for l1, l2 in test_pairs:
-        res_dict = calculate_fisher_for_pair(
-            loaded_data[l1]["is_fragile"].values, loaded_data[l2]["is_fragile"].values
-        )
-        res_dict["Comparison"] = f"{l1} vs {l2}"
-        all_results.append(res_dict)
-
-    df_results = pd.DataFrame(all_results)
-
-    cols = ["Comparison", "Shared_Fragile", "Odds_Ratio", "p-value", "Significant"]
-    df_results = df_results[cols]
-
-    print(df_results)
-
-    results_list = []
-    for l1, l2 in test_pairs:
-        stats = calculate_fisher_for_pair(
-            loaded_data[l1]["is_fragile"].values,
-            loaded_data[l2]["is_fragile"].values,
-        )
-        temp_df = pd.DataFrame(stats, index=[0])
-        temp_df.insert(0, "Comparison", f"{l1} - {l2}")
-        results_list.append(temp_df)
-
-    final_df = pd.concat(results_list, ignore_index=True)
-    print(final_df.to_markdown(index=False))
+logger = logging.getLogger(__name__)
 
 
-def _get_data(filename: str) -> pd.DataFrame:
-    import json
-    from pathlib import Path
-
-    path = Path("analysis/results") / filename
-    with open(path, "r") as f:
-        data = json.load(f)
-    return pd.json_normalize(data, record_path=["classes"], meta=["name"])
+def run(task: FragileClassOverlapTask, output_dir: str) -> None:
+    _FragileClassOverlapAnalysis(task, output_dir).run()
 
 
-def calculate_fisher_for_pair(list_a, list_b):
+def _contingency_table(
+    list_a: np.ndarray, list_b: np.ndarray
+) -> tuple[int, int, int, int]:
     v1, v2 = np.array(list_a), np.array(list_b)
+    a = int(np.sum((v1 == 1) & (v2 == 1)))
+    b = int(np.sum((v1 == 1) & (v2 == 0)))
+    c = int(np.sum((v1 == 0) & (v2 == 1)))
+    d = int(np.sum((v1 == 0) & (v2 == 0)))
 
-    a = np.sum((v1 == 1) & (v2 == 1))
-    b = np.sum((v1 == 1) & (v2 == 0))
-    c = np.sum((v1 == 0) & (v2 == 1))
-    d = np.sum((v1 == 0) & (v2 == 0))
+    return a, b, c, d
 
-    table = [[a, b], [c, d]]
-    odds_ratio, p_value = fisher_exact(table)
+
+def _chi2_for_pair(list_a: np.ndarray, list_b: np.ndarray) -> dict:
+    a, b, c, d = _contingency_table(list_a, list_b)
+    chi2, p, _, _ = chi2_contingency([[a, b], [c, d]], correction=True)
 
     return {
-        "Odds_Ratio": round(odds_ratio, 4),
-        "p-value": float(f"{p_value:.4e}"),
-        "Shared_Fragile": int(a),
-        "Significant": p_value < 0.05,
+        "Shared_Fragile": a,
+        "Chi2_Stat": round(float(chi2), 4),
+        "p-value": float(f"{p:.4e}"),
+        "Significant": p < 0.05,
     }
+
+
+def _fisher_for_pair(list_a: np.ndarray, list_b: np.ndarray) -> dict:
+    a, b, c, d = _contingency_table(list_a, list_b)
+    odds_ratio, p = fisher_exact([[a, b], [c, d]])
+
+    return {
+        "Shared_Fragile": a,
+        "Odds_Ratio": round(float(odds_ratio), 4),
+        "p-value": float(f"{p:.4e}"),
+        "Significant": p < 0.05,
+    }
+
+
+class _FragileClassOverlapAnalysis:
+    _STAT_FN: dict[str, Callable[[np.ndarray, np.ndarray], dict]] = {
+        "chi2": _chi2_for_pair,
+        "fisher": _fisher_for_pair,
+    }
+
+    def __init__(self, task: FragileClassOverlapTask, output_dir: str) -> None:
+        self.task = task
+        self.output_dir = Path(output_dir)
+        self.stat_fn = self._STAT_FN[task.test_type]
+
+    def run(self) -> None:
+        logger.info(f"Running analysis: '{self.task.name}' [{self.task.type}]")
+
+        loaded_data = {
+            test.label: self._load_fragile_data(test.data) for test in self.task.tests
+        }
+
+        results = [
+            {
+                "Comparison": f"{l1} vs {l2}",
+                **self.stat_fn(
+                    loaded_data[l1]["is_fragile"].values,
+                    loaded_data[l2]["is_fragile"].values,
+                ),
+            }
+            for l1, l2 in combinations(loaded_data.keys(), 2)
+        ]
+
+        df = pd.DataFrame(results)
+        df = df[["Comparison"] + [c for c in df.columns if c != "Comparison"]]
+
+        logger.info(f"\n{df.to_markdown(index=False)}")
+
+    def _load_fragile_data(self, filename: str) -> pd.DataFrame:
+        logger.info(f"Loading fragile class data from: {filename}")
+        path = Path("analysis/results") / filename
+        with open(path, "r") as f:
+            data = json.load(f)
+        return pd.json_normalize(data, record_path=["classes"], meta=["name"])

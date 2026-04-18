@@ -1,47 +1,29 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 import json
 import logging
 from pathlib import Path
 import pandas as pd
 
-from analyze.settings import BaseAnalysisConfig
+from analyses import AccuracyDropTask
 
 logger = logging.getLogger(__name__)
 
 
-@dataclass(frozen=True)
-class DataSource:
-    baseline: str
-    corruption: str
-
-
-@dataclass(frozen=True)
-class FragileClassConfig:
-    name: str
-    data: DataSource
-
-
-def run(config: BaseAnalysisConfig, output_dir: str):
-    fragile_config = FragileClassConfig(
-        name=config.name, data=DataSource(**config.content["data"])
-    )
-    _AccuracyDropGenerator(fragile_config, output_dir).run()
+def run(task: AccuracyDropTask, output_dir: str) -> None:
+    _AccuracyDropGenerator(task, output_dir).run()
 
 
 class _AccuracyDropGenerator:
-    name = "Class degradation"
-
-    def __init__(self, config: FragileClassConfig, output_dir: str):
-        self.config = config
+    def __init__(self, task: AccuracyDropTask, output_dir: str) -> None:
+        self.task = task
         self.output_dir = Path(output_dir)
 
     def run(self):
-        logger.info(f"Running analysis: '{self.name}'")
+        logger.info(f"Running accuracy drop analysis: {self.task.name}")
 
-        baseline_df = self._load_results(self.config.data.baseline)
-        corrupt_df = self._load_results(self.config.data.corruption)
+        baseline_df = self._load_results(self.task.baseline_csv)
+        corrupt_df = self._load_results(self.task.corrupted_csv)
 
         baseline_accuracy = self._calculate_accuracy_per_class(baseline_df)
         corrupt_accuracy = self._calculate_accuracy_per_class(corrupt_df)

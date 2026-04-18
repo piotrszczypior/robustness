@@ -4,23 +4,12 @@ import argparse
 import logging
 
 from task import Task
-from .analyses import (
-    generate_accuracy_drop_tasks,
-    generate_common_fragile_tasks,
-    generate_fragile_class_tasks,
-)
-from .base import BaseTask
+from .analyses import get_settings
 from .core import run_analysis
 
 logger = logging.getLogger(__name__)
 
 TASK_NAME = "analyze"
-
-ANALYSES: list[BaseTask] = [
-    *generate_fragile_class_tasks(),
-    *generate_common_fragile_tasks(),
-    *generate_accuracy_drop_tasks(),
-]
 
 
 def get_task():
@@ -32,7 +21,7 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     parser = subparsers.add_parser("analyze", help="Analyze results")
     parser.add_argument("--type", type=str, help="Filter by task type")
     parser.add_argument("--data", default="results/", type=str, help="Data directory with csv files")
-    parser.add_argument("--output", default="analysis/results/", type=str, help="Data directory with csv files")
+    parser.add_argument("--output", default="analysis/temp/", type=str, help="Data directory with csv files")
     parser.add_argument("--sync-drive", action="store_true", help="Sync results to Google Drive")
     parser.add_argument("--debug", action="store_true", help="Skip plot generation")
     # fmt: on
@@ -43,7 +32,7 @@ def run(args: argparse.Namespace):
         logging.getLogger().setLevel(logging.DEBUG)
 
     logger.info("Loading tasks")
-    tasks = [t for t in ANALYSES if not args.type or t.type == args.type]
+    tasks = [t for t in get_settings() if not args.type or t.type == args.type]
     total = len(tasks)
 
     if total == 0:
@@ -51,7 +40,6 @@ def run(args: argparse.Namespace):
         return
 
     logger.info(f"Found {total} tasks")
-    return
     for i, spec in enumerate(tasks, 1):
         logger.info(f"[{i}/{total}] Analysing '{spec.name}'...")
         run_analysis(spec, args.output)
