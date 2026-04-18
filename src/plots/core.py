@@ -28,7 +28,7 @@ RENDERERS_PIPELINES: dict[str, BasePlotPipeline] = {
     "fragile_class": CompareFragileClasses,
     "fragile_class_freq": CompareFragileClassesFreq,
     "similarity_matrix": FragileClassSimilarityMatrix,
-    "spearman_rank_correlation": SpearmanRankPlot
+    "spearman_rank_correlation": SpearmanRankPlot,
 }
 
 
