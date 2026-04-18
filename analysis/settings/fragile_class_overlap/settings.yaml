@@ -18,6 +18,7 @@ analyses:
         - label: "EfficientNet-B4"
           data: "efficientnet_b4_blur_defocus_blur_1/efficientnet_b4_blur_defocus_blur_1_classes.json"
 
+
   - name: "ImageNet-C: Defocus Blur Severity 1"
     type: "fragile_class_overlap_fisher"
     content:

@@ -57,19 +57,19 @@ plots:
   #       data: "resnet152_imagenet_c_blur_defocus_blur_1.csv"
   #   output: "images/sorted_index-2.png"
 
-  # - name: "resnet152"
-  #   type: sorted_index
-  #   title: "ResNet-152: Zoom-Blur ImageNet-C Accuracy"
-  #   x_label: "Sorted descending class index on ImageNet-1K val"
-  #   y_label: "Accuracy"
-  #   content:
-  #     baseline:
-  #       label: "Clean"
-  #       data: "resnet152_imagenet.csv"
-  #     degraded:
-  #       label: "Defocus Blur Sev 1"
-  #       data: "resnet152_imagenet_c_blur_zoom_blur_1.csv"
-  #   output: "images/sorted_index-3.png"
+  - name: "resnet152"
+    type: sorted_index
+    title: "ResNet-152: Zoom-Blur ImageNet-C Accuracy"
+    x_label: "Sorted descending class index on ImageNet-1K val"
+    y_label: "Accuracy"
+    content:
+      baseline:
+        label: "Clean"
+        data: "resnet152_imagenet.csv"
+      degraded:
+        label: "Defocus Blur Sev 1"
+        data: "resnet152_imagenet_c_blur_zoom_blur_1.csv"
+    output: "images/sorted_index-3.png"
 
 
   # - name: "conv_resnet152"
@@ -212,3 +212,35 @@ plots:
       - name: "ViT-B/16"
         data: "vit_b_16_blur_defocus_blur_1/vit_b_16_blur_defocus_blur_1_accuracy_drop.json"
     output: "images/spearman_rank_correlation_defocus_blur_1.png"
+
+  - name: "fragile_classes_comparison_defocus_1"
+    type: "fragile_class_freq"
+    title: "Comparison of Fragile Classes: ImageNet-C Defocus Blur Severity 1"
+    x_label: "Model Architecture"
+    y_label: "Class Index"
+    content:
+      - name: "ResNet-152"
+        data: "resnet152_blur_defocus_blur_1/resnet152_blur_defocus_blur_1_classes.json"
+      - name: "ResNet-50"
+        data: "resnet50_blur_defocus_blur_1/resnet50_blur_defocus_blur_1_classes.json"
+      - name: "EfficientNet-B4"
+        data: "efficientnet_b4_blur_defocus_blur_1/efficientnet_b4_blur_defocus_blur_1_classes.json"
+      - name: "ConvNeXt-Base"
+        data: "convnext_base_blur_defocus_blur_1/convnext_base_blur_defocus_blur_1_classes.json"
+      - name: "ViT-B/16"
+        data: "vit_b_16_blur_defocus_blur_1/vit_b_16_blur_defocus_blur_1_classes.json"
+    output: "images/fragile_classes_comparison_defocus_1_all_models.png"
+
+  - name: "resnet152_digital"
+    type: sorted_index
+    title: "ResNet-152: JPEG Compression ImageNet-C Accuracy"
+    x_label: "Sorted descending class index on ImageNet-1K val"
+    y_label: "Accuracy"
+    content:
+      baseline:
+        label: "Clean"
+        data: "resnet152_imagenet.csv"
+      degraded:
+        label: "JPEG Compression Sev 1"
+        data: "resnet152_imagenet_c_digital_jpeg_compression_1.csv"
+    output: "images/sorted_index-digital.png"

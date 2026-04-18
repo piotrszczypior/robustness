@@ -1,0 +1,100 @@
+analyses:
+  - name: "wide_resnet50_2_blur_defocus_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: wide_resnet50_2_imagenet.csv
+        degraded: wide_resnet50_2_imagenet_c_blur_defocus_blur_1.csv
+  - name: "wide_resnet50_2_blur_glass_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: wide_resnet50_2_imagenet.csv
+        degraded: wide_resnet50_2_imagenet_c_blur_glass_blur_1.csv
+  - name: "wide_resnet50_2_blur_motion_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: wide_resnet50_2_imagenet.csv
+        degraded: wide_resnet50_2_imagenet_c_blur_motion_blur_1.csv
+  - name: "wide_resnet50_2_blur_zoom_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: wide_resnet50_2_imagenet.csv
+        degraded: wide_resnet50_2_imagenet_c_blur_zoom_blur_1.csv
+
+  - name: "densenet121_blur_defocus_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: densenet121_imagenet.csv
+        degraded: densenet121_imagenet_c_blur_defocus_blur_1.csv
+  - name: "densenet121_blur_glass_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: densenet121_imagenet.csv
+        degraded: densenet121_imagenet_c_blur_glass_blur_1.csv
+  - name: "densenet121_blur_motion_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: densenet121_imagenet.csv
+        degraded: densenet121_imagenet_c_blur_motion_blur_1.csv
+  - name: "densenet121_blur_zoom_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: densenet121_imagenet.csv
+        degraded: densenet121_imagenet_c_blur_zoom_blur_1.csv
+
+  - name: "mobilenet_v3_large_blur_defocus_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: mobilenet_v3_large_imagenet.csv
+        degraded: mobilenet_v3_large_imagenet_c_blur_defocus_blur_1.csv
+  - name: "mobilenet_v3_large_blur_glass_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: mobilenet_v3_large_imagenet.csv
+        degraded: mobilenet_v3_large_imagenet_c_blur_glass_blur_1.csv
+  - name: "mobilenet_v3_large_blur_motion_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: mobilenet_v3_large_imagenet.csv
+        degraded: mobilenet_v3_large_imagenet_c_blur_motion_blur_1.csv
+  - name: "mobilenet_v3_large_blur_zoom_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: mobilenet_v3_large_imagenet.csv
+        degraded: mobilenet_v3_large_imagenet_c_blur_zoom_blur_1.csv
+
+  - name: "swin_b_blur_defocus_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: swin_b_imagenet.csv
+        degraded: swin_b_imagenet_c_blur_defocus_blur_1.csv
+  - name: "swin_b_blur_glass_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: swin_b_imagenet.csv
+        degraded: swin_b_imagenet_c_blur_glass_blur_1.csv
+  - name: "swin_b_blur_motion_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: swin_b_imagenet.csv
+        degraded: swin_b_imagenet_c_blur_motion_blur_1.csv
+  - name: "swin_b_blur_zoom_blur_1"
+    type: "fragile_class"
+    content:
+      data:
+        baseline: swin_b_imagenet.csv
+        degraded: swin_b_imagenet_c_blur_zoom_blur_1.csv

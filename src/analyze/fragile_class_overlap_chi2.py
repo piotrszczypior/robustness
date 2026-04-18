@@ -28,8 +28,20 @@ def run(config: BaseAnalysisConfig, output_dir: str):
         )
         print(result)
         print()
+        
 
-    # results = [calculate_chi2_for, m2, data_dict) for m1, m2 in model_pairs]
+    results_list = []
+    for l1, l2 in tests:
+        stats = calculate_chi2_for_pair(
+            loaded_data[l1]["is_fragile"].values,
+            loaded_data[l2]["is_fragile"].values,
+        )
+        temp_df = pd.DataFrame(stats, index=[0])
+        temp_df.insert(0, "Comparison", f"{l1} - {l2}")
+        results_list.append(temp_df)
+
+    final_df = pd.concat(results_list, ignore_index=True)
+    print(final_df.to_markdown(index=False))
 
 
 def _get_data(filename: str) -> pd.DataFrame:
