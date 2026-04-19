@@ -29,7 +29,7 @@ RCLONE_CMD="rclone copy --ignore-existing -P"
 
 if [ "$ACTION" == "pull" ]; then
     if [ -z "$PATTERN" ]; then
-        echo "Pulling all files from Google Drive to local $LOCAL/..."
+        echo "Pulling all files from Google Drive to local $LOCAL..."
         $RCLONE_CMD "$REMOTE" "$LOCAL"
     else
         echo "Pulling files matching '$PATTERN' from Google Drive..."
@@ -38,7 +38,7 @@ if [ "$ACTION" == "pull" ]; then
 
 elif [ "$ACTION" == "push" ]; then
     if [ -z "$PATTERN" ]; then
-        echo "Pushing all local files from $LOCAL/ to Google Drive..."
+        echo "Pushing all local files from $LOCAL to Google Drive..."
         $RCLONE_CMD "$LOCAL" "$REMOTE"
     else
         echo "Pushing local files matching '$PATTERN' to Google Drive..."

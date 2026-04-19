@@ -1,12 +1,13 @@
 from __future__ import annotations
 
 import importlib
-from analyze.settings import BaseAnalysisConfig
+from .base import BaseTask
 
 
-def run_analysis(config: BaseAnalysisConfig, output_dir: str):
+def run_analysis(task: BaseTask, output_dir: str):
     try:
-        module = importlib.import_module(f"analyze.{config.type}")
-        module.run(config, output_dir)
+        module = importlib.import_module(f"analyze.tasks.{task.type}")
     except ImportError:
-        raise ValueError(f"Unsupported analysis type: {config.type}")
+        raise ValueError(f"Unsupported analysis type: {task.type}")
+    finally:
+        module.run(task, output_dir)

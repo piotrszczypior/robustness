@@ -72,7 +72,7 @@ class DatasetConfig:
         return {
             "dataset_type": self.type.value,
             "corruption": self.corruption or "none",
-            "severity": self.severity or 0,
+            "severity": self.severity or 1,
             "perturbation": self.perturbation or "none",
         }
 
