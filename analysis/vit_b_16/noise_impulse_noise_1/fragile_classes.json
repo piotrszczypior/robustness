@@ -1,0 +1,35 @@
+{
+    "name": "vit_b_16_noise_impulse_noise_1",
+    "classes": [
+        {
+            "y_true": 112,
+            "synset": "n01943899",
+            "accuracy_clean": 0.8,
+            "accuracy_corrupted": 0.48
+        },
+        {
+            "y_true": 591,
+            "synset": "n03485794",
+            "accuracy_clean": 0.84,
+            "accuracy_corrupted": 0.5
+        },
+        {
+            "y_true": 617,
+            "synset": "n03630383",
+            "accuracy_clean": 0.82,
+            "accuracy_corrupted": 0.48
+        },
+        {
+            "y_true": 626,
+            "synset": "n03666591",
+            "accuracy_clean": 0.82,
+            "accuracy_corrupted": 0.5
+        },
+        {
+            "y_true": 910,
+            "synset": "n04597913",
+            "accuracy_clean": 0.8,
+            "accuracy_corrupted": 0.5
+        }
+    ]
+}

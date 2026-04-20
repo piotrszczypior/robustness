@@ -1,0 +1,473 @@
+{
+    "name": "resnet152_digital_pixelate_3",
+    "classes": [
+        {
+            "y_true": 6,
+            "synset": "n01498041",
+            "accuracy_clean": 0.88,
+            "accuracy_corrupted": 0.18
+        },
+        {
+            "y_true": 28,
+            "synset": "n01632458",
+            "accuracy_clean": 0.92,
+            "accuracy_corrupted": 0.28
+        },
+        {
+            "y_true": 30,
+            "synset": "n01641577",
+            "accuracy_clean": 0.82,
+            "accuracy_corrupted": 0.42
+        },
+        {
+            "y_true": 33,
+            "synset": "n01664065",
+            "accuracy_clean": 0.84,
+            "accuracy_corrupted": 0.5
+        },
+        {
+            "y_true": 37,
+            "synset": "n01669191",
+            "accuracy_clean": 0.88,
+            "accuracy_corrupted": 0.4
+        },
+        {
+            "y_true": 39,
+            "synset": "n01677366",
+            "accuracy_clean": 0.92,
+            "accuracy_corrupted": 0.4
+        },
+        {
+            "y_true": 42,
+            "synset": "n01687978",
+            "accuracy_clean": 0.84,
+            "accuracy_corrupted": 0.48
+        },
+        {
+            "y_true": 45,
+            "synset": "n01692333",
+            "accuracy_clean": 0.82,
+            "accuracy_corrupted": 0.4
+        },
+        {
+            "y_true": 49,
+            "synset": "n01697457",
+            "accuracy_clean": 0.82,
+            "accuracy_corrupted": 0.32
+        },
+        {
+            "y_true": 50,
+            "synset": "n01698640",
+            "accuracy_clean": 0.88,
+            "accuracy_corrupted": 0.26
+        },
+        {
+            "y_true": 56,
+            "synset": "n01734418",
+            "accuracy_clean": 0.84,
+            "accuracy_corrupted": 0.42
+        },
+        {
+            "y_true": 77,
+            "synset": "n01775062",
+            "accuracy_clean": 0.8,
+            "accuracy_corrupted": 0.22
+        },
+        {
+            "y_true": 79,
+            "synset": "n01784675",
+            "accuracy_clean": 0.88,
+            "accuracy_corrupted": 0.42
+        },
+        {
+            "y_true": 81,
+            "synset": "n01796340",
+            "accuracy_clean": 0.86,
+            "accuracy_corrupted": 0.5
+        },
+        {
+            "y_true": 109,
+            "synset": "n01917289",
+            "accuracy_clean": 0.92,
+            "accuracy_corrupted": 0.5
+        },
+        {
+            "y_true": 114,
+            "synset": "n01945685",
+            "accuracy_clean": 0.8,
+            "accuracy_corrupted": 0.4
+        },
+        {
+            "y_true": 115,
+            "synset": "n01950731",
+            "accuracy_clean": 0.9,
+            "accuracy_corrupted": 0.2
+        },
+        {
+            "y_true": 121,
+            "synset": "n01981276",
+            "accuracy_clean": 0.82,
+            "accuracy_corrupted": 0.44
+        },
+        {
+            "y_true": 123,
+            "synset": "n01984695",
+            "accuracy_clean": 0.82,
+            "accuracy_corrupted": 0.22
+        },
+        {
+            "y_true": 202,
+            "synset": "n02098105",
+            "accuracy_clean": 0.84,
+            "accuracy_corrupted": 0.42
+        },
+        {
+            "y_true": 209,
+            "synset": "n02099849",
+            "accuracy_clean": 0.84,
+            "accuracy_corrupted": 0.46
+        },
+        {
+            "y_true": 217,
+            "synset": "n02102040",
+            "accuracy_clean": 0.94,
+            "accuracy_corrupted": 0.46
+        },
+        {
+            "y_true": 245,
+            "synset": "n02108915",
+            "accuracy_clean": 0.94,
+            "accuracy_corrupted": 0.46
+        },
+        {
+            "y_true": 251,
+            "synset": "n02110341",
+            "accuracy_clean": 0.98,
+            "accuracy_corrupted": 0.44
+        },
+        {
+            "y_true": 267,
+            "synset": "n02113799",
+            "accuracy_clean": 0.96,
+            "accuracy_corrupted": 0.42
+        },
+        {
+            "y_true": 303,
+            "synset": "n02168699",
+            "accuracy_clean": 0.8,
+            "accuracy_corrupted": 0.34
+        },
+        {
+            "y_true": 308,
+            "synset": "n02190166",
+            "accuracy_clean": 0.88,
+            "accuracy_corrupted": 0.42
+        },
+        {
+            "y_true": 313,
+            "synset": "n02231487",
+            "accuracy_clean": 0.82,
+            "accuracy_corrupted": 0.3
+        },
+        {
+            "y_true": 314,
+            "synset": "n02233338",
+            "accuracy_clean": 0.82,
+            "accuracy_corrupted": 0.44
+        },
+        {
+            "y_true": 315,
+            "synset": "n02236044",
+            "accuracy_clean": 0.88,
+            "accuracy_corrupted": 0.42
+        },
+        {
+            "y_true": 316,
+            "synset": "n02256656",
+            "accuracy_clean": 0.94,
+            "accuracy_corrupted": 0.48
+        },
+        {
+            "y_true": 319,
+            "synset": "n02268443",
+            "accuracy_clean": 0.8,
+            "accuracy_corrupted": 0.4
+        },
+        {
+            "y_true": 328,
+            "synset": "n02319095",
+            "accuracy_clean": 0.88,
+            "accuracy_corrupted": 0.48
+        },
+        {
+            "y_true": 360,
+            "synset": "n02444819",
+            "accuracy_clean": 0.8,
+            "accuracy_corrupted": 0.42
+        },
+        {
+            "y_true": 383,
+            "synset": "n02497673",
+            "accuracy_clean": 0.82,
+            "accuracy_corrupted": 0.46
+        },
+        {
+            "y_true": 391,
+            "synset": "n02536864",
+            "accuracy_clean": 0.94,
+            "accuracy_corrupted": 0.42
+        },
+        {
+            "y_true": 393,
+            "synset": "n02607072",
+            "accuracy_clean": 0.88,
+            "accuracy_corrupted": 0.36
+        },
+        {
+            "y_true": 394,
+            "synset": "n02640242",
+            "accuracy_clean": 0.84,
+            "accuracy_corrupted": 0.48
+        },
+        {
+            "y_true": 396,
+            "synset": "n02643566",
+            "accuracy_clean": 0.96,
+            "accuracy_corrupted": 0.44
+        },
+        {
+            "y_true": 397,
+            "synset": "n02655020",
+            "accuracy_clean": 0.92,
+            "accuracy_corrupted": 0.48
+        },
+        {
+            "y_true": 428,
+            "synset": "n02797295",
+            "accuracy_clean": 0.8,
+            "accuracy_corrupted": 0.44
+        },
+        {
+            "y_true": 500,
+            "synset": "n03042490",
+            "accuracy_clean": 0.98,
+            "accuracy_corrupted": 0.44
+        },
+        {
+            "y_true": 533,
+            "synset": "n03207743",
+            "accuracy_clean": 0.96,
+            "accuracy_corrupted": 0.16
+        },
+        {
+            "y_true": 552,
+            "synset": "n03325584",
+            "accuracy_clean": 0.82,
+            "accuracy_corrupted": 0.46
+        },
+        {
+            "y_true": 560,
+            "synset": "n03379051",
+            "accuracy_clean": 0.92,
+            "accuracy_corrupted": 0.46
+        },
+        {
+            "y_true": 568,
+            "synset": "n03404251",
+            "accuracy_clean": 0.92,
+            "accuracy_corrupted": 0.36
+        },
+        {
+            "y_true": 580,
+            "synset": "n03457902",
+            "accuracy_clean": 0.82,
+            "accuracy_corrupted": 0.5
+        },
+        {
+            "y_true": 611,
+            "synset": "n03598930",
+            "accuracy_clean": 0.9,
+            "accuracy_corrupted": 0.46
+        },
+        {
+            "y_true": 614,
+            "synset": "n03617480",
+            "accuracy_clean": 0.88,
+            "accuracy_corrupted": 0.42
+        },
+        {
+            "y_true": 649,
+            "synset": "n03743016",
+            "accuracy_clean": 0.9,
+            "accuracy_corrupted": 0.5
+        },
+        {
+            "y_true": 679,
+            "synset": "n03814906",
+            "accuracy_clean": 0.9,
+            "accuracy_corrupted": 0.38
+        },
+        {
+            "y_true": 690,
+            "synset": "n03868242",
+            "accuracy_clean": 0.8,
+            "accuracy_corrupted": 0.46
+        },
+        {
+            "y_true": 695,
+            "synset": "n03874599",
+            "accuracy_clean": 0.8,
+            "accuracy_corrupted": 0.5
+        },
+        {
+            "y_true": 696,
+            "synset": "n03876231",
+            "accuracy_clean": 0.8,
+            "accuracy_corrupted": 0.32
+        },
+        {
+            "y_true": 703,
+            "synset": "n03891251",
+            "accuracy_clean": 0.8,
+            "accuracy_corrupted": 0.48
+        },
+        {
+            "y_true": 711,
+            "synset": "n03916031",
+            "accuracy_clean": 0.82,
+            "accuracy_corrupted": 0.46
+        },
+        {
+            "y_true": 721,
+            "synset": "n03938244",
+            "accuracy_clean": 0.9,
+            "accuracy_corrupted": 0.28
+        },
+        {
+            "y_true": 770,
+            "synset": "n04120489",
+            "accuracy_clean": 0.82,
+            "accuracy_corrupted": 0.46
+        },
+        {
+            "y_true": 778,
+            "synset": "n04141975",
+            "accuracy_clean": 0.8,
+            "accuracy_corrupted": 0.5
+        },
+        {
+            "y_true": 788,
+            "synset": "n04200800",
+            "accuracy_clean": 0.92,
+            "accuracy_corrupted": 0.1
+        },
+        {
+            "y_true": 791,
+            "synset": "n04204347",
+            "accuracy_clean": 0.84,
+            "accuracy_corrupted": 0.2
+        },
+        {
+            "y_true": 793,
+            "synset": "n04209133",
+            "accuracy_clean": 0.8,
+            "accuracy_corrupted": 0.42
+        },
+        {
+            "y_true": 795,
+            "synset": "n04228054",
+            "accuracy_clean": 0.82,
+            "accuracy_corrupted": 0.5
+        },
+        {
+            "y_true": 819,
+            "synset": "n04296562",
+            "accuracy_clean": 0.8,
+            "accuracy_corrupted": 0.32
+        },
+        {
+            "y_true": 825,
+            "synset": "n04326547",
+            "accuracy_clean": 0.84,
+            "accuracy_corrupted": 0.34
+        },
+        {
+            "y_true": 847,
+            "synset": "n04389033",
+            "accuracy_clean": 0.82,
+            "accuracy_corrupted": 0.48
+        },
+        {
+            "y_true": 849,
+            "synset": "n04398044",
+            "accuracy_clean": 0.84,
+            "accuracy_corrupted": 0.5
+        },
+        {
+            "y_true": 858,
+            "synset": "n04435653",
+            "accuracy_clean": 0.82,
+            "accuracy_corrupted": 0.4
+        },
+        {
+            "y_true": 878,
+            "synset": "n04505470",
+            "accuracy_clean": 0.86,
+            "accuracy_corrupted": 0.36
+        },
+        {
+            "y_true": 882,
+            "synset": "n04517823",
+            "accuracy_clean": 0.8,
+            "accuracy_corrupted": 0.48
+        },
+        {
+            "y_true": 910,
+            "synset": "n04597913",
+            "accuracy_clean": 0.82,
+            "accuracy_corrupted": 0.3
+        },
+        {
+            "y_true": 913,
+            "synset": "n04606251",
+            "accuracy_clean": 0.84,
+            "accuracy_corrupted": 0.46
+        },
+        {
+            "y_true": 929,
+            "synset": "n07615774",
+            "accuracy_clean": 0.8,
+            "accuracy_corrupted": 0.44
+        },
+        {
+            "y_true": 953,
+            "synset": "n07753275",
+            "accuracy_clean": 0.92,
+            "accuracy_corrupted": 0.5
+        },
+        {
+            "y_true": 958,
+            "synset": "n07802026",
+            "accuracy_clean": 0.82,
+            "accuracy_corrupted": 0.4
+        },
+        {
+            "y_true": 965,
+            "synset": "n07880968",
+            "accuracy_clean": 0.88,
+            "accuracy_corrupted": 0.44
+        },
+        {
+            "y_true": 971,
+            "synset": "n09229709",
+            "accuracy_clean": 0.9,
+            "accuracy_corrupted": 0.32
+        },
+        {
+            "y_true": 991,
+            "synset": "n12985857",
+            "accuracy_clean": 0.94,
+            "accuracy_corrupted": 0.4
+        }
+    ]
+}

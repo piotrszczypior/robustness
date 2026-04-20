@@ -5,7 +5,7 @@ import logging
 from pathlib import Path
 import pandas as pd
 
-from analyses import AccuracyDropTask
+from analyze.analyses import AccuracyDropTask
 
 logger = logging.getLogger(__name__)
 
@@ -52,15 +52,15 @@ class _AccuracyDropGenerator:
         )
 
     def _save_results(self, results_df: pd.DataFrame):
-        output_path = self.output_dir / self.config.name
+        output_path = self.output_dir / self.task.output_path
         output_path.mkdir(parents=True, exist_ok=True)
 
-        filename = self.config.name + "_accuracy_drop.json"
+        filename = "accuracy_drop.json"
         path_with_file = output_path / filename
 
         results_dict = results_df.to_dict(orient="records")
 
-        output = {"name": self.config.name, "classes": results_dict}
+        output = {"name": self.task.name, "classes": results_dict}
 
         with open(path_with_file, "w") as f:
             json.dump(output, f, indent=4)

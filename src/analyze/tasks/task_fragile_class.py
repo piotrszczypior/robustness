@@ -63,10 +63,10 @@ class _FragileClassAnalysis:
         )
 
     def _save_full_results(self, results_df: pd.DataFrame):
-        output_path = self.output_dir / self.task.name
+        output_path = self.output_dir / self.task.output_path
         output_path.mkdir(parents=True, exist_ok=True)
 
-        filename = self.task.name + "_classes.json"
+        filename = "classes.json"
         path_with_file = output_path / filename
 
         results_dict = results_df.to_dict(orient="records")
@@ -79,10 +79,10 @@ class _FragileClassAnalysis:
         logger.info(f"Analysis results saved to: {output_path}")
 
     def _save_fragile_classes(self, fragile_classes_df: pd.DataFrame):
-        output_path = self.output_dir / self.task.name
+        output_path = self.output_dir / self.task.output_path
         output_path.mkdir(parents=True, exist_ok=True)
 
-        filename = self.task.name + "_fragile_classes.json"
+        filename = "fragile_classes.json"
         path_with_file = output_path / filename
 
         output = {

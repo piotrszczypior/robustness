@@ -21,7 +21,7 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     parser = subparsers.add_parser("analyze", help="Analyze results")
     parser.add_argument("--type", type=str, help="Filter by task type")
     parser.add_argument("--data", default="results/", type=str, help="Data directory with csv files")
-    parser.add_argument("--output", default="analysis/temp/", type=str, help="Data directory with csv files")
+    parser.add_argument("--output", default="analysis/", type=str, help="Data directory with csv files")
     parser.add_argument("--sync-drive", action="store_true", help="Sync results to Google Drive")
     parser.add_argument("--debug", action="store_true", help="Skip plot generation")
     # fmt: on

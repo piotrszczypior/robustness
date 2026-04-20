@@ -3,6 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Literal
 
+from torch import var
+
 from model import MODELS
 
 from .base import BaseTask, ModelTest, VariantEntry, VariationSpace
@@ -16,6 +18,7 @@ class FragileClassTask(BaseTask):
 
     baseline_csv: str = ""
     corrupted_csv: str = ""
+    output_path: str = ""
 
     def __post_init__(self) -> None:
         super().__post_init__()
@@ -23,6 +26,7 @@ class FragileClassTask(BaseTask):
             raise ValueError(f"[{self.name}] baseline_csv must not be empty.")
         if not self.corrupted_csv:
             raise ValueError(f"[{self.name}] corrupted_csv must not be empty.")
+        assert self.output_path, "output_path must not be empty"
 
 
 @dataclass(frozen=True)
@@ -33,6 +37,7 @@ class AccuracyDropTask(BaseTask):
 
     baseline_csv: str = ""
     corrupted_csv: str = ""
+    output_path: str = ""
 
     def __post_init__(self) -> None:
         super().__post_init__()
@@ -40,7 +45,7 @@ class AccuracyDropTask(BaseTask):
             raise ValueError(f"[{self.name}] baseline_csv must not be empty.")
         if not self.corrupted_csv:
             raise ValueError(f"[{self.name}] corrupted_csv must not be empty.")
-
+        assert self.output_path, "output_path must not be empty"
 
 @dataclass(frozen=True)
 class CommonFragileClassTask(BaseTask):
@@ -88,8 +93,11 @@ def baseline_csv(model: str) -> str:
 
 def classes_json(model: str, var: VariantEntry) -> str:
     name = f"{model}_{var.group}_{var.corruption}_{var.severity}"
-    return f"{name}/{name}_classes.json"
+    return f"{name}/classes.json"
 
+
+def output_path(var: VariantEntry) -> str:
+    return f"{var.model}/{var.group}_{var.corruption}_{var.severity}"
 
 def generate_fragile_class_tasks(
     space: VariationSpace | None = None,
@@ -101,6 +109,7 @@ def generate_fragile_class_tasks(
             name=name(variant),
             baseline_csv=baseline_csv(variant.model),
             corrupted_csv=corrupted_csv(variant),
+            output_path=output_path(variant),
         )
         for variant in (space or VariationSpace())
     ]
@@ -116,6 +125,7 @@ def generate_accuracy_drop_tasks(
             name=name(variant),
             baseline_csv=baseline_csv(variant.model),
             corrupted_csv=corrupted_csv(variant),
+            output_path=output_path(variant),
         )
         for variant in (space or VariationSpace())
     ]
