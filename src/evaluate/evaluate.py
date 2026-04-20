@@ -12,6 +12,7 @@ from torch.utils.data import DataLoader
 
 from dataset import get_dataset
 from checkpoint import MetricsExporter
+from utils import resolve_device
 
 # FIXME
 from config import Config
@@ -25,11 +26,11 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class ResultAccumulator:
-    model_name: str
     image: list[str] = field(default_factory=list)
     synset: list[str] = field(default_factory=list)
     y_true: list[int] = field(default_factory=list)
     y_pred: list[int] = field(default_factory=list)
+    top5_pred: list[list[int]] = field(default_factory=list)
     confidence: list[float] = field(default_factory=list)
     dataset_metadata: dict[str, Any] = field(default_factory=dict)
 
@@ -39,22 +40,19 @@ class ResultAccumulator:
         synsets: tuple,
         targets: np.ndarray,
         predictions: np.ndarray,
+        top5_predictions: np.ndarray,
         confidences: np.ndarray,
     ):
         self.image.extend(filenames)
         self.synset.extend(synsets)
         self.y_true.extend(targets)
         self.y_pred.extend(predictions)
+        self.top5_pred.extend(top5_predictions.tolist())
         self.confidence.extend(confidences)
-
-    def with_metadata(self, metadata: dict[str, Any]) -> ResultAccumulator:
-        self.dataset_metadata = metadata
-        return self
 
     def to_dataframe(self) -> pd.DataFrame:
         df = pd.DataFrame(
             {
-                "model": self.model_name,
                 "image": self.image,
                 "synset": self.synset,
                 "y_true": self.y_true,
@@ -64,14 +62,13 @@ class ResultAccumulator:
         )
         df["is_correct"] = (df["y_true"] == df["y_pred"]).astype(int)
 
+        for i in range(1, 5):
+            df[f"y_pred_top{i + 1}"] = [preds[i] for preds in self.top5_pred]
+
         for key, value in self.dataset_metadata.items():
             df[key] = value
 
         return df
-
-
-def resolve_device():
-    return torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 def run_evaluation(
@@ -92,9 +89,7 @@ def run_evaluation(
             batch_size=int(args.batch_size or Config.BATCH_SIZE),
         )
 
-        results, run_accuracy, run_error = evaluate_per_file(
-            model, data_loader, device, dataset_config.metadata, args.model
-        )
+        results, run_accuracy, run_error = evaluate_per_file(model, data_loader, device)
 
         logger.info(
             f"Experiment {experiment.name} finished. "
@@ -102,16 +97,20 @@ def run_evaluation(
             f"Error: {run_error:.4f}"
         )
 
+        metadata = {"model": args.model}
+        metadata.update(dataset_config.metadata)
+
         exporter.export(
             data_df=results.to_dataframe(),
+            metadata=metadata,
             filename=f"{args.model}_{experiment.filename_suffix}.csv",
         )
 
 
-def evaluate_per_file(model, data_loader, device, run_metadata, model_name):
+def evaluate_per_file(model, data_loader, device):
     model.eval()
     model.to(device)
-    results = ResultAccumulator(model_name=model_name).with_metadata(run_metadata)
+    results = ResultAccumulator()
 
     total_correct = 0
 
@@ -123,6 +122,7 @@ def evaluate_per_file(model, data_loader, device, run_metadata, model_name):
 
             probs = F.softmax(outputs, dim=1)
             confidences, predictions = torch.max(probs, dim=1)
+            top5_predictions = probs.topk(5, dim=1).indices
 
             total_correct += (predictions == targets).sum().item()
 
@@ -131,6 +131,7 @@ def evaluate_per_file(model, data_loader, device, run_metadata, model_name):
                 synsets=batch_metadata["synset"],
                 targets=targets.cpu().numpy(),
                 predictions=predictions.cpu().numpy(),
+                top5_predictions=top5_predictions.cpu().numpy(),
                 confidences=confidences.cpu().numpy(),
             )
 
