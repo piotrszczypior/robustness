@@ -1,25 +1,11 @@
-from dataclasses import fields
+import logging
+import torch
 
 
-def builder(cls):
-    class DataclassBuilder:
-        def __init__(self):
-            self._kwargs = {}
+def resolve_device():
+    logger = logging.getLogger("device")
 
-        def build(self):
-            return cls(**self._kwargs)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    logger.info(f"Using device: {device}")
 
-    for field in fields(cls):
-
-        def make_setter(name):
-            def setter(self, value):
-                self._kwargs[name] = value
-                return self
-
-            return setter
-
-        setattr(DataclassBuilder, field.name, make_setter(field.name))
-
-    cls.builder = staticmethod(lambda: DataclassBuilder())
-
-    return cls
+    return device

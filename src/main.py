@@ -12,6 +12,7 @@ import setup
 import evaluate
 import plots
 import analyze
+import xai
 
 
 TASK_REGISTRY: Dict[str, Task] = {
@@ -19,6 +20,7 @@ TASK_REGISTRY: Dict[str, Task] = {
     "evaluate": evaluate.get_task(),
     "plot": plots.get_task(),
     "analyze": analyze.get_task(),
+    "xai": xai.get_task(),
 }
 
 

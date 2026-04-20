@@ -47,13 +47,39 @@ class DatasetConfig:
     corruption: Optional[str] = None
     severity: Optional[int] = None
     perturbation: Optional[str] = None
+    group: Optional[str] = None
 
-    def get_data_path(self) -> Path:
+    @staticmethod
+    def from_alias(alias: str) -> DatasetConfig:
+        """
+        Creates a DatasetConfig from a string alias.
+        Examples:
+            - "imagenet"
+            - "imagenet_c_defocus_blur_1"
+        """
+        parts = alias.split("_", maxsplit=2)
+
+        try:
+            dataset_type = DatasetType("_".join(parts[:2]))
+        except ValueError:
+            return DatasetConfig(type=DatasetType(parts[0]))
+
+        if len(parts) < 3:
+            return DatasetConfig(type=dataset_type)
+
+        corruption, _, severity_str = parts[2].rpartition("_")
+        try:
+            severity = int(severity_str)
+        except ValueError:
+            return DatasetConfig(type=dataset_type)
+
+        return DatasetConfig(
+            type=dataset_type, corruption=corruption, severity=severity
+        )
+
+    def get_data_path(self, data_root: Optional[str] = None) -> Path:
         """Resolves the directory path based on dataset type and parameters"""
-        base_path = Path(Config.DATA_ROOT)
-
-        if not base_path.exists():
-            raise FileNotFoundError(f"Directory does not exists: {base_path}")
+        base_path = Path(data_root) if data_root else Path(Config.DATA_ROOT)
 
         if self.type == DatasetType.IMAGENET_C:
             if not self.corruption or self.severity is None:

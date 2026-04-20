@@ -3,8 +3,6 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Literal
 
-from torch import var
-
 from model import MODELS
 
 from .base import BaseTask, ModelTest, VariantEntry, VariationSpace
@@ -46,6 +44,7 @@ class AccuracyDropTask(BaseTask):
         if not self.corrupted_csv:
             raise ValueError(f"[{self.name}] corrupted_csv must not be empty.")
         assert self.output_path, "output_path must not be empty"
+
 
 @dataclass(frozen=True)
 class CommonFragileClassTask(BaseTask):
@@ -98,6 +97,7 @@ def classes_json(model: str, var: VariantEntry) -> str:
 
 def output_path(var: VariantEntry) -> str:
     return f"{var.model}/{var.group}_{var.corruption}_{var.severity}"
+
 
 def generate_fragile_class_tasks(
     space: VariationSpace | None = None,
