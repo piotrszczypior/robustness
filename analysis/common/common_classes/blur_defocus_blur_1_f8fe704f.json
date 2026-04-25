@@ -1,0 +1,31 @@
+{
+    "metadata": {
+        "task_name": "blur_defocus_blur_1",
+        "models_count": 5,
+        "model_footprint": "f8fe704f",
+        "input_files": [
+            "resnet50/blur_defocus_blur_1/classes.json",
+            "resnet152/blur_defocus_blur_1/classes.json",
+            "efficientnet_b4/blur_defocus_blur_1/classes.json",
+            "convnext_base/blur_defocus_blur_1/classes.json",
+            "vit_b_16/blur_defocus_blur_1/classes.json"
+        ]
+    },
+    "common_classes": [
+        {
+            "index": 50,
+            "synset": "n01698640",
+            "label": "American_alligator"
+        },
+        {
+            "index": 595,
+            "synset": "n03496892",
+            "label": "harvester"
+        },
+        {
+            "index": 6,
+            "synset": "n01498041",
+            "label": "stingray"
+        }
+    ]
+}

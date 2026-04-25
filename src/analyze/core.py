@@ -9,5 +9,5 @@ def run_analysis(task: BaseTask, output_dir: str):
         module = importlib.import_module(f"analyze.tasks.{task.type}")
     except ImportError:
         raise ValueError(f"Unsupported analysis type: {task.type}")
-    finally:
+    else:
         module.run(task, output_dir)

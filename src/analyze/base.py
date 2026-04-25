@@ -41,6 +41,7 @@ class VariationSpace:
     models: list[str] | None = None
     groups: list[str] | None = None
     severities: list[int] | None = None
+    corruptions: list[str] | None = None
 
     _variants: tuple[VariantEntry, ...] = field(init=False, repr=False, compare=False)
 
@@ -56,10 +57,16 @@ class VariationSpace:
             VariantEntry(
                 model=model, group=group, corruption=corruption, severity=severity
             )
-            for model, (group, corruptions), severity in product(
+            for model, (group, group_corruptions), severity in product(
                 _models, _groups.items(), _severities
             )
-            for corruption in corruptions
+            for corruption in (
+                [
+                    group_corruption
+                    for group_corruption in group_corruptions
+                    if self.corruptions is None or group_corruption in self.corruptions
+                ]
+            )
         ]
         object.__setattr__(self, "_variants", tuple(variants))
 

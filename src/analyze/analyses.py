@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from cProfile import label
 from dataclasses import dataclass, field
 from typing import Literal
 
@@ -54,9 +55,13 @@ class CommonFragileClassTask(BaseTask):
 
     fragile_class_files: tuple[str, ...] = field(default_factory=tuple)
     output_filename: str = ""
+    models: list[str] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         super().__post_init__()
+        sorted_models = tuple(sorted(self.models))
+        object.__setattr__(self, "models", sorted_models)
+
         if not self.fragile_class_files:
             raise ValueError(f"[{self.name}] fragile_class_files must not be empty.")
         if not self.output_filename:
@@ -90,9 +95,14 @@ def baseline_csv(model: str) -> str:
     return f"{model}_imagenet.csv"
 
 
+def fragile_classes_json(model: str, var: VariantEntry) -> str:
+    name = f"{var.group}_{var.corruption}_{var.severity}"
+    return f"{model}/{name}/fragile_classes.json"
+
+
 def classes_json(model: str, var: VariantEntry) -> str:
-    name = f"{model}_{var.group}_{var.corruption}_{var.severity}"
-    return f"{name}/classes.json"
+    name = f"{var.group}_{var.corruption}_{var.severity}"
+    return f"{model}/{name}/classes.json"
 
 
 def output_path(var: VariantEntry) -> str:
@@ -181,7 +191,21 @@ def get_settings():
     space = VariationSpace(groups=["blur", "digital", "noise"])
 
     return [
-        *generate_fragile_class_tasks(space),
-        *generate_common_fragile_tasks(space),
-        *generate_accuracy_drop_tasks(space),
+        # *generate_fragile_class_tasks(space),
+        # *generate_common_fragile_tasks(space),
+        # *generate_accuracy_drop_tasks(space),
+
+        CommonFragileClassTask(
+            name=f"{group}_defocus_blur_1",
+            fragile_class_files=tuple(
+                classes_json(model, VariantEntry(model, group, corruption, severity))
+                for model in models
+            ),
+            models=models,
+            output_filename=f"common_fragile_{corruption}_{severity}.json",
+        )
+        for group, corruption, severity, models in VariationSpace(
+            corruptions=["defocus_blur"],
+            severities=[1],
+        ).per_corruption()
     ]
