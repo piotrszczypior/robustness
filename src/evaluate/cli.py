@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 import logging
 
-from const import DEFAULT_DATAPATH, DEFAULT_MODEL_NAME, DEFAULT_OUTPUT_PATH
+from paths import paths
 from model import get_model
 from task import Task
 from .experiment import read_experiments
@@ -23,10 +23,10 @@ def get_task():
 def register(subparsers: argparse._SubParsersAction) -> None:
     # fmt: off
     parser = subparsers.add_parser("evaluate", help="Run model evaluation")
-    parser.add_argument("--model", default=DEFAULT_MODEL_NAME, type=str, help="Model name (e.g resnet152)")
-    parser.add_argument("--data-path", default=DEFAULT_DATAPATH, type=str, help="Dataset path - data/")
-    parser.add_argument("--output-path", default=DEFAULT_OUTPUT_PATH, type=str)
-    parser.add_argument("--experiments", default="experiments/experiments.yaml" ,type=str, help="Experiments")
+    parser.add_argument("--model", default="resnet152", type=str, help="Model name (e.g resnet152)")
+    parser.add_argument("--data-path", default=str(paths.data), type=str, help="Dataset path")
+    parser.add_argument("--output-path", default=str(paths.results), type=str)
+    parser.add_argument("--experiments", default=str(paths.experiments_file) ,type=str, help="Experiments")
     parser.add_argument("--run-single", type=str, help="Run specific experiment by name")
     parser.add_argument("--run-batch", type=str, help="Run specific batch of experiment by name")
     parser.add_argument("--sync-drive", action="store_true", help="Sync results to Google Drive")

@@ -14,3 +14,5 @@ pyyaml
 munch
 scipy
 scikit-learn
+plotly
+kaleido

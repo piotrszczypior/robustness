@@ -3,9 +3,9 @@ from __future__ import annotations
 import argparse
 import logging
 
-from config import Config
 from task import Task
 from .gradcam import run_gradcam
+from paths import paths
 
 __all__ = ["get_task", "register", "run"]
 
@@ -32,7 +32,7 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         help="Dataset name (e.g. blur_defocus_blur_1)",
     )
     parser.add_argument(
-        "--data-path", default=Config.DATA_ROOT, type=str, help="Base data path"
+        "--data-path", default=paths.data, type=str, help="Base data path"
     )
     parser.add_argument(
         "--synset", required=True, type=str, help="ImageNet synset ID (e.g. n01440764)"

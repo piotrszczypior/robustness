@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from config import Config
+from paths import paths
+from pathlib import Path
 import pandas as pd
 import shutil
 import os
@@ -9,8 +10,8 @@ __all__ = ["MetricsExporter"]
 
 
 class MetricsExporter:
-    def __init__(self, output_dir: str = Config.RESULTS_DIR, backup_dir: str = None):
-        self.output_dir = output_dir
+    def __init__(self, output_dir: str | Path | None = None, backup_dir: str = None):
+        self.output_dir = Path(output_dir) if output_dir else paths.results
         self.backup_dir = backup_dir
         os.makedirs(self.output_dir, exist_ok=True)
         if self.backup_dir:

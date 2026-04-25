@@ -5,7 +5,7 @@ import logging
 import argparse
 from typing import Dict
 
-from config import Config
+from paths import paths
 from task import Task
 
 import setup
@@ -13,6 +13,7 @@ import evaluate
 import plots
 import analyze
 import xai
+import sankey
 
 
 TASK_REGISTRY: Dict[str, Task] = {
@@ -21,18 +22,18 @@ TASK_REGISTRY: Dict[str, Task] = {
     "plot": plots.get_task(),
     "analyze": analyze.get_task(),
     "xai": xai.get_task(),
+    "sankey": sankey.get_task(),
 }
 
 
 def setup_logging():
-    os.makedirs(Config.LOGS_DIR, exist_ok=True)
-    log_file_path = os.path.join(Config.LOGS_DIR, Config.LOG_FILE)
+    os.makedirs(paths.logs, exist_ok=True)
 
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s | %(levelname)-7s | %(name)-35s: %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
-        handlers=[logging.FileHandler(log_file_path), logging.StreamHandler()],
+        handlers=[logging.FileHandler(paths.log_file), logging.StreamHandler()],
     )
     return logging.getLogger(__name__)
 

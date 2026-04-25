@@ -6,7 +6,7 @@ from pathlib import Path
 
 from task import Task
 from .setup import setup_dataset
-from const import DEFAULT_DATAPATH
+from paths import paths
 
 __all__ = ["get_task", "register", "run"]
 
@@ -23,7 +23,7 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     # fmt: off
     parser = subparsers.add_parser("setup", help="Setup environment")
     parser.add_argument("--dataset", help="Datasets to prepare", required=True)
-    parser.add_argument("--data-path", default=DEFAULT_DATAPATH, type=str, help="Dataset path - data/")
+    parser.add_argument("--data-path", default=paths.data, type=str, help="Dataset path - data/")
     parser.add_argument("--archives", nargs="*", help="Specific archives to download (e.g. blur.tar)")
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
     # fmt: on

@@ -1,0 +1,1161 @@
+{
+    "metadata": {
+        "task_name": "blur_defocus_blur_1",
+        "models": [
+            "convnext_base",
+            "efficientnet_b4",
+            "resnet152",
+            "resnet50",
+            "vit_b_16"
+        ],
+        "model_footprint": "f8fe704f"
+    },
+    "weighted_preds": [
+        {
+            "model": "convnext_base",
+            "synset": "n01498041",
+            "y_pred": 5,
+            "count": 35
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01498041",
+            "y_pred": 570,
+            "count": 1
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01498041",
+            "y_pred": 6,
+            "count": 8
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01498041",
+            "y_pred": 392,
+            "count": 1
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01498041",
+            "y_pred": 149,
+            "count": 1
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01498041",
+            "y_pred": 4,
+            "count": 1
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01498041",
+            "y_pred": 394,
+            "count": 1
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01498041",
+            "y_pred": 842,
+            "count": 1
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01498041",
+            "y_pred": 978,
+            "count": 1
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01698640",
+            "y_pred": 41,
+            "count": 1
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01698640",
+            "y_pred": 50,
+            "count": 20
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01698640",
+            "y_pred": 0,
+            "count": 1
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01698640",
+            "y_pred": 26,
+            "count": 4
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01698640",
+            "y_pred": 29,
+            "count": 1
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01698640",
+            "y_pred": 126,
+            "count": 2
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01698640",
+            "y_pred": 38,
+            "count": 1
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01698640",
+            "y_pred": 49,
+            "count": 8
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01698640",
+            "y_pred": 36,
+            "count": 1
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01698640",
+            "y_pred": 103,
+            "count": 4
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01698640",
+            "y_pred": 62,
+            "count": 1
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01698640",
+            "y_pred": 980,
+            "count": 1
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01698640",
+            "y_pred": 44,
+            "count": 1
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01698640",
+            "y_pred": 58,
+            "count": 1
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01698640",
+            "y_pred": 128,
+            "count": 1
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01698640",
+            "y_pred": 33,
+            "count": 1
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n01698640",
+            "y_pred": 135,
+            "count": 1
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n03496892",
+            "y_pred": 595,
+            "count": 16
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n03496892",
+            "y_pred": 866,
+            "count": 3
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n03496892",
+            "y_pred": 856,
+            "count": 28
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n03496892",
+            "y_pred": 621,
+            "count": 1
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n03496892",
+            "y_pred": 346,
+            "count": 1
+        },
+        {
+            "model": "convnext_base",
+            "synset": "n03496892",
+            "y_pred": 912,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01498041",
+            "y_pred": 5,
+            "count": 23
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01498041",
+            "y_pred": 801,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01498041",
+            "y_pred": 6,
+            "count": 15
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01498041",
+            "y_pred": 103,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01498041",
+            "y_pred": 885,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01498041",
+            "y_pred": 112,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01498041",
+            "y_pred": 33,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01498041",
+            "y_pred": 147,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01498041",
+            "y_pred": 3,
+            "count": 2
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01498041",
+            "y_pred": 20,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01498041",
+            "y_pred": 576,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01498041",
+            "y_pred": 842,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01498041",
+            "y_pred": 978,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01698640",
+            "y_pred": 50,
+            "count": 25
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01698640",
+            "y_pred": 975,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01698640",
+            "y_pred": 29,
+            "count": 3
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01698640",
+            "y_pred": 103,
+            "count": 5
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01698640",
+            "y_pred": 49,
+            "count": 2
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01698640",
+            "y_pred": 164,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01698640",
+            "y_pred": 132,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01698640",
+            "y_pred": 36,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01698640",
+            "y_pred": 739,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01698640",
+            "y_pred": 336,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01698640",
+            "y_pred": 405,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01698640",
+            "y_pred": 58,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01698640",
+            "y_pred": 101,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01698640",
+            "y_pred": 34,
+            "count": 2
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01698640",
+            "y_pred": 395,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01698640",
+            "y_pred": 855,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01698640",
+            "y_pred": 131,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n01698640",
+            "y_pred": 141,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n03496892",
+            "y_pred": 595,
+            "count": 23
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n03496892",
+            "y_pred": 866,
+            "count": 3
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n03496892",
+            "y_pred": 856,
+            "count": 16
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n03496892",
+            "y_pred": 867,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n03496892",
+            "y_pred": 621,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n03496892",
+            "y_pred": 730,
+            "count": 2
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n03496892",
+            "y_pred": 573,
+            "count": 1
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n03496892",
+            "y_pred": 912,
+            "count": 2
+        },
+        {
+            "model": "efficientnet_b4",
+            "synset": "n03496892",
+            "y_pred": 984,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01498041",
+            "y_pred": 5,
+            "count": 29
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01498041",
+            "y_pred": 65,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01498041",
+            "y_pred": 103,
+            "count": 2
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01498041",
+            "y_pred": 149,
+            "count": 3
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01498041",
+            "y_pred": 107,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01498041",
+            "y_pred": 601,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01498041",
+            "y_pred": 842,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01498041",
+            "y_pred": 33,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01498041",
+            "y_pred": 973,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01498041",
+            "y_pred": 980,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01498041",
+            "y_pred": 6,
+            "count": 5
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01498041",
+            "y_pred": 4,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01498041",
+            "y_pred": 830,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01498041",
+            "y_pred": 3,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01498041",
+            "y_pred": 978,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01698640",
+            "y_pred": 29,
+            "count": 4
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01698640",
+            "y_pred": 50,
+            "count": 19
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01698640",
+            "y_pred": 975,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01698640",
+            "y_pred": 26,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01698640",
+            "y_pred": 30,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01698640",
+            "y_pred": 362,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01698640",
+            "y_pred": 44,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01698640",
+            "y_pred": 103,
+            "count": 5
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01698640",
+            "y_pred": 49,
+            "count": 4
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01698640",
+            "y_pred": 118,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01698640",
+            "y_pred": 36,
+            "count": 2
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01698640",
+            "y_pred": 490,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01698640",
+            "y_pred": 21,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01698640",
+            "y_pred": 41,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01698640",
+            "y_pred": 395,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01698640",
+            "y_pred": 58,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01698640",
+            "y_pred": 134,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01698640",
+            "y_pred": 35,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01698640",
+            "y_pred": 855,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n01698640",
+            "y_pred": 142,
+            "count": 2
+        },
+        {
+            "model": "resnet152",
+            "synset": "n03496892",
+            "y_pred": 595,
+            "count": 23
+        },
+        {
+            "model": "resnet152",
+            "synset": "n03496892",
+            "y_pred": 866,
+            "count": 4
+        },
+        {
+            "model": "resnet152",
+            "synset": "n03496892",
+            "y_pred": 510,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n03496892",
+            "y_pred": 856,
+            "count": 12
+        },
+        {
+            "model": "resnet152",
+            "synset": "n03496892",
+            "y_pred": 621,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n03496892",
+            "y_pred": 730,
+            "count": 2
+        },
+        {
+            "model": "resnet152",
+            "synset": "n03496892",
+            "y_pred": 833,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n03496892",
+            "y_pred": 362,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n03496892",
+            "y_pred": 912,
+            "count": 3
+        },
+        {
+            "model": "resnet152",
+            "synset": "n03496892",
+            "y_pred": 408,
+            "count": 1
+        },
+        {
+            "model": "resnet152",
+            "synset": "n03496892",
+            "y_pred": 984,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01498041",
+            "y_pred": 6,
+            "count": 19
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01498041",
+            "y_pred": 5,
+            "count": 20
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01498041",
+            "y_pred": 103,
+            "count": 3
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01498041",
+            "y_pred": 552,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01498041",
+            "y_pred": 655,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01498041",
+            "y_pred": 801,
+            "count": 2
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01498041",
+            "y_pred": 3,
+            "count": 2
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01498041",
+            "y_pred": 576,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01498041",
+            "y_pred": 978,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01698640",
+            "y_pred": 50,
+            "count": 22
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01698640",
+            "y_pred": 975,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01698640",
+            "y_pred": 32,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01698640",
+            "y_pred": 26,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01698640",
+            "y_pred": 29,
+            "count": 2
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01698640",
+            "y_pred": 126,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01698640",
+            "y_pred": 103,
+            "count": 4
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01698640",
+            "y_pred": 346,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01698640",
+            "y_pred": 49,
+            "count": 6
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01698640",
+            "y_pred": 36,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01698640",
+            "y_pred": 62,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01698640",
+            "y_pred": 701,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01698640",
+            "y_pred": 41,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01698640",
+            "y_pred": 58,
+            "count": 2
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01698640",
+            "y_pred": 128,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01698640",
+            "y_pred": 970,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01698640",
+            "y_pred": 35,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01698640",
+            "y_pred": 363,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n01698640",
+            "y_pred": 135,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n03496892",
+            "y_pred": 595,
+            "count": 17
+        },
+        {
+            "model": "resnet50",
+            "synset": "n03496892",
+            "y_pred": 866,
+            "count": 4
+        },
+        {
+            "model": "resnet50",
+            "synset": "n03496892",
+            "y_pred": 856,
+            "count": 21
+        },
+        {
+            "model": "resnet50",
+            "synset": "n03496892",
+            "y_pred": 621,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n03496892",
+            "y_pred": 625,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n03496892",
+            "y_pred": 831,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n03496892",
+            "y_pred": 958,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n03496892",
+            "y_pred": 913,
+            "count": 1
+        },
+        {
+            "model": "resnet50",
+            "synset": "n03496892",
+            "y_pred": 912,
+            "count": 2
+        },
+        {
+            "model": "resnet50",
+            "synset": "n03496892",
+            "y_pred": 730,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01498041",
+            "y_pred": 6,
+            "count": 13
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01498041",
+            "y_pred": 5,
+            "count": 29
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01498041",
+            "y_pred": 149,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01498041",
+            "y_pred": 90,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01498041",
+            "y_pred": 2,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01498041",
+            "y_pred": 4,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01498041",
+            "y_pred": 111,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01498041",
+            "y_pred": 150,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01498041",
+            "y_pred": 977,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01498041",
+            "y_pred": 978,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01698640",
+            "y_pred": 39,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01698640",
+            "y_pred": 50,
+            "count": 23
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01698640",
+            "y_pred": 975,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01698640",
+            "y_pred": 44,
+            "count": 3
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01698640",
+            "y_pred": 29,
+            "count": 2
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01698640",
+            "y_pred": 361,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01698640",
+            "y_pred": 49,
+            "count": 5
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01698640",
+            "y_pred": 395,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01698640",
+            "y_pred": 344,
+            "count": 2
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01698640",
+            "y_pred": 103,
+            "count": 4
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01698640",
+            "y_pred": 36,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01698640",
+            "y_pred": 62,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01698640",
+            "y_pred": 377,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01698640",
+            "y_pred": 58,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01698640",
+            "y_pred": 101,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01698640",
+            "y_pred": 34,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n01698640",
+            "y_pred": 363,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n03496892",
+            "y_pred": 856,
+            "count": 31
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n03496892",
+            "y_pred": 866,
+            "count": 3
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n03496892",
+            "y_pred": 595,
+            "count": 10
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n03496892",
+            "y_pred": 621,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n03496892",
+            "y_pred": 646,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n03496892",
+            "y_pred": 351,
+            "count": 1
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n03496892",
+            "y_pred": 912,
+            "count": 2
+        },
+        {
+            "model": "vit_b_16",
+            "synset": "n03496892",
+            "y_pred": 730,
+            "count": 1
+        }
+    ]
+}

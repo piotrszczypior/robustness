@@ -68,33 +68,38 @@ class _CommonFragileClassAnalysis:
 
     def _save_results(self, df: pd.DataFrame) -> None:
         import hashlib
+
         save_dir = Path("analysis/common/common_classes")
         save_dir.mkdir(parents=True, exist_ok=True)
 
-        model_footprint = hashlib.md5("".join(self.task.models).encode()).hexdigest()[:8]
+        model_footprint = hashlib.md5("".join(self.task.models).encode()).hexdigest()[
+            :8
+        ]
 
         json_path = save_dir / f"{self.task.name}_{model_footprint}.json"
-        
+
         output_data = {
             "metadata": {
                 "task_name": self.task.name,
                 "models_count": len(self.task.fragile_class_files),
                 "model_footprint": model_footprint,
-                "input_files": self.task.fragile_class_files
+                "input_files": self.task.fragile_class_files,
             },
-            "common_classes": df.reset_index().rename(columns={"index": "index"}).to_dict(orient="records")
+            "common_classes": df.reset_index()
+            .rename(columns={"index": "index"})
+            .to_dict(orient="records"),
         }
 
         with open(json_path, "w") as f:
             json.dump(output_data, f, indent=4)
 
         latex_path = save_dir / f"{self.task.name}_{model_footprint}_table.tex"
-        
+
         with open(latex_path, "w") as f:
             latex_str = df.to_latex(
                 column_format="cll",
                 caption=f"Common fragile classes for {self.task.name} | Models: {self.task.models}",
-                label=f"tab:{self.task.name}_{model_footprint}"
+                label=f"tab:{self.task.name}_{model_footprint}",
             )
             f.write(latex_str)
 

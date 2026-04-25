@@ -13,8 +13,8 @@ from torch.utils.data import DataLoader
 from dataset import get_dataset
 from checkpoint import MetricsExporter
 
-# FIXME
 from config import Config
+from paths import paths
 
 from .experiment import Experiment
 
@@ -77,7 +77,7 @@ def resolve_device():
 def run_evaluation(
     args: argparse.Namespace, model, experiments: list[Experiment], transforms
 ):
-    backup_dir = Config.GOOGLE_DRIVE_PATH if args.sync_drive else None
+    backup_dir = paths.google_colab_gdrive_path if args.sync_drive else None
     exporter = MetricsExporter(output_dir=args.output_path, backup_dir=backup_dir)
     device = resolve_device()
     logger.info(f"Using device: {device}")

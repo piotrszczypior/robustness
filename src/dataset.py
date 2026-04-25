@@ -10,7 +10,7 @@ import torch
 import torchvision.datasets as datasets
 from torchvision import transforms
 
-from config import Config
+from paths import paths
 
 __all__ = ["get_dataset", "DatasetType", "DatasetConfig"]
 
@@ -79,7 +79,7 @@ class DatasetConfig:
 
     def get_data_path(self, data_root: Optional[str] = None) -> Path:
         """Resolves the directory path based on dataset type and parameters"""
-        base_path = Path(data_root) if data_root else Path(Config.DATA_ROOT)
+        base_path = Path(data_root) if data_root else paths.data
 
         if self.type == DatasetType.IMAGENET_C:
             if not self.corruption or self.severity is None:
