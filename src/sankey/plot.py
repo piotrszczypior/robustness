@@ -125,8 +125,5 @@ def generate_sankey_plots(
 
         filename = f"sankey_{synset}_{metadata['task_name']}_min_count_{min_count}"
 
-        html_path = output_dir / f"{filename}.html"
-        fig.write_html(str(html_path))
-
         png_path = output_dir / f"{filename}.png"
         fig.write_image(str(png_path), width=1200, height=600, scale=2)

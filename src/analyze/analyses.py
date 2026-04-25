@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from cProfile import label
 from dataclasses import dataclass, field
 from typing import Literal
 
@@ -216,9 +215,9 @@ def get_settings():
     space = VariationSpace(groups=["blur", "digital", "noise"])
 
     return [
-        # *generate_fragile_class_tasks(space),
-        # *generate_common_fragile_tasks(space),
-        # *generate_accuracy_drop_tasks(space),
+        *generate_fragile_class_tasks(space),
+        *generate_common_fragile_tasks(space),
+        *generate_accuracy_drop_tasks(space),
         *[
             CommonFragileMistakesTask(
                 name=f"{group}_defocus_blur_1",
@@ -236,21 +235,21 @@ def get_settings():
                 severities=[1],
             ).per_corruption()
         ],
-        # *[
-        #     CommonFragileClassTask(
-        #         name=f"{group}_defocus_blur_1",
-        #         fragile_class_files=tuple(
-        #             classes_json(
-        #                 model, VariantEntry(model, group, corruption, severity)
-        #             )
-        #             for model in models
-        #         ),
-        #         models=models,
-        #         output_filename=f"common_fragile_{corruption}_{severity}.json",
-        #     )
-        #     for group, corruption, severity, models in VariationSpace(
-        #         corruptions=["defocus_blur"],
-        #         severities=[1],
-        #     ).per_corruption()
-        # ],
+        *[
+            CommonFragileClassTask(
+                name=f"{group}_defocus_blur_1",
+                fragile_class_files=tuple(
+                    classes_json(
+                        model, VariantEntry(model, group, corruption, severity)
+                    )
+                    for model in models
+                ),
+                models=models,
+                output_filename=f"common_fragile_{corruption}_{severity}.json",
+            )
+            for group, corruption, severity, models in VariationSpace(
+                corruptions=["defocus_blur"],
+                severities=[1],
+            ).per_corruption()
+        ],
     ]
