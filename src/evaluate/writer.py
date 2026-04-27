@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 from typing import Any
 import numpy as np
+import pandas as pd
 
 __all__ = ["ResultAccumulator", "EmbeddingWriter"]
 
