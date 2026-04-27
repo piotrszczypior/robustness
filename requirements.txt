@@ -16,3 +16,4 @@ scipy
 scikit-learn
 plotly
 kaleido
+pillow

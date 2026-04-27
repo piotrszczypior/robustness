@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import argparse
+from contextlib import nullcontext
 import logging
+from pathlib import Path
 import torch
 import torch.nn.functional as F
 from dataclasses import dataclass, field
@@ -11,63 +13,18 @@ import numpy as np
 from torch.utils.data import DataLoader
 
 from dataset import get_dataset
-from checkpoint import MetricsExporter
+from evaluate.checkpoint import MetricsExporter
 
 from config import Config
+from evaluate.writer import EmbeddingWriter, ResultAccumulator
+from evaluate.feature_extractor import FeatureExtractor
 from paths import paths
 
 from .experiment import Experiment
 
-__all__ = ["ResultAccumulator", "run_evaluation", "evaluate_per_file"]
+__all__ = ["run_evaluation", "evaluate_per_file"]
 
 logger = logging.getLogger(__name__)
-
-
-@dataclass
-class ResultAccumulator:
-    model_name: str
-    image: list[str] = field(default_factory=list)
-    synset: list[str] = field(default_factory=list)
-    y_true: list[int] = field(default_factory=list)
-    y_pred: list[int] = field(default_factory=list)
-    confidence: list[float] = field(default_factory=list)
-    dataset_metadata: dict[str, Any] = field(default_factory=dict)
-
-    def update(
-        self,
-        filenames: tuple,
-        synsets: tuple,
-        targets: np.ndarray,
-        predictions: np.ndarray,
-        confidences: np.ndarray,
-    ):
-        self.image.extend(filenames)
-        self.synset.extend(synsets)
-        self.y_true.extend(targets)
-        self.y_pred.extend(predictions)
-        self.confidence.extend(confidences)
-
-    def with_metadata(self, metadata: dict[str, Any]) -> ResultAccumulator:
-        self.dataset_metadata = metadata
-        return self
-
-    def to_dataframe(self) -> pd.DataFrame:
-        df = pd.DataFrame(
-            {
-                "model": self.model_name,
-                "image": self.image,
-                "synset": self.synset,
-                "y_true": self.y_true,
-                "y_pred": self.y_pred,
-                "confidence": self.confidence,
-            }
-        )
-        df["is_correct"] = (df["y_true"] == df["y_pred"]).astype(int)
-
-        for key, value in self.dataset_metadata.items():
-            df[key] = value
-
-        return df
 
 
 def resolve_device():
@@ -92,8 +49,20 @@ def run_evaluation(
             batch_size=int(args.batch_size or Config.BATCH_SIZE),
         )
 
+        embeddings_path = (
+            Path(args.output_path)
+            / f"{args.model}_{experiment.filename_suffix}_embeddings.jsonl"
+            if args.extract_features
+            else None
+        )
+
         results, run_accuracy, run_error = evaluate_per_file(
-            model, data_loader, device, dataset_config.metadata, args.model
+            model=model,
+            data_loader=data_loader,
+            device=device,
+            run_metadata=dataset_config.metadata,
+            model_name=args.model,
+            embeddings_path=embeddings_path,
         )
 
         logger.info(
@@ -108,22 +77,37 @@ def run_evaluation(
         )
 
 
-def evaluate_per_file(model, data_loader, device, run_metadata, model_name):
+def evaluate_per_file(
+    model,
+    data_loader,
+    device,
+    run_metadata,
+    model_name,
+    embeddings_path: Path | None = None,
+):
     model.eval()
     model.to(device)
     results = ResultAccumulator(model_name=model_name).with_metadata(run_metadata)
 
+    extractor = FeatureExtractor(model, model_name) if embeddings_path else None
+    writer_ctx = EmbeddingWriter(embeddings_path) if embeddings_path else nullcontext()
+
     total_correct = 0
 
-    with torch.inference_mode():
+    with writer_ctx as writer, torch.inference_mode():
         for inputs, targets, batch_metadata in data_loader:
             inputs, targets = inputs.to(device), targets.to(device)
 
-            outputs = model(inputs)
+            if extractor:
+                with extractor:
+                    outputs = model(inputs)
+                vecs = extractor.get()
+            else:
+                outputs = model(inputs)
+                vecs = None
 
             probs = F.softmax(outputs, dim=1)
             confidences, predictions = torch.max(probs, dim=1)
-
             total_correct += (predictions == targets).sum().item()
 
             results.update(
@@ -134,7 +118,14 @@ def evaluate_per_file(model, data_loader, device, run_metadata, model_name):
                 confidences=confidences.cpu().numpy(),
             )
 
-    accuracy = total_correct / len(data_loader.dataset)
-    error = 1.0 - accuracy
+            if writer and vecs is not None:
+                writer.write_batch(
+                    filenames=batch_metadata["filename"],
+                    synsets=batch_metadata["synset"],
+                    targets=targets.cpu().numpy(),
+                    predictions=predictions.cpu().numpy(),
+                    embeddings=vecs,
+                )
 
-    return results, accuracy, error
+    accuracy = total_correct / len(data_loader.dataset)
+    return results, accuracy, 1.0 - accuracy
