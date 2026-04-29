@@ -22,6 +22,7 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     parser = subparsers.add_parser(TASK_NAME, help="Run XAI analysis (GradCAM)")
     parser.add_argument(
         "--model",
+        required=True,
         type=str,
         help="Model name (e.g. resnet152)",
     )
@@ -29,7 +30,7 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         "--dataset",
         required=True,
         type=str,
-        help="Dataset name (e.g. blur_defocus_blur_1)",
+        help="Dataset name (e.g. imagenet_c_defocus_blur_1)",
     )
     parser.add_argument(
         "--data-path", default=paths.data, type=str, help="Base data path"

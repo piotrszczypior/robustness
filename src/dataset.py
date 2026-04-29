@@ -77,9 +77,14 @@ class DatasetConfig:
             type=dataset_type, corruption=corruption, severity=severity
         )
 
-    def get_data_path(self, data_root: Optional[str] = None) -> Path:
+    def get_data_path(
+        self, data_root: Optional[str] = None, with_root: bool = True
+    ) -> Path:
         """Resolves the directory path based on dataset type and parameters"""
-        base_path = Path(data_root) if data_root else paths.data
+        if with_root:
+            base_path = Path(data_root) if data_root else paths.data
+        else:
+            base_path = Path()
 
         if self.type == DatasetType.IMAGENET_C:
             if not self.corruption or self.severity is None:

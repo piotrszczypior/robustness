@@ -25,6 +25,11 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     parser.add_argument("--data", default="results/", type=str, help="Data directory with csv files")
     parser.add_argument("--sync-drive", action="store_true", help="Sync results to Google Drive")
     parser.add_argument("--debug", action="store_true", help="Skip plot generation")
+
+    plot_subparsers = parser.add_subparsers(dest="plot_command")
+
+    from .embeddings.cli import register as register_embeddings
+    register_embeddings(plot_subparsers)
     # fmt: on
 
 
@@ -33,6 +38,10 @@ def run(args: argparse.Namespace):
         logging.getLogger().setLevel(logging.DEBUG)
 
     logger.info("Starting Plotting Task")
+
+    if args.plot_command == "embeddings":
+        args.embeddings_run(args)
+        return
 
     logger.info(f"Loading plot specs from: {args.plots}")
     plots = list(get_plot_specs(args.plots))

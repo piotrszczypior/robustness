@@ -31,8 +31,8 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     parser.add_argument("--run-batch", type=str, help="Run specific batch of experiment by name")
     parser.add_argument("--sync-drive", action="store_true", help="Sync results to Google Drive")
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
-    parser.add_argument("--batch-size", help="Batch size")
-    parser.add_argument("--num-workers", help="Number of workers")
+    parser.add_argument("--batch-size", help="Batch size", default=128)
+    parser.add_argument("--num-workers", help="Number of workers", default=12)
     parser.add_argument("--extract-features", action="store_true")
     # fmt: on
 

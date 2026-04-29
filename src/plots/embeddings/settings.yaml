@@ -1,0 +1,64 @@
+plots: 
+  - name: "resnet152_embeddings_clean_n01498041"
+    type: "embedding"
+    title: "ResNet-152 Embeddings PCA - ImageNet-C defocus Blur 1"
+    x_label: "UMAP1"
+    y_label: "UMAP2"
+    content:
+        projection: "umap"
+        classes:
+        - "n01496331"
+        - "n01498041"
+        - "n01443537"
+        files:
+          - label: "Clean" 
+            file: "resnet152_imagenet_embeddings.jsonl"
+    output: "images/resnet152_embeddings_clean_n01498041.png"
+
+  - name: "resnet152_embeddings_defocus_blur_n01498041"
+    type: "embedding"
+    title: "ResNet-152 Embeddings PCA - ImageNet-C defocus Blur 1"
+    x_label: "UMAP1"
+    y_label: "UMAP2"
+    content:
+        projection: "umap"
+        classes:
+        - "n01496331"
+        - "n01498041"
+        - "n01443537"
+        files:
+          - label: "Defocus Blur 1"
+            file: "resnet152_imagenet_c_blur_defocus_blur_1_embeddings.jsonl"
+    output: "images/resnet152_embeddings_defocus_blur_n01498041.png"
+
+  - name: "resnet152_embeddings_defocus_blur_n03496892"
+    type: "embedding"
+    title: "ResNet-152 Embeddings PCA - ImageNet-C defocus Blur 1"
+    x_label: "UMAP1"
+    y_label: "UMAP2"
+    content:
+        projection: "umap"
+        classes:
+        - "n03496892"
+        - "n04428191"
+        - "n01443537"
+        files:
+          - label: "Defocus Blur 1"
+            file: "resnet152_imagenet_c_blur_defocus_blur_1_embeddings.jsonl"
+    output: "images/resnet152_embeddings_defocus_blur_n03496892.png"
+
+  - name: "resnet152_embeddings_clean_n03496892"
+    type: "embedding"
+    title: "ResNet-152 Embeddings PCA - ImageNet-C defocus Blur 1"
+    x_label: "UMAP1"
+    y_label: "UMAP2"
+    content:
+        projection: "umap"
+        classes:
+        - "n03496892"
+        - "n04428191"
+        - "n01443537"
+        files:
+          - label: "Clean" 
+            file: "resnet152_imagenet_embeddings.jsonl"
+    output: "images/resnet152_embeddings_clean_n03496892.png"

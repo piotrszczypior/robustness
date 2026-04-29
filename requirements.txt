@@ -17,3 +17,4 @@ scikit-learn
 plotly
 kaleido
 pillow
+umap-learn

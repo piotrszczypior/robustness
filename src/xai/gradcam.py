@@ -140,7 +140,7 @@ def run_gradcam(model_name: str, dataset_alias: str, synset: str, output_dir: st
 
         heatmap = grad_cam.generate(input_tensor, target_idx)
 
-        output = Path(output_dir) / dataset.type.value / synset
+        output = Path(output_dir) / dataset.get_data_path(with_root=False) / synset
         output.mkdir(parents=True, exist_ok=True)
         output_path = output / f"gradcam_{synset}_{i}_{img_path.name}"
         save_heatmap(heatmap, img_path, output_path)

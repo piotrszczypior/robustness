@@ -5,4 +5,4 @@ __all__ = ["Config"]
 
 class Config:
     BATCH_SIZE = 128
-    NUM_WORKERS = 2
+    NUM_WORKERS = 12
