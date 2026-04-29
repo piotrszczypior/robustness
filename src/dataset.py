@@ -9,6 +9,9 @@ from typing import Optional, Dict, Any, Tuple
 import torch
 import torchvision.datasets as datasets
 from torchvision import transforms
+from imagecorruptions import corrupt
+import numpy as np
+from PIL import Image
 
 from paths import paths
 
@@ -39,6 +42,7 @@ class DatasetType(Enum):
     IMAGENET_P = "imagenet_p"
     IMAGENET_R = "imagenet_r"
     IMAGENET_A = "imagenet_a"
+    IMAGENET_C_NATIVE = "imagenet_c_native"
 
 
 @dataclass(frozen=True)
@@ -57,8 +61,17 @@ class DatasetConfig:
             - "imagenet"
             - "imagenet_c_defocus_blur_1"
         """
-        parts = alias.split("_", maxsplit=2)
+        parts = alias.split("_", maxsplit=3)
+        try:
+            dataset_type = DatasetType("_".join(parts[:3]))
+            corruption, _, severity = parts[3].rpartition("_")
+            return DatasetConfig(
+                type=dataset_type, corruption=corruption, severity=int(severity)
+            )
+        except (ValueError, IndexError):
+            pass
 
+        parts = alias.split("_", maxsplit=2)
         try:
             dataset_type = DatasetType("_".join(parts[:2]))
         except ValueError:
@@ -67,9 +80,9 @@ class DatasetConfig:
         if len(parts) < 3:
             return DatasetConfig(type=dataset_type)
 
-        corruption, _, severity_str = parts[2].rpartition("_")
+        corruption, _, severity = parts[2].rpartition("_")
         try:
-            severity = int(severity_str)
+            severity = int(severity)
         except ValueError:
             return DatasetConfig(type=dataset_type)
 
@@ -96,6 +109,9 @@ class DatasetConfig:
                 raise ValueError("ImageNet-P requires 'perturbation'")
             return base_path / "imagenet_p" / self.perturbation
 
+        if self.type == DatasetType.IMAGENET_C_NATIVE:
+            return base_path / "imagenet"
+
         return base_path / self.type.value
 
     @property
@@ -109,9 +125,34 @@ class DatasetConfig:
 
 
 class ImageFolderWithMetadata(datasets.ImageFolder):
+    def __init__(
+        self,
+        root: str,
+        transform: transforms.Compose,
+        dataset_config: DatasetConfig,
+    ):
+        super().__init__(root=root, transform=transform)
+        self.dataset_config = dataset_config
+
+    def _native_corruption(self, image):
+        assert self.config.corruption, "corruption must be set"
+        assert self.config.severity, "severity must be set"
+
+        img_np = np.array(image)
+        img_np = corrupt(
+            img_np,
+            corruption_name=self.config.corruption,
+            severity=self.config.severity,
+        )
+
+        return Image.fromarray(img_np)
+
     def __getitem__(self, index: int) -> Tuple[torch.Tensor, int, Dict[str, Any]]:
         path, target = self.samples[index]
         image = self.loader(path)
+
+        if self.dataset_config.type == DatasetType.IMAGENET_C_NATIVE:
+            image = self._native_corruption(image)
 
         if self.transform is not None:
             image = self.transform(image)
@@ -134,5 +175,7 @@ class _DatasetFactory:
             raise FileNotFoundError(f"Dataset path does not exist: {path}")
 
         return ImageFolderWithMetadata(
-            root=str(path), transform=transform or DEFAULT_TRANSFORM
+            root=str(path),
+            transform=transform or DEFAULT_TRANSFORM,
+            dataset_config=config,
         )

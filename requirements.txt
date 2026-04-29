@@ -18,3 +18,4 @@ plotly
 kaleido
 pillow
 umap-learn
+imagecorruptions
