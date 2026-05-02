@@ -14,6 +14,7 @@ import numpy as np
 from PIL import Image
 
 from paths import paths
+from utils import get_synset_to_index_imagenet1k
 
 __all__ = ["get_dataset", "DatasetType", "DatasetConfig"]
 
@@ -134,6 +135,7 @@ class ImageFolderWithMetadata(datasets.ImageFolder):
     ):
         super().__init__(root=root, transform=transform)
         self.config = dataset_config
+        self.synset_to_index = get_synset_to_index_imagenet1k()
 
     def _native_corruption(self, image):
         assert self.config.corruption, "corruption must be set"
@@ -149,12 +151,9 @@ class ImageFolderWithMetadata(datasets.ImageFolder):
 
         return Image.fromarray(img_np)
 
-    def _remap_target_to_1k(self, index_in_200: int, imagenet1k_indices: list[int]) -> int:
-        if index_in_200 >= len(imagenet1k_indices):
-            raise IndexError(f"index_in_200={index_in_200} out of range")
-        
-        return imagenet1k_indices[index_in_200]
-    
+    def _remap_target_to_1k(self, synset: str) -> int:
+        return self.synset_to_index[synset]
+
     def __getitem__(self, index: int) -> Tuple[torch.Tensor, int, Dict[str, Any]]:
         path, target = self.samples[index]
         image = self.loader(path)
@@ -162,19 +161,13 @@ class ImageFolderWithMetadata(datasets.ImageFolder):
         if self.config.type == DatasetType.IMAGENET_C_NATIVE:
             image = self._native_corruption(image)
 
-        if self.config.type == DatasetType.IMAGENET_A:
-            from constants import IMAGENET_A_TO_IMAGENET1K
-            target = self._remap_target_to_1k(target, IMAGENET_A_TO_IMAGENET1K)
-
-        if self.config.type == DatasetType.IMAGENET_R:
-            from constants import IMAGENT_R_TO_IMAGENET1K
-            target = self._remap_target_to_1k(target, IMAGENT_R_TO_IMAGENET1K)
-
         if self.transform is not None:
             image = self.transform(image)
 
         filename = os.path.basename(path)
         synset = os.path.basename(os.path.dirname(path))
+
+        target = self._remap_target_to_1k(synset)
 
         metadata = {"synset": synset, "filename": filename}
 

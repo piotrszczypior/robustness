@@ -50,8 +50,8 @@ DOWNLOAD_REGISTRY = {
     ),
     DatasetType.REAL_BLUR_IMAGES: _DatasetSourceConfig(
         base_url="https://people.eecs.berkeley.edu/~hendrycks",
-        default_archives=["blurry_images.tar"]
-    )
+        default_archives=["blurry_images.tar"],
+    ),
 }
 
 

@@ -5,6 +5,9 @@ experiments:
   - name: imagenet_a
     type: imagenet_a
 
+  - name: imagenet_r
+    type: imagenet_r
+
   - name: imagenet_c_noise
     type: imagenet_c
     corruptions: [gaussian_noise, shot_noise, impulse_noise]
