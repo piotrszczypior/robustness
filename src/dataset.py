@@ -43,6 +43,7 @@ class DatasetType(Enum):
     IMAGENET_R = "imagenet_r"
     IMAGENET_A = "imagenet_a"
     IMAGENET_C_NATIVE = "imagenet_c_native"
+    REAL_BLUR_IMAGES = "real_blur_images"
 
 
 @dataclass(frozen=True)
@@ -119,7 +120,7 @@ class DatasetConfig:
         return {
             "dataset_type": self.type.value,
             "corruption": self.corruption or "none",
-            "severity": self.severity or 1,
+            "severity": self.severity or 0,
             "perturbation": self.perturbation or "none",
         }
 
@@ -148,13 +149,12 @@ class ImageFolderWithMetadata(datasets.ImageFolder):
 
         return Image.fromarray(img_np)
 
-    def _remap_target_to_1k(self, index_in_200: int) -> int:
-        from constants import IMAGENET_A_TO_IMAGENET1K
-
-        if index_in_200 >= len(IMAGENET_A_TO_IMAGENET1K):
-            raise IndexError(f"Imagenet-A: index_in_200={index_in_200} out of range")
-        return IMAGENET_A_TO_IMAGENET1K[index_in_200]
-
+    def _remap_target_to_1k(self, index_in_200: int, imagenet1k_indices: list[int]) -> int:
+        if index_in_200 >= len(imagenet1k_indices):
+            raise IndexError(f"index_in_200={index_in_200} out of range")
+        
+        return imagenet1k_indices[index_in_200]
+    
     def __getitem__(self, index: int) -> Tuple[torch.Tensor, int, Dict[str, Any]]:
         path, target = self.samples[index]
         image = self.loader(path)
@@ -163,7 +163,12 @@ class ImageFolderWithMetadata(datasets.ImageFolder):
             image = self._native_corruption(image)
 
         if self.config.type == DatasetType.IMAGENET_A:
-            target = self._remap_target_to_1k(target)
+            from constants import IMAGENET_A_TO_IMAGENET1K
+            target = self._remap_target_to_1k(target, IMAGENET_A_TO_IMAGENET1K)
+
+        if self.config.type == DatasetType.IMAGENET_R:
+            from constants import IMAGENT_R_TO_IMAGENET1K
+            target = self._remap_target_to_1k(target, IMAGENT_R_TO_IMAGENET1K)
 
         if self.transform is not None:
             image = self.transform(image)
