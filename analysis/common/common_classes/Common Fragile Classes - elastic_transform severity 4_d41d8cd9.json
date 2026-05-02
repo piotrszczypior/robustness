@@ -1,0 +1,236 @@
+{
+    "metadata": {
+        "task_name": "Common Fragile Classes - elastic_transform severity 4",
+        "models_count": 5,
+        "model_footprint": "d41d8cd9",
+        "input_files": [
+            "resnet50/digital_elastic_transform_4/classes.json",
+            "resnet152/digital_elastic_transform_4/classes.json",
+            "efficientnet_b4/digital_elastic_transform_4/classes.json",
+            "convnext_base/digital_elastic_transform_4/classes.json",
+            "vit_b_16/digital_elastic_transform_4/classes.json"
+        ]
+    },
+    "common_classes": [
+        {
+            "index": 897,
+            "synset": "n04554684",
+            "label": "washer"
+        },
+        {
+            "index": 770,
+            "synset": "n04120489",
+            "label": "running_shoe"
+        },
+        {
+            "index": 771,
+            "synset": "n04125021",
+            "label": "safe"
+        },
+        {
+            "index": 517,
+            "synset": "n03126707",
+            "label": "crane"
+        },
+        {
+            "index": 6,
+            "synset": "n01498041",
+            "label": "stingray"
+        },
+        {
+            "index": 520,
+            "synset": "n03131574",
+            "label": "crib"
+        },
+        {
+            "index": 521,
+            "synset": "n03133878",
+            "label": "Crock_Pot"
+        },
+        {
+            "index": 910,
+            "synset": "n04597913",
+            "label": "wooden_spoon"
+        },
+        {
+            "index": 785,
+            "synset": "n04162706",
+            "label": "seat_belt"
+        },
+        {
+            "index": 786,
+            "synset": "n04179913",
+            "label": "sewing_machine"
+        },
+        {
+            "index": 789,
+            "synset": "n04201297",
+            "label": "shoji"
+        },
+        {
+            "index": 922,
+            "synset": "n07565083",
+            "label": "menu"
+        },
+        {
+            "index": 30,
+            "synset": "n01641577",
+            "label": "bullfrog"
+        },
+        {
+            "index": 545,
+            "synset": "n03271574",
+            "label": "electric_fan"
+        },
+        {
+            "index": 421,
+            "synset": "n02788148",
+            "label": "bannister"
+        },
+        {
+            "index": 555,
+            "synset": "n03345487",
+            "label": "fire_engine"
+        },
+        {
+            "index": 687,
+            "synset": "n03854065",
+            "label": "organ"
+        },
+        {
+            "index": 562,
+            "synset": "n03388043",
+            "label": "fountain"
+        },
+        {
+            "index": 563,
+            "synset": "n03388183",
+            "label": "fountain_pen"
+        },
+        {
+            "index": 313,
+            "synset": "n02231487",
+            "label": "walking_stick"
+        },
+        {
+            "index": 314,
+            "synset": "n02233338",
+            "label": "cockroach"
+        },
+        {
+            "index": 571,
+            "synset": "n03425413",
+            "label": "gas_pump"
+        },
+        {
+            "index": 315,
+            "synset": "n02236044",
+            "label": "mantis"
+        },
+        {
+            "index": 954,
+            "synset": "n07753592",
+            "label": "banana"
+        },
+        {
+            "index": 703,
+            "synset": "n03891251",
+            "label": "park_bench"
+        },
+        {
+            "index": 704,
+            "synset": "n03891332",
+            "label": "parking_meter"
+        },
+        {
+            "index": 449,
+            "synset": "n02859443",
+            "label": "boathouse"
+        },
+        {
+            "index": 707,
+            "synset": "n03902125",
+            "label": "pay-phone"
+        },
+        {
+            "index": 580,
+            "synset": "n03457902",
+            "label": "greenhouse"
+        },
+        {
+            "index": 711,
+            "synset": "n03916031",
+            "label": "perfume"
+        },
+        {
+            "index": 75,
+            "synset": "n01774384",
+            "label": "black_widow"
+        },
+        {
+            "index": 595,
+            "synset": "n03496892",
+            "label": "harvester"
+        },
+        {
+            "index": 732,
+            "synset": "n03976467",
+            "label": "Polaroid_camera"
+        },
+        {
+            "index": 605,
+            "synset": "n03584254",
+            "label": "iPod"
+        },
+        {
+            "index": 877,
+            "synset": "n04501370",
+            "label": "turnstile"
+        },
+        {
+            "index": 760,
+            "synset": "n04070727",
+            "label": "refrigerator"
+        },
+        {
+            "index": 114,
+            "synset": "n01945685",
+            "label": "slug"
+        },
+        {
+            "index": 882,
+            "synset": "n04517823",
+            "label": "vacuum"
+        },
+        {
+            "index": 628,
+            "synset": "n03673027",
+            "label": "liner"
+        },
+        {
+            "index": 118,
+            "synset": "n01978287",
+            "label": "Dungeness_crab"
+        },
+        {
+            "index": 630,
+            "synset": "n03680355",
+            "label": "Loafer"
+        },
+        {
+            "index": 888,
+            "synset": "n04532670",
+            "label": "viaduct"
+        },
+        {
+            "index": 123,
+            "synset": "n01984695",
+            "label": "spiny_lobster"
+        },
+        {
+            "index": 511,
+            "synset": "n03100240",
+            "label": "convertible"
+        }
+    ]
+}

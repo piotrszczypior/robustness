@@ -1,0 +1,41 @@
+{
+    "metadata": {
+        "task_name": "Common Fragile Classes - glass_blur severity 1",
+        "models_count": 5,
+        "model_footprint": "d41d8cd9",
+        "input_files": [
+            "resnet50/blur_glass_blur_1/classes.json",
+            "resnet152/blur_glass_blur_1/classes.json",
+            "efficientnet_b4/blur_glass_blur_1/classes.json",
+            "convnext_base/blur_glass_blur_1/classes.json",
+            "vit_b_16/blur_glass_blur_1/classes.json"
+        ]
+    },
+    "common_classes": [
+        {
+            "index": 197,
+            "synset": "n02097130",
+            "label": "giant_schnauzer"
+        },
+        {
+            "index": 6,
+            "synset": "n01498041",
+            "label": "stingray"
+        },
+        {
+            "index": 711,
+            "synset": "n03916031",
+            "label": "perfume"
+        },
+        {
+            "index": 877,
+            "synset": "n04501370",
+            "label": "turnstile"
+        },
+        {
+            "index": 30,
+            "synset": "n01641577",
+            "label": "bullfrog"
+        }
+    ]
+}

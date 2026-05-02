@@ -1,0 +1,66 @@
+{
+    "metadata": {
+        "task_name": "Common Fragile Classes - gaussian_noise severity 3",
+        "models_count": 5,
+        "model_footprint": "d41d8cd9",
+        "input_files": [
+            "resnet50/noise_gaussian_noise_3/classes.json",
+            "resnet152/noise_gaussian_noise_3/classes.json",
+            "efficientnet_b4/noise_gaussian_noise_3/classes.json",
+            "convnext_base/noise_gaussian_noise_3/classes.json",
+            "vit_b_16/noise_gaussian_noise_3/classes.json"
+        ]
+    },
+    "common_classes": [
+        {
+            "index": 257,
+            "synset": "n02111500",
+            "label": "Great_Pyrenees"
+        },
+        {
+            "index": 263,
+            "synset": "n02113023",
+            "label": "Pembroke"
+        },
+        {
+            "index": 711,
+            "synset": "n03916031",
+            "label": "perfume"
+        },
+        {
+            "index": 397,
+            "synset": "n02655020",
+            "label": "puffer"
+        },
+        {
+            "index": 910,
+            "synset": "n04597913",
+            "label": "wooden_spoon"
+        },
+        {
+            "index": 591,
+            "synset": "n03485794",
+            "label": "handkerchief"
+        },
+        {
+            "index": 49,
+            "synset": "n01697457",
+            "label": "African_crocodile"
+        },
+        {
+            "index": 209,
+            "synset": "n02099849",
+            "label": "Chesapeake_Bay_retriever"
+        },
+        {
+            "index": 721,
+            "synset": "n03938244",
+            "label": "pillow"
+        },
+        {
+            "index": 315,
+            "synset": "n02236044",
+            "label": "mantis"
+        }
+    ]
+}

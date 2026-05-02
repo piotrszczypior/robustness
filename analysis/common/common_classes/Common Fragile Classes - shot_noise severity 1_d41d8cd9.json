@@ -1,0 +1,15 @@
+{
+    "metadata": {
+        "task_name": "Common Fragile Classes - shot_noise severity 1",
+        "models_count": 5,
+        "model_footprint": "d41d8cd9",
+        "input_files": [
+            "resnet50/noise_shot_noise_1/classes.json",
+            "resnet152/noise_shot_noise_1/classes.json",
+            "efficientnet_b4/noise_shot_noise_1/classes.json",
+            "convnext_base/noise_shot_noise_1/classes.json",
+            "vit_b_16/noise_shot_noise_1/classes.json"
+        ]
+    },
+    "common_classes": []
+}

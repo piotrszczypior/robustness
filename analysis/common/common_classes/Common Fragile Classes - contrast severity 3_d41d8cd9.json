@@ -1,0 +1,21 @@
+{
+    "metadata": {
+        "task_name": "Common Fragile Classes - contrast severity 3",
+        "models_count": 5,
+        "model_footprint": "d41d8cd9",
+        "input_files": [
+            "resnet50/digital_contrast_3/classes.json",
+            "resnet152/digital_contrast_3/classes.json",
+            "efficientnet_b4/digital_contrast_3/classes.json",
+            "convnext_base/digital_contrast_3/classes.json",
+            "vit_b_16/digital_contrast_3/classes.json"
+        ]
+    },
+    "common_classes": [
+        {
+            "index": 6,
+            "synset": "n01498041",
+            "label": "stingray"
+        }
+    ]
+}

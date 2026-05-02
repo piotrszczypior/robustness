@@ -1,0 +1,15 @@
+{
+    "metadata": {
+        "task_name": "Common Fragile Classes - motion_blur severity 1",
+        "models_count": 5,
+        "model_footprint": "d41d8cd9",
+        "input_files": [
+            "resnet50/blur_motion_blur_1/classes.json",
+            "resnet152/blur_motion_blur_1/classes.json",
+            "efficientnet_b4/blur_motion_blur_1/classes.json",
+            "convnext_base/blur_motion_blur_1/classes.json",
+            "vit_b_16/blur_motion_blur_1/classes.json"
+        ]
+    },
+    "common_classes": []
+}

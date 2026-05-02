@@ -80,6 +80,7 @@ class _ExperimentFactory:
         registry = {
             DatasetType.IMAGENET_C: cls._parse_imagenet_c,
             DatasetType.IMAGENET_P: cls._parse_imagenet_p,
+            DatasetType.IMAGENET_C_NATIVE: cls._parse_imagenet_c,
         }
 
         if dataset_type in registry:

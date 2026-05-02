@@ -1,0 +1,156 @@
+{
+    "metadata": {
+        "task_name": "Common Fragile Classes - zoom_blur severity 1",
+        "models_count": 5,
+        "model_footprint": "d41d8cd9",
+        "input_files": [
+            "resnet50/blur_zoom_blur_1/classes.json",
+            "resnet152/blur_zoom_blur_1/classes.json",
+            "efficientnet_b4/blur_zoom_blur_1/classes.json",
+            "convnext_base/blur_zoom_blur_1/classes.json",
+            "vit_b_16/blur_zoom_blur_1/classes.json"
+        ]
+    },
+    "common_classes": [
+        {
+            "index": 640,
+            "synset": "n03717622",
+            "label": "manhole_cover"
+        },
+        {
+            "index": 6,
+            "synset": "n01498041",
+            "label": "stingray"
+        },
+        {
+            "index": 649,
+            "synset": "n03743016",
+            "label": "megalith"
+        },
+        {
+            "index": 533,
+            "synset": "n03207743",
+            "label": "dishrag"
+        },
+        {
+            "index": 30,
+            "synset": "n01641577",
+            "label": "bullfrog"
+        },
+        {
+            "index": 290,
+            "synset": "n02128925",
+            "label": "jaguar"
+        },
+        {
+            "index": 37,
+            "synset": "n01669191",
+            "label": "box_turtle"
+        },
+        {
+            "index": 42,
+            "synset": "n01687978",
+            "label": "agama"
+        },
+        {
+            "index": 45,
+            "synset": "n01692333",
+            "label": "Gila_monster"
+        },
+        {
+            "index": 48,
+            "synset": "n01695060",
+            "label": "Komodo_dragon"
+        },
+        {
+            "index": 49,
+            "synset": "n01697457",
+            "label": "African_crocodile"
+        },
+        {
+            "index": 50,
+            "synset": "n01698640",
+            "label": "American_alligator"
+        },
+        {
+            "index": 305,
+            "synset": "n02172182",
+            "label": "dung_beetle"
+        },
+        {
+            "index": 183,
+            "synset": "n02093859",
+            "label": "Kerry_blue_terrier"
+        },
+        {
+            "index": 825,
+            "synset": "n04326547",
+            "label": "stone_wall"
+        },
+        {
+            "index": 197,
+            "synset": "n02097130",
+            "label": "giant_schnauzer"
+        },
+        {
+            "index": 965,
+            "synset": "n07880968",
+            "label": "burrito"
+        },
+        {
+            "index": 327,
+            "synset": "n02317335",
+            "label": "starfish"
+        },
+        {
+            "index": 206,
+            "synset": "n02099429",
+            "label": "curly-coated_retriever"
+        },
+        {
+            "index": 208,
+            "synset": "n02099712",
+            "label": "Labrador_retriever"
+        },
+        {
+            "index": 721,
+            "synset": "n03938244",
+            "label": "pillow"
+        },
+        {
+            "index": 611,
+            "synset": "n03598930",
+            "label": "jigsaw_puzzle"
+        },
+        {
+            "index": 104,
+            "synset": "n01877812",
+            "label": "wallaby"
+        },
+        {
+            "index": 105,
+            "synset": "n01882714",
+            "label": "koala"
+        },
+        {
+            "index": 360,
+            "synset": "n02444819",
+            "label": "otter"
+        },
+        {
+            "index": 109,
+            "synset": "n01917289",
+            "label": "brain_coral"
+        },
+        {
+            "index": 115,
+            "synset": "n01950731",
+            "label": "sea_slug"
+        },
+        {
+            "index": 123,
+            "synset": "n01984695",
+            "label": "spiny_lobster"
+        }
+    ]
+}

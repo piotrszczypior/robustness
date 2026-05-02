@@ -216,40 +216,53 @@ def get_settings():
 
     return [
         *generate_fragile_class_tasks(space),
-        *generate_common_fragile_tasks(space),
-        *generate_accuracy_drop_tasks(space),
+        # *generate_common_fragile_tasks(space),
+        # *generate_accuracy_drop_tasks(space),
+        # *[
+        #     CommonFragileMistakesTask(
+        #         name=f"{group}_defocus_blur_1",
+        #         common_classes="blur_defocus_blur_1_f8fe704f.json",
+        #         per_file_predictions={
+        #             model: corrupted_csv(
+        #                 VariantEntry(model, group, corruption, severity)
+        #             )
+        #             for model in models
+        #         },
+        #         output_filename=f"common_mistakes_{corruption}_{severity}.json",
+        #     )
+        #     for group, corruption, severity, models in VariationSpace(
+        #         corruptions=["defocus_blur"],
+        #         severities=[1],
+        #     ).per_corruption()
+        # ],
+        # *[
+        #     CommonFragileClassTask(
+        #         name=f"{group}_defocus_blur_1",
+        #         fragile_class_files=tuple(
+        #             classes_json(
+        #                 model, VariantEntry(model, group, corruption, severity)
+        #             )
+        #             for model in models
+        #         ),
+        #         models=models,
+        #         output_filename=f"common_fragile_{corruption}_{severity}.json",
+        #     )
+        #     for group, corruption, severity, models in VariationSpace(
+        #         corruptions=["defocus_blur"],
+        #         severities=[1],
+        #     ).per_corruption()
+        # ],
         *[
-            CommonFragileMistakesTask(
-                name=f"{group}_defocus_blur_1",
-                common_classes="blur_defocus_blur_1_f8fe704f.json",
-                per_file_predictions={
-                    model: corrupted_csv(
-                        VariantEntry(model, group, corruption, severity)
-                    )
-                    for model in models
-                },
-                output_filename=f"common_mistakes_{corruption}_{severity}.json",
+            FragileClassTask(
+                name=name(variant),
+                baseline_csv=baseline_csv(variant.model),
+                corrupted_csv=f"{variant.model}_imagenet_c_native_{variant.group}_{variant.corruption}_{variant.severity}.csv",
+                output_path=f"{variant.model}/{variant.group}_{variant.corruption}_{variant.severity}_native",
             )
-            for group, corruption, severity, models in VariationSpace(
-                corruptions=["defocus_blur"],
-                severities=[1],
-            ).per_corruption()
-        ],
-        *[
-            CommonFragileClassTask(
-                name=f"{group}_defocus_blur_1",
-                fragile_class_files=tuple(
-                    classes_json(
-                        model, VariantEntry(model, group, corruption, severity)
-                    )
-                    for model in models
-                ),
-                models=models,
-                output_filename=f"common_fragile_{corruption}_{severity}.json",
+            for variant in (
+                VariationSpace(
+                    corruptions=["zoom_blur"], severities=[1], models=["resnet152"]
+                )
             )
-            for group, corruption, severity, models in VariationSpace(
-                corruptions=["defocus_blur"],
-                severities=[1],
-            ).per_corruption()
         ],
     ]

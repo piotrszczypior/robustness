@@ -31,9 +31,9 @@ DEFAULT_TRANSFORM = transforms.Compose(
 
 
 def get_dataset(
-    config: DatasetConfig, traform: Optional[transforms.Compose] = DEFAULT_TRANSFORM
+    config: DatasetConfig, transform: Optional[transforms.Compose] = DEFAULT_TRANSFORM
 ) -> ImageFolderWithMetadata:
-    return _DatasetFactory.create(config=config, transform=traform)
+    return _DatasetFactory.create(config=config, transform=transform)
 
 
 class DatasetType(Enum):
@@ -132,27 +132,38 @@ class ImageFolderWithMetadata(datasets.ImageFolder):
         dataset_config: DatasetConfig,
     ):
         super().__init__(root=root, transform=transform)
-        self.dataset_config = dataset_config
+        self.config = dataset_config
 
     def _native_corruption(self, image):
         assert self.config.corruption, "corruption must be set"
         assert self.config.severity, "severity must be set"
 
         img_np = np.array(image)
-        img_np = corrupt(
-            img_np,
-            corruption_name=self.config.corruption,
-            severity=self.config.severity,
-        )
+        # FIXME
+        # img_np = corrupt(
+        #     img_np,
+        #     corruption_name=self.config.corruption,
+        #     severity=self.config.severity,
+        # )
 
         return Image.fromarray(img_np)
+
+    def _remap_target_to_1k(self, index_in_200: int) -> int:
+        from constants import IMAGENET_A_TO_IMAGENET1K
+
+        if index_in_200 >= len(IMAGENET_A_TO_IMAGENET1K):
+            raise IndexError(f"Imagenet-A: index_in_200={index_in_200} out of range")
+        return IMAGENET_A_TO_IMAGENET1K[index_in_200]
 
     def __getitem__(self, index: int) -> Tuple[torch.Tensor, int, Dict[str, Any]]:
         path, target = self.samples[index]
         image = self.loader(path)
 
-        if self.dataset_config.type == DatasetType.IMAGENET_C_NATIVE:
+        if self.config.type == DatasetType.IMAGENET_C_NATIVE:
             image = self._native_corruption(image)
+
+        if self.config.type == DatasetType.IMAGENET_A:
+            target = self._remap_target_to_1k(target)
 
         if self.transform is not None:
             image = self.transform(image)

@@ -2,6 +2,9 @@ experiments:
   - name: imagenet_clean
     type: imagenet
 
+  - name: imagenet_a
+    type: imagenet_a
+
   - name: imagenet_c_noise
     type: imagenet_c
     corruptions: [gaussian_noise, shot_noise, impulse_noise]
@@ -26,3 +29,8 @@ experiments:
     type: imagenet_c
     corruptions: [speckle_noise, gaussian_blur, spatter, saturate]
     severities: [1, 2, 3, 4, 5]
+  
+  - name: imagenet_c_native_blur
+    type: imagenet_c_native
+    corruptions: [zoom_blur]
+    severities: [1]

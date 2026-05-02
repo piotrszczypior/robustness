@@ -1,0 +1,131 @@
+{
+    "metadata": {
+        "task_name": "Common Fragile Classes - contrast severity 4",
+        "models_count": 5,
+        "model_footprint": "d41d8cd9",
+        "input_files": [
+            "resnet50/digital_contrast_4/classes.json",
+            "resnet152/digital_contrast_4/classes.json",
+            "efficientnet_b4/digital_contrast_4/classes.json",
+            "convnext_base/digital_contrast_4/classes.json",
+            "vit_b_16/digital_contrast_4/classes.json"
+        ]
+    },
+    "common_classes": [
+        {
+            "index": 6,
+            "synset": "n01498041",
+            "label": "stingray"
+        },
+        {
+            "index": 910,
+            "synset": "n04597913",
+            "label": "wooden_spoon"
+        },
+        {
+            "index": 788,
+            "synset": "n04200800",
+            "label": "shoe_shop"
+        },
+        {
+            "index": 922,
+            "synset": "n07565083",
+            "label": "menu"
+        },
+        {
+            "index": 30,
+            "synset": "n01641577",
+            "label": "bullfrog"
+        },
+        {
+            "index": 929,
+            "synset": "n07615774",
+            "label": "ice_lolly"
+        },
+        {
+            "index": 37,
+            "synset": "n01669191",
+            "label": "box_turtle"
+        },
+        {
+            "index": 933,
+            "synset": "n07697313",
+            "label": "cheeseburger"
+        },
+        {
+            "index": 679,
+            "synset": "n03814906",
+            "label": "necklace"
+        },
+        {
+            "index": 303,
+            "synset": "n02168699",
+            "label": "long-horned_beetle"
+        },
+        {
+            "index": 944,
+            "synset": "n07718747",
+            "label": "artichoke"
+        },
+        {
+            "index": 49,
+            "synset": "n01697457",
+            "label": "African_crocodile"
+        },
+        {
+            "index": 53,
+            "synset": "n01728920",
+            "label": "ringneck_snake"
+        },
+        {
+            "index": 182,
+            "synset": "n02093754",
+            "label": "Border_terrier"
+        },
+        {
+            "index": 309,
+            "synset": "n02206856",
+            "label": "bee"
+        },
+        {
+            "index": 825,
+            "synset": "n04326547",
+            "label": "stone_wall"
+        },
+        {
+            "index": 313,
+            "synset": "n02231487",
+            "label": "walking_stick"
+        },
+        {
+            "index": 965,
+            "synset": "n07880968",
+            "label": "burrito"
+        },
+        {
+            "index": 711,
+            "synset": "n03916031",
+            "label": "perfume"
+        },
+        {
+            "index": 721,
+            "synset": "n03938244",
+            "label": "pillow"
+        },
+        {
+            "index": 611,
+            "synset": "n03598930",
+            "label": "jigsaw_puzzle"
+        },
+        {
+            "index": 882,
+            "synset": "n04517823",
+            "label": "vacuum"
+        },
+        {
+            "index": 115,
+            "synset": "n01950731",
+            "label": "sea_slug"
+        }
+    ]
+}

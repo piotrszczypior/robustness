@@ -1,0 +1,156 @@
+{
+    "metadata": {
+        "task_name": "Common Fragile Classes - motion_blur severity 3",
+        "models_count": 5,
+        "model_footprint": "d41d8cd9",
+        "input_files": [
+            "resnet50/blur_motion_blur_3/classes.json",
+            "resnet152/blur_motion_blur_3/classes.json",
+            "efficientnet_b4/blur_motion_blur_3/classes.json",
+            "convnext_base/blur_motion_blur_3/classes.json",
+            "vit_b_16/blur_motion_blur_3/classes.json"
+        ]
+    },
+    "common_classes": [
+        {
+            "index": 640,
+            "synset": "n03717622",
+            "label": "manhole_cover"
+        },
+        {
+            "index": 391,
+            "synset": "n02536864",
+            "label": "coho"
+        },
+        {
+            "index": 910,
+            "synset": "n04597913",
+            "label": "wooden_spoon"
+        },
+        {
+            "index": 913,
+            "synset": "n04606251",
+            "label": "wreck"
+        },
+        {
+            "index": 533,
+            "synset": "n03207743",
+            "label": "dishrag"
+        },
+        {
+            "index": 922,
+            "synset": "n07565083",
+            "label": "menu"
+        },
+        {
+            "index": 679,
+            "synset": "n03814906",
+            "label": "necklace"
+        },
+        {
+            "index": 428,
+            "synset": "n02797295",
+            "label": "barrow"
+        },
+        {
+            "index": 303,
+            "synset": "n02168699",
+            "label": "long-horned_beetle"
+        },
+        {
+            "index": 49,
+            "synset": "n01697457",
+            "label": "African_crocodile"
+        },
+        {
+            "index": 50,
+            "synset": "n01698640",
+            "label": "American_alligator"
+        },
+        {
+            "index": 313,
+            "synset": "n02231487",
+            "label": "walking_stick"
+        },
+        {
+            "index": 825,
+            "synset": "n04326547",
+            "label": "stone_wall"
+        },
+        {
+            "index": 315,
+            "synset": "n02236044",
+            "label": "mantis"
+        },
+        {
+            "index": 319,
+            "synset": "n02268443",
+            "label": "dragonfly"
+        },
+        {
+            "index": 703,
+            "synset": "n03891251",
+            "label": "park_bench"
+        },
+        {
+            "index": 580,
+            "synset": "n03457902",
+            "label": "greenhouse"
+        },
+        {
+            "index": 711,
+            "synset": "n03916031",
+            "label": "perfume"
+        },
+        {
+            "index": 458,
+            "synset": "n02892201",
+            "label": "brass"
+        },
+        {
+            "index": 206,
+            "synset": "n02099429",
+            "label": "curly-coated_retriever"
+        },
+        {
+            "index": 591,
+            "synset": "n03485794",
+            "label": "handkerchief"
+        },
+        {
+            "index": 208,
+            "synset": "n02099712",
+            "label": "Labrador_retriever"
+        },
+        {
+            "index": 721,
+            "synset": "n03938244",
+            "label": "pillow"
+        },
+        {
+            "index": 847,
+            "synset": "n04389033",
+            "label": "tank"
+        },
+        {
+            "index": 611,
+            "synset": "n03598930",
+            "label": "jigsaw_puzzle"
+        },
+        {
+            "index": 996,
+            "synset": "n13052670",
+            "label": "hen-of-the-woods"
+        },
+        {
+            "index": 614,
+            "synset": "n03617480",
+            "label": "kimono"
+        },
+        {
+            "index": 115,
+            "synset": "n01950731",
+            "label": "sea_slug"
+        }
+    ]
+}

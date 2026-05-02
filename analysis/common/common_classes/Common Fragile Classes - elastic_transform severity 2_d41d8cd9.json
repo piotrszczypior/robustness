@@ -1,0 +1,211 @@
+{
+    "metadata": {
+        "task_name": "Common Fragile Classes - elastic_transform severity 2",
+        "models_count": 5,
+        "model_footprint": "d41d8cd9",
+        "input_files": [
+            "resnet50/digital_elastic_transform_2/classes.json",
+            "resnet152/digital_elastic_transform_2/classes.json",
+            "efficientnet_b4/digital_elastic_transform_2/classes.json",
+            "convnext_base/digital_elastic_transform_2/classes.json",
+            "vit_b_16/digital_elastic_transform_2/classes.json"
+        ]
+    },
+    "common_classes": [
+        {
+            "index": 897,
+            "synset": "n04554684",
+            "label": "washer"
+        },
+        {
+            "index": 642,
+            "synset": "n03721384",
+            "label": "marimba"
+        },
+        {
+            "index": 771,
+            "synset": "n04125021",
+            "label": "safe"
+        },
+        {
+            "index": 517,
+            "synset": "n03126707",
+            "label": "crane"
+        },
+        {
+            "index": 520,
+            "synset": "n03131574",
+            "label": "crib"
+        },
+        {
+            "index": 521,
+            "synset": "n03133878",
+            "label": "Crock_Pot"
+        },
+        {
+            "index": 395,
+            "synset": "n02641379",
+            "label": "gar"
+        },
+        {
+            "index": 398,
+            "synset": "n02666196",
+            "label": "abacus"
+        },
+        {
+            "index": 910,
+            "synset": "n04597913",
+            "label": "wooden_spoon"
+        },
+        {
+            "index": 786,
+            "synset": "n04179913",
+            "label": "sewing_machine"
+        },
+        {
+            "index": 916,
+            "synset": "n06359193",
+            "label": "web_site"
+        },
+        {
+            "index": 421,
+            "synset": "n02788148",
+            "label": "bannister"
+        },
+        {
+            "index": 553,
+            "synset": "n03337140",
+            "label": "file"
+        },
+        {
+            "index": 682,
+            "synset": "n03837869",
+            "label": "obelisk"
+        },
+        {
+            "index": 428,
+            "synset": "n02797295",
+            "label": "barrow"
+        },
+        {
+            "index": 557,
+            "synset": "n03355925",
+            "label": "flagpole"
+        },
+        {
+            "index": 561,
+            "synset": "n03384352",
+            "label": "forklift"
+        },
+        {
+            "index": 562,
+            "synset": "n03388043",
+            "label": "fountain"
+        },
+        {
+            "index": 313,
+            "synset": "n02231487",
+            "label": "walking_stick"
+        },
+        {
+            "index": 703,
+            "synset": "n03891251",
+            "label": "park_bench"
+        },
+        {
+            "index": 704,
+            "synset": "n03891332",
+            "label": "parking_meter"
+        },
+        {
+            "index": 449,
+            "synset": "n02859443",
+            "label": "boathouse"
+        },
+        {
+            "index": 707,
+            "synset": "n03902125",
+            "label": "pay-phone"
+        },
+        {
+            "index": 580,
+            "synset": "n03457902",
+            "label": "greenhouse"
+        },
+        {
+            "index": 583,
+            "synset": "n03467068",
+            "label": "guillotine"
+        },
+        {
+            "index": 711,
+            "synset": "n03916031",
+            "label": "perfume"
+        },
+        {
+            "index": 458,
+            "synset": "n02892201",
+            "label": "brass"
+        },
+        {
+            "index": 716,
+            "synset": "n03930313",
+            "label": "picket_fence"
+        },
+        {
+            "index": 721,
+            "synset": "n03938244",
+            "label": "pillow"
+        },
+        {
+            "index": 849,
+            "synset": "n04398044",
+            "label": "teapot"
+        },
+        {
+            "index": 605,
+            "synset": "n03584254",
+            "label": "iPod"
+        },
+        {
+            "index": 877,
+            "synset": "n04501370",
+            "label": "turnstile"
+        },
+        {
+            "index": 495,
+            "synset": "n03018349",
+            "label": "china_cabinet"
+        },
+        {
+            "index": 880,
+            "synset": "n04509417",
+            "label": "unicycle"
+        },
+        {
+            "index": 882,
+            "synset": "n04517823",
+            "label": "vacuum"
+        },
+        {
+            "index": 756,
+            "synset": "n04049303",
+            "label": "rain_barrel"
+        },
+        {
+            "index": 760,
+            "synset": "n04070727",
+            "label": "refrigerator"
+        },
+        {
+            "index": 637,
+            "synset": "n03710193",
+            "label": "mailbox"
+        },
+        {
+            "index": 511,
+            "synset": "n03100240",
+            "label": "convertible"
+        }
+    ]
+}

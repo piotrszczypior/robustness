@@ -18,4 +18,5 @@ plotly
 kaleido
 pillow
 umap-learn
-imagecorruptions
+# imagecorruptions
+# setuptools<70

@@ -1,0 +1,416 @@
+{
+    "metadata": {
+        "task_name": "Common Fragile Classes - impulse_noise severity 4",
+        "models_count": 5,
+        "model_footprint": "d41d8cd9",
+        "input_files": [
+            "resnet50/noise_impulse_noise_4/classes.json",
+            "resnet152/noise_impulse_noise_4/classes.json",
+            "efficientnet_b4/noise_impulse_noise_4/classes.json",
+            "convnext_base/noise_impulse_noise_4/classes.json",
+            "vit_b_16/noise_impulse_noise_4/classes.json"
+        ]
+    },
+    "common_classes": [
+        {
+            "index": 520,
+            "synset": "n03131574",
+            "label": "crib"
+        },
+        {
+            "index": 525,
+            "synset": "n03160309",
+            "label": "dam"
+        },
+        {
+            "index": 33,
+            "synset": "n01664065",
+            "label": "loggerhead"
+        },
+        {
+            "index": 38,
+            "synset": "n01675722",
+            "label": "banded_gecko"
+        },
+        {
+            "index": 552,
+            "synset": "n03325584",
+            "label": "feather_boa"
+        },
+        {
+            "index": 43,
+            "synset": "n01688243",
+            "label": "frilled_lizard"
+        },
+        {
+            "index": 49,
+            "synset": "n01697457",
+            "label": "African_crocodile"
+        },
+        {
+            "index": 50,
+            "synset": "n01698640",
+            "label": "American_alligator"
+        },
+        {
+            "index": 53,
+            "synset": "n01728920",
+            "label": "ringneck_snake"
+        },
+        {
+            "index": 568,
+            "synset": "n03404251",
+            "label": "fur_coat"
+        },
+        {
+            "index": 591,
+            "synset": "n03485794",
+            "label": "handkerchief"
+        },
+        {
+            "index": 616,
+            "synset": "n03627232",
+            "label": "knot"
+        },
+        {
+            "index": 114,
+            "synset": "n01945685",
+            "label": "slug"
+        },
+        {
+            "index": 115,
+            "synset": "n01950731",
+            "label": "sea_slug"
+        },
+        {
+            "index": 116,
+            "synset": "n01955084",
+            "label": "chiton"
+        },
+        {
+            "index": 125,
+            "synset": "n01986214",
+            "label": "hermit_crab"
+        },
+        {
+            "index": 649,
+            "synset": "n03743016",
+            "label": "megalith"
+        },
+        {
+            "index": 150,
+            "synset": "n02077923",
+            "label": "sea_lion"
+        },
+        {
+            "index": 669,
+            "synset": "n03788365",
+            "label": "mosquito_net"
+        },
+        {
+            "index": 680,
+            "synset": "n03825788",
+            "label": "nipple"
+        },
+        {
+            "index": 176,
+            "synset": "n02091831",
+            "label": "Saluki"
+        },
+        {
+            "index": 197,
+            "synset": "n02097130",
+            "label": "giant_schnauzer"
+        },
+        {
+            "index": 711,
+            "synset": "n03916031",
+            "label": "perfume"
+        },
+        {
+            "index": 206,
+            "synset": "n02099429",
+            "label": "curly-coated_retriever"
+        },
+        {
+            "index": 208,
+            "synset": "n02099712",
+            "label": "Labrador_retriever"
+        },
+        {
+            "index": 209,
+            "synset": "n02099849",
+            "label": "Chesapeake_Bay_retriever"
+        },
+        {
+            "index": 720,
+            "synset": "n03937543",
+            "label": "pill_bottle"
+        },
+        {
+            "index": 721,
+            "synset": "n03938244",
+            "label": "pillow"
+        },
+        {
+            "index": 212,
+            "synset": "n02100735",
+            "label": "English_setter"
+        },
+        {
+            "index": 756,
+            "synset": "n04049303",
+            "label": "rain_barrel"
+        },
+        {
+            "index": 760,
+            "synset": "n04070727",
+            "label": "refrigerator"
+        },
+        {
+            "index": 252,
+            "synset": "n02110627",
+            "label": "affenpinscher"
+        },
+        {
+            "index": 257,
+            "synset": "n02111500",
+            "label": "Great_Pyrenees"
+        },
+        {
+            "index": 263,
+            "synset": "n02113023",
+            "label": "Pembroke"
+        },
+        {
+            "index": 267,
+            "synset": "n02113799",
+            "label": "standard_poodle"
+        },
+        {
+            "index": 788,
+            "synset": "n04200800",
+            "label": "shoe_shop"
+        },
+        {
+            "index": 807,
+            "synset": "n04258138",
+            "label": "solar_dish"
+        },
+        {
+            "index": 296,
+            "synset": "n02134084",
+            "label": "ice_bear"
+        },
+        {
+            "index": 816,
+            "synset": "n04277352",
+            "label": "spindle"
+        },
+        {
+            "index": 309,
+            "synset": "n02206856",
+            "label": "bee"
+        },
+        {
+            "index": 313,
+            "synset": "n02231487",
+            "label": "walking_stick"
+        },
+        {
+            "index": 314,
+            "synset": "n02233338",
+            "label": "cockroach"
+        },
+        {
+            "index": 315,
+            "synset": "n02236044",
+            "label": "mantis"
+        },
+        {
+            "index": 316,
+            "synset": "n02256656",
+            "label": "cicada"
+        },
+        {
+            "index": 825,
+            "synset": "n04326547",
+            "label": "stone_wall"
+        },
+        {
+            "index": 319,
+            "synset": "n02268443",
+            "label": "dragonfly"
+        },
+        {
+            "index": 831,
+            "synset": "n04344873",
+            "label": "studio_couch"
+        },
+        {
+            "index": 840,
+            "synset": "n04367480",
+            "label": "swab"
+        },
+        {
+            "index": 332,
+            "synset": "n02328150",
+            "label": "Angora"
+        },
+        {
+            "index": 335,
+            "synset": "n02356798",
+            "label": "fox_squirrel"
+        },
+        {
+            "index": 853,
+            "synset": "n04417672",
+            "label": "thatch"
+        },
+        {
+            "index": 355,
+            "synset": "n02437616",
+            "label": "llama"
+        },
+        {
+            "index": 357,
+            "synset": "n02442845",
+            "label": "mink"
+        },
+        {
+            "index": 364,
+            "synset": "n02457408",
+            "label": "three-toed_sloth"
+        },
+        {
+            "index": 370,
+            "synset": "n02484975",
+            "label": "guenon"
+        },
+        {
+            "index": 882,
+            "synset": "n04517823",
+            "label": "vacuum"
+        },
+        {
+            "index": 897,
+            "synset": "n04554684",
+            "label": "washer"
+        },
+        {
+            "index": 903,
+            "synset": "n04584207",
+            "label": "wig"
+        },
+        {
+            "index": 394,
+            "synset": "n02640242",
+            "label": "sturgeon"
+        },
+        {
+            "index": 397,
+            "synset": "n02655020",
+            "label": "puffer"
+        },
+        {
+            "index": 910,
+            "synset": "n04597913",
+            "label": "wooden_spoon"
+        },
+        {
+            "index": 913,
+            "synset": "n04606251",
+            "label": "wreck"
+        },
+        {
+            "index": 916,
+            "synset": "n06359193",
+            "label": "web_site"
+        },
+        {
+            "index": 410,
+            "synset": "n02727426",
+            "label": "apiary"
+        },
+        {
+            "index": 922,
+            "synset": "n07565083",
+            "label": "menu"
+        },
+        {
+            "index": 926,
+            "synset": "n07590611",
+            "label": "hot_pot"
+        },
+        {
+            "index": 929,
+            "synset": "n07615774",
+            "label": "ice_lolly"
+        },
+        {
+            "index": 421,
+            "synset": "n02788148",
+            "label": "bannister"
+        },
+        {
+            "index": 934,
+            "synset": "n07697537",
+            "label": "hotdog"
+        },
+        {
+            "index": 936,
+            "synset": "n07714571",
+            "label": "head_cabbage"
+        },
+        {
+            "index": 940,
+            "synset": "n07716906",
+            "label": "spaghetti_squash"
+        },
+        {
+            "index": 942,
+            "synset": "n07717556",
+            "label": "butternut_squash"
+        },
+        {
+            "index": 944,
+            "synset": "n07718747",
+            "label": "artichoke"
+        },
+        {
+            "index": 958,
+            "synset": "n07802026",
+            "label": "hay"
+        },
+        {
+            "index": 449,
+            "synset": "n02859443",
+            "label": "boathouse"
+        },
+        {
+            "index": 965,
+            "synset": "n07880968",
+            "label": "burrito"
+        },
+        {
+            "index": 974,
+            "synset": "n09288635",
+            "label": "geyser"
+        },
+        {
+            "index": 980,
+            "synset": "n09472597",
+            "label": "volcano"
+        },
+        {
+            "index": 988,
+            "synset": "n12267677",
+            "label": "acorn"
+        },
+        {
+            "index": 500,
+            "synset": "n03042490",
+            "label": "cliff_dwelling"
+        }
+    ]
+}

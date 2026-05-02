@@ -1,0 +1,391 @@
+{
+    "metadata": {
+        "task_name": "Common Fragile Classes - zoom_blur severity 2",
+        "models_count": 5,
+        "model_footprint": "d41d8cd9",
+        "input_files": [
+            "resnet50/blur_zoom_blur_2/classes.json",
+            "resnet152/blur_zoom_blur_2/classes.json",
+            "efficientnet_b4/blur_zoom_blur_2/classes.json",
+            "convnext_base/blur_zoom_blur_2/classes.json",
+            "vit_b_16/blur_zoom_blur_2/classes.json"
+        ]
+    },
+    "common_classes": [
+        {
+            "index": 640,
+            "synset": "n03717622",
+            "label": "manhole_cover"
+        },
+        {
+            "index": 256,
+            "synset": "n02111277",
+            "label": "Newfoundland"
+        },
+        {
+            "index": 6,
+            "synset": "n01498041",
+            "label": "stingray"
+        },
+        {
+            "index": 8,
+            "synset": "n01514859",
+            "label": "hen"
+        },
+        {
+            "index": 649,
+            "synset": "n03743016",
+            "label": "megalith"
+        },
+        {
+            "index": 910,
+            "synset": "n04597913",
+            "label": "wooden_spoon"
+        },
+        {
+            "index": 913,
+            "synset": "n04606251",
+            "label": "wreck"
+        },
+        {
+            "index": 786,
+            "synset": "n04179913",
+            "label": "sewing_machine"
+        },
+        {
+            "index": 788,
+            "synset": "n04200800",
+            "label": "shoe_shop"
+        },
+        {
+            "index": 533,
+            "synset": "n03207743",
+            "label": "dishrag"
+        },
+        {
+            "index": 410,
+            "synset": "n02727426",
+            "label": "apiary"
+        },
+        {
+            "index": 922,
+            "synset": "n07565083",
+            "label": "menu"
+        },
+        {
+            "index": 30,
+            "synset": "n01641577",
+            "label": "bullfrog"
+        },
+        {
+            "index": 286,
+            "synset": "n02125311",
+            "label": "cougar"
+        },
+        {
+            "index": 290,
+            "synset": "n02128925",
+            "label": "jaguar"
+        },
+        {
+            "index": 37,
+            "synset": "n01669191",
+            "label": "box_turtle"
+        },
+        {
+            "index": 679,
+            "synset": "n03814906",
+            "label": "necklace"
+        },
+        {
+            "index": 295,
+            "synset": "n02133161",
+            "label": "American_black_bear"
+        },
+        {
+            "index": 42,
+            "synset": "n01687978",
+            "label": "agama"
+        },
+        {
+            "index": 43,
+            "synset": "n01688243",
+            "label": "frilled_lizard"
+        },
+        {
+            "index": 172,
+            "synset": "n02091134",
+            "label": "whippet"
+        },
+        {
+            "index": 45,
+            "synset": "n01692333",
+            "label": "Gila_monster"
+        },
+        {
+            "index": 174,
+            "synset": "n02091467",
+            "label": "Norwegian_elkhound"
+        },
+        {
+            "index": 303,
+            "synset": "n02168699",
+            "label": "long-horned_beetle"
+        },
+        {
+            "index": 48,
+            "synset": "n01695060",
+            "label": "Komodo_dragon"
+        },
+        {
+            "index": 49,
+            "synset": "n01697457",
+            "label": "African_crocodile"
+        },
+        {
+            "index": 50,
+            "synset": "n01698640",
+            "label": "American_alligator"
+        },
+        {
+            "index": 305,
+            "synset": "n02172182",
+            "label": "dung_beetle"
+        },
+        {
+            "index": 428,
+            "synset": "n02797295",
+            "label": "barrow"
+        },
+        {
+            "index": 944,
+            "synset": "n07718747",
+            "label": "artichoke"
+        },
+        {
+            "index": 183,
+            "synset": "n02093859",
+            "label": "Kerry_blue_terrier"
+        },
+        {
+            "index": 313,
+            "synset": "n02231487",
+            "label": "walking_stick"
+        },
+        {
+            "index": 314,
+            "synset": "n02233338",
+            "label": "cockroach"
+        },
+        {
+            "index": 825,
+            "synset": "n04326547",
+            "label": "stone_wall"
+        },
+        {
+            "index": 957,
+            "synset": "n07768694",
+            "label": "pomegranate"
+        },
+        {
+            "index": 703,
+            "synset": "n03891251",
+            "label": "park_bench"
+        },
+        {
+            "index": 959,
+            "synset": "n07831146",
+            "label": "carbonara"
+        },
+        {
+            "index": 580,
+            "synset": "n03457902",
+            "label": "greenhouse"
+        },
+        {
+            "index": 69,
+            "synset": "n01768244",
+            "label": "trilobite"
+        },
+        {
+            "index": 197,
+            "synset": "n02097130",
+            "label": "giant_schnauzer"
+        },
+        {
+            "index": 199,
+            "synset": "n02097298",
+            "label": "Scotch_terrier"
+        },
+        {
+            "index": 327,
+            "synset": "n02317335",
+            "label": "starfish"
+        },
+        {
+            "index": 965,
+            "synset": "n07880968",
+            "label": "burrito"
+        },
+        {
+            "index": 458,
+            "synset": "n02892201",
+            "label": "brass"
+        },
+        {
+            "index": 715,
+            "synset": "n03929855",
+            "label": "pickelhaube"
+        },
+        {
+            "index": 206,
+            "synset": "n02099429",
+            "label": "curly-coated_retriever"
+        },
+        {
+            "index": 208,
+            "synset": "n02099712",
+            "label": "Labrador_retriever"
+        },
+        {
+            "index": 209,
+            "synset": "n02099849",
+            "label": "Chesapeake_Bay_retriever"
+        },
+        {
+            "index": 721,
+            "synset": "n03938244",
+            "label": "pillow"
+        },
+        {
+            "index": 850,
+            "synset": "n04399382",
+            "label": "teddy"
+        },
+        {
+            "index": 342,
+            "synset": "n02396427",
+            "label": "wild_boar"
+        },
+        {
+            "index": 343,
+            "synset": "n02397096",
+            "label": "warthog"
+        },
+        {
+            "index": 347,
+            "synset": "n02410509",
+            "label": "bison"
+        },
+        {
+            "index": 221,
+            "synset": "n02102973",
+            "label": "Irish_water_spaniel"
+        },
+        {
+            "index": 991,
+            "synset": "n12985857",
+            "label": "coral_fungus"
+        },
+        {
+            "index": 611,
+            "synset": "n03598930",
+            "label": "jigsaw_puzzle"
+        },
+        {
+            "index": 996,
+            "synset": "n13052670",
+            "label": "hen-of-the-woods"
+        },
+        {
+            "index": 104,
+            "synset": "n01877812",
+            "label": "wallaby"
+        },
+        {
+            "index": 105,
+            "synset": "n01882714",
+            "label": "koala"
+        },
+        {
+            "index": 360,
+            "synset": "n02444819",
+            "label": "otter"
+        },
+        {
+            "index": 364,
+            "synset": "n02457408",
+            "label": "three-toed_sloth"
+        },
+        {
+            "index": 109,
+            "synset": "n01917289",
+            "label": "brain_coral"
+        },
+        {
+            "index": 237,
+            "synset": "n02107312",
+            "label": "miniature_pinscher"
+        },
+        {
+            "index": 938,
+            "synset": "n07715103",
+            "label": "cauliflower"
+        },
+        {
+            "index": 114,
+            "synset": "n01945685",
+            "label": "slug"
+        },
+        {
+            "index": 115,
+            "synset": "n01950731",
+            "label": "sea_slug"
+        },
+        {
+            "index": 116,
+            "synset": "n01955084",
+            "label": "chiton"
+        },
+        {
+            "index": 243,
+            "synset": "n02108422",
+            "label": "bull_mastiff"
+        },
+        {
+            "index": 118,
+            "synset": "n01978287",
+            "label": "Dungeness_crab"
+        },
+        {
+            "index": 245,
+            "synset": "n02108915",
+            "label": "French_bulldog"
+        },
+        {
+            "index": 500,
+            "synset": "n03042490",
+            "label": "cliff_dwelling"
+        },
+        {
+            "index": 121,
+            "synset": "n01981276",
+            "label": "king_crab"
+        },
+        {
+            "index": 123,
+            "synset": "n01984695",
+            "label": "spiny_lobster"
+        },
+        {
+            "index": 125,
+            "synset": "n01986214",
+            "label": "hermit_crab"
+        },
+        {
+            "index": 511,
+            "synset": "n03100240",
+            "label": "convertible"
+        }
+    ]
+}

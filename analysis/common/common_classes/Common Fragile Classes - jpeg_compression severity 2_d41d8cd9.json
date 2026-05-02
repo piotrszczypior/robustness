@@ -1,0 +1,31 @@
+{
+    "metadata": {
+        "task_name": "Common Fragile Classes - jpeg_compression severity 2",
+        "models_count": 5,
+        "model_footprint": "d41d8cd9",
+        "input_files": [
+            "resnet50/digital_jpeg_compression_2/classes.json",
+            "resnet152/digital_jpeg_compression_2/classes.json",
+            "efficientnet_b4/digital_jpeg_compression_2/classes.json",
+            "convnext_base/digital_jpeg_compression_2/classes.json",
+            "vit_b_16/digital_jpeg_compression_2/classes.json"
+        ]
+    },
+    "common_classes": [
+        {
+            "index": 849,
+            "synset": "n04398044",
+            "label": "teapot"
+        },
+        {
+            "index": 37,
+            "synset": "n01669191",
+            "label": "box_turtle"
+        },
+        {
+            "index": 6,
+            "synset": "n01498041",
+            "label": "stingray"
+        }
+    ]
+}
