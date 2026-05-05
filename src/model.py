@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-from typing import Callable, Tuple
-
-import torchvision.models as models
+import torch
 import torch.nn as nn
-
+import torchvision.models as models
+import torchvision.transforms as T
+from typing import Callable, Tuple
 
 __all__ = ["get_model"]
 
@@ -47,6 +47,11 @@ class _ModelFactory:
         "vit_h_14": models.ViT_H_14_Weights.IMAGENET1K_SWAG_E2E_V1,
     }
 
+    _JEPA_MODELS = {
+        "vit_l_16_jepa": "vit_large_patch16_224",
+        "vit_h_14_jepa": "vit_huge_patch14_224",
+    }
+
     @classmethod
     def create(cls, name: str, pretrained: bool = True) -> Tuple[nn.Module, Callable]:
         name = name.lower()
@@ -56,4 +61,30 @@ class _ModelFactory:
             model = models.get_model(name, weights=weights if pretrained else None)
             return model, weights.transforms()
 
+        if name in cls._JEPA_MODELS:
+            return cls._get_jepa_model(name, pretrained)
+
         raise ValueError(f"Model '{name}' not found in registry")
+
+
+    @classmethod
+    def _get_jepa_model(cls, name: str, pretrained: bool) -> Tuple[nn.Module, Callable]:
+        hub_name = cls._JEPA_MODELS[name]
+        
+        model = torch.hub.load('facebookresearch/ijepa', hub_name)
+
+        if not pretrained:
+            for m in model.modules():
+                if isinstance(m, (nn.Linear, nn.Conv2d)):
+                    nn.init.trunc_normal_(m.weight, std=0.02)
+                    if m.bias is not None:
+                        nn.init.zeros_(m.bias)
+
+        transforms = T.Compose([
+            T.Resize(256, interpolation=T.InterpolationMode.BICUBIC),
+            T.CenterCrop(224),
+            T.ToTensor(),
+            T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+        ])
+
+        return model, transforms
