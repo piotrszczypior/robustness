@@ -2,7 +2,8 @@ from __future__ import annotations
 
 import torch
 import torch.nn as nn
-import torchvision.models as models
+import torchvision.models as model
+from transformers import AutoModels
 import torchvision.transforms as T
 from typing import Callable, Tuple
 
@@ -48,8 +49,8 @@ class _ModelFactory:
     }
 
     _JEPA_MODELS = {
-        "vit_l_16_jepa": "vit_large_patch16_224",
-        "vit_h_14_jepa": "vit_huge_patch14_224",
+        "vit_l_16_jepa": "facebook/ijepa_vitl16_1k",
+        "vit_h_14_jepa": "facebook/ijepa_vith14_1k",
     }
 
     @classmethod
@@ -66,19 +67,13 @@ class _ModelFactory:
 
         raise ValueError(f"Model '{name}' not found in registry")
 
-
     @classmethod
     def _get_jepa_model(cls, name: str, pretrained: bool) -> Tuple[nn.Module, Callable]:
-        hub_name = cls._JEPA_MODELS[name]
-        
-        model = torch.hub.load('facebookresearch/ijepa', hub_name)
-
+        hf_name = cls._JEPA_HF_MODELS[name]
+        model = AutoModel.from_pretrained(hf_name if pretrained else hf_name,
+                                        ignore_mismatched_sizes=True)
         if not pretrained:
-            for m in model.modules():
-                if isinstance(m, (nn.Linear, nn.Conv2d)):
-                    nn.init.trunc_normal_(m.weight, std=0.02)
-                    if m.bias is not None:
-                        nn.init.zeros_(m.bias)
+            model.apply(cls._init_weights)
 
         transforms = T.Compose([
             T.Resize(256, interpolation=T.InterpolationMode.BICUBIC),
