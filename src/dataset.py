@@ -9,7 +9,6 @@ from typing import Optional, Dict, Any, Tuple
 import torch
 import torchvision.datasets as datasets
 from torchvision import transforms
-from imagecorruptions import corrupt
 import numpy as np
 from PIL import Image
 

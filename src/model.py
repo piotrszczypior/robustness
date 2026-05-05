@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-import torch
 import torch.nn as nn
-import torchvision.models as model
-from transformers import AutoModels
+import torchvision.models as models
+from transformers import AutoModel
 import torchvision.transforms as T
 from typing import Callable, Tuple
 
@@ -63,23 +62,22 @@ class _ModelFactory:
             return model, weights.transforms()
 
         if name in cls._JEPA_MODELS:
-            return cls._get_jepa_model(name, pretrained)
+            return cls._get_jepa_model(name)
 
         raise ValueError(f"Model '{name}' not found in registry")
 
     @classmethod
-    def _get_jepa_model(cls, name: str, pretrained: bool) -> Tuple[nn.Module, Callable]:
-        hf_name = cls._JEPA_HF_MODELS[name]
-        model = AutoModel.from_pretrained(hf_name if pretrained else hf_name,
-                                        ignore_mismatched_sizes=True)
-        if not pretrained:
-            model.apply(cls._init_weights)
+    def _get_jepa_model(cls, name: str) -> Tuple[nn.Module, Callable]:
+        hf_name = cls._JEPA_MODELS[name]
+        model = AutoModel.from_pretrained(hf_name, ignore_mismatched_sizes=True)
 
-        transforms = T.Compose([
-            T.Resize(256, interpolation=T.InterpolationMode.BICUBIC),
-            T.CenterCrop(224),
-            T.ToTensor(),
-            T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-        ])
+        transforms = T.Compose(
+            [
+                T.Resize(256, interpolation=T.InterpolationMode.BICUBIC),
+                T.CenterCrop(224),
+                T.ToTensor(),
+                T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+            ]
+        )
 
         return model, transforms
