@@ -25,7 +25,7 @@ def run_evaluation(
 ):
     backup_dir = paths.google_colab_gdrive_path if args.sync_drive else None
     exporter = MetricsExporter(output_dir=args.output_path, backup_dir=backup_dir)
-    device = resolve_device()
+    device = args.device if hasattr(args, 'device') and args.device else resolve_device()
     logger.info(f"Using device: {device}")
 
     for i, experiment in enumerate(experiments):

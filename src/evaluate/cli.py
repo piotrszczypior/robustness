@@ -34,6 +34,7 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     parser.add_argument("--batch-size", help="Batch size", default=128)
     parser.add_argument("--num-workers", help="Number of workers", default=12)
     parser.add_argument("--extract-features", action="store_true")
+    parser.add_argument("--device", type=str, help="Specific device to use for evaluation (e.g., cuda:0, cuda:1, cpu)")
     # fmt: on
 
 
