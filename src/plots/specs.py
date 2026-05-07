@@ -6,7 +6,6 @@ from pathlib import Path
 from typing import Any, Dict, Iterator, Union
 
 import yaml
-from munch import DefaultMunch
 
 __all__ = ["get_plot_specs", "ChartConfig"]
 
@@ -47,6 +46,8 @@ class _PlotSpecsFactory:
 
     @staticmethod
     def _from_dict(content: Dict[str, Any]) -> Iterator[ChartConfig]:
+        from munch import DefaultMunch
+
         plots = content.get("plots", [])
 
         for plot in plots:
