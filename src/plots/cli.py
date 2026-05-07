@@ -33,6 +33,9 @@ def register(subparsers: argparse._SubParsersAction) -> None:
 
     from .spearman_corr.cli import register as register_spearman
     register_spearman(plot_subparsers)
+
+    from .jaccard_overlap.cli import register as register_jaccard
+    register_jaccard(plot_subparsers)
     # fmt: on
 
 
@@ -48,6 +51,10 @@ def run(args: argparse.Namespace):
 
     if args.plot_command == "spearman":
         args.spearman_run(args)
+        return
+
+    if args.plot_command == "jaccard":
+        args.jaccard_run(args)
         return
 
     logger.info(f"Loading plot specs from: {args.plots}")
