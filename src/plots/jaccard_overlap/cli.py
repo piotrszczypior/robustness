@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import argparse
-from email.policy import default
 import logging
 from .settings import get_jaccard_plot_specs
 from .plot import DomainJaccardOverlapPlot

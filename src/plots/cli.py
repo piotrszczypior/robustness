@@ -36,6 +36,30 @@ def register(subparsers: argparse._SubParsersAction) -> None:
 
     from .jaccard_overlap.cli import register as register_jaccard
     register_jaccard(plot_subparsers)
+
+    from .violin_plot.cli import register as register_violin
+    register_violin(plot_subparsers)
+
+    from .violin_plot_rmce import register as register_violin_rmce
+    register_violin_rmce(plot_subparsers)
+
+    from .barcode_plot_rmce import register as register_barcode_plot_rmce
+    register_barcode_plot_rmce(plot_subparsers)
+
+    from .accuracy_scatter_plot.cli import register as register_accuracy_scatter
+    register_accuracy_scatter(plot_subparsers)
+
+    from .class_degradation_plot.cli import register as register_class_degradation
+    register_class_degradation(plot_subparsers)
+
+    from .barcode_fragile_classes.cli import register as register_barcode_fragile_classes
+    register_barcode_fragile_classes(plot_subparsers)
+
+    from .fragile_class_similarity_matrix.cli import register as register_fragile_similarity
+    register_fragile_similarity(plot_subparsers)
+
+    from .spearman_rank_plot.cli import register as register_spearman_rank
+    register_spearman_rank(plot_subparsers)
     # fmt: on
 
 
@@ -55,6 +79,38 @@ def run(args: argparse.Namespace):
 
     if args.plot_command == "jaccard":
         args.jaccard_run(args)
+        return
+
+    if args.plot_command == "violin":
+        args.violin_run(args)
+        return
+
+    if args.plot_command == "violin_rmce":
+        args.violin_rmce_run(args)
+        return
+
+    if args.plot_command == "barcode_rmce":
+        args.barcode_rmce_run(args)
+        return
+
+    if args.plot_command == "accuracy_scatter":
+        args.accuracy_scatter_run(args)
+        return
+
+    if args.plot_command == "class_degradation":
+        args.class_degradation_run(args)
+        return
+
+    if args.plot_command == "barcode_fragile_classes":
+        args.barcode_fragile_classes_run(args)
+        return
+
+    if args.plot_command == "fragile_similarity":
+        args.fragile_similarity_run(args)
+        return
+
+    if args.plot_command == "spearman_rank":
+        args.spearman_rank_run(args)
         return
 
     logger.info(f"Loading plot specs from: {args.plots}")

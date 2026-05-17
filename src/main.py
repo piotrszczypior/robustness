@@ -14,6 +14,10 @@ import plots
 import analyze
 import xai
 import sankey
+import adversarial
+import fragile
+import plots_v2
+from plots_v2.barcode.cli import get_task as get_barcode_v2_task
 
 
 TASK_REGISTRY: Dict[str, Task] = {
@@ -23,6 +27,10 @@ TASK_REGISTRY: Dict[str, Task] = {
     "analyze": analyze.get_task(),
     "xai": xai.get_task(),
     "sankey": sankey.get_task(),
+    "adversarial": adversarial.get_task(),
+    "fragile": fragile.get_task(),
+    "spearman_v2": plots_v2.get_task(),
+    "barcode_v2": get_barcode_v2_task(),
 }
 
 
@@ -64,7 +72,7 @@ def main() -> int:
         logger.info(f"Task '{args.task}' completed")
         return 0
     except Exception as e:
-        logger.error(f"[ERROR] Task failed with error: {e}")
+        logger.error(f"[ERROR] Task failed with error: {e}", exc_info=True)
         return 1
 
 

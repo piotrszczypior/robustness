@@ -7,7 +7,7 @@ import torch
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 from dataset import get_dataset
-from evaluate.checkpoint import MetricsExporter
+from checkpoint import export_results
 from evaluate.writer import EmbeddingWriter, ResultAccumulator
 from evaluate.feature_extractor import FeatureExtractor
 from paths import paths
@@ -24,8 +24,9 @@ def run_evaluation(
     args: argparse.Namespace, model, experiments: list[Experiment], transforms
 ):
     backup_dir = paths.google_colab_gdrive_path if args.sync_drive else None
-    exporter = MetricsExporter(output_dir=args.output_path, backup_dir=backup_dir)
-    device = args.device if hasattr(args, 'device') and args.device else resolve_device()
+    device = (
+        args.device if hasattr(args, "device") and args.device else resolve_device()
+    )
     logger.info(f"Using device: {device}")
 
     for i, experiment in enumerate(experiments):
@@ -57,9 +58,11 @@ def run_evaluation(
             f"Accuracy: {run_accuracy:.4f}, "
             f"Error: {run_error:.4f}"
         )
-        exporter.export(
+        export_results(
             data_df=results.to_dataframe(),
             filename=f"{args.model}_{experiment.filename_suffix}.csv",
+            output_dir=args.output_path,
+            backup_dir=backup_dir,
         )
 
 

@@ -18,5 +18,6 @@ plotly
 kaleido
 pillow
 umap-learn
+hdbscan
 # imagecorruptions
 # setuptools<70

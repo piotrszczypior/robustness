@@ -7,6 +7,7 @@ from typing import Generator
 from constants import IMAGENET_C_CORRUPTION_GROUPS, IMAGENET_C_SEVERITIES
 from model import MODELS
 
+
 @dataclass(frozen=True)
 class VariantEntry:
     model: str
@@ -16,7 +17,7 @@ class VariantEntry:
 
 
 @dataclass(frozen=True)
-class VariationSpaceImageNetC:
+class CorruptionVariations:
     models: list[str] | None = None
     groups: list[str] | None = None
     severities: list[int] | None = None
@@ -63,3 +64,11 @@ class VariationSpaceImageNetC:
 
         for (group, corruption, severity), models in seen.items():
             yield group, corruption, severity, models
+
+    def per_unique_conditions(self) -> Generator[tuple[str, str, int], None, None]:
+        seen = set()
+        for v in self._variants:
+            key = (v.group, v.corruption, v.severity)
+            if key not in seen:
+                seen.add(key)
+                yield key

@@ -84,7 +84,7 @@ class _ModelFactory:
     @classmethod
     def _get_jepa_model(cls, name: str) -> Tuple[nn.Module, Callable]:
         from transformers import AutoModel
-        
+
         hf_name = cls._JEPA_MODELS[name]
         model = AutoModel.from_pretrained(hf_name, ignore_mismatched_sizes=True)
 

@@ -1,0 +1,10 @@
+plots:
+  - name: convnext_base_accuracy_vs_difference_imagenet_r
+    title: "ConvNeXt-B: Accuracy vs. Accuracy Drop (ImageNet-R)"
+    type: accuracy_to_accuracy
+    x_label: "Accuracy (ImageNet)"
+    y_label: "Accuracy (ImageNet-R)"
+    content:
+      x: "vit_h_14_imagenet.csv"
+      y: "vit_h_14_imagenet_r.csv"
+    output: "images/imagenet-r/acc_to_acc/vit_h_14_accuracy_vs_accuracy.png"

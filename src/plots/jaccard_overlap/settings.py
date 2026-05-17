@@ -3,17 +3,22 @@ from __future__ import annotations
 from typing import Iterator
 from munch import DefaultMunch
 from plots.specs import ChartConfig
-from space import VariationSpaceImageNetC
+from space import CorruptionVariations
 
-def construct_plot_config(space: VariationSpaceImageNetC, top_k: int = 50, tail: str = "worst"):
+
+def construct_plot_config(
+    space: CorruptionVariations, top_k: int = 50, tail: str = "worst"
+):
     for group, corruption, severity, models in space.per_corruption():
         models_content = []
         for model in models:
             model_slug = model.lower().replace("-", "")
-            models_content.append({
-                "name": model,
-                "corrupted": f"{model_slug}_imagenet_c_{group}_{corruption}_{severity}.csv"
-            })
+            models_content.append(
+                {
+                    "name": model,
+                    "corrupted": f"{model_slug}_imagenet_c_{group}_{corruption}_{severity}.csv",
+                }
+            )
 
         content = {
             "models": models_content,
@@ -28,23 +33,23 @@ def construct_plot_config(space: VariationSpaceImageNetC, top_k: int = 50, tail:
             x_label="",
             y_label="",
             output=f"images/jaccard/top{top_k}/{tail}/imagenet_c_{corruption}_{severity}.png",
-            content=DefaultMunch.fromDict(content)
+            content=DefaultMunch.fromDict(content),
         )
 
 
 JACCARD_PLOTS_TASKS = [
-    VariationSpaceImageNetC(corruptions=["defocus_blur"], severities=[1]),
+    CorruptionVariations(corruptions=["defocus_blur"], severities=[1]),
 ]
 
 
 def get_jaccard_plot_specs(
-    top_k: int = 50, 
-    corruptions: list[str] | None = None, 
+    top_k: int = 50,
+    corruptions: list[str] | None = None,
     severities: list[int] | None = None,
-    tail: str = "worst"
+    tail: str = "worst",
 ) -> Iterator[ChartConfig]:
     if corruptions or severities:
-        space = VariationSpaceImageNetC(corruptions=corruptions, severities=severities)
+        space = CorruptionVariations(corruptions=corruptions, severities=severities)
         yield from construct_plot_config(space, top_k, tail)
     else:
         for space in JACCARD_PLOTS_TASKS:

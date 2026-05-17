@@ -13,6 +13,10 @@ def get_data(data_dir: Path | str, filename: str) -> pd.DataFrame:
     return _DataLoader.load(path)
 
 
+def calculate_accuracy_per_class(df: pd.DataFrame) -> pd.DataFrame:
+    return df.groupby(["y_true"])["is_correct"].agg(accuracy="mean").reset_index()
+
+
 class _DataLoader:
     @staticmethod
     def exists(*paths: Path) -> bool:

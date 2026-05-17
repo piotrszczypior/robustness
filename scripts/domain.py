@@ -1,7 +1,6 @@
 import os
 import glob
 import pandas as pd
-import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -38,17 +37,17 @@ def get_class_accuracy_from_csv(file_path):
 
     # Ładujemy tylko dwie kolumny, ignorując całą resztę (ogromna oszczędność RAM)
     try:
-        df = pd.read_csv(file_path, usecols=['y_true', 'is_correct'])
+        df = pd.read_csv(file_path, usecols=["y_true", "is_correct"])
     except ValueError as e:
         print(f"Błąd kolumn w pliku {file_path}. Zignorowano. Szczegóły: {e}")
         return None
 
     # Upewniamy się, że is_correct to wartości numeryczne (0.0 / 1.0),
     # na wypadek gdyby w pliku zapisały się jako stringi 'True'/'False'
-    df['is_correct'] = df['is_correct'].astype(float)
+    df["is_correct"] = df["is_correct"].astype(float)
 
     # Grupujemy po prawdziwej klasie i wyciągamy średnią (co daje nam ułamek poprawnych)
-    return df.groupby('y_true')['is_correct'].mean()
+    return df.groupby("y_true")["is_correct"].mean()
 
 
 def load_model_domain_drop(model_name, prefix):
@@ -118,10 +117,12 @@ def main():
 
     # Usuwamy wiersze z NaN (upewniamy się, że klasy istnieją we wszystkich załadowanych modelach)
     master_df = master_df.dropna()
-    print(f"\nUdało się złożyć macierz predykcji. Liczba wspólnych klas: {len(master_df)}")
+    print(
+        f"\nUdało się złożyć macierz predykcji. Liczba wspólnych klas: {len(master_df)}"
+    )
 
     # Obliczamy korelacje rangową Spearmana między modelami
-    corr_matrix = master_df.corr(method='spearman')
+    corr_matrix = master_df.corr(method="spearman")
 
     # ==========================================
     # 4. WIZUALIZACJA (PAPER-READY)
@@ -133,18 +134,23 @@ def main():
     # Używamy clustermap, który pogrupuje podobne modele!
     g = sns.clustermap(
         corr_matrix,
-        cmap='RdBu_r',  # Czerwony dla ujemnej, Niebieski dla dodatniej korelacji
+        cmap="RdBu_r",  # Czerwony dla ujemnej, Niebieski dla dodatniej korelacji
         annot=True,  # Wypisuje wartości
         fmt=".2f",  # Do 2 miejsc po przecinku
-        vmin=0.0, vmax=1.0,  # Zazwyczaj korelacje tu są od 0 do 1
+        vmin=0.0,
+        vmax=1.0,  # Zazwyczaj korelacje tu są od 0 do 1
         figsize=(16, 16),
-        linewidths=.5,
-        cbar_kws={"shrink": .8, "label": "Spearman Correlation"}
+        linewidths=0.5,
+        cbar_kws={"shrink": 0.8, "label": "Spearman Correlation"},
     )
 
     # Ustawienia tytułu
-    g.fig.suptitle(f'Macierz Zgodności Błędów (OOD Drop) - Zbiór {TARGET_DOMAIN.upper()}',
-                   y=1.02, fontsize=18, fontweight='bold')
+    g.fig.suptitle(
+        f"Macierz Zgodności Błędów (OOD Drop) - Zbiór {TARGET_DOMAIN.upper()}",
+        y=1.02,
+        fontsize=18,
+        fontweight="bold",
+    )
 
     # Poprawa rotacji labeli, żeby były czytelne
     plt.setp(g.ax_heatmap.get_xticklabels(), rotation=45, ha="right", fontsize=12)
@@ -152,7 +158,7 @@ def main():
 
     # Zapisz wykres do pliku hi-res i wyświetl
     output_filename = f"correlation_matrix_{TARGET_DOMAIN}.png"
-    plt.savefig(output_filename, dpi=300, bbox_inches='tight')
+    plt.savefig(output_filename, dpi=300, bbox_inches="tight")
     print(f"\nWykres zapisany jako: {output_filename}")
     plt.show()
 
