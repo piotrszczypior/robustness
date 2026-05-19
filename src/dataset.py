@@ -15,7 +15,7 @@ from PIL import Image
 from paths import paths
 from utils import get_synset_to_index_imagenet1k
 
-__all__ = ["get_dataset", "DatasetType", "DatasetConfig"]
+__all__ = ["get_dataset", "DatasetType", "DatasetConfig", "DATASET_ALIAS_TO_LABEL"]
 
 
 NORMALIZE = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
@@ -28,6 +28,12 @@ DEFAULT_TRANSFORM = transforms.Compose(
         NORMALIZE,
     ]
 )
+
+DATASET_ALIAS_TO_LABEL = {
+    "imagenet_c": "ImageNet-C",
+    "imagenet_r": "ImageNet-R",
+    "imagenet_a": "ImageNet-A",
+}
 
 
 def get_dataset(

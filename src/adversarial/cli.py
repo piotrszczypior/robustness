@@ -40,10 +40,16 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         help="Model name (e.g. resnet50)",
     )
     parser.add_argument(
-        "--classes",
+        "--fragile",
         type=str,
-        required=True,
-        help='Comma-separated synset IDs ("n01440764,n01443537") or path to file with one synset per line',
+        default=None,
+        help="Comma-separated synset IDs or file path — classes marked is_fragile=1",
+    )
+    parser.add_argument(
+        "--robust",
+        type=str,
+        default=None,
+        help="Comma-separated synset IDs or file path — classes marked is_fragile=0",
     )
     parser.add_argument(
         "--attack",
@@ -89,8 +95,13 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     parser.add_argument(
         "--output",
         type=str,
-        default="results/adversarial",
-        help="Output directory for CSV files (default: results/adversarial)",
+        default="aversarial",
+        help="Output directory for CSV files (default: aversarial)",
+    )
+    parser.add_argument(
+        "--save-images",
+        action="store_true",
+        help="Save adversarial images to images/adversarial/synsets/{synset}/{attack}_eps{e}.png",
     )
 
 
@@ -102,14 +113,16 @@ def _resolve_classes(value: str) -> list[str]:
 
 
 def run(args: argparse.Namespace) -> None:
-    synsets = _resolve_classes(args.classes)
+    fragile_synsets = set(_resolve_classes(args.fragile)) if args.fragile else set()
+    robust_synsets = set(_resolve_classes(args.robust)) if args.robust else set()
+    synsets = list(fragile_synsets | robust_synsets)
     if not synsets:
-        raise ValueError("No classes provided via --classes")
+        raise ValueError("No classes provided — use --fragile and/or --robust")
 
     attacks = ["fgsm", "pgd"] if args.attack == "both" else [args.attack]
 
     logger.info(f"Model: {args.model}")
-    logger.info(f"Classes: {synsets}")
+    logger.info(f"Fragile: {sorted(fragile_synsets)}, Robust: {sorted(robust_synsets)}")
     logger.info(f"Attacks: {attacks}, epsilons: {args.epsilon}")
 
     model, transforms = get_model(args.model)
@@ -127,7 +140,7 @@ def run(args: argparse.Namespace) -> None:
     target_indices = {synset_to_index[s] for s in synsets}
 
     data_root = (
-        Path(args.data_path) if args.data_path else paths.data / "imagenet" / "val"
+        Path(args.data_path) if args.data_path else paths.data / "imagenet" 
     )
     if not data_root.exists():
         raise FileNotFoundError(f"ImageNet val directory not found: {data_root}")
@@ -158,6 +171,8 @@ def run(args: argparse.Namespace) -> None:
 
     logger.info(f"Dataset: {len(dataset)} samples across {len(synsets)} classes")
 
+    images_dir = Path("images") / "adversarial" / "synsets" if args.save_images else None
+
     run_adversarial_evaluation(
         model=model,
         dataloader=dataloader,
@@ -168,5 +183,7 @@ def run(args: argparse.Namespace) -> None:
         index_to_synset=index_to_synset,
         synset_to_label=synset_to_label,
         output_path=Path(args.output),
+        fragile_synsets=fragile_synsets,
+        save_images_dir=images_dir,
         sync_drive=args.sync_drive,
     )

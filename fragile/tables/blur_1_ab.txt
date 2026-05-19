@@ -1,0 +1,19 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccrc}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE & Count \\
+\midrule
+n03938244 & 721 & Pillow & 0.907 & 0.384 & 0.578 & 0.523 & 1.340 & 17 \\
+n01498041 & 6 & Stingray & 0.906 & 0.340 & 0.625 & 0.566 & 1.020 & 16 \\
+n01698640 & 50 & American alligator & 0.914 & 0.380 & 0.588 & 0.534 & 1.007 & 16 \\
+n01641577 & 30 & Bullfrog & 0.825 & 0.413 & 0.499 & 0.412 & 0.736 & 15 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

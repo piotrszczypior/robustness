@@ -1,4 +1,6 @@
 from pathlib import Path
+
+from networkx import to_latex
 from task import Task
 import argparse
 from .experiments import EXPERIMENTS, get_dfs_for_all_models
@@ -12,9 +14,12 @@ from .fragile import (
     get_cross_model_df,
 )
 from .methods import calculate_relative_drop
-from .clustering import run_clustering
+from .clustering import run_clustering, run_kmeans, run_pca, run_umap, plot_kmeans
 from .definitions import DEFINITIONS, FragileDefinition
-
+import pandas as pd
+from collections import Counter
+import numpy as np
+from .representation import cluster_stats_to_latex 
 
 TASK_NAME = "fragile"
 
@@ -51,10 +56,30 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         help="Run all experiments × definitions and save results to disk",
     )
     parser.add_argument(
+        "--common",
+        action="store_true",
+        help="Find synsets fragile across ALL experiments for a given definition",
+    )
+    parser.add_argument(
+        "--clustering-fragile",
+        action="store_true",
+        help="Run unsupervised clustering algoritm to determine fragile classese"
+    ),
+    parser.add_argument(
+        "--rmce-fragile",
+        action="store_true",
+    )
+    parser.add_argument(
         "--output-dir",
         type=str,
         default=".",
         help="Base output directory for sweep results",
+    )
+    parser.add_argument(
+        "--save-tables",
+        action="store_true",
+        default=False,
+        help="Saves tables to txt file",
     )
 
 
@@ -63,32 +88,52 @@ def run(args: argparse.Namespace):
         run_sweep(args)
         return
 
+    if args.common:
+        run_common(args)
+        return
+
+    if args.clustering_fragile:
+        run_clustering_fragile_sweep(args)
+        return 
+
+    if args.rmce_fragile:
+        get_fragile_by_rmce(args)
+        return
+
     variations = EXPERIMENTS[args.exp]
     dfs = get_dfs_for_all_models(variations, args.data_path)
 
-    definitions = list(DEFINITIONS.values()) if args.definition == "all" else [DEFINITIONS[args.definition]]
+    definitions = (
+        list(DEFINITIONS.values())
+        if args.definition == "all"
+        else [DEFINITIONS[args.definition]]
+    )
 
     if args.model:
         for definition in definitions:
             print(f"\n=== {definition.label} ===")
             df = _get_fragile(dfs[args.model], dfs["alexnet"], definition)
-            print(df[df["is_strongly_fragile"] == 1])
-            print(df.describe())
+            # print(df[df["is_strongly_fragile"] == 1])
+            robust = df[(df["is_fragile_a"] == 0) & (df["is_fragile_b"] == 0) & (df["is_fragile_c"] == 0)].sort_values(by="acc_corrupt", ascending=False)
+            print(robust)
+            # print(df.describe())
         return
 
     for definition in definitions:
         print(f"\n=== {definition.label} ===")
-        fragile_dfs = [_get_fragile(df, dfs["alexnet"], definition) for df in dfs.values()]
+        fragile_dfs = [
+            _get_fragile(df, dfs["alexnet"], definition) for df in dfs.values()
+        ]
         cross = get_cross_model_fragile(fragile_dfs, definition, min_models=15)
         print(cross)
         print(len(cross))
 
-    print("HDBSCAN")
-    across_models_df = get_cross_model_df(fragile_dfs)
-    print(across_models_df.sort_values("fragile_count", ascending=False))
-    print(len(across_models_df))
+    # print("HDBSCAN")
+    # across_models_df = get_cross_model_df(fragile_dfs)
+    # print(across_models_df.sort_values("fragile_count", ascending=False))
+    # print(len(across_models_df))
 
-    run_clustering(across_models_df)
+    # run_clustering(across_models_df)
 
 
 def run_sweep(args: argparse.Namespace):
@@ -104,14 +149,83 @@ def run_sweep(args: argparse.Namespace):
             if args.model:
                 df = _get_fragile(dfs[args.model], dfs["alexnet"], definition)
                 dest = out / "fragile" / exp_name / def_name / args.model
-                dest.mkdir(parents=True, exist_ok=True)
-                df[df["is_strongly_fragile"] == 1].to_csv(dest / "fragile_classes.csv", index=False)
+                dest.mkdir(parents=True, exist_ok=True)                
+                df[df["is_strongly_fragile"] == 1].to_csv(
+                    dest / "fragile_classes.csv", index=False
+                )
             else:
-                fragile_dfs = [_get_fragile(df, dfs["alexnet"], definition) for df in dfs.values()]
+                fragile_dfs = [
+                    _get_fragile(df, dfs["alexnet"], definition) for df in dfs.values()
+                ]
                 cross = get_cross_model_fragile(fragile_dfs, definition, min_models=15)
                 dest = out / "fragile" / exp_name / def_name
                 dest.mkdir(parents=True, exist_ok=True)
                 cross.to_csv(dest / "cross_model.csv", index=False)
+
+                if args.save_tables:
+                    from .representation import to_latex
+
+                    to_latex(cross, save=True, filename=f"{exp_name}_{def_name}.txt")
+
+
+def run_common(args: argparse.Namespace) -> None:
+    definitions = (
+        list(DEFINITIONS.values())
+        if args.definition == "all"
+        else [DEFINITIONS[args.definition]]
+    )
+    # out = Path(args.output_dir)
+
+    for c in [4, 5, 6]:
+        for definition in definitions:
+            print(f"\n[common] definition: {definition.label}")
+            common = get_common_fragile_across_experiments(
+                definition, args.data_path, c
+            )
+            print(f"  {len(common)} synsets fragile across all experiments")
+            print(common)
+
+        # dest = out / "fragile" / "common_across_experiments"
+        # dest.mkdir(parents=True, exist_ok=True)
+        # pd.DataFrame({"synset": sorted(common)}).to_csv(
+        # dest / f"{definition.name}.csv", index=False
+        # )
+
+
+def get_common_fragile_across_experiments(
+    definition: FragileDefinition,
+    data_path: str,
+    min_experiments: int = 7,
+) -> set[str]:
+    counter = Counter()
+    print("INTERSECTION MIN EXPERIMENTS: ", min_experiments)
+
+    for exp_name, variations in EXPERIMENTS.items():
+        dfs = get_dfs_for_all_models(variations, data_path)
+        fragile_dfs = [
+            _get_fragile(df, dfs["alexnet"], definition) for df in dfs.values()
+        ]
+        cross = get_cross_model_fragile(fragile_dfs, definition, min_models=15)
+        counter.update(set(cross["synset"]))
+
+    return {s for s, count in counter.items() if count >= min_experiments}
+
+
+# def get_common_fragile_across_experiments(
+#     definition: FragileDefinition,
+# data_path: str,
+# ) -> set[str]:
+#     synset_sets = []
+#     for exp_name, variations in EXPERIMENTS.items():
+#         print(f"  [common] experiment: {exp_name}")
+#         dfs = get_dfs_for_all_models(variations, data_path)
+#         fragile_dfs = [_get_fragile(df, dfs["alexnet"], definition) for df in dfs.values()]
+#         cross = get_cross_model_fragile(fragile_dfs, definition, min_models=15)
+#         print(len(cross))
+#         synset_sets.append(set(cross["synset"]))
+#     if not synset_sets:
+#         return set()
+#     return set.intersection(*synset_sets)
 
 
 def _get_fragile(df, alexnet_df, definition: FragileDefinition):
@@ -121,14 +235,132 @@ def _get_fragile(df, alexnet_df, definition: FragileDefinition):
     df_c = get_rmce_fragile(df, alexnet_df)
     strong_fragile = get_strongly_fragile(df_a, df_b, df_c, definition)
 
-    print(df.head())
+    # print(df.head())
     super_giga_fragile = strong_fragile[strong_fragile["is_strongly_fragile"] == 1]
-    print(super_giga_fragile)
-    print(len(super_giga_fragile))
+    # print(super_giga_fragile)
+    # print(len(super_giga_fragile))
 
     return df.merge(strong_fragile, on="synset")
 
 
+def identify_fragile_cluster(features: pd.DataFrame, labels: np.ndarray) -> pd.DataFrame:
+    df = features.copy()
+    df["cluster"] = labels
+    cluster_stats = df.groupby("cluster")[["acc_clean", "rel_drop"]].mean()
+    eligible = cluster_stats[cluster_stats["acc_clean"] >= 0.65]
+    fragile_cluster_id = eligible["rel_drop"].idxmax()
+    print(f"  fragile cluster: {fragile_cluster_id}, stats: {cluster_stats.loc[fragile_cluster_id].to_dict()}")
+    return df[df["cluster"] == fragile_cluster_id][["synset"]]
+
+def get_fragile_cluster_id(df: pd.DataFrame):
+    cluster_stats = df.groupby("cluster")[["acc_clean", "rel_drop"]].mean()
+    eligible = cluster_stats[cluster_stats["acc_clean"] >= 0.65]
+    fragile_cluster_id = eligible["rel_drop"].idxmax()
+    print(f"  Fragile cluster: {fragile_cluster_id}, stats: {cluster_stats.loc[fragile_cluster_id].to_dict()}")
+
+    return fragile_cluster_id
+
+def run_clustering_fragile_sweep(args: argparse.Namespace):
+    import numpy as np
+    CLUSTERING_FEATURES = ["acc_clean", "acc_corrupt", "rel_drop", "abs_drop"]
+
+    for exp_name, variations in EXPERIMENTS.items():
+        print(f"\n[clustering sweep] experiment: {exp_name}")
+        dfs = get_dfs_for_all_models(variations, args.data_path)
+
+        if False:
+
+            fragile_cluster_sets = []
+            for model, df in dfs.items():
+                features = df[["synset"] + CLUSTERING_FEATURES].dropna()
+                labels = run_kmeans(features[CLUSTERING_FEATURES], k=5)
+                fragile_cluster = identify_fragile_cluster(features, labels)
+                fragile_cluster_sets.append(set(fragile_cluster["synset"]))
+
+            counter = Counter()
+            for s in fragile_cluster_sets:
+                counter.update(s)
+
+            intersection = {
+                synset for synset, count in counter.items()
+                if count >= 15
+            }
+
+            cross_df = get_cross_model_df(dfs, agg_cols=["acc_clean", "acc_corrupt", "rel_drop", "abs_drop", "RmCE"])
+            cross_df["fragile_count"] = cross_df["synset"].map(counter).fillna(0).astype(int)
+            relevant = cross_df[cross_df['synset'].isin(intersection)]
+
+            print(f"  {len(intersection)} synsets in fragile cluster across >= {15} models")
+            print(intersection)
+
+            relevant.sort_values("fragile_count", ascending=False, inplace=True)
+
+            if args.save_tables: 
+                from .representation import to_latex
+                to_latex(relevant, save=True, filename=f"{exp_name}_clustering.txt", clustering=True)
+
+
+        for model, df in dfs.items():
+            features = df[["synset"] + CLUSTERING_FEATURES].dropna()
+            labels = run_kmeans(features[CLUSTERING_FEATURES], k=7)
+            df["cluster"] = labels
+            cluster_stats = df.groupby("cluster")[["acc_clean", "acc_corrupt", "rel_drop", "abs_drop"]].mean()
+            # cluster_stats = cluster_stats.sort_values(["acc_clean", "rel_drop"], ascending=False)
+            print(cluster_stats)
+            cluster_stats_to_latex(cluster_stats, filename=f"{exp_name}_{model}")
+            fragile_cluster_id = get_fragile_cluster_id(df)
+
+            projected_df = run_pca(df)
+            # projected_df = run_umap(projected_df)
+
+            plot_kmeans(
+                projected_df,
+                projection="pca",
+                filename=f"{exp_name}_{model}",
+                fragile_cluster_id=fragile_cluster_id,
+                output_path=f"images/clustering",
+            )
+
+        # print(cross_df[cross_df["cluster"] == 3]["synset"])
+
+        # counter = Counter()
+        # for s in fragile_cluster_sets:
+        #     counter.update(s)
+        
+        # intersection = {
+        #     synset for synset, count in counter.items() 
+        #     if count >= args.min_models
+        # }
+        # intersection = set.intersection(*fragile_cluster_sets)
+        # intersection_df = pd.DataFrame({"synset": list(intersection)})
+        # print(intersection_df)
+
+
+
+
+def get_fragile_by_rmce(args: argparse.Namespace):
+
+    for exp_name, variations in EXPERIMENTS.items():
+        dfs = get_dfs_for_all_models(variations, args.data_path)
+        
+        counter = Counter()
+        for model, df in dfs.items():
+            fragile = set(df[df["RmCE"] > 1.5]["synset"])
+            counter.update(fragile)
+        
+        intersection = {
+            synset for synset, count in counter.items()
+            if count >= 15
+        }
+
+        cross_df = get_cross_model_df(dfs, agg_cols=["acc_clean", "acc_corrupt", "rel_drop", "abs_drop", "RmCE"])
+        cross_df["fragile_count"] = cross_df["synset"].map(counter).fillna(0).astype(int)
+        relevant = cross_df[cross_df['synset'].isin(intersection)]
+        relevant.sort_values("fragile_count", ascending=False, inplace=True)
+
+        if args.save_tables: 
+            from .representation import to_latex
+            to_latex(relevant, save=True, filename=f"{exp_name}_rmce.txt", clustering=False)
 
 # def _get_fragile(model, variations, data_path):
 #     df, alexnet_df = build_df_per_class(model, variations, data_path)

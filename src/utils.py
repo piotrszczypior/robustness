@@ -1,4 +1,5 @@
 import logging
+from regex import P
 import torch
 import json
 
@@ -56,3 +57,15 @@ def get_synset_to_label_imagenet1k():
         synset_and_target[0]: synset_and_target[1]
         for _, synset_and_target in index_to_synset.items()
     }
+
+
+def get_synset_to_imagenet_a_index():
+    from constants import IMAGENET_A_SYNSETS
+
+    return {synset: int(i) for i, synset in enumerate(IMAGENET_A_SYNSETS)}
+
+
+def get_synset_to_imagenet_r_index():
+    from constants import IMAGENET_R_SYNSETS
+
+    return {synset: int(i) for i, synset in enumerate(IMAGENET_R_SYNSETS)}

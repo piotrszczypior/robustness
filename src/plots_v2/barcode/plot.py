@@ -9,10 +9,17 @@ from matplotlib.colors import ListedColormap
 COMMON_THRESHOLD = 15
 
 
-def build_barcode_matrix(flagged_dfs: dict[str, pd.DataFrame], flag_col: str) -> pd.DataFrame:
-    wide = pd.DataFrame(
-        {name: df.set_index("y_true")[flag_col] for name, df in flagged_dfs.items()}
-    ).fillna(0).astype(int).T 
+def build_barcode_matrix(
+    flagged_dfs: dict[str, pd.DataFrame], flag_col: str
+) -> pd.DataFrame:
+    wide = (
+        pd.DataFrame(
+            {name: df.set_index("y_true")[flag_col] for name, df in flagged_dfs.items()}
+        )
+        .fillna(0)
+        .astype(int)
+        .T
+    )
 
     fragile_counts = wide.sum(axis=0)
     common = set(fragile_counts[fragile_counts >= COMMON_THRESHOLD].index)

@@ -1,0 +1,16 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccrc}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE & Count \\
+\midrule
+n04597913 & 910 & Wooden spoon & 0.848 & 0.372 & 0.563 & 0.476 & 1.920 & 15 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

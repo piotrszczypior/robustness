@@ -4,7 +4,11 @@ from pathlib import Path
 from task import Task
 from model import MODELS
 from fragile.experiments import EXPERIMENTS, get_dfs_for_all_models, get_rmce_alexnet_df
-from fragile.fragile import get_absolute_fragile, get_relative_drop_fragile, get_rmce_fragile
+from fragile.fragile import (
+    get_absolute_fragile,
+    get_relative_drop_fragile,
+    get_rmce_fragile,
+)
 from fragile.definitions import DEFINITIONS
 from .plot import build_barcode_matrix, render
 import pandas as pd
@@ -57,7 +61,7 @@ def run(args: argparse.Namespace) -> None:
         flagged = {
             MODELS[k]: _add_flags(v, alexnet_df)
             for k, v in raw_dfs.items()
-            if k in MODELS 
+            if k in MODELS
         }
 
         # Individual flag barcodes (A, B, C)
@@ -77,7 +81,15 @@ def run(args: argparse.Namespace) -> None:
                 super_flagged[model_label] = df
 
             matrix = build_barcode_matrix(super_flagged, "is_super_fragile")
-            out = out_base / "images" / "v2" / "barcode" / exp_name / "super_fragile" / f"{def_name}.png"
+            out = (
+                out_base
+                / "images"
+                / "v2"
+                / "barcode"
+                / exp_name
+                / "super_fragile"
+                / f"{def_name}.png"
+            )
             out.parent.mkdir(parents=True, exist_ok=True)
             render(matrix, out)
             print(f"  {exp_name}/super_fragile/{def_name}.png")

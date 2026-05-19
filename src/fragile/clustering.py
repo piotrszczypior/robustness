@@ -6,9 +6,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
 import hdbscan
 
-FEATURES = ["acc_clean", "acc_corrupt", "rel_drop", "abs_drop", "RmCE", "mCE"]
+FEATURES = ["acc_clean", "acc_corrupt", "rel_drop", "abs_drop"]
 Projection = Literal["pca", "umap"]
 
 
@@ -16,6 +17,13 @@ def run_clustering(df: pd.DataFrame, projection: Projection = "umap") -> None:
     df = run_hdbscan(df)
     df = run_projection(df, projection=projection)
     plot_clustering(df, projection=projection)
+
+
+def run_kmeans(features: pd.DataFrame, k: int = 3, random_state: int = 42) -> np.ndarray:
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(features)
+    kmeans = KMeans(n_clusters=k, random_state=random_state, n_init=10)
+    return kmeans.fit_predict(X_scaled)
 
 
 def run_hdbscan(df: pd.DataFrame, min_cluster_size: int = 8) -> pd.DataFrame:
@@ -56,6 +64,7 @@ def run_pca(df: pd.DataFrame) -> pd.DataFrame:
 
 def run_umap(df: pd.DataFrame) -> pd.DataFrame:
     import umap
+
     df = df.copy()
     X = df[FEATURES].dropna()
     scaler = StandardScaler()
@@ -68,11 +77,12 @@ def run_umap(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def plot_clustering(
+def plot_kmeans(
     df: pd.DataFrame,
-    projection: Projection = "pca",
+    projection: Projection = "umap",
     output_path: str = "images/fragile/clustering",
-    fragile_threshold: int = 15,
+    filename: str = None,
+    fragile_cluster_id: int | None = None,
 ) -> None:
     output_dir = Path(output_path)
     output_dir.mkdir(exist_ok=True, parents=True)
@@ -82,57 +92,37 @@ def plot_clustering(
     x_label = f"{proj}1 ({ev[0]:.1%})" if projection == "pca" else f"{proj}1"
     y_label = f"{proj}2 ({ev[1]:.1%})" if projection == "pca" else f"{proj}2"
 
-    fig_cluster, ax_cluster = plt.subplots(figsize=(7, 6))
-    clusters = df["cluster"].unique()
-    colors = plt.cm.tab10(np.linspace(0, 1, len(clusters)))
-    color_map = {c: colors[i] for i, c in enumerate(sorted(clusters))}
-    color_map[-1] = (0.5, 0.5, 0.5, 0.3)
+    fig, ax = plt.subplots(figsize=(7, 6))
+    clusters = sorted(df["cluster"].dropna().unique())
+    
+    cmap = plt.get_cmap("Set2")
+    color_map = {c: cmap(i % cmap.N) for i, c in enumerate(clusters)}
+
+    if fragile_cluster_id is not None:
+        color_map[fragile_cluster_id] = "crimson"
+
     for cluster, group in df.groupby("cluster"):
-        ax_cluster.scatter(
+        is_fragile = fragile_cluster_id is not None and cluster == fragile_cluster_id
+        
+        c = color_map[cluster]
+        # if fragile_cluster_id is not None and not is_fragile:
+        #     c = "lightgray"
+
+        ax.scatter(
             group["dim1"], group["dim2"],
-            c=[color_map[cluster]],
-            label=f"cluster {int(cluster)}" if cluster != -1 else "noise",
-            alpha=0.6, s=15,
+            c=[c],
+            label=f"cluster {int(cluster)}" + (" (fragile)" if is_fragile else ""),
+            alpha=0.9 if is_fragile else 0.5,
+            s=30 if is_fragile else 12,
+            zorder=3 if is_fragile else 1,
         )
-    ax_cluster.set_title(f"{proj} colored by HDBSCAN cluster")
-    ax_cluster.set_xlabel(x_label)
-    ax_cluster.set_ylabel(y_label)
-    ax_cluster.legend(fontsize=8, frameon=False)
-    fig_cluster.tight_layout()
-    fig_cluster.savefig(output_dir / f"{projection}_hdbscan_clusters.png", dpi=150, bbox_inches="tight")
-    plt.close(fig_cluster)
 
-    fig_fragile, ax_fragile = plt.subplots(figsize=(7, 6))
-    sc = ax_fragile.scatter(
-        df["dim1"], df["dim2"],
-        c=df["fragile_count"], cmap="RdYlBu_r", alpha=0.6, s=15,
-    )
-    plt.colorbar(sc, ax=ax_fragile, label="fragile_count")
-    ax_fragile.set_title(f"{proj} colored by fragile_count")
-    ax_fragile.set_xlabel(x_label)
-    ax_fragile.set_ylabel(y_label)
-    fig_fragile.tight_layout()
-    fig_fragile.savefig(output_dir / f"{projection}_hdbscan_fragile_count.png", dpi=150, bbox_inches="tight")
-    plt.close(fig_fragile)
-
-    fragile_mask = df["fragile_count"] >= fragile_threshold
-    fig_highlight, ax_highlight = plt.subplots(figsize=(7, 6))
-    ax_highlight.scatter(
-        df[~fragile_mask]["dim1"], df[~fragile_mask]["dim2"],
-        c="lightgray", alpha=0.4, s=12, label="not fragile",
-    )
-    sc2 = ax_highlight.scatter(
-        df[fragile_mask]["dim1"], df[fragile_mask]["dim2"],
-        c=df[fragile_mask]["fragile_count"], cmap="Reds",
-        alpha=0.9, s=40, zorder=5, label=f"fragile (≥{fragile_threshold})",
-    )
-    plt.colorbar(sc2, ax=ax_highlight, label="fragile_count")
-    ax_highlight.set_title(f"{proj} — fragile classes highlighted (threshold={fragile_threshold})")
-    ax_highlight.set_xlabel(x_label)
-    ax_highlight.set_ylabel(y_label)
-    ax_highlight.legend(fontsize=8, frameon=False)
-    fig_highlight.tight_layout()
-    fig_highlight.savefig(output_dir / f"{projection}_fragile_highlighted.png", dpi=150, bbox_inches="tight")
-    plt.close(fig_highlight)
-
+    ax.set_title(f"{proj} colored by K-Means cluster (k={len(clusters)})")
+    ax.set_xlabel(x_label)
+    ax.set_ylabel(y_label)
+    ax.legend(fontsize=8, frameon=False)
+    fig.tight_layout()
+    filename = f"{projection}_kmeans.png" if filename is None else filename
+    fig.savefig(output_dir / filename, dpi=150, bbox_inches="tight")
+    plt.close(fig)
     print(f"Saved to {output_dir}")

@@ -47,11 +47,14 @@ def run(args: argparse.Namespace) -> None:
 
         for metric in METRICS:
             metric_dfs = {
-                name: df for name, df in dfs.items()
+                name: df
+                for name, df in dfs.items()
                 if not (metric in _ALEXNET_RELATIVE_METRICS and name == "AlexNet")
             }
             corr = compute_spearman(metric_dfs, metric)
-            out_path = out_base / "images" / "spearman" / "v2" / metric / f"{exp_name}.png"
+            out_path = (
+                out_base / "images" / "spearman" / "v2" / metric / f"{exp_name}.png"
+            )
             out_path.parent.mkdir(parents=True, exist_ok=True)
             render(corr, out_path)
             print(f"  {metric}/{exp_name}.png")

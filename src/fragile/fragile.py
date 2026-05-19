@@ -115,6 +115,18 @@ def get_cross_model_df(dfs: list[pd.DataFrame]) -> pd.DataFrame:
     return agg
 
 
+def get_cross_model_df(
+    dfs: list[pd.DataFrame],
+    agg_cols: list[str] = ["acc_clean", "acc_corrupt", "rel_drop", "abs_drop"],
+) -> pd.DataFrame:
+    combined = pd.concat(dfs)
+    agg_dict = {col: (col, "mean") for col in agg_cols if col in combined.columns}
+    agg_dict["y_true"] = ("y_true", "first")
+
+    agg = combined.groupby("synset").agg(**agg_dict).reset_index()
+    return agg
+
+
 def _get_denom_indices(alexnet_df: pd.DataFrame, denom_min=0.05):
     denom = alexnet_df.set_index("synset").eval("acc_clean - acc_corrupt")
     stable_synsets = denom[denom.abs() > denom_min].index

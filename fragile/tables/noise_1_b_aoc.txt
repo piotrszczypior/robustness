@@ -1,0 +1,29 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccrc}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE & Count \\
+\midrule
+n03041632 & 499 & Cleaver & 0.632 & 0.378 & 0.422 & 0.254 & 2.378 & 19 \\
+n15075141 & 999 & Toilet tissue & 0.596 & 0.304 & 0.502 & 0.292 & 2.436 & 19 \\
+n07860988 & 961 & Dough & 0.527 & 0.159 & 0.708 & 0.367 & 2.041 & 18 \\
+n03633091 & 618 & Ladle & 0.560 & 0.290 & 0.486 & 0.270 & 2.895 & 17 \\
+n04263257 & 809 & Soup bowl & 0.680 & 0.198 & 0.701 & 0.482 & 3.010 & 17 \\
+n04270147 & 813 & Spatula & 0.515 & 0.349 & 0.335 & 0.166 & 3.118 & 17 \\
+n01775062 & 77 & Wolf spider & 0.756 & 0.320 & 0.580 & 0.436 & 2.615 & 16 \\
+n04041544 & 754 & Radio & 0.713 & 0.283 & 0.610 & 0.429 & 2.077 & 16 \\
+n01978455 & 119 & Rock crab & 0.741 & 0.492 & 0.337 & 0.249 & 3.738 & 16 \\
+n02808304 & 434 & Bath towel & 0.720 & 0.371 & 0.490 & 0.349 & 2.095 & 16 \\
+n04560804 & 899 & Water jug & 0.338 & 0.140 & 0.602 & 0.198 & 2.474 & 16 \\
+n01737021 & 58 & Water snake & 0.831 & 0.492 & 0.414 & 0.339 & 2.035 & 15 \\
+n01985128 & 124 & Crayfish & 0.761 & 0.508 & 0.352 & 0.254 & 2.719 & 15 \\
+n03710637 & 638 & Maillot & 0.333 & 0.054 & 0.830 & 0.279 & 2.326 & 15 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

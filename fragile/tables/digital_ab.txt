@@ -1,0 +1,21 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccrc}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE & Count \\
+\midrule
+n01641577 & 30 & Bullfrog & 0.824 & 0.373 & 0.547 & 0.451 & 0.868 & 18 \\
+n03938244 & 721 & Pillow & 0.907 & 0.361 & 0.604 & 0.546 & 1.496 & 17 \\
+n01498041 & 6 & Stingray & 0.906 & 0.262 & 0.711 & 0.644 & 1.389 & 16 \\
+n02105855 & 230 & Shetland sheepdog & 0.859 & 0.404 & 0.531 & 0.455 & 0.984 & 15 \\
+n04200800 & 788 & Shoe shop & 0.909 & 0.413 & 0.548 & 0.496 & 1.222 & 15 \\
+n04597913 & 910 & Wooden spoon & 0.848 & 0.363 & 0.573 & 0.485 & 1.979 & 15 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

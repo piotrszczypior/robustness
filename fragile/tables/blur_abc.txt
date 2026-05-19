@@ -1,0 +1,17 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccrc}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE & Count \\
+\midrule
+n03938244 & 721 & Pillow & 0.907 & 0.185 & 0.797 & 0.722 & 1.819 & 17 \\
+n04597913 & 910 & Wooden spoon & 0.848 & 0.302 & 0.645 & 0.546 & 2.372 & 15 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

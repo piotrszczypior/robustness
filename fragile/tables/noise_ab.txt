@@ -1,0 +1,29 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccrc}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE & Count \\
+\midrule
+n07880968 & 965 & Burrito & 0.907 & 0.263 & 0.714 & 0.644 & 1.342 & 19 \\
+n02113023 & 263 & Pembroke & 0.927 & 0.338 & 0.639 & 0.589 & 0.948 & 18 \\
+n07716906 & 940 & Spaghetti squash & 0.903 & 0.332 & 0.635 & 0.571 & 0.927 & 18 \\
+n03485794 & 591 & Handkerchief & 0.852 & 0.306 & 0.641 & 0.545 & 0.901 & 17 \\
+n04200800 & 788 & Shoe shop & 0.911 & 0.306 & 0.667 & 0.604 & 1.382 & 17 \\
+n01950731 & 115 & Sea slug & 0.931 & 0.322 & 0.657 & 0.609 & 0.960 & 17 \\
+n03938244 & 721 & Pillow & 0.906 & 0.341 & 0.627 & 0.565 & 1.631 & 16 \\
+n04049303 & 756 & Rain barrel & 0.870 & 0.371 & 0.576 & 0.499 & 0.942 & 16 \\
+n03160309 & 525 & Dam & 0.871 & 0.367 & 0.580 & 0.504 & 0.904 & 16 \\
+n01697457 & 49 & African crocodile & 0.885 & 0.278 & 0.687 & 0.607 & 1.368 & 16 \\
+n02077923 & 150 & Sea lion & 0.912 & 0.391 & 0.574 & 0.521 & 0.995 & 15 \\
+n02111500 & 257 & Great pyrenees & 0.833 & 0.357 & 0.571 & 0.476 & 0.797 & 15 \\
+n03916031 & 711 & Perfume & 0.868 & 0.346 & 0.601 & 0.522 & 1.090 & 15 \\
+n04597913 & 910 & Wooden spoon & 0.848 & 0.354 & 0.585 & 0.494 & 1.826 & 15 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

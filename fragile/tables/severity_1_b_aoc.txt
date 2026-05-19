@@ -1,0 +1,32 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccrc}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE & Count \\
+\midrule
+n01985128 & 124 & Crayfish & 0.768 & 0.461 & 0.415 & 0.308 & 3.159 & 19 \\
+n15075141 & 999 & Toilet tissue & 0.596 & 0.284 & 0.531 & 0.312 & 2.596 & 19 \\
+n04263257 & 809 & Soup bowl & 0.661 & 0.101 & 0.844 & 0.560 & 2.674 & 19 \\
+n03041632 & 499 & Cleaver & 0.642 & 0.442 & 0.324 & 0.200 & 2.243 & 18 \\
+n01756291 & 68 & Sidewinder & 0.474 & 0.264 & 0.440 & 0.211 & 3.954 & 18 \\
+n03089624 & 509 & Confectionery & 0.701 & 0.468 & 0.331 & 0.233 & 3.018 & 18 \\
+n07860988 & 961 & Dough & 0.528 & 0.229 & 0.572 & 0.299 & 2.466 & 18 \\
+n03995372 & 740 & Power drill & 0.699 & 0.454 & 0.364 & 0.245 & 2.420 & 17 \\
+n03832673 & 681 & Notebook & 0.439 & 0.181 & 0.589 & 0.258 & 3.119 & 17 \\
+n03633091 & 618 & Ladle & 0.568 & 0.295 & 0.487 & 0.272 & 2.725 & 16 \\
+n04505470 & 878 & Typewriter keyboard & 0.780 & 0.383 & 0.507 & 0.397 & 2.110 & 16 \\
+n04192698 & 787 & Shield & 0.709 & 0.507 & 0.291 & 0.202 & 2.971 & 16 \\
+n01498041 & 6 & Stingray & 0.895 & 0.399 & 0.555 & 0.495 & 1.463 & 15 \\
+n03085013 & 508 & Computer keyboard & 0.771 & 0.464 & 0.396 & 0.307 & 2.150 & 15 \\
+n01755581 & 67 & Diamondback & 0.855 & 0.399 & 0.536 & 0.455 & 1.708 & 15 \\
+n04357314 & 838 & Sunscreen & 0.563 & 0.411 & 0.287 & 0.151 & 1.925 & 15 \\
+n07248320 & 921 & Book jacket & 0.751 & 0.484 & 0.358 & 0.266 & 2.148 & 15 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

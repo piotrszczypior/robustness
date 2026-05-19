@@ -27,7 +27,7 @@ def _validate_file_existence(*file_paths: Path) -> bool:
 
 
 def _load_csv_dataset(file_path: Path) -> pd.DataFrame:
-    logger.info(f"Loading dataset from {file_path}")
+    # logger.info(f"Loading dataset from {file_path}")
     if not _validate_file_existence(file_path):
         raise FileNotFoundError(f"File not found: {file_path}")
 

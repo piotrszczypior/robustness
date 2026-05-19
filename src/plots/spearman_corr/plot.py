@@ -21,8 +21,8 @@ class DomainSpearmanRankPlot(BasePlotPipeline):
         combined = pd.merge(
             clean_acc, corrupted_acc, on="y_true", suffixes=("_clean", "_corrupted")
         )
-        # FIXME: changed to relative drop 
-        drop = (combined["accuracy_clean"] - combined["accuracy_corrupted"])
+        # FIXME: changed to relative drop
+        drop = combined["accuracy_clean"] - combined["accuracy_corrupted"]
         return drop.values
 
     def _get_rank_vector(self, corrupted_acc: pd.DataFrame) -> np.ndarray:

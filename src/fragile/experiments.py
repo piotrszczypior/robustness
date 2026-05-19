@@ -44,7 +44,15 @@ EXPERIMENTS = {
         severities=[1],
     ),
     "noise_1": CorruptionVariations(
-        groups=["blur"],
+        groups=["noise"],
+        severities=[1],
+    ),
+    "weather_1": CorruptionVariations(
+        groups=["weather"],
+        severities=[1],
+    ),
+    "digital_1": CorruptionVariations(
+        groups=["digital"],
         severities=[1],
     ),
 }
@@ -53,6 +61,12 @@ EXPERIMENTS = {
 def _get_clean_per_class(model: str, data_dir: Path) -> pd.DataFrame:
     return get_per_class_accuracy(
         f"{model}_imagenet.csv", data_dir, agg_column="acc_clean"
+    )
+
+
+def _get_per_class_by_alias(model: str, alias: str, data_path: Path) -> pd.DataFrame:
+    return get_per_class_accuracy(
+        f"{model}_{alias}.csv", data_path, agg_column=f"acc_corrupt"
     )
 
 
@@ -97,6 +111,19 @@ def _build_single_df(
     return df
 
 
+def _build_single_df_by_alias(
+    model: str,
+    alias: str,
+    data_path="results",
+):
+    clean = _get_clean_per_class(model, data_path)
+    corrupt = _get_per_class_by_alias(model, alias, data_path)
+    df = clean.merge(corrupt, on="synset", how="right").dropna()
+    df = calculate_relative_drop(df)
+    df = calculate_absolute_drop(df)
+    return df
+
+
 def get_rmce_alexnet_df(variations, data_path="results"):
     alexnet_clean = _get_clean_per_class("alexnet", data_path)
     alexnet_corrupt = _get_corrupt_per_class("alexnet", variations, data_path)
@@ -113,5 +140,26 @@ def get_dfs_for_all_models(variations: CorruptionVariations, data_path="results"
     all_dfs = list(dfs.values())
     for model in dfs:
         dfs[model] = calculate_nCE(dfs[model], all_dfs)
+
+    return dfs
+
+
+def get_dfs_for_experiment(experiment: str, model: str, data_path="results"):
+    variation = EXPERIMENTS[experiment]
+    alexnet_rmce_df = get_rmce_alexnet_df(variation, data_path)
+
+    return _build_single_df(model, variation, alexnet_rmce_df, data_path)
+
+
+def get_dfs_for_dataset(
+    dataset_alias: str, data_path: str = "results"
+) -> dict[str, pd.DataFrame]:
+    dfs = {}
+
+    for model in MODELS.keys():
+        try:
+            dfs[model] = _build_single_df_by_alias(model, dataset_alias, data_path)
+        except FileNotFoundError:
+            continue
 
     return dfs

@@ -77,25 +77,35 @@ def calculate_csi(
     df_sev5: pd.DataFrame,
 ) -> pd.DataFrame:
     """
-        CSI - corruption sensitivty index 
+    CSI - corruption sensitivty index
     """
-    merged = df_clean[["synset", "acc_clean"]].merge(
-        df_sev1[["synset", "acc_corrupt"]].rename(columns={"acc_corrupt": "acc_sev1"}),
-        on="synset",
-    ).merge(
-        df_sev5[["synset", "acc_corrupt"]].rename(columns={"acc_corrupt": "acc_sev5"}),
-        on="synset",
+    merged = (
+        df_clean[["synset", "acc_clean"]]
+        .merge(
+            df_sev1[["synset", "acc_corrupt"]].rename(
+                columns={"acc_corrupt": "acc_sev1"}
+            ),
+            on="synset",
+        )
+        .merge(
+            df_sev5[["synset", "acc_corrupt"]].rename(
+                columns={"acc_corrupt": "acc_sev5"}
+            ),
+            on="synset",
+        )
     )
-    merged["CSI"] = (merged["acc_sev1"] - merged["acc_sev5"]) / merged["acc_clean"].replace(0, np.nan)
+    merged["CSI"] = (merged["acc_sev1"] - merged["acc_sev5"]) / merged[
+        "acc_clean"
+    ].replace(0, np.nan)
     return merged[["synset", "CSI"]]
- 
+
 
 def calculate_ccv(
-df_clean: pd.DataFrame,
-dfs_per_corruption: dict[str, pd.DataFrame],
+    df_clean: pd.DataFrame,
+    dfs_per_corruption: dict[str, pd.DataFrame],
 ) -> pd.DataFrame:
     """
-        CCV - cross corruption variance
+    CCV - cross corruption variance
     """
     acc_cols = {}
     for corruption, df in dfs_per_corruption.items():
@@ -108,23 +118,23 @@ dfs_per_corruption: dict[str, pd.DataFrame],
 
 def calculate_rrc(dfs_per_model: dict[str, pd.DataFrame]) -> pd.DataFrame:
     """
-        RRC - Robustness Rank Consistency
+    RRC - Robustness Rank Consistency
     """
     rank_matrix = {}
     for model, df in dfs_per_model.items():
         ranked = df.set_index("synset")["acc_corrupt"].rank(ascending=False)
         rank_matrix[model] = ranked
- 
+
     rank_df = pd.DataFrame(rank_matrix)
     n_models = len(dfs_per_model)
     n_classes = len(rank_df)
- 
+
     mean_rank = rank_df.mean(axis=1)
     ss_total = ((rank_df.sub(mean_rank, axis=0)) ** 2).sum().sum()
     ss_between = n_models * ((mean_rank - (n_classes + 1) / 2) ** 2).sum()
- 
+
     w = ss_between / (ss_total if ss_total > 0 else np.nan)
- 
+
     rank_std = rank_df.std(axis=1).rename("rank_std")
     result = rank_std.reset_index()
     result["RRC"] = 1 - (result["rank_std"] / rank_df.max().max())
@@ -135,7 +145,7 @@ def calculate_rrc(dfs_per_model: dict[str, pd.DataFrame]) -> pd.DataFrame:
 
 def calculate_crs(dfs_per_corruption: dict[str, pd.DataFrame]) -> pd.DataFrame:
     """
-        CRS - corruption rank stability
+    CRS - corruption rank stability
     """
     rank_matrix = {}
     for corruption, df in dfs_per_corruption.items():
@@ -147,4 +157,3 @@ def calculate_crs(dfs_per_corruption: dict[str, pd.DataFrame]) -> pd.DataFrame:
     result = rank_std.reset_index()
     result["CRS"] = 1 - (result["rank_std"] / rank_df.max().max())
     return result[["synset", "rank_std", "CRS"]]
-
