@@ -1,0 +1,33 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01950731 & 115 & Sea slug & 0.940 & 0.239 & 0.746 & 0.701 & 1.105 \\
+n02398521 & 344 & Hippopotamus & 1.000 & 0.335 & 0.665 & 0.665 & 1.040 \\
+n03207743 & 533 & Dishrag & 0.980 & 0.255 & 0.740 & 0.725 & 3.257 \\
+n03710637 & 638 & Maillot & 0.280 & 0.020 & 0.929 & 0.260 & 1.711 \\
+n04041544 & 754 & Radio & 0.800 & 0.093 & 0.883 & 0.707 & 1.985 \\
+n04560804 & 899 & Water jug & 0.300 & 0.041 & 0.862 & 0.259 & 3.233 \\
+n07614500 & 928 & Ice cream & 0.740 & 0.068 & 0.908 & 0.672 & 1.946 \\
+n07860988 & 961 & Dough & 0.460 & 0.056 & 0.878 & 0.404 & 2.061 \\
+n07880968 & 965 & Burrito & 0.920 & 0.116 & 0.874 & 0.804 & 1.675 \\
+n04200800 & 788 & Shoe shop & 0.880 & 0.172 & 0.805 & 0.708 & 1.619 \\
+n04118538 & 768 & Rugby ball & 0.900 & 0.204 & 0.773 & 0.696 & 1.092 \\
+n07697313 & 933 & Cheeseburger & 0.940 & 0.268 & 0.715 & 0.672 & 1.048 \\
+n07697537 & 934 & Hotdog & 0.920 & 0.253 & 0.725 & 0.667 & 1.247 \\
+n01697457 & 49 & African crocodile & 0.820 & 0.153 & 0.813 & 0.667 & 1.502 \\
+n04277352 & 816 & Spindle & 0.980 & 0.327 & 0.667 & 0.653 & 1.247 \\
+n01943899 & 112 & Conch & 0.800 & 0.153 & 0.808 & 0.647 & 1.336 \\
+n03788365 & 669 & Mosquito net & 0.960 & 0.313 & 0.674 & 0.647 & 0.882 \\
+n02808304 & 434 & Bath towel & 0.780 & 0.152 & 0.805 & 0.628 & 2.122 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

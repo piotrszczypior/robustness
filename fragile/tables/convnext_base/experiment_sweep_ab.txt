@@ -1,0 +1,23 @@
+\begin{table}[H]
+\caption{Fragile class counts per experiment — convnext_base (ab)}
+\centering
+\begin{small}
+\begin{tabular}{lr}
+\toprule
+Experiment & Count \\
+\midrule
+\hspace{1em}all\_corruptions & 78 \\
+\hspace{1em}severity\_1 & 13 \\
+\hspace{1em}blur & 138 \\
+\hspace{1em}noise & 115 \\
+\hspace{1em}weather & 46 \\
+\hspace{1em}digital & 45 \\
+\hspace{1em}blur\_1 & 33 \\
+\hspace{1em}noise\_1 & 8 \\
+\hspace{1em}weather\_1 & 10 \\
+\hspace{1em}digital\_1 & 12 \\
+\bottomrule
+\end{tabular}
+\end{small}
+\label{tab:experiment_sweep_convnext_base_ab}
+\end{table}

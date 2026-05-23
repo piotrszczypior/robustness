@@ -14,7 +14,8 @@ def get_task() -> Task:
 
 def register(subparsers: argparse._SubParsersAction) -> None:
     parser = subparsers.add_parser(
-        TASK_NAME, help="Cleveland dot plot — baseline vs adversarial accuracy per class"
+        TASK_NAME,
+        help="Cleveland dot plot — baseline vs adversarial accuracy per class",
     )
     parser.add_argument(
         "--data-path",

@@ -1,0 +1,36 @@
+\begin{table}[H]
+\caption{Fragile class counts per corruption and severity — vit_b_16 (ab)}
+\centering
+\begin{small}
+\begin{tabular}{lrrrrr}
+\toprule
+Corruption & Sev 1 & Sev 2 & Sev 3 & Sev 4 & Sev 5 \\
+\midrule
+\midrule
+\multicolumn{6}{l}{\cellcolor{gray!15}\textbf{Blur}} \\
+\hspace{1em}Defocus\_Blur & 42 & 72 & 109 & 116 & 121 \\
+\hspace{1em}Glass\_Blur & 37 & 100 & 120 & 128 & 129 \\
+\hspace{1em}Motion\_Blur & 10 & 25 & 102 & 111 & 121 \\
+\hspace{1em}Zoom\_Blur & 85 & 130 & 136 & 140 & 151 \\
+\midrule
+\multicolumn{6}{l}{\cellcolor{gray!15}\textbf{Digital}} \\
+\hspace{1em}Contrast & 5 & 7 & 23 & 97 & 126 \\
+\hspace{1em}Elastic\_Transform & 5 & 99 & 27 & 88 & 120 \\
+\hspace{1em}Jpeg\_Compression & 13 & 24 & 38 & 79 & 117 \\
+\hspace{1em}Pixelate & 9 & 15 & 35 & 118 & 125 \\
+\midrule
+\multicolumn{6}{l}{\cellcolor{gray!15}\textbf{Noise}} \\
+\hspace{1em}Gaussian\_Noise & 2 & 11 & 45 & 97 & 100 \\
+\hspace{1em}Impulse\_Noise & 5 & 24 & 50 & 93 & 102 \\
+\hspace{1em}Shot\_Noise & 3 & 17 & 52 & 101 & 110 \\
+\midrule
+\multicolumn{6}{l}{\cellcolor{gray!15}\textbf{Weather}} \\
+\hspace{1em}Brightness & 3 & 3 & 4 & 7 & 17 \\
+\hspace{1em}Fog & 8 & 19 & 57 & 83 & 102 \\
+\hspace{1em}Frost & 11 & 38 & 95 & 84 & 92 \\
+\hspace{1em}Snow & 24 & 101 & 100 & 102 & 107 \\
+\bottomrule
+\end{tabular}
+\end{small}
+\label{tab:granular_sweep_vit_b_16_ab}
+\end{table}

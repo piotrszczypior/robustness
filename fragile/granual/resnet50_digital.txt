@@ -1,0 +1,16 @@
+\begin{table}[H]
+\caption{Resnet50 digital}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n04041544 & 754 & Radio & 0.800 & 0.186 & 0.767 & 0.614 & 1.691 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

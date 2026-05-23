@@ -1,0 +1,27 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01697457 & 49 & African crocodile & 0.820 & 0.353 & 0.569 & 0.467 & 1.522 \\
+n01737021 & 58 & Water snake & 0.840 & 0.480 & 0.429 & 0.360 & 2.160 \\
+n01978455 & 119 & Rock crab & 0.800 & 0.393 & 0.508 & 0.407 & 6.100 \\
+n02526121 & 390 & Eel & 0.800 & 0.500 & 0.375 & 0.300 & 2.250 \\
+n03938244 & 721 & Pillow & 0.900 & 0.407 & 0.548 & 0.493 & 1.897 \\
+n04041544 & 754 & Radio & 0.800 & 0.253 & 0.683 & 0.547 & 2.645 \\
+n04136333 & 775 & Sarong & 0.820 & 0.460 & 0.439 & 0.360 & 1.929 \\
+n04208210 & 792 & Shovel & 0.800 & 0.447 & 0.442 & 0.353 & 2.524 \\
+n04209239 & 794 & Shower curtain & 0.800 & 0.427 & 0.467 & 0.373 & 1.806 \\
+n04507155 & 879 & Umbrella & 0.820 & 0.480 & 0.415 & 0.340 & 1.594 \\
+n04597913 & 910 & Wooden spoon & 0.820 & 0.407 & 0.504 & 0.413 & 1.771 \\
+n07583066 & 924 & Guacamole & 0.840 & 0.487 & 0.421 & 0.353 & 1.656 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

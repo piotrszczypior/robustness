@@ -1,0 +1,20 @@
+\begin{table}[H]
+\caption{Convnext base noise}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n03450230 & 578 & Gown & 0.820 & 0.111 & 0.865 & 0.709 & 1.425 \\
+n04041544 & 754 & Radio & 0.800 & 0.156 & 0.805 & 0.644 & 1.892 \\
+n10148035 & 982 & Groom & 0.800 & 0.167 & 0.792 & 0.633 & 1.173 \\
+n04476259 & 868 & Tray & 0.800 & 0.241 & 0.698 & 0.559 & 1.801 \\
+n02791270 & 424 & Barbershop & 0.800 & 0.245 & 0.693 & 0.555 & 1.779 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

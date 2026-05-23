@@ -1,0 +1,24 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01755581 & 67 & Diamondback & 0.940 & 0.369 & 0.607 & 0.571 & 1.595 \\
+n01985128 & 124 & Crayfish & 0.860 & 0.395 & 0.541 & 0.465 & 3.661 \\
+n02808304 & 434 & Bath towel & 0.800 & 0.432 & 0.460 & 0.368 & 1.593 \\
+n03777754 & 662 & Modem & 0.820 & 0.498 & 0.393 & 0.322 & 1.695 \\
+n03995372 & 740 & Power drill & 0.820 & 0.374 & 0.544 & 0.446 & 4.055 \\
+n04116512 & 767 & Rubber eraser & 0.800 & 0.455 & 0.431 & 0.345 & 1.971 \\
+n04127249 & 772 & Safety pin & 0.800 & 0.486 & 0.392 & 0.314 & 2.343 \\
+n04548362 & 893 & Wallet & 0.800 & 0.342 & 0.573 & 0.458 & 2.530 \\
+n04597913 & 910 & Wooden spoon & 0.840 & 0.404 & 0.519 & 0.436 & 1.780 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

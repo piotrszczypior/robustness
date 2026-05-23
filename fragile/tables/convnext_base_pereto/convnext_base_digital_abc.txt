@@ -1,0 +1,31 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01755581 & 67 & Diamondback & 0.860 & 0.193 & 0.776 & 0.667 & 1.863 \\
+n03450230 & 578 & Gown & 0.820 & 0.169 & 0.794 & 0.651 & 1.525 \\
+n04597913 & 910 & Wooden spoon & 0.920 & 0.381 & 0.586 & 0.539 & 2.200 \\
+n01737021 & 58 & Water snake & 0.860 & 0.372 & 0.567 & 0.488 & 2.188 \\
+n02730930 & 411 & Apron & 0.900 & 0.423 & 0.530 & 0.477 & 1.698 \\
+n02791270 & 424 & Barbershop & 0.800 & 0.214 & 0.733 & 0.586 & 2.170 \\
+n03000134 & 489 & Chainlink fence & 0.820 & 0.240 & 0.707 & 0.580 & 1.813 \\
+n03085013 & 508 & Computer keyboard & 0.820 & 0.255 & 0.689 & 0.565 & 2.198 \\
+n04041544 & 754 & Radio & 0.800 & 0.227 & 0.716 & 0.573 & 1.566 \\
+n04507155 & 879 & Umbrella & 0.880 & 0.448 & 0.491 & 0.432 & 1.662 \\
+n01985128 & 124 & Crayfish & 0.800 & 0.332 & 0.585 & 0.468 & 3.685 \\
+n04141975 & 778 & Scale & 0.880 & 0.470 & 0.466 & 0.410 & 1.723 \\
+n04548362 & 893 & Wallet & 0.820 & 0.395 & 0.518 & 0.425 & 2.348 \\
+n03017168 & 494 & Chime & 0.840 & 0.483 & 0.425 & 0.357 & 1.700 \\
+n04476259 & 868 & Tray & 0.800 & 0.406 & 0.492 & 0.394 & 1.504 \\
+n07248320 & 921 & Book jacket & 0.820 & 0.478 & 0.417 & 0.342 & 2.165 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

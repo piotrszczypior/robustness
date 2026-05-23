@@ -1,0 +1,35 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01498041 & 6 & Stingray & 0.900 & 0.415 & 0.539 & 0.485 & 2.021 \\
+n01755581 & 67 & Diamondback & 0.940 & 0.620 & 0.340 & 0.320 & 1.684 \\
+n02443484 & 359 & Black-footed ferret & 0.780 & 0.395 & 0.494 & 0.385 & 4.529 \\
+n03950228 & 725 & Pitcher & 0.720 & 0.205 & 0.715 & 0.515 & 3.121 \\
+n04263257 & 809 & Soup bowl & 0.680 & 0.065 & 0.904 & 0.615 & 3.075 \\
+n01756291 & 68 & Sidewinder & 0.460 & 0.085 & 0.815 & 0.375 & 3.750 \\
+n03216828 & 536 & Dock & 0.660 & 0.220 & 0.667 & 0.440 & 1.630 \\
+n03483316 & 589 & Hand blower & 0.920 & 0.680 & 0.261 & 0.240 & 3.692 \\
+n03995372 & 740 & Power drill & 0.820 & 0.540 & 0.341 & 0.280 & 2.947 \\
+n04033995 & 750 & Quilt & 0.760 & 0.440 & 0.421 & 0.320 & 1.882 \\
+n07711569 & 935 & Mashed potato & 0.800 & 0.490 & 0.388 & 0.310 & 0.738 \\
+n15075141 & 999 & Toilet tissue & 0.720 & 0.320 & 0.556 & 0.400 & 3.636 \\
+n02791270 & 424 & Barbershop & 0.720 & 0.435 & 0.396 & 0.285 & 1.541 \\
+n07860988 & 961 & Dough & 0.600 & 0.320 & 0.467 & 0.280 & 2.947 \\
+n03085013 & 508 & Computer keyboard & 0.780 & 0.530 & 0.321 & 0.250 & 1.515 \\
+n03793489 & 673 & Mouse & 0.620 & 0.385 & 0.379 & 0.235 & 2.136 \\
+n02769748 & 414 & Backpack & 0.520 & 0.305 & 0.413 & 0.215 & 1.536 \\
+n04116512 & 767 & Rubber eraser & 0.800 & 0.590 & 0.263 & 0.210 & 1.500 \\
+n02877765 & 455 & Bottlecap & 0.880 & 0.715 & 0.188 & 0.165 & 2.538 \\
+n04204238 & 790 & Shopping basket & 0.820 & 0.655 & 0.201 & 0.165 & 1.941 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

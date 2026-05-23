@@ -1,0 +1,25 @@
+\begin{table}[H]
+\caption{Fragile classes identified per model and corruption group. A checkmark and highlighted cell indicate that the class satisfied both Criterion A and Criterion B across all corruption types and severity levels within the given group.}
+\centering
+\renewcommand{\arraystretch}{1.5}
+
+\resizebox{\textwidth}{!}{
+\begin{tabular}{ll c c c c}
+\toprule
+& & \multicolumn{1}{c}{ResNet-50} & \multicolumn{1}{c}{EfficientNet-B4} & \multicolumn{1}{c}{ViT-B/16} & \multicolumn{1}{c}{ConvNeXt-Base} \\
+\cmidrule(lr){3-3} \cmidrule(lr){4-4} \cmidrule(lr){5-5} \cmidrule(lr){6-6}
+Synset & Label & Blur & Blur & Blur & Blur \\
+\midrule
+n01498041 & Stingray & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark \\
+n01697457 & African crocodile & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark \\
+n01698640 & American alligator & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark \\
+n01770081 & Harvestman & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark \\
+n01877812 & Wallaby & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark \\
+n01883070 & Wombat & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark \\
+n01984695 & Spiny lobster & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark \\
+n02091134 & Whippet & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_cross_model}
+\end{table}

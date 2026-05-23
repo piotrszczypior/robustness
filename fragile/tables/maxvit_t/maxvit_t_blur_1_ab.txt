@@ -1,0 +1,29 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01498041 & 6 & Stingray & 0.900 & 0.440 & 0.511 & 0.460 & 0.829 \\
+n01641577 & 30 & Bullfrog & 0.820 & 0.495 & 0.396 & 0.325 & 0.580 \\
+n01755581 & 67 & Diamondback & 0.940 & 0.370 & 0.606 & 0.570 & 1.932 \\
+n01985128 & 124 & Crayfish & 0.860 & 0.490 & 0.430 & 0.370 & 2.846 \\
+n02808304 & 434 & Bath towel & 0.800 & 0.485 & 0.394 & 0.315 & 1.286 \\
+n03000134 & 489 & Chainlink fence & 0.840 & 0.410 & 0.512 & 0.430 & 1.433 \\
+n03223299 & 539 & Doormat & 0.800 & 0.480 & 0.400 & 0.320 & 1.067 \\
+n03763968 & 652 & Military uniform & 0.880 & 0.400 & 0.545 & 0.480 & 1.371 \\
+n03938244 & 721 & Pillow & 0.920 & 0.490 & 0.467 & 0.430 & 1.103 \\
+n03995372 & 740 & Power drill & 0.820 & 0.470 & 0.427 & 0.350 & 3.889 \\
+n04366367 & 839 & Suspension bridge & 0.820 & 0.460 & 0.439 & 0.360 & 0.699 \\
+n04435653 & 858 & Tile roof & 0.820 & 0.465 & 0.433 & 0.355 & 1.092 \\
+n04548362 & 893 & Wallet & 0.800 & 0.420 & 0.475 & 0.380 & 2.375 \\
+n10148035 & 982 & Groom & 0.860 & 0.485 & 0.436 & 0.375 & 0.714 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

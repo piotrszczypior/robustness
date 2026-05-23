@@ -1,0 +1,18 @@
+\begin{table}[H]
+\caption{vit_b_16 blur }
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01775062 & 77 & Wolf spider & 0.800 & 0.092 & 0.885 & 0.708 & 1.289 \\
+n01985128 & 124 & Crayfish & 0.840 & 0.194 & 0.769 & 0.646 & 4.696 \\
+n02730930 & 411 & Apron & 0.800 & 0.179 & 0.776 & 0.621 & 1.595 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

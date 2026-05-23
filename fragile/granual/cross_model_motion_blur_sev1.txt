@@ -1,0 +1,49 @@
+\begin{table}[H]
+\caption{Fragile classes identified per model and corruption group. A checkmark and highlighted cell indicate that the class satisfied both Criterion A and Criterion B across all corruption types and severity levels within the given group.}
+\centering
+\renewcommand{\arraystretch}{1.5}
+
+\resizebox{\textwidth}{!}{
+\begin{tabular}{ll c c c c}
+\toprule
+& & \multicolumn{1}{c}{ResNet-50} & \multicolumn{1}{c}{EfficientNet-B4} & \multicolumn{1}{c}{ViT-B/16} & \multicolumn{1}{c}{ConvNeXt-Base} \\
+\cmidrule(lr){3-3} \cmidrule(lr){4-4} \cmidrule(lr){5-5} \cmidrule(lr){6-6}
+Synset & Label & Blur & Blur & Blur & Blur \\
+\midrule
+n02097130 & Giant schnauzer & \cellcolor{fragilecolor}\checkmark &  & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark \\
+n03000134 & Chainlink fence & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark &  & \cellcolor{fragilecolor}\checkmark \\
+n01498041 & Stingray &  &  & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark \\
+n01755581 & Diamondback &  &  & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark \\
+n01775062 & Wolf spider &  & \cellcolor{fragilecolor}\checkmark & \cellcolor{fragilecolor}\checkmark &  \\
+n02791270 & Barbershop &  & \cellcolor{fragilecolor}\checkmark &  & \cellcolor{fragilecolor}\checkmark \\
+n03085013 & Computer keyboard &  & \cellcolor{fragilecolor}\checkmark &  & \cellcolor{fragilecolor}\checkmark \\
+n03496892 & Harvester & \cellcolor{fragilecolor}\checkmark &  & \cellcolor{fragilecolor}\checkmark &  \\
+n03938244 & Pillow & \cellcolor{fragilecolor}\checkmark &  & \cellcolor{fragilecolor}\checkmark &  \\
+n04041544 & Radio & \cellcolor{fragilecolor}\checkmark &  &  & \cellcolor{fragilecolor}\checkmark \\
+n01641577 & Bullfrog & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n01737021 & Water snake & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n01978455 & Rock crab & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n01985128 & Crayfish &  &  & \cellcolor{fragilecolor}\checkmark &  \\
+n02107574 & Greater swiss mountain dog &  &  &  & \cellcolor{fragilecolor}\checkmark \\
+n02412080 & Ram &  & \cellcolor{fragilecolor}\checkmark &  &  \\
+n02730930 & Apron &  &  & \cellcolor{fragilecolor}\checkmark &  \\
+n03450230 & Gown &  &  &  & \cellcolor{fragilecolor}\checkmark \\
+n03459775 & Grille &  &  &  & \cellcolor{fragilecolor}\checkmark \\
+n03763968 & Military uniform &  &  &  & \cellcolor{fragilecolor}\checkmark \\
+n03770439 & Miniskirt &  &  &  & \cellcolor{fragilecolor}\checkmark \\
+n03908618 & Pencil box & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03916031 & Perfume &  &  & \cellcolor{fragilecolor}\checkmark &  \\
+n04136333 & Sarong & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04208210 & Shovel & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04465501 & Tractor & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04476259 & Tray &  &  &  & \cellcolor{fragilecolor}\checkmark \\
+n04505470 & Typewriter keyboard &  & \cellcolor{fragilecolor}\checkmark &  &  \\
+n04548362 & Wallet &  &  &  & \cellcolor{fragilecolor}\checkmark \\
+n04597913 & Wooden spoon &  &  & \cellcolor{fragilecolor}\checkmark &  \\
+n07248320 & Book jacket &  &  &  & \cellcolor{fragilecolor}\checkmark \\
+n10148035 & Groom &  &  &  & \cellcolor{fragilecolor}\checkmark \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_cross_model}
+\end{table}

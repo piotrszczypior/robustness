@@ -1,0 +1,17 @@
+\begin{table}[H]
+\caption{vit_b_16 digital }
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01755581 & 67 & Diamondback & 0.820 & 0.210 & 0.744 & 0.610 & 1.757 \\
+n01775062 & 77 & Wolf spider & 0.800 & 0.082 & 0.897 & 0.718 & 1.430 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

@@ -1,0 +1,23 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n02107574 & 238 & Greater swiss mountain dog & 0.800 & 0.367 & 0.542 & 0.433 & 1.383 \\
+n02791270 & 424 & Barbershop & 0.800 & 0.373 & 0.533 & 0.427 & 1.561 \\
+n03450230 & 578 & Gown & 0.820 & 0.260 & 0.683 & 0.560 & 1.151 \\
+n03742115 & 648 & Medicine chest & 0.800 & 0.480 & 0.400 & 0.320 & 0.800 \\
+n04041544 & 754 & Radio & 0.800 & 0.267 & 0.667 & 0.533 & 2.581 \\
+n04398044 & 849 & Teapot & 0.860 & 0.493 & 0.426 & 0.367 & 1.310 \\
+n04476259 & 868 & Tray & 0.800 & 0.420 & 0.475 & 0.380 & 2.036 \\
+n10148035 & 982 & Groom & 0.800 & 0.340 & 0.575 & 0.460 & 0.932 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

@@ -19,5 +19,9 @@ kaleido
 pillow
 umap-learn
 hdbscan
+upsetplot
+captum
+torchcam
+upsetplot
 # imagecorruptions
 # setuptools<70

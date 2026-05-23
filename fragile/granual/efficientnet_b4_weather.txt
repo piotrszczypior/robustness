@@ -1,0 +1,17 @@
+\begin{table}[H]
+\caption{Efficiennetb4 wather}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01498041 & 6 & Stingray & 0.960 & 0.289 & 0.699 & 0.671 & 2.373 \\
+n02412080 & 348 & Ram & 0.800 & 0.278 & 0.653 & 0.522 & 1.130 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

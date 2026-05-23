@@ -3,7 +3,7 @@ from pathlib import Path
 from networkx import to_latex
 from task import Task
 import argparse
-from .experiments import EXPERIMENTS, get_dfs_for_all_models
+from .experiments import EXPERIMENTS, get_dfs_for_all_models, get_df_for_model, get_dfs_for_experiment, get_rmce_alexnet_df
 from model import MODELS
 from .fragile import (
     get_absolute_fragile,
@@ -12,6 +12,8 @@ from .fragile import (
     get_strongly_fragile,
     get_cross_model_fragile,
     get_cross_model_df,
+    select_top_k_fragile,
+    select_top_k_robust,
 )
 from .methods import calculate_relative_drop
 from .clustering import run_clustering, run_kmeans, run_pca, run_umap, plot_kmeans
@@ -19,7 +21,7 @@ from .definitions import DEFINITIONS, FragileDefinition
 import pandas as pd
 from collections import Counter
 import numpy as np
-from .representation import cluster_stats_to_latex 
+from .representation import cluster_stats_to_latex
 
 TASK_NAME = "fragile"
 
@@ -63,7 +65,7 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     parser.add_argument(
         "--clustering-fragile",
         action="store_true",
-        help="Run unsupervised clustering algoritm to determine fragile classese"
+        help="Run unsupervised clustering algoritm to determine fragile classese",
     ),
     parser.add_argument(
         "--rmce-fragile",
@@ -81,6 +83,59 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         default=False,
         help="Saves tables to txt file",
     )
+    parser.add_argument(
+        "--select-top-k",
+        type=int,
+        default=None,
+        help="Select top K fragile classes via Pareto front (max acc_clean, min acc_corrupt)",
+    )
+    parser.add_argument(
+        "--granular-sweep",
+        action="store_true",
+        help="Count fragile classes per corruption x severity for a single model",
+    )
+    parser.add_argument(
+        "--exp-sweep",
+        action="store_true",
+        help="Count cross-model fragile classes per experiment, broken down by condition (A, B, definitions)",
+    )
+    parser.add_argument(
+        "--granular-group-sweep",
+        action="store_true",
+        help="For each corruption group: intersect fragile synsets across all corruptions x severities, filter by Pareto, save LaTeX table",
+    )
+    parser.add_argument(
+        "--granular-group-cross-model",
+        action="store_true",
+        help="Like --granular-group-sweep but across all models; outputs a cross-model checkmark table",
+    )
+    parser.add_argument(
+        "--granular-group-cross-model-avg",
+        action="store_true",
+        help="Cross-model checkmark table using per-group averaged metrics (uses get_dfs_for_experiment)",
+    )
+    parser.add_argument(
+        "--intersect-models",
+        action="store_true",
+        help="Keep only synsets fragile in ALL models for each group (intersection across models)",
+    )
+    parser.add_argument(
+        "--robust-classes",
+        action="store_true",
+        help="Find top-K robust classes for a single model via Pareto front (acc_clean ↑, acc_corrupt ↑)",
+    )
+    parser.add_argument(
+        "--corruption",
+        type=str,
+        default=None,
+        help="Filter to a single corruption (e.g. defocus_blur); used by --granular-group-cross-model",
+    )
+    parser.add_argument(
+        "--severity",
+        type=int,
+        default=None,
+        help="Filter to a single severity level (1–5); used by --granular-group-cross-model",
+    )
 
 
 def run(args: argparse.Namespace):
@@ -94,10 +149,34 @@ def run(args: argparse.Namespace):
 
     if args.clustering_fragile:
         run_clustering_fragile_sweep(args)
-        return 
+        return
 
     if args.rmce_fragile:
         get_fragile_by_rmce(args)
+        return
+
+    if args.granular_sweep:
+        run_granular_fragile_sweep(args)
+        return
+
+    if args.granular_group_sweep:
+        run_granular_group_intersection_sweep(args)
+        return
+
+    if args.granular_group_cross_model:
+        run_granular_group_cross_model_sweep(args)
+        return
+
+    if args.granular_group_cross_model_avg:
+        run_granular_group_cross_model_avg_sweep(args)
+        return
+
+    if args.robust_classes:
+        run_robust_classes(args)
+        return
+
+    if args.exp_sweep:
+        run_experiment_fragile_sweep(args)
         return
 
     variations = EXPERIMENTS[args.exp]
@@ -114,8 +193,16 @@ def run(args: argparse.Namespace):
             print(f"\n=== {definition.label} ===")
             df = _get_fragile(dfs[args.model], dfs["alexnet"], definition)
             # print(df[df["is_strongly_fragile"] == 1])
-            robust = df[(df["is_fragile_a"] == 0) & (df["is_fragile_b"] == 0) & (df["is_fragile_c"] == 0)].sort_values(by="acc_corrupt", ascending=False)
+            robust = df[
+                (df["is_fragile_a"] == 0)
+                & (df["is_fragile_b"] == 0)
+                & (df["is_fragile_c"] == 0)
+            ].sort_values(by="acc_corrupt", ascending=False)
             print(robust)
+            if args.select_top_k:
+                top_k = select_top_k_fragile(df, args.select_top_k)
+                print(f"\n--- Top {args.select_top_k} (Pareto) ---")
+                print(top_k[["synset", "acc_clean", "acc_corrupt", "abs_drop"]])
             # print(df.describe())
         return
 
@@ -127,6 +214,10 @@ def run(args: argparse.Namespace):
         cross = get_cross_model_fragile(fragile_dfs, definition, min_models=15)
         print(cross)
         print(len(cross))
+        if args.select_top_k:
+            top_k = select_top_k_fragile(cross, args.select_top_k)
+            print(f"\n--- Top {args.select_top_k} (Pareto) ---")
+            print(top_k[["synset", "acc_clean", "acc_corrupt", "abs_drop"]])
 
     # print("HDBSCAN")
     # across_models_df = get_cross_model_df(fragile_dfs)
@@ -148,11 +239,33 @@ def run_sweep(args: argparse.Namespace):
 
             if args.model:
                 df = _get_fragile(dfs[args.model], dfs["alexnet"], definition)
-                dest = out / "fragile" / exp_name / def_name / args.model
-                dest.mkdir(parents=True, exist_ok=True)                
-                df[df["is_strongly_fragile"] == 1].to_csv(
-                    dest / "fragile_classes.csv", index=False
-                )
+                fragile = df[df["is_strongly_fragile"] == 1]
+                # df[df["is_strongly_fragile"] == 1].to_csv(
+                # dest / "fragile_classes.csv", index=False
+                # )
+                if args.save_tables:
+                    from .representation import to_latex
+
+                    to_latex(
+                        fragile,
+                        save=True,
+                        filename=f"{args.model}_{exp_name}_{def_name}.txt",
+                        path=f"fragile/tables/{args.model}",
+                        single_model=True,
+                    )
+
+                if args.select_top_k:
+                    top_k = select_top_k_fragile(df, args.select_top_k)
+                    print(f"\n--- Top {args.select_top_k} (Pareto) ---")
+                    print(top_k[["synset", "acc_clean", "acc_corrupt", "abs_drop"]])
+
+                    to_latex(
+                        top_k,
+                        save=True,
+                        filename=f"{args.model}_{exp_name}_{def_name}.txt",
+                        path=f"fragile/tables/{args.model}_pereto",
+                        single_model=True,
+                    )
             else:
                 fragile_dfs = [
                     _get_fragile(df, dfs["alexnet"], definition) for df in dfs.values()
@@ -243,25 +356,34 @@ def _get_fragile(df, alexnet_df, definition: FragileDefinition):
     return df.merge(strong_fragile, on="synset")
 
 
-def identify_fragile_cluster(features: pd.DataFrame, labels: np.ndarray) -> pd.DataFrame:
+def identify_fragile_cluster(
+    features: pd.DataFrame, labels: np.ndarray
+) -> pd.DataFrame:
     df = features.copy()
     df["cluster"] = labels
     cluster_stats = df.groupby("cluster")[["acc_clean", "rel_drop"]].mean()
     eligible = cluster_stats[cluster_stats["acc_clean"] >= 0.65]
     fragile_cluster_id = eligible["rel_drop"].idxmax()
-    print(f"  fragile cluster: {fragile_cluster_id}, stats: {cluster_stats.loc[fragile_cluster_id].to_dict()}")
+    print(
+        f"  fragile cluster: {fragile_cluster_id}, stats: {cluster_stats.loc[fragile_cluster_id].to_dict()}"
+    )
     return df[df["cluster"] == fragile_cluster_id][["synset"]]
+
 
 def get_fragile_cluster_id(df: pd.DataFrame):
     cluster_stats = df.groupby("cluster")[["acc_clean", "rel_drop"]].mean()
     eligible = cluster_stats[cluster_stats["acc_clean"] >= 0.65]
     fragile_cluster_id = eligible["rel_drop"].idxmax()
-    print(f"  Fragile cluster: {fragile_cluster_id}, stats: {cluster_stats.loc[fragile_cluster_id].to_dict()}")
+    print(
+        f"  Fragile cluster: {fragile_cluster_id}, stats: {cluster_stats.loc[fragile_cluster_id].to_dict()}"
+    )
 
     return fragile_cluster_id
 
+
 def run_clustering_fragile_sweep(args: argparse.Namespace):
     import numpy as np
+
     CLUSTERING_FEATURES = ["acc_clean", "acc_corrupt", "rel_drop", "abs_drop"]
 
     for exp_name, variations in EXPERIMENTS.items():
@@ -269,7 +391,6 @@ def run_clustering_fragile_sweep(args: argparse.Namespace):
         dfs = get_dfs_for_all_models(variations, args.data_path)
 
         if False:
-
             fragile_cluster_sets = []
             for model, df in dfs.items():
                 features = df[["synset"] + CLUSTERING_FEATURES].dropna()
@@ -281,30 +402,41 @@ def run_clustering_fragile_sweep(args: argparse.Namespace):
             for s in fragile_cluster_sets:
                 counter.update(s)
 
-            intersection = {
-                synset for synset, count in counter.items()
-                if count >= 15
-            }
+            intersection = {synset for synset, count in counter.items() if count >= 15}
 
-            cross_df = get_cross_model_df(dfs, agg_cols=["acc_clean", "acc_corrupt", "rel_drop", "abs_drop", "RmCE"])
-            cross_df["fragile_count"] = cross_df["synset"].map(counter).fillna(0).astype(int)
-            relevant = cross_df[cross_df['synset'].isin(intersection)]
+            cross_df = get_cross_model_df(
+                dfs,
+                agg_cols=["acc_clean", "acc_corrupt", "rel_drop", "abs_drop", "RmCE"],
+            )
+            cross_df["fragile_count"] = (
+                cross_df["synset"].map(counter).fillna(0).astype(int)
+            )
+            relevant = cross_df[cross_df["synset"].isin(intersection)]
 
-            print(f"  {len(intersection)} synsets in fragile cluster across >= {15} models")
+            print(
+                f"  {len(intersection)} synsets in fragile cluster across >= {15} models"
+            )
             print(intersection)
 
             relevant.sort_values("fragile_count", ascending=False, inplace=True)
 
-            if args.save_tables: 
+            if args.save_tables:
                 from .representation import to_latex
-                to_latex(relevant, save=True, filename=f"{exp_name}_clustering.txt", clustering=True)
 
+                to_latex(
+                    relevant,
+                    save=True,
+                    filename=f"{exp_name}_clustering.txt",
+                    clustering=True,
+                )
 
         for model, df in dfs.items():
             features = df[["synset"] + CLUSTERING_FEATURES].dropna()
             labels = run_kmeans(features[CLUSTERING_FEATURES], k=7)
             df["cluster"] = labels
-            cluster_stats = df.groupby("cluster")[["acc_clean", "acc_corrupt", "rel_drop", "abs_drop"]].mean()
+            cluster_stats = df.groupby("cluster")[
+                ["acc_clean", "acc_corrupt", "rel_drop", "abs_drop"]
+            ].mean()
             # cluster_stats = cluster_stats.sort_values(["acc_clean", "rel_drop"], ascending=False)
             print(cluster_stats)
             cluster_stats_to_latex(cluster_stats, filename=f"{exp_name}_{model}")
@@ -326,9 +458,9 @@ def run_clustering_fragile_sweep(args: argparse.Namespace):
         # counter = Counter()
         # for s in fragile_cluster_sets:
         #     counter.update(s)
-        
+
         # intersection = {
-        #     synset for synset, count in counter.items() 
+        #     synset for synset, count in counter.items()
         #     if count >= args.min_models
         # }
         # intersection = set.intersection(*fragile_cluster_sets)
@@ -336,31 +468,318 @@ def run_clustering_fragile_sweep(args: argparse.Namespace):
         # print(intersection_df)
 
 
+def run_experiment_fragile_sweep(args: argparse.Namespace):
+    if not args.model:
+        raise ValueError("--exp-sweep requires --model")
+
+    definition = DEFINITIONS[args.definition]
+    rows = []
+
+    for exp_name, variation in EXPERIMENTS.items():
+        print(f"[exp-sweep] {exp_name}")
+        try:
+            alexnet_df = get_rmce_alexnet_df(variation, args.data_path)
+            model_df = get_df_for_model(variation, args.model, args.data_path)
+            df = _get_fragile(model_df, alexnet_df, definition)
+            count = int(df["is_strongly_fragile"].sum())
+        except FileNotFoundError:
+            count = None
+
+        rows.append({"experiment": exp_name, "fragile_count": count})
+
+    result = pd.DataFrame(rows)
+    print(result.set_index("experiment"))
+
+    if args.save_tables:
+        from .representation import experiment_sweep_to_latex
+        experiment_sweep_to_latex(result, model=args.model, definition_name=args.definition)
+
+
+def run_granular_fragile_sweep(args: argparse.Namespace):
+    from space import CorruptionVariations
+    from constants import IMAGENET_C_CORRUPTION_GROUPS, IMAGENET_C_SEVERITIES
+
+    if not args.model:
+        raise ValueError("--granular-sweep requires --model")
+
+    definition = DEFINITIONS[args.definition]
+    rows = []
+
+    for group, corruptions in IMAGENET_C_CORRUPTION_GROUPS.items():
+        for corruption in corruptions:
+            for severity in IMAGENET_C_SEVERITIES:
+                variation = CorruptionVariations(
+                    groups=[group],
+                    corruptions=[corruption],
+                    severities=[severity],
+                )
+                try:
+                    alexnet_df = get_rmce_alexnet_df(variation, args.data_path)
+                    model_df = get_df_for_model(variation, args.model, args.data_path)
+                    df = _get_fragile(model_df, alexnet_df, definition)
+                    count = int(df["is_strongly_fragile"].sum())
+                except FileNotFoundError:
+                    count = None
+
+                rows.append({
+                    "group": group,
+                    "corruption": corruption,
+                    "severity": severity,
+                    "fragile_count": count,
+                })
+
+    result = pd.DataFrame(rows)
+    print(result.pivot(index="corruption", columns="severity", values="fragile_count"))
+
+    if args.save_tables:
+        from .representation import granular_sweep_to_latex
+        granular_sweep_to_latex(
+            result,
+            model=args.model,
+            definition_name=args.definition,
+        )
+
+
+def run_granular_group_intersection_sweep(args: argparse.Namespace) -> None:
+    from space import CorruptionVariations
+    from constants import IMAGENET_C_CORRUPTION_GROUPS, IMAGENET_C_SEVERITIES
+
+    if not args.model:
+        raise ValueError("--granular-group-sweep requires --model")
+
+    definition = DEFINITIONS[args.definition]
+
+    for group, corruptions in IMAGENET_C_CORRUPTION_GROUPS.items():
+        print(f"\n[granular-group] {group}")
+        fragile_sets: list[set] = []
+        all_dfs: list[pd.DataFrame] = []
+
+        for corruption in corruptions:
+            for severity in IMAGENET_C_SEVERITIES:
+                variation = CorruptionVariations(
+                    groups=[group],
+                    corruptions=[corruption],
+                    severities=[severity],
+                )
+                try:
+                    alexnet_df = get_rmce_alexnet_df(variation, args.data_path)
+                    model_df = get_df_for_model(variation, args.model, args.data_path)
+                    df = _get_fragile(model_df, alexnet_df, definition)
+                    fragile_sets.append(set(df[df["is_strongly_fragile"] == 1]["synset"]))
+                    all_dfs.append(df)
+                except FileNotFoundError:
+                    print(f"  missing: {corruption} sev{severity}")
+
+        if not fragile_sets:
+            print("  no data")
+            continue
+
+        intersection = set.intersection(*fragile_sets)
+        print(f"  intersection size: {len(intersection)}")
+
+        if not intersection:
+            print("  empty intersection")
+            continue
+
+        combined = pd.concat(all_dfs)
+        combined = combined[combined["synset"].isin(intersection)]
+        agg = (
+            combined.groupby("synset")
+            .agg(
+                y_true=("y_true", "first"),
+                acc_clean=("acc_clean", "mean"),
+                acc_corrupt=("acc_corrupt", "mean"),
+                rel_drop=("rel_drop", "mean"),
+                abs_drop=("abs_drop", "mean"),
+                RmCE=("RmCE", "mean"),
+            )
+            .reset_index()
+        )
+
+        if args.select_top_k:
+            agg = select_top_k_fragile(agg, args.select_top_k)
+
+        print(agg[["synset", "acc_clean", "acc_corrupt", "rel_drop", "abs_drop"]].to_string())
+
+        if args.save_tables:
+            from .representation import to_latex
+            to_latex(
+                agg,
+                save=True,
+                filename=f"{args.model}_{group}.txt",
+                path="fragile/granual",
+                single_model=True,
+            )
+
+
+def run_robust_classes(args: argparse.Namespace) -> None:
+    if not args.model:
+        raise ValueError("--robust-classes requires --model")
+    if not args.select_top_k:
+        raise ValueError("--robust-classes requires --select-top-k")
+
+    df = get_dfs_for_experiment(args.exp, args.model, args.data_path)
+    top_k = select_top_k_robust(df, args.select_top_k)
+    top_k = top_k.copy()
+    top_k["y_true"] = top_k.get("y_true", 0) if "y_true" in top_k.columns else 0
+
+    print(top_k[["synset", "acc_clean", "acc_corrupt", "rel_drop", "abs_drop"]].to_string())
+    print(f"\n{len(top_k)} robust classes")
+
+    if args.save_tables:
+        from .representation import to_latex
+        to_latex(
+            top_k,
+            save=True,
+            filename=f"{args.model}_{args.exp}_robust_top{args.select_top_k}.txt",
+            path="fragile/robust",
+            single_model=True,
+        )
+
+
+def run_granular_group_cross_model_avg_sweep(args: argparse.Namespace) -> None:
+    from .representation import generate_fragile_classes_table
+
+    _MODELS = {
+        "resnet50": "ResNet-50",
+        "efficientnet_b4": "EfficientNet-B4",
+        "vit_b_16": "ViT-B/16",
+        "convnext_base": "ConvNeXt-Base",
+    }
+    _GROUPS = ["blur", "noise", "digital", "weather"]
+
+    definition = DEFINITIONS[args.definition]
+    data: dict[str, dict[str, set]] = {}
+
+    for model_key in _MODELS:
+        print(f"\n[granular-group-cross-model-avg] {model_key}")
+        data[model_key] = {}
+
+        for group in _GROUPS:
+            try:
+                df = get_dfs_for_experiment(group, model_key, args.data_path)
+                alexnet_df = get_rmce_alexnet_df(EXPERIMENTS[group], args.data_path)
+                df = _get_fragile(df, alexnet_df, definition)
+                candidates = df[df["is_strongly_fragile"] == 1]
+                if args.select_top_k:
+                    candidates = select_top_k_fragile(candidates, args.select_top_k)
+                fragile_synsets = set(candidates["synset"])
+            except FileNotFoundError:
+                fragile_synsets = set()
+
+            data[model_key][group] = fragile_synsets
+            print(f"  {group}: {len(fragile_synsets)} synsets")
+
+    latex = generate_fragile_classes_table(
+        data,
+        model_labels=_MODELS,
+        filename="cross_model_avg.txt",
+        save=args.save_tables,
+    )
+    if not args.save_tables:
+        print(latex)
+
+
+def run_granular_group_cross_model_sweep(args: argparse.Namespace) -> None:
+    from space import CorruptionVariations
+    from constants import IMAGENET_C_CORRUPTION_GROUPS, IMAGENET_C_SEVERITIES
+    from .representation import generate_fragile_classes_table
+
+    _MODELS = {
+        "resnet50": MODELS["resnet50"],
+        "efficientnet_b4": MODELS["efficientnet_b4"],
+        "vit_b_16": MODELS["vit_b_16"],
+        "convnext_base": MODELS["convnext_base"],
+    }
+
+    definition = DEFINITIONS[args.definition]
+    data: dict[str, dict[str, set]] = {}
+
+    for model_key in _MODELS:
+        print(f"\n[granular-group-cross-model] {model_key}")
+        data[model_key] = {}
+
+        for group, corruptions in IMAGENET_C_CORRUPTION_GROUPS.items():
+            fragile_sets: list[set] = []
+
+            active_corruptions = [args.corruption] if args.corruption else corruptions
+            active_severities = [args.severity] if args.severity else IMAGENET_C_SEVERITIES
+
+            for corruption in active_corruptions:
+                if corruption not in corruptions:
+                    continue
+                for severity in active_severities:
+                    variation = CorruptionVariations(
+                        groups=[group],
+                        corruptions=[corruption],
+                        severities=[severity],
+                    )
+                    try:
+                        alexnet_df = get_rmce_alexnet_df(variation, args.data_path)
+                        model_df = get_df_for_model(variation, model_key, args.data_path)
+                        df = _get_fragile(model_df, alexnet_df, definition)
+                        fragile_sets.append(set(df[df["is_strongly_fragile"] == 1]["synset"]))
+                    except FileNotFoundError:
+                        pass
+
+            intersection = set.intersection(*fragile_sets) if fragile_sets else set()
+            data[model_key][group] = intersection
+            print(f"  {group}: {len(intersection)} synsets")
+
+    if args.intersect_models:
+        all_groups = {g for mk in _MODELS for g in data[mk]}
+        for group in all_groups:
+            common = set.intersection(*(data[mk].get(group, set()) for mk in _MODELS))
+            print(f"  [intersect] {group}: {len(common)} synsets across all models")
+            for model_key in _MODELS:
+                data[model_key][group] = common
+
+    parts = ["cross_model"]
+    if args.corruption:
+        parts.append(args.corruption)
+    if args.severity:
+        parts.append(f"sev{args.severity}")
+    if args.intersect_models:
+        parts.append("intersect")
+    filename = "_".join(parts) + ".txt"
+
+    latex = generate_fragile_classes_table(
+        data,
+        model_labels=_MODELS,
+        filename=filename,
+        save=args.save_tables,
+    )
+    if not args.save_tables:
+        print(latex)
 
 
 def get_fragile_by_rmce(args: argparse.Namespace):
-
     for exp_name, variations in EXPERIMENTS.items():
         dfs = get_dfs_for_all_models(variations, args.data_path)
-        
+
         counter = Counter()
         for model, df in dfs.items():
             fragile = set(df[df["RmCE"] > 1.5]["synset"])
             counter.update(fragile)
-        
-        intersection = {
-            synset for synset, count in counter.items()
-            if count >= 15
-        }
 
-        cross_df = get_cross_model_df(dfs, agg_cols=["acc_clean", "acc_corrupt", "rel_drop", "abs_drop", "RmCE"])
-        cross_df["fragile_count"] = cross_df["synset"].map(counter).fillna(0).astype(int)
-        relevant = cross_df[cross_df['synset'].isin(intersection)]
+        intersection = {synset for synset, count in counter.items() if count >= 15}
+
+        cross_df = get_cross_model_df(
+            dfs, agg_cols=["acc_clean", "acc_corrupt", "rel_drop", "abs_drop", "RmCE"]
+        )
+        cross_df["fragile_count"] = (
+            cross_df["synset"].map(counter).fillna(0).astype(int)
+        )
+        relevant = cross_df[cross_df["synset"].isin(intersection)]
         relevant.sort_values("fragile_count", ascending=False, inplace=True)
 
-        if args.save_tables: 
+        if args.save_tables:
             from .representation import to_latex
-            to_latex(relevant, save=True, filename=f"{exp_name}_rmce.txt", clustering=False)
+
+            to_latex(
+                relevant, save=True, filename=f"{exp_name}_rmce.txt", clustering=False
+            )
+
 
 # def _get_fragile(model, variations, data_path):
 #     df, alexnet_df = build_df_per_class(model, variations, data_path)

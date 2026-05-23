@@ -16,7 +16,8 @@ def get_task() -> Task:
 
 def register(subparsers: argparse._SubParsersAction) -> None:
     parser = subparsers.add_parser(
-        TASK_NAME, help="Class degradation plot v2 (clean vs corrupted accuracy per class)"
+        TASK_NAME,
+        help="Class degradation plot v2 (clean vs corrupted accuracy per class)",
     )
     parser.add_argument(
         "--data-path",
@@ -46,7 +47,13 @@ def run(args: argparse.Namespace) -> None:
         for model_key, model_label in MODELS.items():
             if model_key not in dfs:
                 continue
-            out = out_base / "images" / "v2" / "class_degradation" / f"{exp_name}_{model_key}.png"
+            out = (
+                out_base
+                / "images"
+                / "v2"
+                / "class_degradation"
+                / f"{exp_name}_{model_key}.png"
+            )
             out.parent.mkdir(parents=True, exist_ok=True)
             render(dfs[model_key], out, title=_format_title(exp_name, model_label))
             print(f"  {exp_name}_{model_key}.png")

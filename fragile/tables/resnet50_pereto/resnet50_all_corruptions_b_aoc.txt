@@ -1,0 +1,31 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n03207743 & 533 & Dishrag & 0.980 & 0.397 & 0.595 & 0.583 & 1.497 \\
+n03710637 & 638 & Maillot & 0.280 & 0.031 & 0.889 & 0.249 & 1.693 \\
+n03938244 & 721 & Pillow & 0.900 & 0.237 & 0.737 & 0.663 & 1.845 \\
+n04041544 & 754 & Radio & 0.800 & 0.153 & 0.809 & 0.647 & 1.733 \\
+n04263257 & 809 & Soup bowl & 0.620 & 0.055 & 0.911 & 0.565 & 2.198 \\
+n07614500 & 928 & Ice cream & 0.740 & 0.122 & 0.835 & 0.618 & 1.928 \\
+n07880968 & 965 & Burrito & 0.920 & 0.289 & 0.686 & 0.631 & 1.458 \\
+n01737021 & 58 & Water snake & 0.840 & 0.242 & 0.712 & 0.598 & 2.649 \\
+n04200800 & 788 & Shoe shop & 0.880 & 0.287 & 0.674 & 0.593 & 1.416 \\
+n01755581 & 67 & Diamondback & 0.780 & 0.196 & 0.749 & 0.584 & 1.723 \\
+n04465501 & 866 & Tractor & 0.920 & 0.368 & 0.600 & 0.552 & 1.449 \\
+n04118538 & 768 & Rugby ball & 0.900 & 0.366 & 0.593 & 0.534 & 0.954 \\
+n01950731 & 115 & Sea slug & 0.940 & 0.413 & 0.561 & 0.527 & 0.918 \\
+n01986214 & 125 & Hermit crab & 0.960 & 0.448 & 0.534 & 0.512 & 0.994 \\
+n04277352 & 816 & Spindle & 0.980 & 0.486 & 0.504 & 0.494 & 1.017 \\
+n03950228 & 725 & Pitcher & 0.620 & 0.141 & 0.773 & 0.479 & 1.613 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

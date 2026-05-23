@@ -1,0 +1,35 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01755581 & 67 & Diamondback & 0.940 & 0.370 & 0.606 & 0.570 & 1.932 \\
+n03950228 & 725 & Pitcher & 0.720 & 0.125 & 0.826 & 0.595 & 1.859 \\
+n04263257 & 809 & Soup bowl & 0.680 & 0.090 & 0.868 & 0.590 & 2.511 \\
+n01498041 & 6 & Stingray & 0.900 & 0.440 & 0.511 & 0.460 & 0.829 \\
+n02123159 & 282 & Tiger cat & 0.300 & 0.105 & 0.650 & 0.195 & 1.696 \\
+n02769748 & 414 & Backpack & 0.520 & 0.245 & 0.529 & 0.275 & 1.571 \\
+n03763968 & 652 & Military uniform & 0.880 & 0.400 & 0.545 & 0.480 & 1.371 \\
+n03832673 & 681 & Notebook & 0.500 & 0.165 & 0.670 & 0.335 & 4.467 \\
+n03938244 & 721 & Pillow & 0.920 & 0.490 & 0.467 & 0.430 & 1.103 \\
+n07583066 & 924 & Guacamole & 0.940 & 0.595 & 0.367 & 0.345 & 1.500 \\
+n07860988 & 961 & Dough & 0.600 & 0.265 & 0.558 & 0.335 & 2.680 \\
+n15075141 & 999 & Toilet tissue & 0.720 & 0.305 & 0.576 & 0.415 & 3.074 \\
+n03000134 & 489 & Chainlink fence & 0.840 & 0.410 & 0.512 & 0.430 & 1.433 \\
+n04505470 & 878 & Typewriter keyboard & 0.720 & 0.315 & 0.562 & 0.405 & 2.250 \\
+n10148035 & 982 & Groom & 0.860 & 0.485 & 0.436 & 0.375 & 0.714 \\
+n03633091 & 618 & Ladle & 0.600 & 0.290 & 0.517 & 0.310 & 2.818 \\
+n01740131 & 60 & Night snake & 0.540 & 0.275 & 0.491 & 0.265 & 1.893 \\
+n02877765 & 455 & Bottlecap & 0.880 & 0.640 & 0.273 & 0.240 & 1.600 \\
+n03483316 & 589 & Hand blower & 0.920 & 0.690 & 0.250 & 0.230 & 1.533 \\
+n03803284 & 676 & Muzzle & 0.900 & 0.680 & 0.244 & 0.220 & 3.667 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

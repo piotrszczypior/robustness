@@ -1,0 +1,36 @@
+\begin{table}[H]
+\caption{Fragile class counts per corruption and severity — efficientnet_b4 (ab)}
+\centering
+\begin{small}
+\begin{tabular}{lrrrrr}
+\toprule
+Corruption & Sev 1 & Sev 2 & Sev 3 & Sev 4 & Sev 5 \\
+\midrule
+\midrule
+\multicolumn{6}{l}{\cellcolor{gray!15}\textbf{Blur}} \\
+\hspace{1em}Defocus\_Blur & 23 & 73 & 144 & 148 & 151 \\
+\hspace{1em}Glass\_Blur & 55 & 146 & 156 & 178 & 212 \\
+\hspace{1em}Motion\_Blur & 6 & 28 & 131 & 141 & 148 \\
+\hspace{1em}Zoom\_Blur & 94 & 161 & 167 & 174 & 178 \\
+\midrule
+\multicolumn{6}{l}{\cellcolor{gray!15}\textbf{Digital}} \\
+\hspace{1em}Contrast & 4 & 9 & 19 & 133 & 162 \\
+\hspace{1em}Elastic\_Transform & 8 & 134 & 119 & 148 & 152 \\
+\hspace{1em}Jpeg\_Compression & 16 & 24 & 29 & 78 & 134 \\
+\hspace{1em}Pixelate & 11 & 16 & 47 & 147 & 151 \\
+\midrule
+\multicolumn{6}{l}{\cellcolor{gray!15}\textbf{Noise}} \\
+\hspace{1em}Gaussian\_Noise & 8 & 18 & 105 & 137 & 147 \\
+\hspace{1em}Impulse\_Noise & 4 & 26 & 66 & 134 & 148 \\
+\hspace{1em}Shot\_Noise & 9 & 31 & 110 & 153 & 148 \\
+\midrule
+\multicolumn{6}{l}{\cellcolor{gray!15}\textbf{Weather}} \\
+\hspace{1em}Brightness & 5 & 5 & 5 & 8 & 11 \\
+\hspace{1em}Fog & 6 & 12 & 27 & 73 & 143 \\
+\hspace{1em}Frost & 19 & 114 & 141 & 142 & 143 \\
+\hspace{1em}Snow & 24 & 136 & 131 & 135 & 139 \\
+\bottomrule
+\end{tabular}
+\end{small}
+\label{tab:granular_sweep_efficientnet_b4_ab}
+\end{table}

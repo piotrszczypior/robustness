@@ -1,0 +1,23 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n03529860 & 598 & Home theater & 0.840 & 0.435 & 0.482 & 0.405 & 1.000 \\
+n03938244 & 721 & Pillow & 0.900 & 0.440 & 0.511 & 0.460 & 1.673 \\
+n04041544 & 754 & Radio & 0.800 & 0.315 & 0.606 & 0.485 & 1.565 \\
+n01498041 & 6 & Stingray & 0.880 & 0.475 & 0.460 & 0.405 & 1.688 \\
+n04597913 & 910 & Wooden spoon & 0.820 & 0.435 & 0.470 & 0.385 & 1.711 \\
+n02105855 & 230 & Shetland sheepdog & 0.800 & 0.455 & 0.431 & 0.345 & 0.908 \\
+n03000134 & 489 & Chainlink fence & 0.820 & 0.470 & 0.427 & 0.350 & 1.750 \\
+n03908618 & 709 & Pencil box & 0.800 & 0.475 & 0.406 & 0.325 & 1.226 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

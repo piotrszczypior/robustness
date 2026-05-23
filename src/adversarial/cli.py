@@ -103,6 +103,26 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         action="store_true",
         help="Save adversarial images to images/adversarial/synsets/{synset}/{attack}_eps{e}.png",
     )
+    parser.add_argument(
+        "--source",
+        type=str,
+        default="imagenet",
+        choices=["imagenet", "imagenet-c"],
+        help="Dataset source: clean ImageNet val or ImageNet-C (default: imagenet)",
+    )
+    parser.add_argument(
+        "--corruption",
+        type=str,
+        default=None,
+        help="Corruption type for imagenet-c source (e.g. defocus_blur)",
+    )
+    parser.add_argument(
+        "--severity",
+        type=int,
+        default=1,
+        choices=[1, 2, 3, 4, 5],
+        help="Severity level for imagenet-c source (default: 1)",
+    )
 
 
 def _resolve_classes(value: str) -> list[str]:
@@ -139,11 +159,21 @@ def run(args: argparse.Namespace) -> None:
 
     target_indices = {synset_to_index[s] for s in synsets}
 
-    data_root = (
-        Path(args.data_path) if args.data_path else paths.data / "imagenet" 
-    )
+    if args.source == "imagenet-c":
+        if not args.corruption:
+            raise ValueError("--source imagenet-c requires --corruption")
+        from dataset import DatasetConfig, DatasetType
+        cfg = DatasetConfig(
+            type=DatasetType.IMAGENET_C,
+            corruption=args.corruption,
+            severity=args.severity,
+        )
+        data_root = cfg.get_data_path(args.data_path)
+    else:
+        data_root = Path(args.data_path) if args.data_path else paths.data / "imagenet"
+
     if not data_root.exists():
-        raise FileNotFoundError(f"ImageNet val directory not found: {data_root}")
+        raise FileNotFoundError(f"Dataset directory not found: {data_root}")
 
     full_dataset = datasets.ImageFolder(str(data_root), transform=transforms)
 
@@ -171,7 +201,9 @@ def run(args: argparse.Namespace) -> None:
 
     logger.info(f"Dataset: {len(dataset)} samples across {len(synsets)} classes")
 
-    images_dir = Path("images") / "adversarial" / "synsets" if args.save_images else None
+    images_dir = (
+        Path("images") / "adversarial" / "synsets" if args.save_images else None
+    )
 
     run_adversarial_evaluation(
         model=model,

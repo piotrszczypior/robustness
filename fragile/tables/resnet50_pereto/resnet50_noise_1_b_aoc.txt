@@ -1,0 +1,30 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01697457 & 49 & African crocodile & 0.820 & 0.353 & 0.569 & 0.467 & 1.522 \\
+n01773797 & 74 & Garden spider & 0.640 & 0.060 & 0.906 & 0.580 & 1.706 \\
+n01775062 & 77 & Wolf spider & 0.760 & 0.220 & 0.711 & 0.540 & 3.240 \\
+n04041544 & 754 & Radio & 0.800 & 0.253 & 0.683 & 0.547 & 2.645 \\
+n07614500 & 928 & Ice cream & 0.740 & 0.127 & 0.829 & 0.613 & 2.044 \\
+n07880968 & 965 & Burrito & 0.920 & 0.360 & 0.609 & 0.560 & 1.167 \\
+n03938244 & 721 & Pillow & 0.900 & 0.407 & 0.548 & 0.493 & 1.897 \\
+n02808304 & 434 & Bath towel & 0.780 & 0.320 & 0.590 & 0.460 & 2.760 \\
+n04263257 & 809 & Soup bowl & 0.620 & 0.160 & 0.742 & 0.460 & 2.875 \\
+n01943899 & 112 & Conch & 0.800 & 0.353 & 0.558 & 0.447 & 1.031 \\
+n02871525 & 454 & Bookshop & 0.640 & 0.200 & 0.688 & 0.440 & 1.500 \\
+n07860988 & 961 & Dough & 0.460 & 0.093 & 0.797 & 0.367 & 2.037 \\
+n04493381 & 876 & Tub & 0.500 & 0.147 & 0.707 & 0.353 & 2.944 \\
+n04465501 & 866 & Tractor & 0.920 & 0.567 & 0.384 & 0.353 & 2.524 \\
+n02123159 & 282 & Tiger cat & 0.300 & 0.087 & 0.711 & 0.213 & 2.462 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

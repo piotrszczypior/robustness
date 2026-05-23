@@ -1,0 +1,25 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n03908618 & 709 & Pencil box & 0.860 & 0.336 & 0.609 & 0.524 & 1.107 \\
+n04200800 & 788 & Shoe shop & 0.920 & 0.400 & 0.565 & 0.520 & 1.189 \\
+n07880968 & 965 & Burrito & 0.940 & 0.420 & 0.553 & 0.520 & 1.083 \\
+n03216828 & 536 & Dock & 0.660 & 0.157 & 0.762 & 0.503 & 1.533 \\
+n04209239 & 794 & Shower curtain & 0.820 & 0.320 & 0.610 & 0.500 & 1.569 \\
+n04263257 & 809 & Soup bowl & 0.680 & 0.205 & 0.698 & 0.475 & 1.874 \\
+n02113023 & 263 & Pembroke & 0.960 & 0.492 & 0.487 & 0.468 & 0.753 \\
+n03958227 & 728 & Plastic bag & 0.700 & 0.235 & 0.665 & 0.465 & 1.972 \\
+n03476991 & 585 & Hair spray & 0.720 & 0.259 & 0.641 & 0.461 & 6.920 \\
+n07860988 & 961 & Dough & 0.600 & 0.147 & 0.756 & 0.453 & 2.313 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

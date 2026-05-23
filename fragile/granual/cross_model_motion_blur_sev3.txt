@@ -1,0 +1,257 @@
+\begin{table}[H]
+\caption{Fragile classes identified per model and corruption group. A checkmark and highlighted cell indicate that the class satisfied both Criterion A and Criterion B across all corruption types and severity levels within the given group.}
+\centering
+\renewcommand{\arraystretch}{1.5}
+
+\resizebox{\textwidth}{!}{
+\begin{tabular}{ll cccc cccc cccc cccc}
+\toprule
+& & \multicolumn{4}{c}{ResNet-50} & \multicolumn{4}{c}{EfficientNet-B4} & \multicolumn{4}{c}{ViT-B/16} & \multicolumn{4}{c}{ConvNeXt-Base} \\
+\cmidrule(lr){3-6} \cmidrule(lr){7-10} \cmidrule(lr){11-14} \cmidrule(lr){15-18}
+Synset & Label & Blur & Noise & Digital & Weather & Blur & Noise & Digital & Weather & Blur & Noise & Digital & Weather & Blur & Noise & Digital & Weather \\
+\midrule
+n01697457 & African crocodile & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n01698640 & American alligator & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n01950731 & Sea slug & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02099429 & Curly-coated retriever & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02099712 & Labrador retriever & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02231487 & Walking stick & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02536864 & Coho & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02730930 & Apron & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02892201 & Brass & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02927161 & Butcher shop & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03207743 & Dishrag & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03272010 & Electric guitar & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03457902 & Greenhouse & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03598930 & Jigsaw puzzle & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03617480 & Kimono & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03717622 & Manhole cover & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03814906 & Necklace & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03891251 & Park bench & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03908618 & Pencil box & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03916031 & Perfume & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03938244 & Pillow & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03967562 & Plow & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04133789 & Sandal & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04326547 & Stone wall & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04597913 & Wooden spoon & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04606251 & Wreck & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n07565083 & Menu & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n13054560 & Bolete & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n01514859 & Hen & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n01737021 & Water snake & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n01742172 & Boa constrictor & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n01755581 & Diamondback &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n01883070 & Wombat & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n01945685 & Slug & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n01984695 & Spiny lobster & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n01985128 & Crayfish &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02087394 & Rhodesian ridgeback & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n02097130 & Giant schnauzer & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02102318 & Cocker spaniel & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02168699 & Long-horned beetle & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02236044 & Mantis &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02268443 & Dragonfly & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n02442845 & Mink & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02641379 & Gar & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02859443 & Boathouse & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n02869837 & Bonnet &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02966687 & Carpenter's kit &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03000134 & Chainlink fence &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03100240 & Convertible & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n03201208 & Dining table & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n03425413 & Gas pump & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n03485794 & Handkerchief &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03673027 & Liner & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03743016 & Megalith & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n03877472 & Pajama &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04067472 & Reel & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04099969 & Rocking chair &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04136333 & Sarong & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04141975 & Scale & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04179913 & Sewing machine & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04200800 & Shoe shop & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04355338 & Sundial &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04389033 & Tank &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04461696 & Tow truck &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04482393 & Tricycle & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04507155 & Umbrella & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n07615774 & Ice lolly & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n07880968 & Burrito & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n10148035 & Groom &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n13052670 & Hen-of-the-woods &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n01498041 & Stingray &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n01770393 & Scorpion & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n01775062 & Wolf spider &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n01877812 & Wallaby & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n02091134 & Whippet &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02095570 & Lakeland terrier &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02097474 & Tibetan terrier & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n02099849 & Chesapeake bay retriever & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n02107574 & Greater swiss mountain dog &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02256656 & Cicada & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n02319095 & Sea urchin &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n02321529 & Sea cucumber &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02346627 & Porcupine & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n02640242 & Sturgeon & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02788148 & Bannister & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n02791270 & Barbershop &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02797295 & Barrow & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02804414 & Bassinet & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02841315 & Binoculars &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02883205 & Bow tie &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02950826 & Cannon & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n02980441 & Castle & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n03000684 & Chain saw & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n03014705 & Chest &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03085013 & Computer keyboard &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03110669 & Cornet &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03126707 & Crane & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n03131574 & Crib &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03208938 & Disk brake & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n03255030 & Dumbbell &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03388043 & Fountain &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n03496892 & Harvester & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n03527444 & Holster &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03529860 & Home theater & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03770439 & Miniskirt &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03775071 & Mitten &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n03803284 & Muzzle &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03837869 & Obelisk &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04033901 & Quill &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04041544 & Radio & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04049303 & Rain barrel &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04127249 & Safety pin &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04208210 & Shovel & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04209239 & Shower curtain &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04254120 & Soap dispenser &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04310018 & Steam locomotive & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n04367480 & Swab & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n04399382 & Teddy &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04429376 & Throne &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n04435653 & Tile roof &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04485082 & Tripod &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04550184 & Wardrobe &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n06596364 & Comic book &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n01641577 & Bullfrog &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n01682714 & American chameleon & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n01687978 & Agama & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n01688243 & Frilled lizard & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n01689811 & Alligator lizard &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n01692333 & Gila monster &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n01734418 & King snake &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n01768244 & Trilobite &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n01774750 & Tarantula & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n01784675 & Centipede &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n01917289 & Brain coral &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n01955084 & Chiton & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n01978455 & Rock crab & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n01986214 & Hermit crab & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n01990800 & Isopod & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n02089867 & Walker hound &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n02091244 & Ibizan hound &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02093428 & American staffordshire terrier &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n02097209 & Standard schnauzer & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n02098105 & Soft-coated wheaten terrier &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n02104029 & Kuvasz &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n02105412 & Kelpie &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n02106550 & Rottweiler &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n02107312 & Miniature pinscher &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02108422 & Bull mastiff & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n02109047 & Great dane &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02111277 & Newfoundland &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n02113186 & Cardigan &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n02177972 & Weevil &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n02190166 & Fly &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n02206856 & Bee &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n02233338 & Cockroach & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n02397096 & Warthog &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n02408429 & Water buffalo & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n02412080 & Ram &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n02437312 & Arabian camel & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n02514041 & Barracouta & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n02699494 & Altar &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n02727426 & Apiary & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n02804610 & Bassoon & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n02835271 & Bicycle-built-for-two & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n02843684 & Birdhouse & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n02877765 & Bottlecap &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02879718 & Bow & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n02906734 & Broom &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02951358 & Canoe & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n02963159 & Cardigan &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n02981792 & Catamaran &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n03042490 & Cliff dwelling & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n03075370 & Combination lock &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n03188531 & Diaper &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n03220513 & Dome &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n03223299 & Doormat &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03376595 & Folding chair & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n03379051 & Football helmet & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n03388183 & Fountain pen &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n03388549 & Four-poster & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n03404251 & Fur coat &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n03443371 & Goblet &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n03445924 & Golfcart & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n03450230 & Gown &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03459775 & Grille &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03467068 & Guillotine & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n03483316 & Hand blower &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n03498962 & Hatchet &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n03534580 & Hoopskirt &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03535780 & Horizontal bar &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n03661043 & Library &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n03680355 & Loafer &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n03697007 & Lumbermill &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03763968 & Military uniform &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03792972 & Mountain tent & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n03804744 & Nail &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n03854065 & Organ & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n03868242 & Oxcart & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n03873416 & Paddle &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n03876231 & Paintbrush &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n03888605 & Parallel bars &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n03902125 & Pay-phone & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n03908714 & Pencil sharpener &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n03929855 & Pickelhaube & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n03930630 & Pickup &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n03991062 & Pot & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n03995372 & Power drill &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n04040759 & Radiator &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04069434 & Reflex camera &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n04074963 & Remote control &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n04149813 & Scoreboard & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n04192698 & Shield &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n04204347 & Shopping cart &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n04235860 & Sleeping bag &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04238763 & Slide rule &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n04317175 & Stethoscope &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n04336792 & Stretcher &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n04347754 & Submarine & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n04372370 & Switch &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n04376876 & Syringe &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n04398044 & Teapot &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04423845 & Thimble &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n04447861 & Toilet seat &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04456115 & Torch & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n04458633 & Totem pole & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n04465501 & Tractor & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n04476259 & Tray &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04505470 & Typewriter keyboard &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n04509417 & Unicycle & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n04523525 & Vault & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n04532106 & Vestment &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n04536866 & Violin &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n04548362 & Wallet &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n04584207 & Wig &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n07248320 & Book jacket &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n07583066 & Guacamole &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  \\
+n07711569 & Mashed potato &  &  &  &  &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  \\
+n07714571 & Head cabbage &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+n07716358 & Zucchini & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+n07768694 & Pomegranate &  &  &  &  & \cellcolor{fragilecolor}\checkmark &  &  &  &  &  &  &  &  &  &  &  \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_cross_model}
+\end{table}

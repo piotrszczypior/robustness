@@ -1,0 +1,19 @@
+\begin{table}[H]
+\caption{Resnet50 noise}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01697457 & 49 & African crocodile & 0.820 & 0.153 & 0.813 & 0.667 & 1.495 \\
+n04041544 & 754 & Radio & 0.800 & 0.093 & 0.883 & 0.707 & 2.056 \\
+n04067472 & 758 & Reel & 0.840 & 0.192 & 0.771 & 0.648 & 1.840 \\
+n04141975 & 778 & Scale & 0.800 & 0.208 & 0.740 & 0.592 & 1.902 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

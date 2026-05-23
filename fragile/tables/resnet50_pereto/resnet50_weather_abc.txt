@@ -1,0 +1,30 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n03938244 & 721 & Pillow & 0.900 & 0.345 & 0.617 & 0.555 & 1.702 \\
+n04041544 & 754 & Radio & 0.800 & 0.178 & 0.778 & 0.622 & 1.695 \\
+n04465501 & 866 & Tractor & 0.920 & 0.447 & 0.514 & 0.473 & 1.511 \\
+n04597913 & 910 & Wooden spoon & 0.820 & 0.291 & 0.645 & 0.529 & 2.133 \\
+n01737021 & 58 & Water snake & 0.840 & 0.364 & 0.567 & 0.476 & 2.267 \\
+n02823750 & 441 & Beer glass & 0.900 & 0.398 & 0.558 & 0.502 & 1.517 \\
+n03666591 & 626 & Lighter & 0.800 & 0.323 & 0.596 & 0.477 & 1.691 \\
+n03000134 & 489 & Chainlink fence & 0.820 & 0.411 & 0.499 & 0.409 & 1.538 \\
+n04208210 & 792 & Shovel & 0.800 & 0.351 & 0.561 & 0.449 & 2.789 \\
+n07615774 & 929 & Ice lolly & 0.900 & 0.433 & 0.519 & 0.467 & 1.711 \\
+n04141975 & 778 & Scale & 0.800 & 0.363 & 0.546 & 0.437 & 1.784 \\
+n04507155 & 879 & Umbrella & 0.820 & 0.433 & 0.472 & 0.387 & 1.580 \\
+n01978455 & 119 & Rock crab & 0.800 & 0.411 & 0.486 & 0.389 & 1.588 \\
+n03255030 & 543 & Dumbbell & 0.800 & 0.426 & 0.468 & 0.374 & 2.309 \\
+n04209239 & 794 & Shower curtain & 0.800 & 0.428 & 0.465 & 0.372 & 2.175 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

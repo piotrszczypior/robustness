@@ -1,0 +1,23 @@
+\begin{table}[H]
+\caption{Fragile class counts per experiment — vit_b_16 (ab)}
+\centering
+\begin{small}
+\begin{tabular}{lr}
+\toprule
+Experiment & Count \\
+\midrule
+\hspace{1em}all\_corruptions & 63 \\
+\hspace{1em}severity\_1 & 6 \\
+\hspace{1em}blur & 116 \\
+\hspace{1em}noise & 62 \\
+\hspace{1em}weather & 25 \\
+\hspace{1em}digital & 44 \\
+\hspace{1em}blur\_1 & 24 \\
+\hspace{1em}noise\_1 & 1 \\
+\hspace{1em}weather\_1 & 5 \\
+\hspace{1em}digital\_1 & 7 \\
+\bottomrule
+\end{tabular}
+\end{small}
+\label{tab:experiment_sweep_vit_b_16_ab}
+\end{table}

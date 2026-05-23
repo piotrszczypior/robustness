@@ -60,14 +60,27 @@ def plot_adversarial_dot_plot(
         row = row_df.iloc[0]
         alpha = _EPSILON_ALPHAS.get(round(eps, 6), 0.8)
         ax.plot(
-            [row.baseline_acc, row.adv_acc], [j, j],
-            color=color, alpha=alpha, linewidth=1.5, solid_capstyle="round", zorder=2,
+            [row.baseline_acc, row.adv_acc],
+            [j, j],
+            color=color,
+            alpha=alpha,
+            linewidth=1.5,
+            solid_capstyle="round",
+            zorder=2,
         )
-        ax.plot(row.baseline_acc, j, "o", color=color, alpha=alpha, markersize=6, zorder=3)
         ax.plot(
-            row.adv_acc, j, "o",
-            color=color, alpha=alpha, markersize=6,
-            markerfacecolor="white", markeredgewidth=1.5, zorder=3,
+            row.baseline_acc, j, "o", color=color, alpha=alpha, markersize=6, zorder=3
+        )
+        ax.plot(
+            row.adv_acc,
+            j,
+            "o",
+            color=color,
+            alpha=alpha,
+            markersize=6,
+            markerfacecolor="white",
+            markeredgewidth=1.5,
+            zorder=3,
         )
 
     ax.set_xlim(0, 1.05)
@@ -78,7 +91,9 @@ def plot_adversarial_dot_plot(
     if attack == "fgsm":
         tick_labels = [epsilon_labels.get(round(e, 6), f"{e:.5f}") for e in epsilons]
         ax.set_yticks(range(n_eps))
-        ax.set_yticklabels([f"ε={lbl}" for lbl in tick_labels], fontsize=9, family="monospace")
+        ax.set_yticklabels(
+            [f"ε={lbl}" for lbl in tick_labels], fontsize=9, family="monospace"
+        )
     else:
         ax.set_yticks([])
 

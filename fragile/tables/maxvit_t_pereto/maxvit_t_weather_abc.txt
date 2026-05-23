@@ -1,0 +1,22 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01498041 & 6 & Stingray & 0.900 & 0.331 & 0.632 & 0.569 & 1.581 \\
+n01985128 & 124 & Crayfish & 0.860 & 0.454 & 0.472 & 0.406 & 6.152 \\
+n03995372 & 740 & Power drill & 0.820 & 0.409 & 0.501 & 0.411 & 3.090 \\
+n04597913 & 910 & Wooden spoon & 0.840 & 0.446 & 0.469 & 0.394 & 1.589 \\
+n04254120 & 804 & Soap dispenser & 0.820 & 0.498 & 0.393 & 0.322 & 4.806 \\
+n04548362 & 893 & Wallet & 0.800 & 0.469 & 0.414 & 0.331 & 1.780 \\
+n04116512 & 767 & Rubber eraser & 0.800 & 0.478 & 0.402 & 0.322 & 1.750 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

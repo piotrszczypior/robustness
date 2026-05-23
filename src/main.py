@@ -21,9 +21,13 @@ from plots_v2.barcode.cli import get_task as get_barcode_v2_task
 from plots_v2.acc_to_acc.cli import get_task as get_acc_to_acc_v2_task
 from plots_v2.violin.cli import get_task as get_violin_v2_task
 from plots_v2.rmce_heatmap.cli import get_task as get_rmce_heatmap_v2_task
-from plots_v2.imagenet_a_heatmap.cli import get_task as get_imagenet_a_heatmap_v2_task
+from plots_v2.dataset_heatmap.cli import get_task as get_dataset_heatmap_task
 from plots_v2.adversarial_dot.cli import get_task as get_adversarial_dot_v2_task
 from plots_v2.class_degradation.cli import get_task as get_class_degradation_v2_task
+from plots_v2.severity_dot.cli import get_task as get_severity_dot_v2_task
+from plots_v2.fragile_histogram.cli import get_task as get_fragile_histogram_task
+from plots_v2.upset_fragile.cli import get_task as get_upset_fragile_task
+from plots_v2.fragile_severity_line.cli import get_task as get_fragile_severity_line_task
 
 
 TASK_REGISTRY: Dict[str, Task] = {
@@ -40,9 +44,13 @@ TASK_REGISTRY: Dict[str, Task] = {
     "acc_to_acc_v2": get_acc_to_acc_v2_task(),
     "violin_v2": get_violin_v2_task(),
     "rmce_heatmap_v2": get_rmce_heatmap_v2_task(),
-    "imagenet_a_heatmap_v2": get_imagenet_a_heatmap_v2_task(),
+    "dataset_heatmap": get_dataset_heatmap_task(),
     "adversarial_dot_v2": get_adversarial_dot_v2_task(),
     "class_degradation_v2": get_class_degradation_v2_task(),
+    "severity_dot_v2": get_severity_dot_v2_task(),
+    "fragile_histogram_v2": get_fragile_histogram_task(),
+    "upset_fragile_v2": get_upset_fragile_task(),
+    "fragile_severity_line_v2": get_fragile_severity_line_task(),
 }
 
 

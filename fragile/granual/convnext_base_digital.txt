@@ -1,0 +1,21 @@
+\begin{table}[H]
+\caption{Convnext base digital}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01755581 & 67 & Diamondback & 0.860 & 0.193 & 0.776 & 0.667 & 1.958 \\
+n03450230 & 578 & Gown & 0.820 & 0.169 & 0.794 & 0.651 & 1.567 \\
+n02791270 & 424 & Barbershop & 0.800 & 0.214 & 0.733 & 0.586 & 2.197 \\
+n03085013 & 508 & Computer keyboard & 0.820 & 0.255 & 0.689 & 0.565 & inf \\
+n04041544 & 754 & Radio & 0.800 & 0.227 & 0.716 & 0.573 & 1.580 \\
+n01641577 & 30 & Bullfrog & 0.800 & 0.331 & 0.586 & 0.469 & 0.919 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

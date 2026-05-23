@@ -1,0 +1,27 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01498041 & 6 & Stingray & 0.920 & 0.365 & 0.603 & 0.555 & 1.563 \\
+n01641577 & 30 & Bullfrog & 0.800 & 0.435 & 0.456 & 0.365 & 0.961 \\
+n01755581 & 67 & Diamondback & 0.860 & 0.290 & 0.663 & 0.570 & 1.727 \\
+n02107574 & 238 & Greater swiss mountain dog & 0.800 & 0.340 & 0.575 & 0.460 & 1.353 \\
+n02791270 & 424 & Barbershop & 0.800 & 0.295 & 0.631 & 0.505 & 2.405 \\
+n03000134 & 489 & Chainlink fence & 0.820 & 0.295 & 0.640 & 0.525 & 2.143 \\
+n03085013 & 508 & Computer keyboard & 0.820 & 0.270 & 0.671 & 0.550 & 5.789 \\
+n03450230 & 578 & Gown & 0.820 & 0.270 & 0.671 & 0.550 & 1.528 \\
+n03770439 & 655 & Miniskirt & 0.820 & 0.445 & 0.457 & 0.375 & 1.442 \\
+n04041544 & 754 & Radio & 0.800 & 0.340 & 0.575 & 0.460 & 1.643 \\
+n04398044 & 849 & Teapot & 0.860 & 0.490 & 0.430 & 0.370 & 1.298 \\
+n10148035 & 982 & Groom & 0.800 & 0.370 & 0.537 & 0.430 & 0.935 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

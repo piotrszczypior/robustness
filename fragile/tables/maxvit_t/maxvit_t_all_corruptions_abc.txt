@@ -1,0 +1,28 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01737021 & 58 & Water snake & 0.920 & 0.472 & 0.487 & 0.448 & 1.985 \\
+n01755581 & 67 & Diamondback & 0.940 & 0.385 & 0.591 & 0.555 & 1.639 \\
+n01985128 & 124 & Crayfish & 0.860 & 0.387 & 0.550 & 0.473 & 4.214 \\
+n02808304 & 434 & Bath towel & 0.800 & 0.388 & 0.515 & 0.412 & 1.564 \\
+n02939185 & 469 & Caldron & 0.820 & 0.497 & 0.394 & 0.323 & 4.456 \\
+n03908714 & 710 & Pencil sharpener & 0.800 & 0.470 & 0.413 & 0.330 & 1.778 \\
+n03995372 & 740 & Power drill & 0.820 & 0.362 & 0.558 & 0.458 & 3.481 \\
+n04116512 & 767 & Rubber eraser & 0.800 & 0.437 & 0.454 & 0.363 & 1.961 \\
+n04208210 & 792 & Shovel & 0.820 & 0.473 & 0.423 & 0.347 & 1.949 \\
+n04209239 & 794 & Shower curtain & 0.820 & 0.462 & 0.437 & 0.358 & 1.548 \\
+n04254120 & 804 & Soap dispenser & 0.820 & 0.457 & 0.443 & 0.363 & 4.124 \\
+n04548362 & 893 & Wallet & 0.800 & 0.368 & 0.540 & 0.432 & 2.282 \\
+n04597913 & 910 & Wooden spoon & 0.840 & 0.397 & 0.527 & 0.443 & 1.793 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

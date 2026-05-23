@@ -1,0 +1,22 @@
+\begin{table}[H]
+\caption{Convnext base blur}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01498041 & 6 & Stingray & 0.920 & 0.174 & 0.811 & 0.746 & 1.281 \\
+n01755581 & 67 & Diamondback & 0.860 & 0.131 & 0.848 & 0.729 & 2.068 \\
+n02791270 & 424 & Barbershop & 0.800 & 0.112 & 0.860 & 0.688 & 2.173 \\
+n03770439 & 655 & Miniskirt & 0.820 & 0.161 & 0.804 & 0.659 & 1.838 \\
+n04041544 & 754 & Radio & 0.800 & 0.140 & 0.825 & 0.660 & 1.637 \\
+n04476259 & 868 & Tray & 0.800 & 0.177 & 0.779 & 0.623 & 1.772 \\
+n10148035 & 982 & Groom & 0.800 & 0.203 & 0.746 & 0.597 & 1.081 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

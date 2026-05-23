@@ -19,7 +19,9 @@ def run_clustering(df: pd.DataFrame, projection: Projection = "umap") -> None:
     plot_clustering(df, projection=projection)
 
 
-def run_kmeans(features: pd.DataFrame, k: int = 3, random_state: int = 42) -> np.ndarray:
+def run_kmeans(
+    features: pd.DataFrame, k: int = 3, random_state: int = 42
+) -> np.ndarray:
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(features)
     kmeans = KMeans(n_clusters=k, random_state=random_state, n_init=10)
@@ -94,7 +96,7 @@ def plot_kmeans(
 
     fig, ax = plt.subplots(figsize=(7, 6))
     clusters = sorted(df["cluster"].dropna().unique())
-    
+
     cmap = plt.get_cmap("Set2")
     color_map = {c: cmap(i % cmap.N) for i, c in enumerate(clusters)}
 
@@ -103,13 +105,14 @@ def plot_kmeans(
 
     for cluster, group in df.groupby("cluster"):
         is_fragile = fragile_cluster_id is not None and cluster == fragile_cluster_id
-        
+
         c = color_map[cluster]
         # if fragile_cluster_id is not None and not is_fragile:
         #     c = "lightgray"
 
         ax.scatter(
-            group["dim1"], group["dim2"],
+            group["dim1"],
+            group["dim2"],
             c=[c],
             label=f"cluster {int(cluster)}" + (" (fragile)" if is_fragile else ""),
             alpha=0.9 if is_fragile else 0.5,

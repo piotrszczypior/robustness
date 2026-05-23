@@ -90,8 +90,12 @@ def _adv_acc_per_synset(
             synset_dir = save_dir / synset / attack_name
             synset_dir.mkdir(parents=True, exist_ok=True)
             for idx, img in enumerate(imgs):
-                torchvision.utils.save_image(img, synset_dir / f"{idx:03d}_{eps_idx}.png")
-        logger.info(f"Saved adversarial images for {len(collected)} synsets to {save_dir}")
+                torchvision.utils.save_image(
+                    img, synset_dir / f"{idx:03d}_{eps_idx}.png"
+                )
+        logger.info(
+            f"Saved adversarial images for {len(collected)} synsets to {save_dir}"
+        )
 
     return stats
 
@@ -113,15 +117,23 @@ def run_adversarial_evaluation(
     backup_dir = paths.google_colab_gdrive_path if sync_drive else None
 
     logger.info("Computing baseline accuracy per class")
-    baseline = _baseline_acc_per_synset(model, dataloader, device, index_to_synset, save_dir=save_images_dir)
+    baseline = _baseline_acc_per_synset(
+        model, dataloader, device, index_to_synset, save_dir=save_images_dir
+    )
 
     all_rows = []
     for attack_name in attacks:
         for eps_idx, epsilon in enumerate(epsilons, start=1):
             logger.info(f"Running {attack_name.upper()} eps={epsilon:.4f}")
             adv = _adv_acc_per_synset(
-                model, dataloader, device, index_to_synset, attack_name, epsilon,
-                eps_idx=eps_idx, save_dir=save_images_dir,
+                model,
+                dataloader,
+                device,
+                index_to_synset,
+                attack_name,
+                epsilon,
+                eps_idx=eps_idx,
+                save_dir=save_images_dir,
             )
 
             for synset, base_stats in baseline.items():
@@ -156,5 +168,7 @@ def run_adversarial_evaluation(
         ["attack", "epsilon", "acc_drop"], ascending=[True, True, False]
     )
     filename = f"{model_name}.csv"
-    out_file = export_results(df, filename, output_dir=output_path, backup_dir=backup_dir)
+    out_file = export_results(
+        df, filename, output_dir=output_path, backup_dir=backup_dir
+    )
     logger.info(f"Saved {len(df)} rows to {out_file}")

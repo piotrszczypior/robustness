@@ -1,0 +1,17 @@
+\begin{table}[H]
+\caption{Resnet50 blur}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n04208210 & 792 & Shovel & 0.800 & 0.107 & 0.866 & 0.693 & 3.482 \\
+n04041544 & 754 & Radio & 0.800 & 0.138 & 0.828 & 0.662 & 1.643 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

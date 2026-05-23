@@ -1,0 +1,19 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01755581 & 67 & Diamondback & 0.940 & 0.370 & 0.606 & 0.570 & 1.932 \\
+n01985128 & 124 & Crayfish & 0.860 & 0.490 & 0.430 & 0.370 & 2.846 \\
+n03995372 & 740 & Power drill & 0.820 & 0.470 & 0.427 & 0.350 & 3.889 \\
+n04548362 & 893 & Wallet & 0.800 & 0.420 & 0.475 & 0.380 & 2.375 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

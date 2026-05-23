@@ -4,7 +4,7 @@ import argparse
 import logging
 
 from task import Task
-from .gradcam import run_gradcam
+from .xai import run_xai
 from paths import paths
 
 __all__ = ["get_task", "register", "run"]
@@ -27,10 +27,11 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         help="Model name (e.g. resnet152)",
     )
     parser.add_argument(
-        "--dataset",
+        "--datasets",
         required=True,
+        nargs="+",
         type=str,
-        help="Dataset name (e.g. imagenet_c_defocus_blur_1)",
+        help="Dataset name(s) (e.g. imagenet imagenet_c_defocus_blur_1)",
     )
     parser.add_argument(
         "--data-path", default=paths.data, type=str, help="Base data path"
@@ -40,7 +41,7 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     )
     parser.add_argument(
         "--output-dir",
-        default="images/gradcam",
+        default="xai/",
         type=str,
         help="Output directory for heatmaps",
     )
@@ -52,13 +53,13 @@ def run(args: argparse.Namespace):
         logging.getLogger().setLevel(logging.DEBUG)
 
     logger.info(f"Starting XAI analysis for model: {args.model}")
-    logger.info(f"Dataset alias: {args.dataset}")
+    logger.info(f"Datasets: {args.datasets}")
     logger.info(f"Synset: {args.synset}")
 
     try:
-        run_gradcam(
+        run_xai(
             model_name=args.model,
-            dataset_alias=args.dataset,
+            dataset_aliases=args.datasets,
             synset=args.synset,
             output_dir=args.output_dir,
         )

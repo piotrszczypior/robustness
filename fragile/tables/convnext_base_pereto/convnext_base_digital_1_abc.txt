@@ -1,0 +1,22 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01498041 & 6 & Stingray & 0.920 & 0.365 & 0.603 & 0.555 & 1.563 \\
+n01755581 & 67 & Diamondback & 0.860 & 0.290 & 0.663 & 0.570 & 1.727 \\
+n03085013 & 508 & Computer keyboard & 0.820 & 0.270 & 0.671 & 0.550 & 5.789 \\
+n03450230 & 578 & Gown & 0.820 & 0.270 & 0.671 & 0.550 & 1.528 \\
+n03000134 & 489 & Chainlink fence & 0.820 & 0.295 & 0.640 & 0.525 & 2.143 \\
+n02791270 & 424 & Barbershop & 0.800 & 0.295 & 0.631 & 0.505 & 2.405 \\
+n04041544 & 754 & Radio & 0.800 & 0.340 & 0.575 & 0.460 & 1.643 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

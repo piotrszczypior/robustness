@@ -144,6 +144,11 @@ def get_dfs_for_all_models(variations: CorruptionVariations, data_path="results"
     return dfs
 
 
+def get_df_for_model(variations: CorruptionVariations, model: str, data_path="results"):
+    alexnet_rmce_df = get_rmce_alexnet_df(variations, data_path)
+    return _build_single_df(model, variations, alexnet_rmce_df, data_path)
+
+
 def get_dfs_for_experiment(experiment: str, model: str, data_path="results"):
     variation = EXPERIMENTS[experiment]
     alexnet_rmce_df = get_rmce_alexnet_df(variation, data_path)

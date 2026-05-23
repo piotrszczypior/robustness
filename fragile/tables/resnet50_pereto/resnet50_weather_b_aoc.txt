@@ -1,0 +1,31 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n03529860 & 598 & Home theater & 0.840 & 0.261 & 0.689 & 0.579 & 1.179 \\
+n03938244 & 721 & Pillow & 0.900 & 0.345 & 0.617 & 0.555 & 1.702 \\
+n04041544 & 754 & Radio & 0.800 & 0.178 & 0.778 & 0.622 & 1.695 \\
+n04263257 & 809 & Soup bowl & 0.620 & 0.027 & 0.956 & 0.593 & 2.545 \\
+n07614500 & 928 & Ice cream & 0.740 & 0.169 & 0.772 & 0.571 & 1.976 \\
+n07802026 & 958 & Hay & 0.940 & 0.453 & 0.518 & 0.487 & 0.882 \\
+n07880968 & 965 & Burrito & 0.920 & 0.354 & 0.615 & 0.566 & 1.361 \\
+n04597913 & 910 & Wooden spoon & 0.820 & 0.291 & 0.645 & 0.529 & 2.133 \\
+n02823750 & 441 & Beer glass & 0.900 & 0.398 & 0.558 & 0.502 & 1.517 \\
+n03133878 & 521 & Crock pot & 0.840 & 0.343 & 0.592 & 0.497 & 1.203 \\
+n07697313 & 933 & Cheeseburger & 0.940 & 0.454 & 0.517 & 0.486 & 0.882 \\
+n03950228 & 725 & Pitcher & 0.620 & 0.135 & 0.782 & 0.485 & 2.100 \\
+n03887697 & 700 & Paper towel & 0.760 & 0.285 & 0.625 & 0.475 & 1.696 \\
+n04465501 & 866 & Tractor & 0.920 & 0.447 & 0.514 & 0.473 & 1.511 \\
+n03223299 & 539 & Doormat & 0.740 & 0.277 & 0.626 & 0.463 & 1.625 \\
+n15075141 & 999 & Toilet tissue & 0.540 & 0.116 & 0.785 & 0.424 & 3.392 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

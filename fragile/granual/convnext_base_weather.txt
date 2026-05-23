@@ -1,0 +1,20 @@
+\begin{table}[H]
+\caption{Convnext base weather}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01498041 & 6 & Stingray & 0.920 & 0.254 & 0.724 & 0.666 & 2.313 \\
+n04041544 & 754 & Radio & 0.800 & 0.242 & 0.698 & 0.558 & 1.525 \\
+n01755581 & 67 & Diamondback & 0.860 & 0.349 & 0.594 & 0.511 & 1.970 \\
+n02791270 & 424 & Barbershop & 0.800 & 0.283 & 0.646 & 0.517 & 2.169 \\
+n10148035 & 982 & Groom & 0.800 & 0.292 & 0.635 & 0.508 & 1.009 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

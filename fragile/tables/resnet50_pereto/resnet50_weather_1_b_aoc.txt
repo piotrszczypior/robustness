@@ -1,0 +1,36 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01775062 & 77 & Wolf spider & 0.760 & 0.095 & 0.875 & 0.665 & 1.642 \\
+n03529860 & 598 & Home theater & 0.840 & 0.435 & 0.482 & 0.405 & 1.000 \\
+n03938244 & 721 & Pillow & 0.900 & 0.440 & 0.511 & 0.460 & 1.673 \\
+n04041544 & 754 & Radio & 0.800 & 0.315 & 0.606 & 0.485 & 1.565 \\
+n04263257 & 809 & Soup bowl & 0.620 & 0.045 & 0.927 & 0.575 & 2.875 \\
+n04465501 & 866 & Tractor & 0.920 & 0.525 & 0.429 & 0.395 & 2.469 \\
+n01498041 & 6 & Stingray & 0.880 & 0.475 & 0.460 & 0.405 & 1.688 \\
+n01755581 & 67 & Diamondback & 0.780 & 0.345 & 0.558 & 0.435 & 2.289 \\
+n02823750 & 441 & Beer glass & 0.900 & 0.570 & 0.367 & 0.330 & 1.500 \\
+n03832673 & 681 & Notebook & 0.380 & 0.135 & 0.645 & 0.245 & 3.267 \\
+n03950228 & 725 & Pitcher & 0.620 & 0.180 & 0.710 & 0.440 & 2.667 \\
+n04597913 & 910 & Wooden spoon & 0.820 & 0.435 & 0.470 & 0.385 & 1.711 \\
+n07614500 & 928 & Ice cream & 0.740 & 0.225 & 0.696 & 0.515 & 1.981 \\
+n02791270 & 424 & Barbershop & 0.740 & 0.325 & 0.561 & 0.415 & 2.243 \\
+n04505470 & 878 & Typewriter keyboard & 0.760 & 0.375 & 0.507 & 0.385 & 1.711 \\
+n15075141 & 999 & Toilet tissue & 0.540 & 0.190 & 0.648 & 0.350 & 3.182 \\
+n03000134 & 489 & Chainlink fence & 0.820 & 0.470 & 0.427 & 0.350 & 1.750 \\
+n02105855 & 230 & Shetland sheepdog & 0.800 & 0.455 & 0.431 & 0.345 & 0.908 \\
+n02808304 & 434 & Bath towel & 0.780 & 0.435 & 0.442 & 0.345 & 1.917 \\
+n01737021 & 58 & Water snake & 0.840 & 0.515 & 0.387 & 0.325 & 1.912 \\
+n02769748 & 414 & Backpack & 0.480 & 0.185 & 0.615 & 0.295 & 2.107 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

@@ -1,0 +1,23 @@
+\begin{table}[H]
+\caption{Fragile class counts per experiment — efficientnet_b4 (ab)}
+\centering
+\begin{small}
+\begin{tabular}{lr}
+\toprule
+Experiment & Count \\
+\midrule
+\hspace{1em}all\_corruptions & 95 \\
+\hspace{1em}severity\_1 & 7 \\
+\hspace{1em}blur & 142 \\
+\hspace{1em}noise & 116 \\
+\hspace{1em}weather & 39 \\
+\hspace{1em}digital & 53 \\
+\hspace{1em}blur\_1 & 24 \\
+\hspace{1em}noise\_1 & 5 \\
+\hspace{1em}weather\_1 & 6 \\
+\hspace{1em}digital\_1 & 8 \\
+\bottomrule
+\end{tabular}
+\end{small}
+\label{tab:experiment_sweep_efficientnet_b4_ab}
+\end{table}

@@ -1,0 +1,23 @@
+\begin{table}[H]
+\caption{Fragile class counts per experiment — resnet50 (ab)}
+\centering
+\begin{small}
+\begin{tabular}{lr}
+\toprule
+Experiment & Count \\
+\midrule
+\hspace{1em}all\_corruptions & 103 \\
+\hspace{1em}severity\_1 & 17 \\
+\hspace{1em}blur & 106 \\
+\hspace{1em}noise & 109 \\
+\hspace{1em}weather & 85 \\
+\hspace{1em}digital & 88 \\
+\hspace{1em}blur\_1 & 34 \\
+\hspace{1em}noise\_1 & 27 \\
+\hspace{1em}weather\_1 & 8 \\
+\hspace{1em}digital\_1 & 19 \\
+\bottomrule
+\end{tabular}
+\end{small}
+\label{tab:experiment_sweep_resnet50_ab}
+\end{table}

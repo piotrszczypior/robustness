@@ -1,0 +1,18 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n03000134 & 489 & Chainlink fence & 0.840 & 0.440 & 0.476 & 0.400 & 1.633 \\
+n03995372 & 740 & Power drill & 0.820 & 0.495 & 0.396 & 0.325 & 3.611 \\
+n04548362 & 893 & Wallet & 0.800 & 0.490 & 0.388 & 0.310 & 2.214 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

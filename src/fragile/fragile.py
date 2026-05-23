@@ -127,6 +127,87 @@ def get_cross_model_df(
     return agg
 
 
+def _pareto_front(df: pd.DataFrame) -> pd.Index:
+    clean = df["acc_clean"].values
+    corrupt = df["acc_corrupt"].values
+    n = len(df)
+    is_dominated = np.zeros(n, dtype=bool)
+    for i in range(n):
+        for j in range(n):
+            if i == j:
+                continue
+            if clean[j] >= clean[i] and corrupt[j] <= corrupt[i]:
+                if clean[j] > clean[i] or corrupt[j] < corrupt[i]:
+                    is_dominated[i] = True
+                    break
+    return df.index[~is_dominated]
+
+
+def select_top_k_fragile(df: pd.DataFrame, k: int) -> pd.DataFrame:
+    return df.sort_values(by="RmCE", ascending=False)[:k]
+
+    if "is_strongly_fragile" in df.columns:
+        candidates = df[df["is_strongly_fragile"] == 1].copy()
+    else:
+        candidates = df.copy()
+
+    selected = []
+    remaining = candidates.copy()
+
+    while len(selected) < k and len(remaining) > 0:
+        front_idx = _pareto_front(remaining)
+        front = remaining.loc[front_idx]
+        needed = k - len(selected)
+
+        if len(front) <= needed:
+            selected.append(front)
+        else:
+            tiebreak_col = "abs_drop" if "abs_drop" in front.columns else "acc_clean"
+            selected.append(front.nlargest(needed, tiebreak_col))
+            break
+
+        remaining = remaining.drop(front_idx)
+
+    return pd.concat(selected) if selected else candidates.iloc[0:0]
+
+
+def _pareto_front_robust(df: pd.DataFrame) -> pd.Index:
+    clean = df["acc_clean"].values
+    corrupt = df["acc_corrupt"].values
+    n = len(df)
+    is_dominated = np.zeros(n, dtype=bool)
+    for i in range(n):
+        for j in range(n):
+            if i == j:
+                continue
+            if clean[j] >= clean[i] and corrupt[j] >= corrupt[i]:
+                if clean[j] > clean[i] or corrupt[j] > corrupt[i]:
+                    is_dominated[i] = True
+                    break
+    return df.index[~is_dominated]
+
+
+def select_top_k_robust(df: pd.DataFrame, k: int) -> pd.DataFrame:
+    candidates = df.copy()
+    selected = []
+    remaining = candidates.copy()
+
+    while len(selected) < k and len(remaining) > 0:
+        front_idx = _pareto_front_robust(remaining)
+        front = remaining.loc[front_idx]
+        needed = k - len(selected)
+
+        if len(front) <= needed:
+            selected.append(front)
+        else:
+            selected.append(front.nlargest(needed, "acc_corrupt"))
+            break
+
+        remaining = remaining.drop(front_idx)
+
+    return pd.concat(selected) if selected else candidates.iloc[0:0]
+
+
 def _get_denom_indices(alexnet_df: pd.DataFrame, denom_min=0.05):
     denom = alexnet_df.set_index("synset").eval("acc_clean - acc_corrupt")
     stable_synsets = denom[denom.abs() > denom_min].index

@@ -1,0 +1,24 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01737021 & 58 & Water snake & 0.860 & 0.490 & 0.430 & 0.370 & 1.574 \\
+n01755581 & 67 & Diamondback & 0.860 & 0.220 & 0.744 & 0.640 & 2.169 \\
+n01985128 & 124 & Crayfish & 0.800 & 0.405 & 0.494 & 0.395 & 3.038 \\
+n02791270 & 424 & Barbershop & 0.800 & 0.255 & 0.681 & 0.545 & 1.787 \\
+n03000134 & 489 & Chainlink fence & 0.820 & 0.305 & 0.628 & 0.515 & 1.717 \\
+n03085013 & 508 & Computer keyboard & 0.820 & 0.380 & 0.537 & 0.440 & 4.400 \\
+n03770439 & 655 & Miniskirt & 0.820 & 0.325 & 0.604 & 0.495 & 1.571 \\
+n04548362 & 893 & Wallet & 0.820 & 0.445 & 0.457 & 0.375 & 2.344 \\
+n07248320 & 921 & Book jacket & 0.820 & 0.420 & 0.488 & 0.400 & 2.051 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

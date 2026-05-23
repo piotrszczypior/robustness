@@ -1,0 +1,17 @@
+\begin{table}[H]
+\caption{vit_b_16 weather}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01498041 & 6 & Stingray & 0.860 & 0.277 & 0.678 & 0.583 & 1.994 \\
+n01775062 & 77 & Wolf spider & 0.800 & 0.105 & 0.869 & 0.695 & 1.514 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

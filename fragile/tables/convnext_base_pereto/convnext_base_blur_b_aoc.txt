@@ -1,0 +1,34 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01498041 & 6 & Stingray & 0.920 & 0.174 & 0.811 & 0.746 & 1.284 \\
+n01698640 & 50 & American alligator & 0.940 & 0.193 & 0.795 & 0.747 & 1.388 \\
+n01755581 & 67 & Diamondback & 0.860 & 0.131 & 0.848 & 0.729 & 2.019 \\
+n02791270 & 424 & Barbershop & 0.800 & 0.112 & 0.860 & 0.688 & 2.177 \\
+n03450230 & 578 & Gown & 0.820 & 0.129 & 0.843 & 0.691 & 1.388 \\
+n03598930 & 611 & Jigsaw puzzle & 0.980 & 0.307 & 0.687 & 0.673 & 1.221 \\
+n03710637 & 638 & Maillot & 0.380 & 0.009 & 0.976 & 0.371 & 2.363 \\
+n03717622 & 640 & Manhole cover & 1.000 & 0.315 & 0.685 & 0.685 & 0.874 \\
+n04263257 & 809 & Soup bowl & 0.740 & 0.057 & 0.923 & 0.683 & 2.558 \\
+n04356056 & 837 & Sunglasses & 0.540 & 0.027 & 0.950 & 0.513 & 2.644 \\
+n01697457 & 49 & African crocodile & 0.940 & 0.224 & 0.762 & 0.716 & 1.520 \\
+n03938244 & 721 & Pillow & 0.940 & 0.224 & 0.762 & 0.716 & 1.804 \\
+n02730930 & 411 & Apron & 0.900 & 0.203 & 0.774 & 0.697 & 1.806 \\
+n04041544 & 754 & Radio & 0.800 & 0.140 & 0.825 & 0.660 & 1.646 \\
+n03770439 & 655 & Miniskirt & 0.820 & 0.161 & 0.804 & 0.659 & 1.856 \\
+n03042490 & 500 & Cliff dwelling & 0.960 & 0.311 & 0.676 & 0.649 & 0.749 \\
+n04179913 & 786 & Sewing machine & 1.000 & 0.374 & 0.626 & 0.626 & 1.385 \\
+n07614500 & 928 & Ice cream & 0.740 & 0.131 & 0.823 & 0.609 & 1.740 \\
+n03216828 & 536 & Dock & 0.700 & 0.119 & 0.830 & 0.581 & 1.755 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}

@@ -1,0 +1,23 @@
+\begin{table}[H]
+\caption{Caption}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrccccr}
+\toprule
+ & & & \multicolumn{2}{c}{Accuracy} & \multicolumn{2}{c}{Drop} & \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Synset & Index & Label & Clean & Corrupt & Relative & Absolute & RmCE \\
+\midrule
+n01737021 & 58 & Water snake & 0.840 & 0.350 & 0.583 & 0.490 & 2.085 \\
+n01978455 & 119 & Rock crab & 0.800 & 0.305 & 0.619 & 0.495 & 1.768 \\
+n03000134 & 489 & Chainlink fence & 0.820 & 0.315 & 0.616 & 0.505 & 1.683 \\
+n03938244 & 721 & Pillow & 0.900 & 0.285 & 0.683 & 0.615 & 1.577 \\
+n04067472 & 758 & Reel & 0.840 & 0.470 & 0.440 & 0.370 & 1.609 \\
+n04208210 & 792 & Shovel & 0.800 & 0.325 & 0.594 & 0.475 & 2.436 \\
+n04507155 & 879 & Umbrella & 0.820 & 0.400 & 0.512 & 0.420 & 1.556 \\
+n04597913 & 910 & Wooden spoon & 0.820 & 0.430 & 0.476 & 0.390 & 2.108 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:fragile_classes_ab}
+\end{table}
