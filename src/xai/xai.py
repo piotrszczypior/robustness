@@ -52,8 +52,8 @@ def _list_images(synset_dir: Path) -> list[Path]:
     return [f for f in synset_dir.iterdir() if f.suffix.lower() in (".jpg", ".jpeg")]
 
 
-def get_images(dataset: DatasetConfig, synset: str, max_images: int = 5) -> list[Path]:
-    synset_dir = dataset.get_data_path() / synset
+def get_images(dataset: DatasetConfig, synset: str, max_images: int = 5, data_root: Optional[str] = None) -> list[Path]:
+    synset_dir = dataset.get_data_path(data_root) / synset
     if not synset_dir.exists():
         raise FileNotFoundError(f"Directory {synset_dir} not found")
 
@@ -70,6 +70,7 @@ def get_matched_images(
     synset: str,
     max_images: int = 5,
     sample_range: Optional[tuple[int, int]] = None,
+    data_root: Optional[str] = None,
 ) -> list[tuple[str, int, Path]]:
     """Returns (dataset_alias, sample_index, image_path) triples.
     ImageNet + ImageNet-C variants share the same selected indices (same source images).
@@ -90,7 +91,7 @@ def get_matched_images(
 
     if matchable:
         primary_alias, primary = matchable[0]
-        primary_dir = primary.get_data_path() / synset
+        primary_dir = primary.get_data_path(data_root) / synset
         if not primary_dir.exists():
             raise FileNotFoundError(f"Directory {primary_dir} not found")
         all_files = sorted(_list_images(primary_dir))
@@ -106,11 +107,11 @@ def get_matched_images(
         for alias, cfg in matchable:
             for idx in selected_indices:
                 result.append(
-                    (alias, idx, cfg.get_data_path() / synset / all_files[idx].name)
+                    (alias, idx, cfg.get_data_path(data_root) / synset / all_files[idx].name)
                 )
 
     for alias, cfg in independent:
-        synset_dir = cfg.get_data_path() / synset
+        synset_dir = cfg.get_data_path(data_root) / synset
         if not synset_dir.exists():
             raise FileNotFoundError(f"Directory {synset_dir} not found")
         all_files = sorted(_list_images(synset_dir))
@@ -131,6 +132,7 @@ def run_xai(
     synset: str,
     output_dir: str,
     sample_range: Optional[tuple[int, int]] = None,
+    data_root: Optional[str] = None,
 ):
     device = resolve_device()
 
@@ -144,7 +146,7 @@ def run_xai(
     target_idx = get_synset_index(synset)
     target_layer = get_target_layer(model, model_name)
 
-    samples = get_matched_images(datasets, synset, sample_range=sample_range)
+    samples = get_matched_images(datasets, synset, sample_range=sample_range, data_root=data_root)
 
     for dataset_alias, sample_idx, img_path in samples:
         dataset_label = dataset_alias.replace("/", "_")

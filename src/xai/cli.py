@@ -95,6 +95,7 @@ def run(args: argparse.Namespace):
             synset=args.synset,
             output_dir=args.output_dir,
             sample_range=sample_range,
+            data_root=args.data_path,
         )
 
     except Exception as e:
