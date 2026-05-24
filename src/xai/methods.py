@@ -95,7 +95,7 @@ def _run_integrated_gradients(
 ) -> np.ndarray:
     ig = IntegratedGradients(model)
     baseline = torch.zeros_like(input_tensor)
-    attrs = ig.attribute(input_tensor, baseline, target=class_idx, n_steps=steps)
+    attrs = ig.attribute(input_tensor, baseline, target=class_idx, n_steps=steps, internal_batch_size=1)
 
     return _to_numpy_heatmap(attrs)
 
@@ -104,9 +104,9 @@ def _run_smoothgrad_ig(
     model: nn.Module,
     input_tensor: torch.Tensor,
     class_idx: int,
-    steps: int = 50,
-    n_samples: int = 20,
-    noise_level: float = 0.1,
+    steps: int = 25,
+    n_samples: int = 10,
+    noise_level: float = 0.15,
 ) -> np.ndarray:
     ig = IntegratedGradients(model)
     nt = NoiseTunnel(ig)
@@ -115,10 +115,12 @@ def _run_smoothgrad_ig(
         input_tensor,
         nt_type="smoothgrad",
         nt_samples=n_samples,
+        nt_samples_batch_size=1,
         stdevs=noise_level,
         baselines=baseline,
         target=class_idx,
         n_steps=steps,
+        internal_batch_size=1,
     )
 
     return _to_numpy_heatmap(attrs)

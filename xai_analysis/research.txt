@@ -1,0 +1,16 @@
+
+
+FRAGILE 
+
+1. konkretny typ + severity
+
+Stingray, n01498041
+Radio, n04041544
+Chainlink fence, n03000134 
+Crayfish, n01985128
+Barbershop n02791270
+Boa constrictor n01742172
+
+
+defocus blur severity 3
+gaussian noise severity 3
