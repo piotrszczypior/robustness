@@ -46,6 +46,12 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         help="Output directory for heatmaps",
     )
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
+    parser.add_argument("--sync-drive", action="store_true", help="Copy output panels to Google Drive")
+    parser.add_argument(
+        "--layer-ig",
+        action="store_true",
+        help="For ViT models: use LayerIntegratedGradients on patch embedding instead of pixel-level IG",
+    )
     parser.add_argument(
         "--sample-range",
         default=None,
@@ -96,6 +102,8 @@ def run(args: argparse.Namespace):
             output_dir=args.output_dir,
             sample_range=sample_range,
             data_root=args.data_path,
+            layer_ig=args.layer_ig,
+            sync_drive=args.sync_drive,
         )
 
     except Exception as e:

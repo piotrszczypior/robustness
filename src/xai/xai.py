@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import shutil
 from pathlib import Path
 from typing import Dict, Optional
 
@@ -18,6 +19,7 @@ from model import get_model
 from .layer import get_target_layer
 from .visualization import save_heatmap, save_xai_panel
 from utils import resolve_device
+from paths import paths
 from .methods import get_all_explanations
 from utils import get_synset_to_label_imagenet1k
 
@@ -133,6 +135,8 @@ def run_xai(
     output_dir: str,
     sample_range: Optional[tuple[int, int]] = None,
     data_root: Optional[str] = None,
+    layer_ig: bool = False,
+    sync_drive: bool = False,
 ):
     device = resolve_device()
 
@@ -161,7 +165,12 @@ def run_xai(
         img_pil = Image.open(img_path).convert("RGB")
         input_tensor = transforms(img_pil).unsqueeze(0).to(device)
         explanations = get_all_explanations(
-            model, model_name, target_layer, input_tensor, target_idx
+            model, model_name, target_layer, input_tensor, target_idx, layer_ig=layer_ig
         )
 
         save_xai_panel(explanations, img_path, output_path)
+
+        if sync_drive:
+            drive_path = paths.google_colab_gdrive_xai_path / output_path.relative_to(output_dir)
+            drive_path.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(output_path, drive_path)

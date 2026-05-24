@@ -48,5 +48,9 @@ class ProjectPaths:
     def google_colab_gdrive_path(self) -> Path:
         return Path("/content/drive/MyDrive/robustness/results")
 
+    @property
+    def google_colab_gdrive_xai_path(self) -> Path:
+        return Path("/content/drive/MyDrive/robustness/xai")
+
 
 paths = ProjectPaths()

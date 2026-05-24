@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from typing import Optional
-from captum.attr import IntegratedGradients, NoiseTunnel, LayerGradCam
+from captum.attr import IntegratedGradients, LayerIntegratedGradients, NoiseTunnel, LayerGradCam
 import types
 from torchcam.methods import GradCAMpp
 
@@ -103,6 +103,24 @@ def _run_integrated_gradients(
     return _to_numpy_heatmap(attrs)
 
 
+def _run_layer_ig(
+    model: nn.Module,
+    input_tensor: torch.Tensor,
+    class_idx: int,
+    steps: int = 50,
+) -> np.ndarray:
+    """IG attributed to the patch embedding output (ViT-specific)."""
+    layer = model.conv_proj
+    lig = LayerIntegratedGradients(model, layer)
+    baseline = torch.zeros_like(input_tensor)
+    attrs = lig.attribute(input_tensor, baseline, target=class_idx, n_steps=steps, internal_batch_size=1)
+
+    # attrs: [1, C, H_patch, W_patch] → collapse channels → resize to input
+    attr = attrs.squeeze(0).abs().mean(dim=0, keepdim=True).unsqueeze(0)
+    attr = F.interpolate(attr, size=input_tensor.shape[-2:], mode="bilinear", align_corners=False)
+    return _normalize(attr.squeeze().detach().cpu().numpy())
+
+
 def _run_smoothgrad_ig(
     model: nn.Module,
     input_tensor: torch.Tensor,
@@ -185,14 +203,18 @@ def get_all_explanations(
     target_layer: nn.Module,
     input_tensor: torch.Tensor,
     class_idx: int,
+    layer_ig: bool = False,
 ) -> dict[str, np.ndarray]:
     family = MODEL_FAMILY.get(model_name.lower(), "cnn")
 
     explanations = {}
 
-    explanations["integrated_gradients"] = _run_integrated_gradients(
-        model, input_tensor, class_idx
-    )
+    if layer_ig and family == "vit":
+        explanations["integrated_gradients"] = _run_layer_ig(model, input_tensor, class_idx)
+    else:
+        explanations["integrated_gradients"] = _run_integrated_gradients(
+            model, input_tensor, class_idx
+        )
     explanations["smoothgrad_ig"] = _run_smoothgrad_ig(model, input_tensor, class_idx)
 
     if family in ("cnn", "hybrid", "swin", "maxvit"):
