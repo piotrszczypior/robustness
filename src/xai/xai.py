@@ -19,6 +19,7 @@ from .layer import get_target_layer
 from .visualization import save_heatmap, save_xai_panel
 from utils import resolve_device
 from .methods import get_all_explanations
+from utils import get_synset_to_label_imagenet1k
 
 
 logger = logging.getLogger("xai.gradcam")
@@ -65,12 +66,18 @@ def get_images(dataset: DatasetConfig, synset: str, max_images: int = 5) -> list
 
 
 def get_matched_images(
-    datasets: list[tuple[str, DatasetConfig]], synset: str, max_images: int = 5
+    datasets: list[tuple[str, DatasetConfig]],
+    synset: str,
+    max_images: int = 5,
+    sample_range: Optional[tuple[int, int]] = None,
 ) -> list[tuple[str, int, Path]]:
     """Returns (dataset_alias, sample_index, image_path) triples.
     ImageNet + ImageNet-C variants share the same selected indices (same source images).
     ImageNet-R / ImageNet-A get independently sampled images.
     Index is the position in the sorted file list of the synset directory.
+
+    When sample_range=(start, end) is given, indices [start, end) from the sorted
+    file list are used instead of random sampling.
     """
     matchable = [
         (alias, cfg) for alias, cfg in datasets if cfg.type in _MATCHABLE_TYPES
@@ -87,7 +94,11 @@ def get_matched_images(
         if not primary_dir.exists():
             raise FileNotFoundError(f"Directory {primary_dir} not found")
         all_files = sorted(_list_images(primary_dir))
-        selected_indices = torch.randperm(len(all_files))[:max_images].tolist()
+        if sample_range is not None:
+            start, end = sample_range
+            selected_indices = list(range(start, min(end, len(all_files))))
+        else:
+            selected_indices = torch.randperm(len(all_files))[:max_images].tolist()
         logger.info(
             f"Selected indices {selected_indices} from {primary_alias}/{synset}"
         )
@@ -103,35 +114,46 @@ def get_matched_images(
         if not synset_dir.exists():
             raise FileNotFoundError(f"Directory {synset_dir} not found")
         all_files = sorted(_list_images(synset_dir))
-        selected_indices = torch.randperm(len(all_files))[:max_images].tolist()
+        if sample_range is not None:
+            start, end = sample_range
+            selected_indices = list(range(start, min(end, len(all_files))))
+        else:
+            selected_indices = torch.randperm(len(all_files))[:max_images].tolist()
         for idx in selected_indices:
             result.append((alias, idx, synset_dir / all_files[idx].name))
 
     return result
 
 
-def run_xai(model_name: str, dataset_aliases: list[str], synset: str, output_dir: str):
+def run_xai(
+    model_name: str,
+    dataset_aliases: list[str],
+    synset: str,
+    output_dir: str,
+    sample_range: Optional[tuple[int, int]] = None,
+):
     device = resolve_device()
 
     model, transforms = get_model(model_name)
     model.to(device)
     model.eval()
+    synset_to_label = get_synset_to_label_imagenet1k()
 
     datasets = [(alias, DatasetConfig.from_alias(alias)) for alias in dataset_aliases]
 
     target_idx = get_synset_index(synset)
     target_layer = get_target_layer(model, model_name)
 
-    samples = get_matched_images(datasets, synset)
+    samples = get_matched_images(datasets, synset, sample_range=sample_range)
 
     for dataset_alias, sample_idx, img_path in samples:
         dataset_label = dataset_alias.replace("/", "_")
-        output_path = (
-            Path(output_dir)
-            / model_name
-            / synset
-            / f"{model_name}_{synset}_{dataset_label}_{sample_idx}.png"
-        )
+        label = synset_to_label[synset]
+        if sample_range is not None:
+            stem = f"{model_name}_{synset}_{dataset_label}_{label}_{sample_idx}.png"
+        else:
+            stem = f"{model_name}_{synset}_{dataset_label}_{label}.png"
+        output_path = Path(output_dir) / model_name / synset / stem
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
         img_pil = Image.open(img_path).convert("RGB")

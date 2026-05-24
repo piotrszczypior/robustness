@@ -28,6 +28,7 @@ from plots_v2.severity_dot.cli import get_task as get_severity_dot_v2_task
 from plots_v2.fragile_histogram.cli import get_task as get_fragile_histogram_task
 from plots_v2.upset_fragile.cli import get_task as get_upset_fragile_task
 from plots_v2.fragile_severity_line.cli import get_task as get_fragile_severity_line_task
+from plots_v2.mistake_dot.cli import get_task as get_mistake_dot_task
 
 
 TASK_REGISTRY: Dict[str, Task] = {
@@ -51,6 +52,7 @@ TASK_REGISTRY: Dict[str, Task] = {
     "fragile_histogram_v2": get_fragile_histogram_task(),
     "upset_fragile_v2": get_upset_fragile_task(),
     "fragile_severity_line_v2": get_fragile_severity_line_task(),
+    "mistake_dot_v2": get_mistake_dot_task(),
 }
 
 

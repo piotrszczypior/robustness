@@ -46,15 +46,47 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         help="Output directory for heatmaps",
     )
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
+    parser.add_argument(
+        "--sample-range",
+        default=None,
+        type=str,
+        metavar="START:END",
+        help="Range of image indices to process (e.g. 30:50); uses sorted order within the synset directory",
+    )
+
+
+def _parse_sample_range(value: str) -> tuple[int, int]:
+    parts = value.split(":")
+    if len(parts) != 2:
+        raise argparse.ArgumentTypeError(
+            f"--sample-range must be in START:END format, got: {value!r}"
+        )
+    try:
+        start, end = int(parts[0]), int(parts[1])
+    except ValueError:
+        raise argparse.ArgumentTypeError(
+            f"--sample-range values must be integers, got: {value!r}"
+        )
+    if start < 0 or end <= start:
+        raise argparse.ArgumentTypeError(
+            f"--sample-range requires 0 <= START < END, got: {value!r}"
+        )
+    return start, end
 
 
 def run(args: argparse.Namespace):
     if args.debug:
         logging.getLogger().setLevel(logging.DEBUG)
 
+    sample_range = None
+    if args.sample_range is not None:
+        sample_range = _parse_sample_range(args.sample_range)
+
     logger.info(f"Starting XAI analysis for model: {args.model}")
     logger.info(f"Datasets: {args.datasets}")
     logger.info(f"Synset: {args.synset}")
+    if sample_range is not None:
+        logger.info(f"Sample range: {sample_range[0]}:{sample_range[1]}")
 
     try:
         run_xai(
@@ -62,6 +94,7 @@ def run(args: argparse.Namespace):
             dataset_aliases=args.datasets,
             synset=args.synset,
             output_dir=args.output_dir,
+            sample_range=sample_range,
         )
 
     except Exception as e:
