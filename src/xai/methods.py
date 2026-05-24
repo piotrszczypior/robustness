@@ -74,7 +74,11 @@ def _run_gradcam_pp(
     out = model(input_tensor)
     cams = cam_extractor(class_idx, out)
 
-    cam = cams[0].unsqueeze(1)
+    cam = cams[0]
+    if cam.dim() == 2:
+        cam = cam.unsqueeze(0).unsqueeze(0)  # [H, W] → [1, 1, H, W]
+    else:
+        cam = cam.unsqueeze(1)  # [B, H, W] → [B, 1, H, W]
 
     resized_cam = F.interpolate(
         cam,
