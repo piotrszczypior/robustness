@@ -74,3 +74,44 @@ def save_xai_panel(
     output_path.parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(output_path, dpi=150, bbox_inches="tight")
     plt.close(fig)
+
+
+def save_individual_explanations(
+    explanations: dict[str, np.ndarray],
+    original_img_path: Path,
+    output_dir: Path,
+    model_name: str,
+    base_stem: str,
+) -> None:
+    """Save each method as a separate PNG: {model}_{method}_{base_stem}.png"""
+    img = Image.open(original_img_path).convert("RGB")
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    _GRAYSCALE = {"integrated_gradients", "smoothgrad_ig", "layer_ig"}
+
+    for method_name, heatmap in explanations.items():
+        fig, axes = plt.subplots(1, 2, figsize=(8, 4))
+        axes[0].imshow(img)
+        axes[0].axis("off")
+
+        if method_name in _GRAYSCALE:
+            heatmap_resized = (
+                np.array(
+                    Image.fromarray((heatmap * 255).astype(np.uint8)).resize(
+                        img.size, resample=Image.BILINEAR
+                    )
+                ) / 255.0
+            )
+            axes[1].imshow(heatmap_resized, cmap="gray", vmin=0, vmax=1)
+        else:
+            heatmap_colored = (plt.cm.jet(heatmap)[:, :, :3] * 255).astype(np.uint8)
+            heatmap_img = Image.fromarray(heatmap_colored).resize(
+                img.size, resample=Image.BILINEAR
+            )
+            axes[1].imshow(Image.blend(img, heatmap_img, alpha=0.5))
+
+        axes[1].axis("off")
+        plt.tight_layout()
+        out_path = output_dir / f"{model_name}_{method_name}_{base_stem}.png"
+        plt.savefig(out_path, dpi=150, bbox_inches="tight")
+        plt.close(fig)

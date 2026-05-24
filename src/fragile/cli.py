@@ -3,7 +3,7 @@ from pathlib import Path
 from networkx import to_latex
 from task import Task
 import argparse
-from .experiments import EXPERIMENTS, get_dfs_for_all_models, get_df_for_model, get_dfs_for_experiment, get_rmce_alexnet_df
+from .experiments import EXPERIMENTS, get_dfs_for_all_models, get_df_for_model, get_dfs_for_experiment, get_rmce_alexnet_df, get_alexnet_df_by_alias, get_df_by_alias_with_rmce
 from model import MODELS
 from .fragile import (
     get_absolute_fragile,
@@ -136,6 +136,57 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         default=None,
         help="Filter to a single severity level (1–5); used by --granular-group-cross-model",
     )
+    parser.add_argument(
+        "--dataset-intersection",
+        action="store_true",
+        help="For a single dataset alias: find synsets fragile in ALL 4 selected models",
+    )
+    parser.add_argument(
+        "--dataset",
+        type=str,
+        default=None,
+        help="Dataset alias for --dataset-intersection / --arch-contrast (e.g. imagenet_c_motion_blur_2)",
+    )
+    parser.add_argument(
+        "--arch-contrast",
+        action="store_true",
+        help="Find synsets fragile only in ViT models (not CNN) and vice-versa",
+    )
+    parser.add_argument(
+        "--vit-models",
+        nargs="+",
+        default=["vit_b_16"],
+        help="ViT model keys for --arch-contrast",
+    )
+    parser.add_argument(
+        "--cnn-models",
+        nargs="+",
+        default=["efficientnet_b4"],
+        help="CNN model keys for --arch-contrast",
+    )
+    parser.add_argument(
+        "--group",
+        type=str,
+        default=None,
+        help="Corruption group for --arch-contrast (e.g. blur); averages across all corruptions x severities in group",
+    )
+    parser.add_argument(
+        "--min-models",
+        type=int,
+        default=None,
+        help="Minimum models per family that must agree (default: all models in the family)",
+    )
+    parser.add_argument(
+        "--delta",
+        type=float,
+        default=0.1,
+        help="Minimum difference rel_drop_vit - rel_drop_cnn (or vice versa) to qualify as exclusive (default: 0.1)",
+    )
+    parser.add_argument(
+        "--scatter",
+        action="store_true",
+        help="Save scatter plot (rel_drop_cnn vs rel_drop_vit) for --arch-contrast",
+    )
 
 
 def run(args: argparse.Namespace):
@@ -177,6 +228,14 @@ def run(args: argparse.Namespace):
 
     if args.exp_sweep:
         run_experiment_fragile_sweep(args)
+        return
+
+    if args.dataset_intersection:
+        run_dataset_model_intersection(args)
+        return
+
+    if args.arch_contrast:
+        run_arch_contrast(args)
         return
 
     variations = EXPERIMENTS[args.exp]
@@ -225,6 +284,231 @@ def run(args: argparse.Namespace):
     # print(len(across_models_df))
 
     # run_clustering(across_models_df)
+
+
+def _load_model_dfs_by_alias(
+    models: list[str], alias: str, data_path: str
+) -> dict[str, pd.DataFrame]:
+    alexnet_df = get_alexnet_df_by_alias(alias, data_path)
+    dfs = {}
+    for model in models:
+        try:
+            dfs[model] = get_df_by_alias_with_rmce(model, alias, alexnet_df, data_path)
+        except FileNotFoundError:
+            pass
+    return dfs
+
+
+def _load_model_dfs_by_group(
+    models: list[str], group: str, severity: int | None, data_path: str
+) -> dict[str, pd.DataFrame]:
+    from space import CorruptionVariations
+    from constants import IMAGENET_C_SEVERITIES
+
+    variation = CorruptionVariations(
+        groups=[group],
+        severities=[severity] if severity else IMAGENET_C_SEVERITIES,
+    )
+    all_dfs = get_dfs_for_all_models(variation, data_path)
+    return {m: all_dfs[m] for m in models if m in all_dfs}
+
+
+def _fragile_synsets(
+    dfs: dict[str, pd.DataFrame],
+    alexnet_df: pd.DataFrame,
+    definition,
+    select_top_k: int | None,
+) -> tuple[list[set], dict[str, pd.DataFrame]]:
+    fragile_sets: list[set] = []
+    fragile_dfs: dict[str, pd.DataFrame] = {}
+    for model, df in dfs.items():
+        df = _get_fragile(df, alexnet_df, definition)
+        candidates = df[df["is_strongly_fragile"] == 1]
+        if select_top_k:
+            candidates = select_top_k_fragile(candidates, select_top_k)
+        fragile_sets.append(set(candidates["synset"]))
+        fragile_dfs[model] = df
+    return fragile_sets, fragile_dfs
+
+
+def _agg_by_family(
+    synsets: set | None, dfs: dict[str, pd.DataFrame], suffix: str
+) -> pd.DataFrame:
+    if not dfs:
+        return pd.DataFrame()
+    combined = pd.concat(list(dfs.values()))
+    if synsets is not None:
+        combined = combined[combined["synset"].isin(synsets)]
+    agg_spec: dict = {
+        f"acc_clean_{suffix}": ("acc_clean", "mean"),
+        f"acc_corrupt_{suffix}": ("acc_corrupt", "mean"),
+        f"rel_drop_{suffix}": ("rel_drop", "mean"),
+    }
+    if "y_true" in combined.columns:
+        agg_spec["y_true"] = ("y_true", "first")
+    return combined.groupby("synset").agg(**agg_spec).reset_index()
+
+
+def _pareto_2d(df: pd.DataFrame, maximize_col: str, minimize_col: str) -> pd.Index:
+    """Pareto front: maximize maximize_col, minimize minimize_col."""
+    hi = df[maximize_col].values
+    lo = df[minimize_col].values
+    n = len(df)
+    is_dominated = np.zeros(n, dtype=bool)
+    for i in range(n):
+        for j in range(n):
+            if i == j:
+                continue
+            if hi[j] >= hi[i] and lo[j] <= lo[i]:
+                if hi[j] > hi[i] or lo[j] < lo[i]:
+                    is_dominated[i] = True
+                    break
+    return df.index[~is_dominated]
+
+
+def run_arch_contrast(args: argparse.Namespace) -> None:
+    if not args.dataset and not args.group:
+        raise ValueError("--arch-contrast requires --dataset or --group")
+
+    vit_keys = args.vit_models
+    cnn_keys = args.cnn_models
+    label = args.dataset if args.dataset else f"{args.group} sev={args.severity or 'all'}"
+
+    print(f"[arch-contrast] {label}")
+    print(f"  ViT: {vit_keys}")
+    print(f"  CNN: {cnn_keys}")
+
+    if args.dataset:
+        vit_dfs = _load_model_dfs_by_alias(vit_keys, args.dataset, args.data_path)
+        cnn_dfs = _load_model_dfs_by_alias(cnn_keys, args.dataset, args.data_path)
+    else:
+        vit_dfs = _load_model_dfs_by_group(vit_keys, args.group, args.severity, args.data_path)
+        cnn_dfs = _load_model_dfs_by_group(cnn_keys, args.group, args.severity, args.data_path)
+
+    if not vit_dfs or not cnn_dfs:
+        print("  Not enough data loaded.")
+        return
+
+    vit_agg = _agg_by_family(None, vit_dfs, "vit")
+    cnn_agg = _agg_by_family(None, cnn_dfs, "cnn")
+    df = vit_agg.merge(cnn_agg, on=["synset", "y_true"])
+
+    df["delta_vit"] = df["rel_drop_vit"] - df["rel_drop_cnn"]
+    df["delta_cnn"] = df["rel_drop_cnn"] - df["rel_drop_vit"]
+
+    # ViT-exclusive: max rel_drop_vit, min rel_drop_cnn + twardy filtr delta + rel_drop_vit > 0
+    vit_candidates = df[(df["delta_vit"] > args.delta) & (df["rel_drop_vit"] > 0) & (df["acc_clean_vit"] > 0.3)]
+    vit_idx = _pareto_2d(vit_candidates, maximize_col="rel_drop_vit", minimize_col="rel_drop_cnn")
+    vit_df = vit_candidates.loc[vit_idx].copy()
+
+    # CNN-exclusive: max rel_drop_cnn, min rel_drop_vit + twardy filtr delta + rel_drop_cnn > 0
+    cnn_candidates = df[(df["delta_cnn"] > args.delta) & (df["rel_drop_cnn"] > 0) & (df["acc_clean_cnn"] > 0.3)]
+    cnn_idx = _pareto_2d(cnn_candidates, maximize_col="rel_drop_cnn", minimize_col="rel_drop_vit")
+    cnn_df = cnn_candidates.loc[cnn_idx].copy()
+
+    # usuń przecięcie — synset nie może być w obu zbiorach
+    overlap = set(vit_df["synset"]) & set(cnn_df["synset"])
+    if overlap:
+        vit_df = vit_df[~vit_df["synset"].isin(overlap)]
+        cnn_df = cnn_df[~cnn_df["synset"].isin(overlap)]
+
+    if args.select_top_k:
+        vit_df = vit_df.nlargest(args.select_top_k, "rel_drop_vit")
+        cnn_df = cnn_df.nlargest(args.select_top_k, "rel_drop_cnn")
+
+    cols = ["synset", "y_true", "rel_drop_vit", "rel_drop_cnn",
+            "acc_clean_vit", "acc_corrupt_vit", "acc_clean_cnn", "acc_corrupt_cnn"]
+    print(f"\n--- ViT-exclusive Pareto (↑ rel_drop_vit, ↓ rel_drop_cnn): {len(vit_df)} synsets ---")
+    print(vit_df[[c for c in cols if c in vit_df.columns]].sort_values("rel_drop_vit", ascending=False).to_string())
+    print(f"\n--- CNN-exclusive Pareto (↑ rel_drop_cnn, ↓ rel_drop_vit): {len(cnn_df)} synsets ---")
+    print(cnn_df[[c for c in cols if c in cnn_df.columns]].sort_values("rel_drop_cnn", ascending=False).to_string())
+
+    if args.save_tables:
+        from .representation import arch_contrast_to_latex
+        arch_contrast_to_latex(
+            vit_df=vit_df,
+            cnn_df=cnn_df,
+            label=label,
+            definition_name="pareto",
+            save=True,
+        )
+
+    if args.scatter or args.save_tables:
+        from .representation import arch_contrast_scatter
+        arch_contrast_scatter(df, vit_df, cnn_df, label=label,
+                              vit_keys=vit_keys, cnn_keys=cnn_keys)
+
+
+def run_dataset_model_intersection(args: argparse.Namespace) -> None:
+    _MODELS = {
+        "resnet50": "ResNet-50",
+        "efficientnet_b4": "EfficientNet-B4",
+        "vit_b_16": "ViT-B/16",
+        "convnext_base": "ConvNeXt-Base",
+    }
+
+    if not args.dataset:
+        raise ValueError("--dataset-intersection requires --dataset")
+
+    definition = DEFINITIONS[args.definition]
+    print(f"[dataset-intersection] dataset={args.dataset}  definition={definition.label}")
+
+    alexnet_df = get_alexnet_df_by_alias(args.dataset, args.data_path)
+
+    fragile_sets: list[set] = []
+    all_dfs: list[pd.DataFrame] = []
+
+    for model_key, model_label in _MODELS.items():
+        try:
+            df = get_df_by_alias_with_rmce(model_key, args.dataset, alexnet_df, args.data_path)
+            df = _get_fragile(df, alexnet_df, definition)
+            candidates = df[df["is_strongly_fragile"] == 1]
+            if args.select_top_k:
+                candidates = select_top_k_fragile(candidates, args.select_top_k)
+            synsets = set(candidates["synset"])
+            fragile_sets.append(synsets)
+            all_dfs.append(df)
+            print(f"  {model_label}: {len(synsets)} fragile synsets")
+        except FileNotFoundError:
+            print(f"  {model_label}: missing data, skipping")
+
+    if not fragile_sets:
+        print("No data loaded.")
+        return
+
+    intersection = set.intersection(*fragile_sets)
+    print(f"\nIntersection: {len(intersection)} synsets fragile across all {len(fragile_sets)} models")
+
+    if not intersection:
+        print("Empty intersection.")
+        return
+
+    # combined = pd.concat(all_dfs)
+    # combined = combined[combined["synset"].isin(intersection)]
+    # agg = (
+    #     combined.groupby("synset")
+    #     .agg(
+    #         y_true=("y_true", "first"),
+    #         acc_clean=("acc_clean", "mean"),
+    #         acc_corrupt=("acc_corrupt", "mean"),
+    #         rel_drop=("rel_drop", "mean"),
+    #         abs_drop=("abs_drop", "mean"),
+    #         RmCE=("RmCE", "mean"),
+    #     )
+    #     .reset_index()
+    # )
+
+    # print(agg[["synset", "y_true", "acc_clean", "acc_corrupt", "rel_drop", "abs_drop"]].to_string())
+    # print(f"\n{len(agg)} synsets")
+
+    if args.save_tables:
+        from .representation import dataset_intersection_to_latex
+        dataset_intersection_to_latex(
+            intersection,
+            dataset=args.dataset,
+            definition_name=args.definition,
+            save=True,
+        )
 
 
 def run_sweep(args: argparse.Namespace):

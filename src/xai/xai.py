@@ -17,7 +17,7 @@ from PIL import Image
 from model import get_model
 
 from .layer import get_target_layer
-from .visualization import save_heatmap, save_xai_panel
+from .visualization import save_heatmap, save_xai_panel, save_individual_explanations
 from utils import resolve_device
 from paths import paths
 from .methods import get_all_explanations
@@ -137,6 +137,7 @@ def run_xai(
     data_root: Optional[str] = None,
     layer_ig: bool = False,
     sync_drive: bool = False,
+    save_individual: bool = False,
 ):
     device = resolve_device()
 
@@ -156,10 +157,11 @@ def run_xai(
         dataset_label = dataset_alias.replace("/", "_")
         label = synset_to_label[synset]
         if sample_range is not None:
-            stem = f"{model_name}_{synset}_{dataset_label}_{label}_{sample_idx}.png"
+            base_stem = f"{dataset_label}_{synset}_{label}_{sample_idx}"
         else:
-            stem = f"{model_name}_{synset}_{dataset_label}_{label}.png"
-        output_path = Path(output_dir) / model_name / synset / stem
+            base_stem = f"{dataset_label}_{synset}_{label}"
+        out_dir = Path(output_dir) / model_name / synset
+        output_path = out_dir / f"{model_name}_{base_stem}.png"
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
         img_pil = Image.open(img_path).convert("RGB")
@@ -169,6 +171,11 @@ def run_xai(
         )
 
         save_xai_panel(explanations, img_path, output_path)
+
+        if save_individual:
+            save_individual_explanations(
+                explanations, img_path, out_dir, model_name, base_stem
+            )
 
         if sync_drive:
             drive_path = paths.google_colab_gdrive_xai_path / output_path.relative_to(output_dir)

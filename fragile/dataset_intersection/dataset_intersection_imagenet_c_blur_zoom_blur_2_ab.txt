@@ -1,0 +1,34 @@
+\begin{table}[H]
+\caption{Fragile synsets common to all models — imagenet\_c\_blur\_zoom\_blur\_2 (ab)}
+\centering
+\begin{tabular}{llr}
+\toprule
+Synset & Index & Label \\
+\midrule
+n01692333 & 45 & Gila_monster \\
+n01697457 & 49 & African_crocodile \\
+n01698640 & 50 & American_alligator \\
+n01883070 & 106 & wombat \\
+n01917289 & 109 & brain_coral \\
+n01945685 & 114 & slug \\
+n01950731 & 115 & sea_slug \\
+n01984695 & 123 & spiny_lobster \\
+n01986214 & 125 & hermit_crab \\
+n02099429 & 206 & curly-coated_retriever \\
+n02099712 & 208 & Labrador_retriever \\
+n02102318 & 219 & cocker_spaniel \\
+n02444819 & 360 & otter \\
+n02730930 & 411 & apron \\
+n03000134 & 489 & chainlink_fence \\
+n03100240 & 511 & convertible \\
+n03598930 & 611 & jigsaw_puzzle \\
+n03775071 & 658 & mitten \\
+n03938244 & 721 & pillow \\
+n07583066 & 924 & guacamole \\
+n07831146 & 959 & carbonara \\
+n07880968 & 965 & burrito \\
+n13054560 & 997 & bolete \\
+\bottomrule
+\end{tabular}
+\label{tab:dataset_intersection_ab}
+\end{table}

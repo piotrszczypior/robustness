@@ -59,6 +59,11 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         metavar="START:END",
         help="Range of image indices to process (e.g. 30:50); uses sorted order within the synset directory",
     )
+    parser.add_argument(
+        "--save-individual",
+        action="store_true",
+        help="Save each XAI method as a separate image: {model}_{method}_{dataset}_{synset}_{label}_{idx}.png",
+    )
 
 
 def _parse_sample_range(value: str) -> tuple[int, int]:
@@ -104,6 +109,7 @@ def run(args: argparse.Namespace):
             data_root=args.data_path,
             layer_ig=args.layer_ig,
             sync_drive=args.sync_drive,
+            save_individual=args.save_individual,
         )
 
     except Exception as e:

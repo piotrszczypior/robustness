@@ -10,7 +10,32 @@ Chainlink fence, n03000134
 Crayfish, n01985128
 Barbershop n02791270
 Boa constrictor n01742172
-
+n01775062
 
 defocus blur severity 3
 gaussian noise severity 3
+
+
+ - Universally fragile: fragile w all_corruptions I w każdym subgroup experiment
+  - Conditionally fragile: fragile tylko pod konkretny typ korupcji (np. tylko blur)
+  - Severity-driven: znika przy severity 1, pojawia się przy wyższych
+
+
+  a może tak - jeśli chodzi o micor                                                                                                                         
+                                                                                                                                                            
+  Wybrać jedną korupcje na start motion blur severity 2                                                                                                     
+                                                                                                                                                            
+  zrobić analize na 4 modelach micro                                                                                                                        
+  1) Synsety które są w wszysktich 4 - biorąc K klas jak jest za dużo za pomocą frontu pereto max clean acc i min corrupt acc ale per model bez uśredniania 
+                                                                                                                                                            
+  2) Synsety które sa tylko mdel specific Resnet vs reszta itd albo ViT vs CNN - też K sysnetów na tej samej zasadzie albo w ogóle maksymalizując corrupt   
+  accuracy dla VIT i minimalizując dla CNN cos takeigo                                                                                                      
+  3) Wziąc tylko jeden modeli i pokazać dla tej korupcji K sysnetów frontem pareto maksymalizując acc i min corrupt accuracy 
+
+
+--- motion blur
+  Intersection: 3 synsets fragile across all 4 models
+      synset  acc_clean  acc_corrupt  rel_drop  abs_drop
+0  n03000134      0.830        0.445  0.464124     0.385
+1  n03891251      0.820        0.440  0.462819     0.380
+2  n03938244      0.905        0.345  0.620313     0.560

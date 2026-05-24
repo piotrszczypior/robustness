@@ -1,0 +1,39 @@
+\begin{table}[H]
+\caption{Architecture-specific fragile synsets — imagenet\_c\_blur\_motion\_blur\_3}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{ll ccc ccc r}
+\toprule
+ & & \multicolumn{3}{c}{ViT} & \multicolumn{3}{c}{CNN} & \\
+\cmidrule(lr){3-5} \cmidrule(lr){6-8}
+Synset & Label & Clean & Corrupt & Drop & Clean & Corrupt & Drop & $\Delta$ \\
+\midrule
+\multicolumn{9}{l}{\textbf{ViT-exclusive}} \\
+\midrule
+n03782006 & Monitor & 0.500 & 0.060 & 0.880 & 0.500 & 0.260 & 0.480 & 0.400 \\
+n03481172 & Hammer & 0.760 & 0.220 & 0.711 & 0.720 & 0.380 & 0.472 & 0.238 \\
+n04356056 & Sunglasses & 0.440 & 0.140 & 0.682 & 0.480 & 0.260 & 0.458 & 0.223 \\
+n04350905 & Suit & 0.660 & 0.240 & 0.636 & 0.660 & 0.460 & 0.303 & 0.333 \\
+n03180011 & Desktop computer & 0.680 & 0.280 & 0.588 & 0.680 & 0.520 & 0.235 & 0.353 \\
+n03680355 & Loafer & 0.900 & 0.480 & 0.467 & 0.920 & 0.780 & 0.152 & 0.314 \\
+n02113186 & Cardigan & 0.840 & 0.460 & 0.452 & 0.780 & 0.700 & 0.103 & 0.350 \\
+n02895154 & Breastplate & 0.520 & 0.300 & 0.423 & 0.360 & 0.500 & -0.389 & 0.812 \\
+\midrule
+\multicolumn{9}{l}{\textbf{CNN-exclusive}} \\
+\midrule
+n02776631 & Bakery & 0.480 & 0.120 & 0.750 & 0.520 & 0.040 & 0.923 & 0.173 \\
+n04325704 & Stole & 0.640 & 0.180 & 0.719 & 0.720 & 0.080 & 0.889 & 0.170 \\
+n04041544 & Radio & 0.620 & 0.200 & 0.677 & 0.760 & 0.140 & 0.816 & 0.138 \\
+n07684084 & French loaf & 0.700 & 0.420 & 0.400 & 0.780 & 0.160 & 0.795 & 0.395 \\
+n03724870 & Mask & 0.640 & 0.400 & 0.375 & 0.720 & 0.200 & 0.722 & 0.347 \\
+n03873416 & Paddle & 0.800 & 0.680 & 0.150 & 0.840 & 0.300 & 0.643 & 0.493 \\
+n02106030 & Collie & 0.600 & 0.520 & 0.133 & 0.600 & 0.340 & 0.433 & 0.300 \\
+n07875152 & Potpie & 0.800 & 0.720 & 0.100 & 0.900 & 0.520 & 0.422 & 0.322 \\
+n04008634 & Projectile & 0.400 & 0.380 & 0.050 & 0.320 & 0.200 & 0.375 & 0.325 \\
+n02119789 & Kit fox & 0.720 & 0.740 & -0.028 & 0.780 & 0.520 & 0.333 & 0.361 \\
+n04591157 & Windsor tie & 0.380 & 0.460 & -0.211 & 0.420 & 0.340 & 0.190 & 0.401 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:arch_contrast}
+\end{table}

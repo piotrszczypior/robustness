@@ -1,5 +1,5 @@
 import re
-from utils import get_synset_to_label_imagenet1k
+from utils import get_index_to_synset_and_label_imagenet1k, get_synset_to_label_imagenet1k
 import pandas as pd
 from pathlib import Path
 
@@ -349,6 +349,195 @@ def generate_fragile_classes_table(
         print(f"Saved to {out / filename}")
 
     return latex
+
+
+def arch_contrast_to_latex(
+    vit_df: "pd.DataFrame",
+    cnn_df: "pd.DataFrame",
+    label: str,
+    definition_name: str,
+    path: str = "fragile/arch_contrast",
+    filename: str | None = None,
+    save: bool = False,
+) -> str:
+    synset_to_label = get_synset_to_label_imagenet1k()
+    caption_label = label.replace("_", "\\_")
+
+    # col spec: synset, label, 3x ViT, 3x CNN, delta
+    col_spec = "ll ccc ccc r"
+    header = (
+        "\\toprule\n"
+        " & & \\multicolumn{3}{c}{ViT} & \\multicolumn{3}{c}{CNN} & \\\\\n"
+        "\\cmidrule(lr){3-5} \\cmidrule(lr){6-8}\n"
+        "Synset & Label & Clean & Corrupt & Drop & Clean & Corrupt & Drop & $\\Delta$ \\\\\n"
+        "\\midrule\n"
+    )
+
+    def _section_rows(df: "pd.DataFrame", delta_col: str, sort_col: str) -> str:
+        if df.empty:
+            return "\\multicolumn{9}{c}{\\textit{(none)}} \\\\\n"
+        rows = ""
+        for _, row in df.sort_values(sort_col, ascending=False).iterrows():
+            lbl = _map_synset(row["synset"], synset_to_label)
+            rows += (
+                f"{row['synset']} & {lbl} & "
+                f"{row['acc_clean_vit']:.3f} & {row['acc_corrupt_vit']:.3f} & {row['rel_drop_vit']:.3f} & "
+                f"{row['acc_clean_cnn']:.3f} & {row['acc_corrupt_cnn']:.3f} & {row['rel_drop_cnn']:.3f} & "
+                f"{row[delta_col]:.3f} \\\\\n"
+            )
+        return rows
+
+    N_COLS = 9
+    body = (
+        f"\\multicolumn{{{N_COLS}}}{{l}}{{\\textbf{{ViT-exclusive}}}} \\\\\n"
+        "\\midrule\n"
+        + _section_rows(vit_df, delta_col="delta_vit", sort_col="rel_drop_vit")
+        + "\\midrule\n"
+        f"\\multicolumn{{{N_COLS}}}{{l}}{{\\textbf{{CNN-exclusive}}}} \\\\\n"
+        "\\midrule\n"
+        + _section_rows(cnn_df, delta_col="delta_cnn", sort_col="rel_drop_cnn")
+    )
+
+    latex = (
+        "\\begin{table}[H]\n"
+        f"\\caption{{Architecture-specific fragile synsets — {caption_label}}}\n"
+        "\\centering\n"
+        "\\resizebox{\\textwidth}{!}{\n"
+        f"\\begin{{tabular}}{{{col_spec}}}\n"
+        + header
+        + body
+        + "\\bottomrule\n"
+        "\\end{tabular}\n"
+        "}\n"
+        f"\\label{{tab:arch_contrast}}\n"
+        "\\end{table}\n"
+    )
+
+    if save:
+        out = Path(path)
+        out.mkdir(parents=True, exist_ok=True)
+        fname = filename or f"arch_contrast_{label}.txt"
+        (out / fname).write_text(latex)
+        print(f"Saved to {out / fname}")
+
+    return latex
+
+
+def dataset_intersection_to_latex(
+    synsets: set[str],
+    dataset: str,
+    definition_name: str,
+    path: str = "fragile/dataset_intersection",
+    filename: str | None = None,
+    save: bool = False,
+) -> str:
+    synset_to_label = get_synset_to_label_imagenet1k()
+    synset_to_index = {v[0]: k for k, v in get_index_to_synset_and_label_imagenet1k().items()}
+    
+    caption_dataset = dataset.replace("_", "\\_")
+    
+    header = (
+        "\\toprule\n"
+        "Synset & Index & Label \\\\\n"
+        "\\midrule\n"
+    )
+    
+    rows = ""
+    for synset in sorted(synsets):
+        label = synset_to_label.get(synset, "Unknown")
+        index = synset_to_index.get(synset)
+        
+        index_str = str(int(index)) if index is not None else "N/A"
+        
+        rows += f"{synset} & {index_str} & {label} \\\\\n"
+
+    latex = (
+        "\\begin{table}[H]\n"
+        f"\\caption{{Fragile synsets common to all models — {caption_dataset} ({definition_name})}}\n"
+        "\\centering\n"
+        "\\begin{tabular}{llr}\n"
+        f"{header}"
+        f"{rows}"
+        "\\bottomrule\n"
+        "\\end{tabular}\n"
+        f"\\label{{tab:dataset_intersection_{definition_name}}}\n"
+        "\\end{table}\n"
+    )
+
+    if save:
+        out = Path(path)
+        out.mkdir(parents=True, exist_ok=True)
+        fname = filename or f"dataset_intersection_{dataset}_{definition_name}.txt"
+        file_path = out / fname
+        file_path.write_text(latex, encoding="utf-8")
+        print(f"Saved to {file_path}")
+
+    return latex
+
+
+def arch_contrast_scatter(
+    df: pd.DataFrame,
+    vit_df: pd.DataFrame,
+    cnn_df: pd.DataFrame,
+    label: str,
+    vit_keys: list[str] | None = None,
+    cnn_keys: list[str] | None = None,
+    output_dir: str = "fragile/arch_contrast",
+) -> None:
+    """Scatter plot: x=rel_drop_cnn, y=rel_drop_vit. Pareto points highlighted."""
+    import matplotlib.pyplot as plt
+    from model import MODELS
+
+    vit_label = MODELS[vit_keys[0]] if vit_keys and len(vit_keys) == 1 else "ViT (average)"
+    cnn_label = MODELS[cnn_keys[0]] if cnn_keys and len(cnn_keys) == 1 else "CNN (average)"
+    title = f""
+
+    fig, ax = plt.subplots(figsize=(7, 7))
+
+    ax.scatter(
+        df["rel_drop_cnn"], df["rel_drop_vit"],
+        color="#cccccc", s=18, zorder=1, label="All synsets",
+    )
+
+    if not vit_df.empty:
+        ax.scatter(
+            vit_df["rel_drop_cnn"], vit_df["rel_drop_vit"],
+            color="#c0392b", s=20, zorder=3, label="ViT-exclusive",
+        )
+
+    if not cnn_df.empty:
+        ax.scatter(
+            cnn_df["rel_drop_cnn"], cnn_df["rel_drop_vit"],
+            color="#2563c7", s=20, zorder=3, label="CNN-exclusive",
+        )
+
+    all_x = df["rel_drop_cnn"].tolist()
+    all_y = df["rel_drop_vit"].tolist()
+    lo = min(min(all_x), min(all_y), -0.05)
+    hi = max(max(all_x), max(all_y), 1.0)
+    ax.plot([lo, hi], [lo, hi], color="#000000", linestyle="--", linewidth=0.9, alpha=0.8, zorder=2)
+
+    ax.text(0.74, 0.26, "CNN more fragile", transform=ax.transAxes,
+            fontsize=9, color="#888888", ha="center", va="center")
+    ax.text(0.26, 0.74, "ViT more fragile", transform=ax.transAxes,
+            fontsize=9, color="#888888", ha="center", va="center")
+
+    ax.set_xlabel(f"Relative drop {cnn_label}", fontsize=11)
+    ax.set_ylabel(f"Relative drop {vit_label}", fontsize=11)
+    ax.set_title(title, fontsize=11)
+    ax.set_xlim(lo, hi)
+    ax.set_ylim(lo, hi)
+    ax.set_aspect("equal", adjustable="box")
+    ax.legend(fontsize=9, loc="lower right")
+    fig.tight_layout()
+
+    out = Path(output_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    safe = re.sub(r"[^a-z0-9]+", "_", label.lower()).strip("_")
+    path = out / f"scatter_{safe}.png"
+    fig.savefig(path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
+    print(f"Scatter saved to {path}")
 
 
 def cluster_stats_to_latex(

@@ -118,7 +118,7 @@ def _build_single_df_by_alias(
 ):
     clean = _get_clean_per_class(model, data_path)
     corrupt = _get_per_class_by_alias(model, alias, data_path)
-    df = clean.merge(corrupt, on="synset", how="right").dropna()
+    df = clean.merge(corrupt, on=["synset", "y_true"], how="right").dropna()
     df = calculate_relative_drop(df)
     df = calculate_absolute_drop(df)
     return df
@@ -168,3 +168,14 @@ def get_dfs_for_dataset(
             continue
 
     return dfs
+
+
+def get_alexnet_df_by_alias(alias: str, data_path: str = "results") -> pd.DataFrame:
+    return _build_single_df_by_alias("alexnet", alias, data_path)
+
+
+def get_df_by_alias_with_rmce(
+    model: str, alias: str, alexnet_df: pd.DataFrame, data_path: str = "results"
+) -> pd.DataFrame:
+    df = _build_single_df_by_alias(model, alias, data_path)
+    return calculate_rmce_mce(df, alexnet_df)
