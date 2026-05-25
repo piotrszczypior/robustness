@@ -70,23 +70,21 @@ def _run_gradcam_pp(
     input_tensor: torch.Tensor,
     class_idx: int,
 ) -> np.ndarray:
-    with GradCAMpp(model, target_layer) as cam_extractor:
-        out = model(input_tensor)
-        cams = cam_extractor(class_idx, out)
-
+    cam_extractor = GradCAMpp(model, target_layer)
+    out = model(input_tensor)
+    cams = cam_extractor(class_idx, out)
+    cam_extractor.remove_hooks()
     cam = cams[0]
     if cam.dim() == 2:
-        cam = cam.unsqueeze(0).unsqueeze(0)  # [H, W] → [1, 1, H, W]
+        cam = cam.unsqueeze(0).unsqueeze(0)
     else:
-        cam = cam.unsqueeze(1)  # [B, H, W] → [B, 1, H, W]
-
+        cam = cam.unsqueeze(1)
     resized_cam = F.interpolate(
         cam,
         size=input_tensor.shape[-2:],
         mode="bilinear",
         align_corners=False,
     )
-
     return _normalize(resized_cam.squeeze().detach().cpu().numpy())
 
 

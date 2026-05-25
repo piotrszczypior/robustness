@@ -475,6 +475,33 @@ def dataset_intersection_to_latex(
     return latex
 
 
+def _pareto_staircase(
+    pts: pd.DataFrame, x_col: str, y_col: str, minimize_x: bool
+) -> tuple[list[float], list[float]]:
+    """Return (xs, ys) staircase coordinates for a 2-D Pareto front.
+
+    minimize_x=True  → ViT front: minimize x, maximize y  (upper-left staircase)
+    minimize_x=False → CNN front: maximize x, minimize y  (lower-right staircase)
+    """
+    if pts.empty:
+        return [], []
+    sorted_pts = pts.sort_values(x_col, ascending=True)
+    xs = sorted_pts[x_col].tolist()
+    ys = sorted_pts[y_col].tolist()
+    stair_x: list[float] = []
+    stair_y: list[float] = []
+    for i, (x, y) in enumerate(zip(xs, ys)):
+        if i == 0:
+            stair_x.append(x)
+            stair_y.append(y)
+        else:
+            stair_x.append(x)
+            stair_y.append(stair_y[-1])
+            stair_x.append(x)
+            stair_y.append(y)
+    return stair_x, stair_y
+
+
 def arch_contrast_scatter(
     df: pd.DataFrame,
     vit_df: pd.DataFrame,
@@ -502,14 +529,18 @@ def arch_contrast_scatter(
     if not vit_df.empty:
         ax.scatter(
             vit_df["rel_drop_cnn"], vit_df["rel_drop_vit"],
-            color="#c0392b", s=20, zorder=3, label="ViT-exclusive",
+            color="#c0392b", s=20, zorder=3, label=f"{vit_label}-exclusive",
         )
+        sx, sy = _pareto_staircase(vit_df, "rel_drop_cnn", "rel_drop_vit", minimize_x=True)
+        ax.plot(sx, sy, color="#c0392b", linewidth=1.2, alpha=0.7, zorder=2)
 
     if not cnn_df.empty:
         ax.scatter(
             cnn_df["rel_drop_cnn"], cnn_df["rel_drop_vit"],
-            color="#2563c7", s=20, zorder=3, label="CNN-exclusive",
+            color="#2563c7", s=20, zorder=3, label=f"{cnn_label}-exclusive",
         )
+        sx, sy = _pareto_staircase(cnn_df, "rel_drop_cnn", "rel_drop_vit", minimize_x=False)
+        ax.plot(sx, sy, color="#2563c7", linewidth=1.2, alpha=0.7, zorder=2)
 
     all_x = df["rel_drop_cnn"].tolist()
     all_y = df["rel_drop_vit"].tolist()
@@ -517,10 +548,10 @@ def arch_contrast_scatter(
     hi = max(max(all_x), max(all_y), 1.0)
     ax.plot([lo, hi], [lo, hi], color="#000000", linestyle="--", linewidth=0.9, alpha=0.8, zorder=2)
 
-    ax.text(0.74, 0.26, "CNN more fragile", transform=ax.transAxes,
-            fontsize=9, color="#888888", ha="center", va="center")
-    ax.text(0.26, 0.74, "ViT more fragile", transform=ax.transAxes,
-            fontsize=9, color="#888888", ha="center", va="center")
+    ax.text(0.64, 0.26, f"{cnn_label} more fragile", transform=ax.transAxes,
+            fontsize=9, color="#888888", ha="center", va="center", zorder=10)
+    ax.text(0.26, 0.74, f"{vit_label} more fragile", transform=ax.transAxes,
+            fontsize=9, color="#888888", ha="center", va="center", zorder=10)
 
     ax.set_xlabel(f"Relative drop {cnn_label}", fontsize=11)
     ax.set_ylabel(f"Relative drop {vit_label}", fontsize=11)
@@ -533,8 +564,10 @@ def arch_contrast_scatter(
 
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
-    safe = re.sub(r"[^a-z0-9]+", "_", label.lower()).strip("_")
-    path = out / f"scatter_{safe}.png"
+    safe_label = re.sub(r"[^a-z0-9]+", "_", label.lower()).strip("_")
+    vit_slug = re.sub(r"[^a-z0-9]+", "_", vit_label.lower()).strip("_")
+    cnn_slug = re.sub(r"[^a-z0-9]+", "_", cnn_label.lower()).strip("_")
+    path = out / f"scatter_{safe_label}_{vit_slug}_vs_{cnn_slug}.png"
     fig.savefig(path, dpi=150, bbox_inches="tight")
     plt.close(fig)
     print(f"Scatter saved to {path}")

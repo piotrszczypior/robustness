@@ -187,6 +187,28 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         action="store_true",
         help="Save scatter plot (rel_drop_cnn vs rel_drop_vit) for --arch-contrast",
     )
+    parser.add_argument(
+        "--arch-contrast-v2",
+        action="store_true",
+        help="Gap-based architecture contrast (delta_g method, see arch_contrast.py)",
+    )
+    parser.add_argument(
+        "--theta-a",
+        type=float,
+        default=0.3,
+        help="Minimum asymmetry score for --arch-contrast-v2 (default: 0.3)",
+    )
+    parser.add_argument(
+        "--theta-min",
+        type=float,
+        default=0.1,
+        help="Minimum absolute relative drop for --arch-contrast-v2 (default: 0.1)",
+    )
+    parser.add_argument(
+        "--no-pareto",
+        action="store_true",
+        help="Skip secondary Pareto filter in --arch-contrast-v2",
+    )
 
 
 def run(args: argparse.Namespace):
@@ -236,6 +258,10 @@ def run(args: argparse.Namespace):
 
     if args.arch_contrast:
         run_arch_contrast(args)
+        return
+
+    if args.arch_contrast_v2:
+        run_arch_contrast_v2(args)
         return
 
     variations = EXPERIMENTS[args.exp]
@@ -437,6 +463,71 @@ def run_arch_contrast(args: argparse.Namespace) -> None:
         from .representation import arch_contrast_scatter
         arch_contrast_scatter(df, vit_df, cnn_df, label=label,
                               vit_keys=vit_keys, cnn_keys=cnn_keys)
+
+
+def run_arch_contrast_v2(args: argparse.Namespace) -> None:
+    from model import MODELS
+    from .arch_contrast import compute_metrics, select_arch_fragile, plot_arch_contrast_scatter
+
+    if not args.dataset and not args.group:
+        raise ValueError("--arch-contrast-v2 requires --dataset or --group")
+
+    vit_keys = args.vit_models
+    cnn_keys = args.cnn_models
+    label = args.dataset if args.dataset else f"{args.group} sev={args.severity or 'all'}"
+
+    vit_label = MODELS[vit_keys[0]] if len(vit_keys) == 1 else "ViT (average)"
+    cnn_label = MODELS[cnn_keys[0]] if len(cnn_keys) == 1 else "CNN (average)"
+
+    print(f"[arch-contrast-v2] {label}  theta_a={args.theta_a}  theta_min={args.theta_min}")
+    print(f"  ViT: {vit_keys}  CNN: {cnn_keys}")
+
+    if args.dataset:
+        vit_dfs = _load_model_dfs_by_alias(vit_keys, args.dataset, args.data_path)
+        cnn_dfs = _load_model_dfs_by_alias(cnn_keys, args.dataset, args.data_path)
+    else:
+        vit_dfs = _load_model_dfs_by_group(vit_keys, args.group, args.severity, args.data_path)
+        cnn_dfs = _load_model_dfs_by_group(cnn_keys, args.group, args.severity, args.data_path)
+
+    if not vit_dfs or not cnn_dfs:
+        print("  Not enough data loaded.")
+        return
+
+    vit_agg = _agg_by_family(None, vit_dfs, "vit")
+    cnn_agg = _agg_by_family(None, cnn_dfs, "cnn")
+    merged = vit_agg.merge(cnn_agg, on=["synset", "y_true"])
+
+    df = merged.rename(columns={
+        "acc_clean_vit": "acc_vit_clean",
+        "acc_corrupt_vit": "acc_vit_corrupt",
+        "acc_clean_cnn": "acc_cnn_clean",
+        "acc_corrupt_cnn": "acc_cnn_corrupt",
+    })
+
+    vit_fragile, cnn_fragile, excluded = select_arch_fragile(
+        df,
+        theta_a=args.theta_a,
+        theta_min=args.theta_min,
+        apply_pareto=not args.no_pareto,
+    )
+    if not excluded.empty:
+        print(f"\n  [excluded — negative drop] {len(excluded)} synsets skipped")
+
+    cols = ["synset", "y_true", "d_vit", "d_cnn", "asymmetry_vit", "asymmetry_cnn", "delta_g",
+            "acc_vit_clean", "acc_vit_corrupt", "acc_cnn_clean", "acc_cnn_corrupt"]
+    print(f"\n--- {vit_label}-exclusive: {len(vit_fragile)} synsets ---")
+    print(vit_fragile[[c for c in cols if c in vit_fragile.columns]].sort_values("d_vit", ascending=False).to_string())
+    print(f"\n--- {cnn_label}-exclusive: {len(cnn_fragile)} synsets ---")
+    print(cnn_fragile[[c for c in cols if c in cnn_fragile.columns]].sort_values("d_cnn", ascending=False).to_string())
+
+    if args.scatter or args.save_tables:
+        enriched = compute_metrics(df)
+        plot_arch_contrast_scatter(
+            enriched, vit_fragile, cnn_fragile,
+            vit_label=vit_label,
+            cnn_label=cnn_label,
+            title=label,
+        )
 
 
 def run_dataset_model_intersection(args: argparse.Namespace) -> None:

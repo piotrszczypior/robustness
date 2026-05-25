@@ -11,9 +11,9 @@ from constants import IMAGENET_C_SEVERITIES
 _COLORS = ["black", "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#924bd5"]
 _LABELS = ["clean", "sev 1", "sev 2", "sev 3", "sev 4", "sev 5"]
 
-_TOP_N = 10
-_MID_N = 10
-_BOT_N = 10
+_TOP_N = 5
+_MID_N = 5
+_BOT_N = 5
 
 
 def select_synsets(
@@ -81,8 +81,8 @@ def render(
     clean_vals = np.array([clean_series.get(s, np.nan) for s in selected_synsets])
 
     axes[0].scatter(x, clean_vals, c=_COLORS[0], alpha=0.8, s=18)
-    axes[0].set_ylabel("Accuracy")
-    axes[0].set_title("Clean")
+    axes[0].set_ylabel("Accuracy", fontsize=20)
+    axes[0].set_title("Clean", fontsize=20)
     axes[0].set_ylim(0, 1.05)
     axes[0].grid(True, linestyle=":", alpha=0.5)
 
@@ -104,8 +104,8 @@ def render(
 
         ax.scatter(x, vals, c=_COLORS[sev], alpha=0.8, s=18)
         ax.scatter(x, clean_vals, c=_COLORS[0], alpha=0.3, s=12)
-        ax.set_ylabel("Accuracy")
-        ax.set_title(f"Severity {sev}")
+        ax.set_ylabel("Accuracy", fontsize=20)
+        ax.set_title(f"Severity {sev}", fontsize=20)
         ax.set_ylim(0, 1.05)
         ax.set_yticks(np.arange(0, 1.1, 0.1))
         ax.grid(True, linestyle=":", alpha=0.5)
@@ -119,15 +119,15 @@ def render(
 
     try:
         axes[-1].set_xticks(x)
-        axes[-1].set_xticklabels(selected_synsets, rotation=90, fontsize=7)
+        axes[-1].set_xticklabels(selected_synsets, rotation=90, fontsize=14)
     except Exception:
         axes[-1].set_xticks(x)
-        axes[-1].set_xticklabels(x, fontsize=7)
+        axes[-1].set_xticklabels(x, fontsize=14)
 
-    axes[-1].set_xlabel("Classes", labelpad=15)
+    axes[-1].set_xlabel("Classes", labelpad=15, fontsize=20)
     fig.suptitle(
         f"Impact of {group_name} corruption severity on per-class accuracy - {MODELS[model_name]}",
-        fontsize=18,
+        fontsize=24,
         y=1.01,
     )
 
