@@ -38,7 +38,7 @@ def render(matrix: pd.DataFrame, out_path: Path) -> None:
     fig, ax = plt.subplots(figsize=(20, max(8, len(matrix) * 0.6)))
     fig.patch.set_facecolor("white")
 
-    cmap = ListedColormap(["#EBEBEB", "#2C6E9E", "#F3636F"])
+    cmap = ListedColormap(["#F0F0F0", "#1f77b4", "red"])
 
     sns.heatmap(
         matrix,

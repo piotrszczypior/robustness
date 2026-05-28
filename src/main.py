@@ -29,6 +29,8 @@ from plots_v2.fragile_histogram.cli import get_task as get_fragile_histogram_tas
 from plots_v2.upset_fragile.cli import get_task as get_upset_fragile_task
 from plots_v2.fragile_severity_line.cli import get_task as get_fragile_severity_line_task
 from plots_v2.mistake_dot.cli import get_task as get_mistake_dot_task
+from plots_v2.fisher_heatmap.cli import get_task as get_fisher_heatmap_task
+from corruptions.cli import get_task as get_corruptions_task
 
 
 TASK_REGISTRY: Dict[str, Task] = {
@@ -53,6 +55,8 @@ TASK_REGISTRY: Dict[str, Task] = {
     "upset_fragile_v2": get_upset_fragile_task(),
     "fragile_severity_line_v2": get_fragile_severity_line_task(),
     "mistake_dot_v2": get_mistake_dot_task(),
+    "fisher_heatmap": get_fisher_heatmap_task(),
+    "corruptions": get_corruptions_task(),
 }
 
 

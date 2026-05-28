@@ -12,6 +12,7 @@ from fragile.fragile import (
 from fragile.definitions import DEFINITIONS
 from .plot import build_barcode_matrix, render
 import pandas as pd
+from space import CorruptionVariations
 
 
 TASK_NAME = "barcode_v2"
@@ -41,6 +42,14 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         default=".",
         help="Base output directory",
     )
+    parser.add_argument(
+        "--c",
+        type=str,
+    )
+    parser.add_argument(
+        "--s",
+        type=int
+    )
 
 
 def _add_flags(df: pd.DataFrame, alexnet_df: pd.DataFrame) -> pd.DataFrame:
@@ -53,7 +62,18 @@ def _add_flags(df: pd.DataFrame, alexnet_df: pd.DataFrame) -> pd.DataFrame:
 def run(args: argparse.Namespace) -> None:
     out_base = Path(args.output_dir)
 
-    for exp_name, variations in EXPERIMENTS.items():
+    exper = []
+    if (args.c):
+        variation = CorruptionVariations(
+            corruptions=[args.c],
+            severities=[args.s],
+        )
+        exper.append(("individual", variation))
+    else:
+        exper = EXPERIMENTS.items()
+
+
+    for exp_name, variations in exper:
         print(f"\n[barcode_v2] experiment: {exp_name}")
         alexnet_df = get_rmce_alexnet_df(variations, args.data_path)
         raw_dfs = get_dfs_for_all_models(variations, args.data_path)
@@ -64,32 +84,32 @@ def run(args: argparse.Namespace) -> None:
             if k in MODELS
         }
 
-        # Individual flag barcodes (A, B, C)
-        for type_name, flag_col in FRAGILE_TYPES.items():
-            matrix = build_barcode_matrix(flagged, flag_col)
-            out = out_base / "images" / "v2" / "barcode" / exp_name / f"{type_name}.png"
-            out.parent.mkdir(parents=True, exist_ok=True)
-            render(matrix, out)
-            print(f"  {exp_name}/{type_name}.png")
+        # # Individual flag barcodes (A, B, C)
+        # for type_name, flag_col in FRAGILE_TYPES.items():
+        #     matrix = build_barcode_matrix(flagged, flag_col)
+        #     out = out_base / "images" / "v2" / "barcode" / exp_name / f"{type_name}.png"
+        #     out.parent.mkdir(parents=True, exist_ok=True)
+        #     render(matrix, out)
+        #     print(f"  {exp_name}/{type_name}.png")
 
         # Super-fragile per definition
-        for def_name, definition in DEFINITIONS.items():
-            super_flagged = {}
-            for model_label, df in flagged.items():
-                df = df.copy()
-                df["is_super_fragile"] = definition.combine(df).astype(int)
-                super_flagged[model_label] = df
+        ab = DEFINITIONS["ab"]
+        super_flagged = {}
+        for model_label, df in flagged.items():
+            df = df.copy()
+            df["is_super_fragile"] = ab.combine(df).astype(int)
+            super_flagged[model_label] = df
 
-            matrix = build_barcode_matrix(super_flagged, "is_super_fragile")
-            out = (
-                out_base
-                / "images"
-                / "v2"
-                / "barcode"
-                / exp_name
-                / "super_fragile"
-                / f"{def_name}.png"
-            )
-            out.parent.mkdir(parents=True, exist_ok=True)
-            render(matrix, out)
-            print(f"  {exp_name}/super_fragile/{def_name}.png")
+        matrix = build_barcode_matrix(super_flagged, "is_super_fragile")
+        out = (
+            out_base
+            / "images"
+            / "v2"
+            / "barcode"
+            / exp_name
+            / "super_fragile"
+            / f"{args.c}_{str(args.s)}.png"
+        )
+        out.parent.mkdir(parents=True, exist_ok=True)
+        render(matrix, out)
+        print(f"{out}")

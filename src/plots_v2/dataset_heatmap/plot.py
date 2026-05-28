@@ -18,6 +18,10 @@ _SYNSET_TO_INDEX = {
 }
 
 
+def get_dataset(alias):
+    relevant = alias.split("_")[:2]
+    return "_".join(relevant)
+
 def build_matrix(
     dfs: dict[str, pd.DataFrame], dataset: str, sort_by: str | None = None
 ) -> pd.DataFrame:
@@ -25,7 +29,7 @@ def build_matrix(
         {name: df.set_index("synset")["acc_corrupt"] for name, df in dfs.items()}
     ).T
 
-    synset_to_index = _SYNSET_TO_INDEX[dataset]()
+    synset_to_index = _SYNSET_TO_INDEX[get_dataset(dataset)]()
 
     if sort_by is None:
         class_order = sorted(wide.columns, key=lambda s: synset_to_index.get(s, 9999))
@@ -38,33 +42,6 @@ def build_matrix(
     wide.columns = [synset_to_index[s] for s in class_order]
 
     return wide
-
-
-_THRESHOLDS = [
-    (0.7, "#1A5276", "mean < 0.7"),
-    (0.5, "#7D6608", "mean < 0.5"),
-    (0.3, "#7B241C", "mean < 0.3"),
-]
-
-
-def _draw_thresholds(ax: plt.Axes, matrix: pd.DataFrame) -> None:
-    mean_sorted = matrix.mean(axis=0)  # assumes sorted descending
-    tick_positions = []
-    tick_labels = []
-    tick_colors = []
-
-    for threshold, color, label in _THRESHOLDS:
-        idx = int((mean_sorted > threshold).sum())
-        if 0 < idx < len(mean_sorted):
-            ax.axvline(idx, color=color, linewidth=1.5, linestyle="--", alpha=0.9)
-            tick_positions.append(idx)
-            tick_labels.append(label)
-            tick_colors.append(color)
-
-    ax.set_xticks(tick_positions)
-    ax.set_xticklabels(tick_labels, fontsize=9)
-    for tick, color in zip(ax.get_xticklabels(), tick_colors):
-        tick.set_color(color)
 
 
 def render(
@@ -85,7 +62,7 @@ def render(
         vmin=0,
         vmax=1,
         cbar=True,
-        cbar_kws={"label": f"Accuracy ({DATASET_ALIAS_TO_LABEL[dataset]})"},
+        cbar_kws={"label": f"Accuracy ({DATASET_ALIAS_TO_LABEL[get_dataset(dataset)]})"},
         ax=ax,
         xticklabels=False,
         yticklabels=True,
@@ -93,10 +70,7 @@ def render(
         alpha=0.7,
     )
 
-    if sort_by is not None:
-        _draw_thresholds(ax, matrix)
-    else:
-        ax.set_xticks([])
+    ax.set_xticks([])
 
     for y in range(1, len(matrix)):
         ax.axhline(y, color="white", linewidth=0.8)
@@ -109,21 +83,22 @@ def render(
         color="#222222",
     )
 
-    if sort_by is None:
-        xlabel = f"{DATASET_ALIAS_TO_LABEL[dataset]} synsets ordered by class index"
-    elif sort_by == "mean":
-        xlabel = f"{DATASET_ALIAS_TO_LABEL[dataset]} synsets ordered by cross-model mean accuracy"
-    else:
-        xlabel = (
-            f"{DATASET_ALIAS_TO_LABEL[dataset]} synsets ordered by {sort_by} accuracy"
-        )
+    # if sort_by is None:
+    #     xlabel = f"{DATASET_ALIAS_TO_LABEL[dataset]} synsets ordered by class index"
+    # elif sort_by == "mean":
+    #     xlabel = f"{DATASET_ALIAS_TO_LABEL[dataset]} synsets ordered by cross-model mean accuracy"
+    # else:
+    #     xlabel = (
+    #         f"{DATASET_ALIAS_TO_LABEL[dataset]} synsets ordered by {sort_by} accuracy"
+    #     )
+    
+    n_classes = 1000
 
-    if dataset in ["imagenet", "imagenet_c"]:
-        n_classes = 1000
-    else:
-        n_classes = 200
+    # if dataset in ["imagenet", "imagenet_c"]:
+    # else:
+        # n_classes = 200
 
-    ax.set_xlabel(xlabel, fontsize=13, color="#444444", labelpad=6)
+    # ax.set_xlabel(xlabel, fontsize=13, color="#444444", labelpad=6)
     ax.set_ylabel("")
     tick_positions = list(range(0, n_classes, 25)) + [n_classes - 1]
     ax.set_xticks([p + 0.5 for p in tick_positions])

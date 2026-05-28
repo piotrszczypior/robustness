@@ -94,6 +94,20 @@ def _get_corrupt_per_class(
         .reset_index()
     )
 
+def _get_corrupt_per_class_per_setting(
+    model: str, variations: CorruptionVariations, data_dir: Path
+) -> dict[tuple[str, int], pd.DataFrame]:
+    results = {}
+    for group, corruption, severity in variations.per_unique_conditions():
+        fname = f"{model}_imagenet_c_{group}_{corruption}_{severity}.csv"
+        try:
+            df = get_per_class_accuracy(fname, data_dir)[["synset", "accuracy"]]
+            results[(corruption, severity)] = df
+        except FileNotFoundError:
+            print("FILE NOT FOUND:", fname)
+            continue
+    return results
+
 
 def _build_single_df(
     model: str,
@@ -109,6 +123,24 @@ def _build_single_df(
     df = calculate_rmce_mce(df, alexnet_df)
 
     return df
+
+
+def _build_df_per_setting(
+    model: str,
+    variations: CorruptionVariations,
+    data_path="results",
+) -> dict[tuple[str, int], pd.DataFrame]:
+    clean = _get_clean_per_class(model, data_path)
+    corrupt_per_setting = _get_corrupt_per_class_per_setting(model, variations, data_path)
+
+    dfs = {}
+    for (corruption, severity), corrupt_df in corrupt_per_setting.items():
+        df = clean.merge(corrupt_df.rename(columns={"accuracy": "acc_corrupt"}), on="synset").dropna()
+        df = calculate_relative_drop(df)
+        df = calculate_absolute_drop(df)
+        dfs[(corruption, severity)] = df
+
+    return dfs
 
 
 def _build_single_df_by_alias(
@@ -142,6 +174,17 @@ def get_dfs_for_all_models(variations: CorruptionVariations, data_path="results"
         dfs[model] = calculate_nCE(dfs[model], all_dfs)
 
     return dfs
+
+
+def get_dfs_per_setting_for_all_models(
+    variations: CorruptionVariations, data_path="results",
+) -> dict[str, dict[tuple[str, int], pd.DataFrame]]:
+
+    all_model_dfs = {}
+    for model in MODELS.keys():
+        all_model_dfs[model] = _build_df_per_setting(model, variations, data_path)
+
+    return all_model_dfs
 
 
 def get_df_for_model(variations: CorruptionVariations, model: str, data_path="results"):

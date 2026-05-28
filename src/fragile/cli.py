@@ -209,6 +209,11 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         action="store_true",
         help="Skip secondary Pareto filter in --arch-contrast-v2",
     )
+    parser.add_argument(
+        "--fisher-matrix",
+        action="store_true",
+        help="Compute Fisher exact test p-value matrix (20x20) for fragile class correlation between all model pairs",
+    )
 
 
 def run(args: argparse.Namespace):
@@ -262,6 +267,10 @@ def run(args: argparse.Namespace):
 
     if args.arch_contrast_v2:
         run_arch_contrast_v2(args)
+        return
+
+    if args.fisher_matrix:
+        run_fisher_matrix(args)
         return
 
     variations = EXPERIMENTS[args.exp]
@@ -1154,6 +1163,91 @@ def get_fragile_by_rmce(args: argparse.Namespace):
             to_latex(
                 relevant, save=True, filename=f"{exp_name}_rmce.txt", clustering=False
             )
+
+
+def run_fisher_matrix(args: argparse.Namespace) -> None:
+    from scipy.stats import fisher_exact
+    from space import CorruptionVariations
+    from constants import IMAGENET_C_CORRUPTION_GROUPS
+
+    definition = DEFINITIONS[args.definition]
+
+    if args.corruption and args.severity:
+        group = None
+        for g, corruptions in IMAGENET_C_CORRUPTION_GROUPS.items():
+            if args.corruption in corruptions:
+                group = g
+                break
+        if not group:
+            raise ValueError(f"Unknown corruption: {args.corruption}")
+        variations = CorruptionVariations(
+            groups=[group],
+            corruptions=[args.corruption],
+            severities=[args.severity],
+        )
+        label = f"{args.corruption}_{args.severity}"
+    else:
+        variations = EXPERIMENTS[args.exp]
+        label = args.exp
+
+    print(f"[fisher-matrix] {label}, definition={definition.label}")
+    print("Loading data for all models...")
+
+    dfs = get_dfs_for_all_models(variations, args.data_path)
+    model_keys = list(MODELS.keys())
+    n_models = len(model_keys)
+
+    fragile_vectors: dict[str, np.ndarray] = {}
+    for model in model_keys:
+        df = _get_fragile(dfs[model], dfs["alexnet"], definition)
+        df_sorted = df.sort_values("synset")
+        fragile_vectors[model] = df_sorted["is_strongly_fragile"].values.astype(bool)
+        n_fragile = fragile_vectors[model].sum()
+        print(f"  {model}: {n_fragile} fragile classes")
+
+    p_matrix = np.ones((n_models, n_models))
+
+    print("\nComputing Fisher exact test for all pairs...")
+    for i, model_i in enumerate(model_keys):
+        for j, model_j in enumerate(model_keys):
+            if i == j:
+                continue
+            vi = fragile_vectors[model_i]
+            vj = fragile_vectors[model_j]
+
+            a = np.sum(vi & vj)
+            b = np.sum(vi & ~vj)
+            c = np.sum(~vi & vj)
+            d = np.sum(~vi & ~vj)
+
+            contingency = [[a, b], [c, d]]
+            _, p_value = fisher_exact(contingency)
+            p_matrix[i, j] = p_value
+
+    print("\n" + "=" * 80)
+    print("Fisher Exact Test p-value Matrix (20x20)")
+    print("=" * 80)
+
+    header = "".ljust(20) + "".join([m[:8].ljust(10) for m in model_keys])
+    print(header)
+    print("-" * len(header))
+
+    for i, model_i in enumerate(model_keys):
+        row = model_i[:18].ljust(20)
+        for j in range(n_models):
+            if i == j:
+                row += "   -     "
+            else:
+                p = p_matrix[i, j]
+                if p < 0.001:
+                    row += f"{p:.2e} ".ljust(10)
+                else:
+                    row += f"{p:.4f}   "
+        print(row)
+
+    significant = np.sum((p_matrix < 0.05) & (p_matrix > 0)) // 2
+    total_pairs = n_models * (n_models - 1) // 2
+    print(f"\nSignificant pairs (p < 0.05): {significant}/{total_pairs}")
 
 
 # def _get_fragile(model, variations, data_path):

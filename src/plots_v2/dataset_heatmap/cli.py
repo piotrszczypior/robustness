@@ -41,7 +41,7 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         "--dataset",
         type=str,
         default="imagenet_a",
-        choices=["imagenet_a", "imagenet_r", "imagenet_c", "imagenet"],
+        # choices=["imagenet_a", "imagenet_r", "imagenet_c", "imagenet"],
         help="Dataset to visualize",
     )
     parser.add_argument(
@@ -63,7 +63,7 @@ def register(subparsers: argparse._SubParsersAction) -> None:
 def run(args: argparse.Namespace) -> None:
     out_base = Path(args.output_dir)
 
-    if args.dataset in ["imagenet", "imagenet_a", "imagenet_r"]:
+    if args.dataset:
         print(f"[dataset_heatmap] loading data for {args.dataset}...")
         dfs = get_dfs_for_dataset(args.dataset, args.data_path)
         suffix = f"_sortby_{args.sort_by}" if args.sort_by else "_nosort"
