@@ -73,7 +73,6 @@ def _run_gradcam_pp(
     cam_extractor = GradCAMpp(model, target_layer)
     out = model(input_tensor)
     cams = cam_extractor(class_idx, out)
-    cam_extractor.remove_hooks()
     cam = cams[0]
     if cam.dim() == 2:
         cam = cam.unsqueeze(0).unsqueeze(0)

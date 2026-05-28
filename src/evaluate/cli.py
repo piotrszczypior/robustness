@@ -8,6 +8,7 @@ from model import get_model
 from task import Task
 from .experiment import read_experiments
 from .evaluate import run_evaluation
+from .extract import run_embedding_evaluation
 
 __all__ = ["get_task", "register", "run"]
 
@@ -51,7 +52,8 @@ def run(args: argparse.Namespace):
         experiments = read_experiments(args)
         logger.info(f"Found {len(experiments)} experiments")
 
-        run_evaluation(
+        pipeline = run_embedding_evaluation if args.extract_features else run_evaluation
+        pipeline(
             args=args,
             model=model,
             experiments=experiments,

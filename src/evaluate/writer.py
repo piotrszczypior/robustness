@@ -1,6 +1,5 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
-import json
 from pathlib import Path
 from typing import Any
 import numpy as np
@@ -58,18 +57,36 @@ class ResultAccumulator:
 
 class EmbeddingWriter:
     def __init__(self, path: Path | str):
-        self._path = Path(path)
-        self._path.parent.mkdir(parents=True, exist_ok=True)
-        self._file = None
+        base = Path(path)
+        base.parent.mkdir(parents=True, exist_ok=True)
+        self._npy_path = base.with_suffix(".npy")
+        self._parquet_path = base.with_suffix(".parquet")
+        self._embeddings: list[np.ndarray] = []
+        self._images: list[str] = []
+        self._synsets: list[str] = []
+        self._y_true: list[int] = []
+        self._y_pred: list[int] = []
 
     def __enter__(self) -> EmbeddingWriter:
-        self._file = self._path.open("w", encoding="utf-8")
+        self._embeddings.clear()
+        self._images.clear()
+        self._synsets.clear()
+        self._y_true.clear()
+        self._y_pred.clear()
         return self
 
     def __exit__(self, *_):
-        if self._file:
-            self._file.close()
-            self._file = None
+        if not self._embeddings:
+            return
+        np.save(self._npy_path, np.concatenate(self._embeddings, axis=0))
+        pd.DataFrame(
+            {
+                "image": self._images,
+                "synset": self._synsets,
+                "y_true": self._y_true,
+                "y_pred": self._y_pred,
+            }
+        ).to_parquet(self._parquet_path, index=False)
 
     def write_batch(
         self,
@@ -79,14 +96,8 @@ class EmbeddingWriter:
         predictions: np.ndarray,
         embeddings: np.ndarray,
     ) -> None:
-        for image, synset, y_true, y_pred, vec in zip(
-            filenames, synsets, targets, predictions, embeddings
-        ):
-            record = {
-                "image": image,
-                "synset": synset,
-                "y_true": int(y_true),
-                "y_pred": int(y_pred),
-                "embedding": vec.tolist(),
-            }
-            self._file.write(json.dumps(record) + "\n")
+        self._embeddings.append(embeddings)
+        self._images.extend(filenames)
+        self._synsets.extend(synsets)
+        self._y_true.extend(targets.tolist())
+        self._y_pred.extend(predictions.tolist())

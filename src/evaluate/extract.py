@@ -2,26 +2,26 @@ from __future__ import annotations
 import argparse
 import logging
 from pathlib import Path
+import shutil
 import torch
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 from dataset import get_dataset
-from checkpoint import export_results
-from evaluate.writer import ResultAccumulator
 from paths import paths
 from .experiment import Experiment
+from .feature_extractor import FeatureExtractor
+from .writer import EmbeddingWriter
 from utils import resolve_device
 
-__all__ = ["run_evaluation"]
-
+__all__ = ["run_embedding_evaluation"]
 
 logger = logging.getLogger(__name__)
 
 
-def run_evaluation(
+def run_embedding_evaluation(
     args: argparse.Namespace, model, experiments: list[Experiment], transforms
-):
-    backup_dir = paths.google_colab_gdrive_path if args.sync_drive else None
+) -> None:
+    backup_dir = paths.google_colab_gdrive_embeddings_path if args.sync_drive else None
     device = (
         args.device if hasattr(args, "device") and args.device else resolve_device()
     )
@@ -36,58 +36,63 @@ def run_evaluation(
             num_workers=int(args.num_workers),
             batch_size=int(args.batch_size),
         )
-        results, run_accuracy, run_error = _evaluate_per_file(
+        embeddings_path = (
+            Path(args.output_path)
+            / f"{args.model}_{experiment.filename_suffix}_embeddings"
+        )
+        run_accuracy, run_error = _extract_per_condition(
             model=model,
             data_loader=data_loader,
             device=device,
-            run_metadata=dataset_config.metadata,
             model_name=args.model,
+            embeddings_path=embeddings_path,
         )
         logger.info(
             f"Experiment {experiment.name} finished. "
             f"Accuracy: {run_accuracy:.4f}, "
             f"Error: {run_error:.4f}"
         )
-        export_results(
-            data_df=results.to_dataframe(),
-            filename=f"{args.model}_{experiment.filename_suffix}.csv",
-            output_dir=args.output_path,
-            backup_dir=backup_dir,
-        )
+        if backup_dir:
+            backup_dir.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(embeddings_path.with_suffix(".npy"), backup_dir)
+            shutil.copy2(embeddings_path.with_suffix(".parquet"), backup_dir)
 
 
-def _evaluate_per_file(
+def _extract_per_condition(
     model,
     data_loader,
     device,
-    run_metadata,
-    model_name,
-):
+    model_name: str,
+    embeddings_path: Path,
+) -> tuple[float, float]:
     model.eval()
     model.to(device)
 
-    results = ResultAccumulator(model_name=model_name).with_metadata(run_metadata)
+    extractor = FeatureExtractor(model, model_name)
     total_correct = 0
-    with torch.inference_mode():
+    with EmbeddingWriter(embeddings_path) as writer, torch.inference_mode():
         for inputs, targets, batch_metadata in data_loader:
             inputs, targets = inputs.to(device), targets.to(device)
-            predictions = _run_batch(model, inputs, targets, batch_metadata, results)
+            predictions = _run_batch(model, extractor, writer, inputs, targets, batch_metadata)
             total_correct += (predictions == targets).sum().item()
 
     accuracy = total_correct / len(data_loader.dataset)
-    return results, accuracy, 1.0 - accuracy
+    return accuracy, 1.0 - accuracy
 
 
-def _run_batch(model, inputs, targets, batch_metadata, results):
-    outputs = model(inputs)
+def _run_batch(model, extractor, writer, inputs, targets, batch_metadata) -> torch.Tensor:
+    with extractor:
+        outputs = model(inputs)
+        vecs = extractor.get()
+
     probs = F.softmax(outputs, dim=1)
-    confidences, predictions = torch.max(probs, dim=1)
+    _, predictions = torch.max(probs, dim=1)
 
-    results.update(
+    writer.write_batch(
         filenames=batch_metadata["filename"],
         synsets=batch_metadata["synset"],
         targets=targets.cpu().numpy(),
         predictions=predictions.cpu().numpy(),
-        confidences=confidences.cpu().numpy(),
+        embeddings=vecs,
     )
     return predictions

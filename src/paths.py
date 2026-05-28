@@ -49,6 +49,10 @@ class ProjectPaths:
         return Path("/content/drive/MyDrive/robustness/results")
 
     @property
+    def google_colab_gdrive_embeddings_path(self) -> Path:
+        return Path("/content/drive/MyDrive/robustness/embeddings")
+
+    @property
     def google_colab_gdrive_xai_path(self) -> Path:
         return Path("/content/drive/MyDrive/robustness/xai")
 
