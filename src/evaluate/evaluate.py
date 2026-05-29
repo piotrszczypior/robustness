@@ -30,7 +30,7 @@ def run_evaluation(
     for i, experiment in enumerate(experiments):
         logger.info(f"Running experiment {i + 1}/{len(experiments)}: {experiment.name}")
         dataset_config = experiment.dataset_config
-        dataset = get_dataset(config=dataset_config, transform=transforms)
+        dataset = get_dataset(config=dataset_config, transform=transforms, root=args.data_path)
         data_loader = DataLoader(
             dataset=dataset,
             num_workers=int(args.num_workers),

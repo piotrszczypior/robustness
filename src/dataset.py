@@ -37,9 +37,11 @@ DATASET_ALIAS_TO_LABEL = {
 
 
 def get_dataset(
-    config: DatasetConfig, transform: Optional[transforms.Compose] = DEFAULT_TRANSFORM
+    config: DatasetConfig,
+    transform: Optional[transforms.Compose] = DEFAULT_TRANSFORM,
+    root: Optional[str] = None,
 ) -> ImageFolderWithMetadata:
-    return _DatasetFactory.create(config=config, transform=transform)
+    return _DatasetFactory.create(config=config, transform=transform, root=root)
 
 
 class DatasetType(Enum):
@@ -182,9 +184,9 @@ class ImageFolderWithMetadata(datasets.ImageFolder):
 class _DatasetFactory:
     @staticmethod
     def create(
-        config: DatasetConfig, transform: Optional[transforms.Compose] = None
+        config: DatasetConfig, transform: Optional[transforms.Compose] = None, root = None
     ) -> ImageFolderWithMetadata:
-        path = config.get_data_path()
+        path = config.get_data_path(root)
         if not path.exists():
             raise FileNotFoundError(f"Dataset path does not exist: {path}")
 
