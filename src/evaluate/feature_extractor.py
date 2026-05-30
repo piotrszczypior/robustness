@@ -26,8 +26,8 @@ _EMBEDDING_LAYERS: dict[str, Callable[[nn.Module], nn.Module]] = {
     "swin_b": lambda m: m.avgpool,
     "swin_v2_b": lambda m: m.avgpool,
     "maxvit_t": lambda m: m.classifier[0],
-    "convnext_base": lambda m: m.avgpool,
-    "convnext_large": lambda m: m.avgpool,
+    "convnext_base": lambda m: m.classifier[1],
+    "convnext_large": lambda m: m.classifier[1],
 }
 
 _NEEDS_SPATIAL_FLATTEN = {
