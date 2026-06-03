@@ -50,6 +50,14 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         "--s",
         type=int
     )
+    parser.add_argument(
+        "--exp",
+        type=str,
+    )
+    parser.add_argument(
+        "--y-label",
+        action="store_true",
+    )
 
 
 def _add_flags(df: pd.DataFrame, alexnet_df: pd.DataFrame) -> pd.DataFrame:
@@ -69,6 +77,8 @@ def run(args: argparse.Namespace) -> None:
             severities=[args.s],
         )
         exper.append(("individual", variation))
+    elif args.exp:
+        exper = [(args.exp, EXPERIMENTS[args.exp])]
     else:
         exper = EXPERIMENTS.items()
 
@@ -92,7 +102,6 @@ def run(args: argparse.Namespace) -> None:
         #     render(matrix, out)
         #     print(f"  {exp_name}/{type_name}.png")
 
-        # Super-fragile per definition
         ab = DEFINITIONS["ab"]
         super_flagged = {}
         for model_label, df in flagged.items():
@@ -107,9 +116,9 @@ def run(args: argparse.Namespace) -> None:
             / "v2"
             / "barcode"
             / exp_name
-            / "super_fragile"
-            / f"{args.c}_{str(args.s)}.png"
+            / f"{exp_name}.png"
         )
+        y_label = True if args.y_label else False
         out.parent.mkdir(parents=True, exist_ok=True)
-        render(matrix, out)
+        render(matrix, out, y_label)
         print(f"{out}")

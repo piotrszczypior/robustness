@@ -8,6 +8,7 @@ python-dotenv==1.2.1
 nltk
 torchmetrics
 pandas
+pyarrow
 matplotlib
 seaborn
 pyyaml

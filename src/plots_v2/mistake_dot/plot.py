@@ -1,9 +1,9 @@
 from pathlib import Path
-from collections import defaultdict
 
 import matplotlib.pyplot as plt
 
-_COLOR = "#3B6FD4"
+_COLOR_MISTAKE = "#3B6FD4"
+_COLOR_CORRECT = "#2E8B57"
 _ALPHA = 0.85
 _LW = 5.0
 
@@ -15,30 +15,42 @@ def prepare_synset_data(
     synset_to_index: dict[str, int],
     top_k: int,
     min_count: int,
-) -> list[tuple[str, int]]:
-    """Returns [(pred_label, count), ...] sorted by count desc, top_k entries."""
+) -> list[dict]:
+    """Returns list of dicts with label, synset, count, is_correct."""
     true_idx = synset_to_index.get(synset)
-    counts: dict[str, int] = defaultdict(int)
+    all_preds = []
 
     for r in records:
         if r["synset"] != synset:
             continue
         y_pred = int(r["y_pred"])
         count = int(r["count"])
-        if true_idx is not None and y_pred == true_idx:
-            continue
-        if count < min_count:
-            continue
-        entry = index_to_label.get(y_pred, [str(y_pred), str(y_pred)])
-        pred_label = entry[1].replace("_", " ")
-        counts[pred_label] += count
 
-    sorted_preds = sorted(counts.items(), key=lambda x: -x[1])
-    return sorted_preds[:top_k]
+        is_correct = (true_idx is not None and y_pred == true_idx)
+
+        # Skip mistakes with low count, but always keep correct one if it exists
+        if not is_correct and count < min_count:
+            continue
+
+        entry = index_to_label.get(y_pred, [str(y_pred), str(y_pred)])
+        pred_synset = entry[0]
+        pred_label = entry[1].replace("_", " ")
+
+        all_preds.append({
+            "label": pred_label,
+            "synset": pred_synset,
+            "count": count,
+            "is_correct": is_correct
+        })
+
+    # Sort by count descending
+    all_preds.sort(key=lambda x: -x["count"])
+
+    return all_preds[:top_k]
 
 
 def render(
-    entries: list[tuple[str, int]],
+    entries: list[dict],
     synset: str,
     synset_label: str,
     model_label: str,
@@ -49,35 +61,47 @@ def render(
         print(f"  No data for {synset}, skipping.")
         return
 
-    y_labels = [label for label, _ in entries]
-    counts = [count for _, count in entries]
+    y_labels = [f"{e['label']}\n({e['synset']})" for e in entries]
+    counts = [e['count'] for e in entries]
+    is_correct_list = [e['is_correct'] for e in entries]
     n_y = len(entries)
     x_max = max(counts)
+    x_limit = max(50, x_max)
 
-    fig_h = max(3, n_y * 0.55 + 1.5)
-    fig, ax = plt.subplots(figsize=(max(8, x_max * 0.6 + 3), fig_h))
+    fig_h = max(3, n_y * 0.7 + 1.5)
+    fig, ax = plt.subplots(figsize=(max(8, x_max * 0.1 + 4), fig_h))
     fig.patch.set_facecolor("white")
     ax.set_facecolor("white")
 
-    for i, count in enumerate(counts):
-        ax.hlines(i, 0, count, colors=_COLOR, linewidth=_LW, alpha=_ALPHA, zorder=3)
+    for i, (count, is_correct) in enumerate(zip(counts, is_correct_list)):
+        color = _COLOR_CORRECT if is_correct else _COLOR_MISTAKE
+        ax.hlines(i, 0, count, colors=color, linewidth=_LW, alpha=_ALPHA, zorder=3)
+        # Add a dot at the end
+        ax.scatter(count, i, color=color, s=50, zorder=4)
 
-    # Full vertical grid at every integer x
-    for x in range(1, x_max + 1):
+    # Ticks every 5, and explicitly include 50
+    xticks = list(range(0, int(x_limit) + 1, 5))
+    if 50 not in xticks:
+        xticks.append(50)
+    xticks = sorted(list(set(xticks)))
+    
+    # Full vertical grid aligned with ticks
+    for x in xticks:
+        if x == 0: continue
         ax.axvline(x, color="#e8e8e8", linewidth=0.6, zorder=1)
 
     # Horizontal separators between rows
     for i in range(n_y - 1):
-        ax.axhline(i + 0.5, color="#cccccc", linewidth=0.6, zorder=2)
+        ax.axhline(i + 0.5, color="#cccccc", linewidth=0.6, zorder=2, alpha=0.3)
 
     ax.set_yticks(range(n_y))
-    ax.set_yticklabels(y_labels, fontsize=8)
+    ax.set_yticklabels(y_labels, fontsize=9)
     ax.set_ylim(-0.6, n_y - 0.4)
     ax.invert_yaxis()
 
-    ax.set_xlabel("Count", fontsize=10)
-    ax.set_xlim(0, x_max + 0.5)
-    ax.set_xticks(range(0, x_max + 1))
+    ax.set_xlabel("Prediction Count", fontsize=10)
+    ax.set_xlim(0, x_limit * 1.05)
+    ax.set_xticks(xticks)
 
     for spine in ("top", "right"):
         ax.spines[spine].set_visible(False)
@@ -86,9 +110,12 @@ def render(
     ax.spines["bottom"].set_linewidth(0.6)
     ax.spines["bottom"].set_color("#aaaaaa")
 
+    # Less technical title
+    clean_task = task_name.replace("_", " ").title()
     fig.suptitle(
-        f"{synset_label} — {model_label} — {task_name}",
-        fontsize=11,
+        f"Prediction Distribution: {synset_label}\nModel: {model_label} ({clean_task})",
+        fontsize=12,
+        y=0.98
     )
     fig.tight_layout()
     output_path.parent.mkdir(parents=True, exist_ok=True)

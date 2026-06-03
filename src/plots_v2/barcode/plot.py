@@ -31,7 +31,7 @@ def build_barcode_matrix(
     return result.sort_index(axis=1)
 
 
-def render(matrix: pd.DataFrame, out_path: Path) -> None:
+def render(matrix: pd.DataFrame, out_path: Path, y_label = True) -> None:
     if matrix.empty:
         return
 
@@ -48,7 +48,7 @@ def render(matrix: pd.DataFrame, out_path: Path) -> None:
         cbar=False,
         ax=ax,
         xticklabels=False,
-        yticklabels=True,
+        yticklabels=y_label,
         linewidths=0,
     )
 
@@ -58,7 +58,7 @@ def render(matrix: pd.DataFrame, out_path: Path) -> None:
     plt.setp(
         ax.get_yticklabels(),
         fontfamily="monospace",
-        fontsize=12,
+        fontsize=14,
         rotation=0,
         color="#222222",
     )
@@ -69,12 +69,12 @@ def render(matrix: pd.DataFrame, out_path: Path) -> None:
     ax.set_xticks([p + 0.5 for p in tick_positions])
     ax.set_xticklabels(
         [str(p) for p in tick_positions],
-        fontsize=11,
+        fontsize=12,
         color="#555555",
         rotation=0,
     )
 
-    ax.set_xlabel("ImageNet classes", fontsize=13, color="#444444", labelpad=6)
+    ax.set_xlabel("ImageNet classes", fontsize=18, color="#444444", labelpad=6)
     ax.set_ylabel("")
     ax.tick_params(left=False)
     ax.spines[:].set_visible(False)

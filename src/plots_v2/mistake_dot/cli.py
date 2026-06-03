@@ -28,7 +28,8 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         help="Dot plot of per-class mistake distribution for a single model",
     )
     parser.add_argument("--model", type=str, required=True, help="Model key (e.g. resnet50)")
-    parser.add_argument("--corruption", type=str, required=True, help="Corruption type (e.g. defocus_blur)")
+    parser.add_argument("--dataset", type=str, default="imagenet_c", choices=["imagenet_c", "imagenet_r"])
+    parser.add_argument("--corruption", type=str, default=None, help="Corruption type (e.g. defocus_blur); required for imagenet_c")
     parser.add_argument("--severity", type=int, default=1, choices=[1, 2, 3, 4, 5], help="Severity level (default: 1)")
     parser.add_argument(
         "--synsets",
@@ -50,25 +51,32 @@ def _resolve_synsets(value: str) -> list[str]:
 
 
 def run(args: argparse.Namespace) -> None:
-    group = _CORRUPTION_TO_GROUP.get(args.corruption)
-    if group is None:
-        raise ValueError(f"Unknown corruption '{args.corruption}'. Known: {sorted(_CORRUPTION_TO_GROUP)}")
-
     results_dir = Path(args.results_dir) if args.results_dir else paths.results
-    csv_path = results_dir / f"{args.model}_imagenet_c_{group}_{args.corruption}_{args.severity}.csv"
+
+    if args.dataset == "imagenet_r":
+        csv_path = results_dir / f"{args.model}_imagenet_r.csv"
+        task_name = "imagenet_r"
+    else:
+        if not args.corruption:
+            raise ValueError("--corruption is required for imagenet_c")
+        group = _CORRUPTION_TO_GROUP.get(args.corruption)
+        if group is None:
+            raise ValueError(f"Unknown corruption '{args.corruption}'. Known: {sorted(_CORRUPTION_TO_GROUP)}")
+        csv_path = results_dir / f"{args.model}_imagenet_c_{group}_{args.corruption}_{args.severity}.csv"
+        task_name = f"{args.corruption}_{args.severity}"
+
     if not csv_path.exists():
         raise FileNotFoundError(f"Result file not found: {csv_path}")
 
     df = pd.read_csv(csv_path)
-    wrong = df[df["is_correct"] == 0][["synset", "y_pred"]]
-    counts = wrong.groupby(["synset", "y_pred"]).size().reset_index(name="count")
+    relevant = df[["synset", "y_pred"]]
+    counts = relevant.groupby(["synset", "y_pred"]).size().reset_index(name="count")
     records = counts.to_dict(orient="records")
 
     index_to_label = get_index_to_synset_and_label_imagenet1k()
     synset_to_index = get_synset_to_index_imagenet1k()
 
     synsets = _resolve_synsets(args.synsets)
-    task_name = f"{args.corruption}_{args.severity}"
     model_label = MODELS.get(args.model, args.model)
     out_base = Path(args.output_dir) / "images" / "v2" / "mistake_dot"
 
@@ -85,11 +93,13 @@ def run(args: argparse.Namespace) -> None:
         true_idx = synset_to_index.get(synset)
         if true_idx is not None:
             e = index_to_label.get(true_idx, [synset, synset])
+            label_slug = e[1].replace(" ", "_").replace("/", "_")
             synset_label = f"{synset} ({e[1].replace('_', ' ')})"
         else:
+            label_slug = "unknown"
             synset_label = synset
 
-        out = out_base / f"{task_name}_{args.model}_{synset}.png"
+        out = out_base / f"{task_name}_{args.model}_{synset}_{label_slug}.png"
         render(entries, synset, synset_label, model_label, task_name, out)
         if entries:
             print(f"  -> {out}")

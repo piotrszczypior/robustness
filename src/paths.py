@@ -25,6 +25,10 @@ class ProjectPaths:
         return self.root / "results"
 
     @property
+    def embeddings(self) -> Path:
+        return self.root / "embeddings"
+
+    @property
     def logs(self) -> Path:
         return self.root / "logs"
 

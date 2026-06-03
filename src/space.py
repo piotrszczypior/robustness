@@ -72,3 +72,20 @@ class CorruptionVariations:
             if key not in seen:
                 seen.add(key)
                 yield key
+
+    def per_unique_corruption(
+        self,
+    ) -> Generator[tuple[str, str, list[int]], None, None]:
+        """Yield (group, corruption, severities) once per unique corruption.
+
+        Severities are deduplicated and sorted, giving the full severity sweep
+        available for that corruption. Models are collapsed.
+        """
+        seen: dict[tuple[str, str], list[int]] = {}
+        for v in self._variants:
+            severities = seen.setdefault((v.group, v.corruption), [])
+            if v.severity not in severities:
+                severities.append(v.severity)
+
+        for (group, corruption), severities in seen.items():
+            yield group, corruption, sorted(severities)
