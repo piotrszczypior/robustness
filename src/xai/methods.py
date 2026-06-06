@@ -43,7 +43,10 @@ def _to_numpy_heatmap(attributions: torch.Tensor) -> np.ndarray:
     attr = attributions.squeeze().detach().cpu()
     if attr.dim() == 3:
         attr = attr.abs().mean(dim=0)
-    return _normalize(attr.numpy())
+    arr = attr.numpy()
+    vmax = np.percentile(arr, 99)
+    arr = np.clip(arr / (vmax + 1e-8), 0, 1)
+    return arr
 
 
 def _run_gradcam(
@@ -64,27 +67,37 @@ def _run_gradcam(
     return _to_numpy_heatmap(attrs)
 
 
-def _run_gradcam_pp(
-    model: nn.Module,
-    target_layer: nn.Module,
-    input_tensor: torch.Tensor,
-    class_idx: int,
-) -> np.ndarray:
-    cam_extractor = GradCAMpp(model, target_layer)
-    out = model(input_tensor)
-    cams = cam_extractor(class_idx, out)
-    cam = cams[0]
-    if cam.dim() == 2:
-        cam = cam.unsqueeze(0).unsqueeze(0)
-    else:
-        cam = cam.unsqueeze(1)
-    resized_cam = F.interpolate(
-        cam,
-        size=input_tensor.shape[-2:],
-        mode="bilinear",
-        align_corners=False,
-    )
-    return _normalize(resized_cam.squeeze().detach().cpu().numpy())
+# def _run_gradcam_pp(model, target_layer, input_tensor, class_idx):
+#     cam_extractor = GradCAMpp(model, target_layer)
+    
+#     with torch.enable_grad():
+#         out = model(input_tensor)
+#         cams = cam_extractor(class_idx, out)
+    
+#     cam = cams[0].squeeze()
+#     if cam.dim() == 2:
+#         cam = cam.unsqueeze(0).unsqueeze(0)
+#     else:
+#         cam = cam[0].unsqueeze(0).unsqueeze(0)
+    
+#     resized_cam = F.interpolate(
+#         cam, size=input_tensor.shape[-2:],
+#         mode="bilinear", align_corners=False,
+#     )
+#     return _normalize(resized_cam.squeeze().detach().cpu().numpy())
+
+
+from pytorch_grad_cam import GradCAMPlusPlus
+from pytorch_grad_cam.utils.model_targets import ClassifierOutputTarget
+
+def _run_gradcam_pp(model, target_layer, input_tensor, class_idx):
+    with GradCAMPlusPlus(model=model, target_layers=[target_layer]) as cam:
+        targets = [ClassifierOutputTarget(class_idx)]
+        grayscale_cam = cam(
+            input_tensor=input_tensor,
+            targets=targets,
+        )[0]
+    return _normalize(grayscale_cam)
 
 
 def _run_integrated_gradients(
@@ -118,27 +131,53 @@ def _run_layer_ig(
     return _normalize(attr.squeeze().detach().cpu().numpy())
 
 
+def _run_rise(
+    model: nn.Module,
+    input_tensor: torch.Tensor,
+    class_idx: int,
+    n_masks: int = 8000,
+    mask_size: int = 12,
+    p: float = 0.4,
+) -> np.ndarray:
+    device = input_tensor.device
+    _, C, H, W = input_tensor.shape
+    saliency = torch.zeros(H, W, device=device)
+
+    for _ in range(n_masks):
+        small_mask = (torch.rand(1, 1, mask_size, mask_size) < p).float()
+        mask = F.interpolate(small_mask, size=(H, W), mode="bilinear", align_corners=False).to(device)
+        masked_input = input_tensor * mask
+        with torch.no_grad():
+            score = F.softmax(model(masked_input), dim=1)[0, class_idx]
+        saliency += score.item() * mask.squeeze()
+
+    saliency /= n_masks * p
+    return _normalize(saliency.cpu().numpy())
+
+
 def _run_smoothgrad_ig(
     model: nn.Module,
     input_tensor: torch.Tensor,
     class_idx: int,
-    steps: int = 25,
-    n_samples: int = 10,
-    noise_level: float = 0.15,
+    steps: int = 100,
+    n_samples: int = 25,
+    noise_level: float = 0.1,
 ) -> np.ndarray:
     ig = IntegratedGradients(model)
     nt = NoiseTunnel(ig)
     baseline = torch.zeros_like(input_tensor)
+    stdevs=noise_level * input_tensor.std().item()
+
     attrs = nt.attribute(
         input_tensor,
         nt_type="smoothgrad",
         nt_samples=n_samples,
-        nt_samples_batch_size=1,
-        stdevs=noise_level,
+        nt_samples_batch_size=4,
+        stdevs=stdevs,
         baselines=baseline,
         target=class_idx,
         n_steps=steps,
-        internal_batch_size=1,
+        internal_batch_size=4,
     )
 
     return _to_numpy_heatmap(attrs)
@@ -206,19 +245,15 @@ def get_all_explanations(
 
     explanations = {}
 
-    if layer_ig and family == "vit":
-        explanations["integrated_gradients"] = _run_layer_ig(model, input_tensor, class_idx)
-    else:
-        explanations["integrated_gradients"] = _run_integrated_gradients(
-            model, input_tensor, class_idx
-        )
+    explanations["rise"] = _run_rise(model, input_tensor, class_idx)
     explanations["smoothgrad_ig"] = _run_smoothgrad_ig(model, input_tensor, class_idx)
 
     if family in ("cnn", "hybrid", "swin", "maxvit"):
         explanations["gradcam_pp"] = _run_gradcam_pp(
             model, target_layer, input_tensor, class_idx
         )
+
     elif family == "vit":
         explanations["attention_rollout"] = _run_attention_rollout(model, input_tensor)
-
+        
     return explanations

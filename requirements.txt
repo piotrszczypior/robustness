@@ -26,3 +26,5 @@ torchcam
 upsetplot
 # imagecorruptions
 # setuptools<70
+ete3
+PyQt5

@@ -99,6 +99,12 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         help="Output directory for CSV files (default: aversarial)",
     )
     parser.add_argument(
+        "--output-name",
+        type=str,
+        default=None,
+        help="Output CSV filename without extension (default: <model>)",
+    )
+    parser.add_argument(
         "--save-images",
         action="store_true",
         help="Save adversarial images to images/adversarial/synsets/{synset}/{attack}_eps{e}.png",
@@ -215,6 +221,7 @@ def run(args: argparse.Namespace) -> None:
         index_to_synset=index_to_synset,
         synset_to_label=synset_to_label,
         output_path=Path(args.output),
+        output_name=args.output_name,
         fragile_synsets=fragile_synsets,
         save_images_dir=images_dir,
         sync_drive=args.sync_drive,

@@ -8,6 +8,7 @@ from task import Task
 
 from . import dataset, runner
 from .loader import list_conditions
+from .pca_scatter import run_pca_scatter
 
 __all__ = ["get_task", "register", "run"]
 
@@ -90,6 +91,31 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         help="Output path (default: results/representations/{model}_class_metrics.parquet)",
     )
     rollup_parser.set_defaults(representations_func=run_rollup)
+
+    pca_parser = commands.add_parser(
+        "pca-scatter",
+        help="PCA scatter of raw embeddings for selected synsets vs a single corruption",
+    )
+    pca_parser.add_argument(
+        "--model", default="resnet50", help="Model whose embeddings to use"
+    )
+    pca_parser.add_argument(
+        "--synsets",
+        required=True,
+        help="Comma-separated synset IDs, e.g. n01773157,n01774384",
+    )
+    pca_parser.add_argument("--corruption", required=True)
+    pca_parser.add_argument("--severity", type=int, required=True)
+    pca_parser.add_argument(
+        "--n-samples", type=int, default=50, dest="n_samples",
+        help="Samples per synset per condition (default: 50)",
+    )
+    pca_parser.add_argument("--seed", type=int, default=42)
+    pca_parser.add_argument(
+        "--out", default=None,
+        help="Output PNG path (default: images/representations/pca/{model}_{corruption}_{severity}.png)",
+    )
+    pca_parser.set_defaults(representations_func=run_pca_scatter)
 
 
 def run(args: argparse.Namespace) -> None:

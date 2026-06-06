@@ -1,21 +1,3 @@
-"""Find common *attractor* classes of fragile classes.
-
-When a small ImageNet-C corruption is applied (e.g. snow severity 1), some classes that are
-accurate on clean data collapse and get pulled into one specific *robust* class. Example:
-"wolf spider" (~0.80 clean) drops below 0.30 under snow-1 and is mistaken for "barn spider"
-(robust) across ResNet50, ConvNeXt-Base and ViT-B/16.
-
-This script sweeps ImageNet-C settings and, per setting:
-  1. flags fragile *source* classes per model via the A and B (A intersect B) definition,
-  2. computes the class-to-class misclassification flow under corruption,
-  3. keeps source->attractor edges where the attractor is itself robust,
-  4. aggregates across models and reports attractors shared by >= MIN_MODELS models.
-
-Output: results/representations/attractors/attractors.json, grouped by attractor.
-
-Run from the repo root:  python scripts/attractors.py
-"""
-
 from __future__ import annotations
 
 import json
@@ -45,11 +27,11 @@ MODELS = [
 ]
 
 GROUPS = [g for g in IMAGENET_C_CORRUPTION_GROUPS if g != "extra"]
-SEVERITIES = [1, 2, 3, 4, 5]
+SEVERITIES = [1, 2, 3]
 
-TAU = 0.4            
+TAU = 0.3   
 ROBUST_CORRUPT_ATTR = 0.6  
-COMMON_ATTR_MIN_MODELS = 3        
+COMMON_ATTR_MIN_MODELS = 3
 
 AB = DEFINITIONS["ab"]
 
@@ -249,7 +231,8 @@ def main():
     set_attractors = []
     for entry in attractor_settings.values():
         settings = sorted(set(entry["settings"]))
-        set_attractors.append({**entry, "settings": settings, "n_settings": len(settings)})
+        corruptions = sorted(set(["_".join(corr.split("_")[:-1]) for corr in settings]))
+        set_attractors.append({**entry, "settings": settings, "corruptions": corruptions, "n_settings": len(settings), "n_corruptions": len(corruptions)})
     set_attractors.sort(key=lambda e: e["n_settings"], reverse=True)
 
     out = OUT_DIR / "attractors.json"

@@ -287,12 +287,13 @@ def run(args: argparse.Namespace):
             print(f"\n=== {definition.label} ===")
             df = _get_fragile(dfs[args.model], dfs["alexnet"], definition)
             # print(df[df["is_strongly_fragile"] == 1])
+            fragile = df[definition.combine(df)].sort_values(by="acc_corrupt", ascending=False)
             robust = df[
                 (df["is_fragile_a"] == 0)
                 & (df["is_fragile_b"] == 0)
                 & (df["is_fragile_c"] == 0)
             ].sort_values(by="acc_corrupt", ascending=False)
-            print(robust)
+            print(fragile)
             if args.select_top_k:
                 top_k = select_top_k_fragile(df, args.select_top_k)
                 print(f"\n--- Top {args.select_top_k} (Pareto) ---")

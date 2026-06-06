@@ -24,8 +24,8 @@ _TARGET_LAYERS: dict[str, Callable[[nn.Module], nn.Module]] = {
     "swin_b": lambda m: m.features[-1][-1].norm2,
     "swin_v2_b": lambda m: m.features[-1][-1].norm2,
     "maxvit_t": lambda m: m.blocks[-1].layers[-1],
-    "convnext_base": lambda m: m.features[-1][-1],
-    "convnext_large": lambda m: m.features[-1][-1],
+    "convnext_base": lambda m: m.features[-1][-1].block[0],
+    "convnext_large": lambda m: m.features[-4][-1].block[0],
 }
 
 

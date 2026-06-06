@@ -1,8 +1,10 @@
 import argparse
 from pathlib import Path
 
+import pandas as pd
+
 from task import Task
-from .plot import load_adversarial_results, plot_adversarial_dot_plot
+from .plot import plot_adversarial_dot_plot, plot_adversarial_multi_class
 
 
 TASK_NAME = "adversarial_dot_v2"
@@ -18,10 +20,11 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         help="Cleveland dot plot — baseline vs adversarial accuracy per class",
     )
     parser.add_argument(
-        "--data-path",
+        "--files",
         type=str,
-        default="aversarial",
-        help="Directory with adversarial CSV files (default: aversarial)",
+        nargs="+",
+        required=True,
+        help="Adversarial CSV files to plot",
     )
     parser.add_argument(
         "--output-dir",
@@ -32,28 +35,23 @@ def register(subparsers: argparse._SubParsersAction) -> None:
 
 
 def run(args: argparse.Namespace) -> None:
-    df = load_adversarial_results(args.data_path)
+    frames = [pd.read_csv(f) for f in args.files]
+    df = pd.concat(frames, ignore_index=True)
     if df.empty:
-        print(f"[adversarial_dot_v2] no CSV files found in {args.data_path}")
+        print(f"[adversarial_dot_v2] no data in provided files")
         return
 
     out_dir = Path(args.output_dir) / "images" / "adversarial" / "dot_plot"
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    synsets = sorted(df["synset"].unique())
     models = sorted(df["model"].unique())
     attacks = sorted(df["attack"].unique())
 
-    for synset in synsets:
-        for model in models:
-            for attack in attacks:
-                sub = df[
-                    (df["synset"] == synset)
-                    & (df["model"] == model)
-                    & (df["attack"] == attack)
-                ]
-                if sub.empty:
-                    continue
-                out = out_dir / f"{synset}_{model}_{attack}.png"
-                plot_adversarial_dot_plot(sub, attack, str(out))
-                print(f"  {out.name}")
+    filename = args.files[0].split("/")[-1]
+
+    for model in models:
+        sub = df[df["model"] == model]
+        for attack in attacks:
+            out = out_dir / f"{filename}_{attack}.png"
+            plot_adversarial_multi_class(sub, attack, str(out))
+            print(f"  {out.name}")

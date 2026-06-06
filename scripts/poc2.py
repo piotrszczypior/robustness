@@ -7,7 +7,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 
-METRICS_PATH = Path("results/representations/resnet50_class_metrics.parquet")
+METRICS_PATH = Path("results/representations/vit_b_16_class_metrics.parquet")
 OUT_DIR = Path("results/representations/taxonomy")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 METRIC = "angular_distance_median"

@@ -10,14 +10,12 @@ from typing import Dict, Optional
 from dataset import DatasetConfig, DatasetType
 import numpy as np
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
 from PIL import Image
 
 from model import get_model
 
 from .layer import get_target_layer
-from .visualization import save_heatmap, save_xai_panel, save_individual_explanations
+from .visualization import save_xai_panel, save_individual_explanations
 from utils import resolve_device
 from paths import paths
 from .methods import get_all_explanations
@@ -25,6 +23,14 @@ from utils import get_synset_to_label_imagenet1k
 
 
 logger = logging.getLogger("xai.gradcam")
+
+
+def _center_crop_pil(img: Image.Image, crop_size: int) -> Image.Image:
+    scale = crop_size * 256 // 224
+    img = img.resize((scale, scale), Image.BICUBIC)
+    left = (scale - crop_size) // 2
+    top = (scale - crop_size) // 2
+    return img.crop((left, top, left + crop_size, top + crop_size))
 
 
 def load_class_index() -> Dict[str, int]:
@@ -157,10 +163,10 @@ def run_xai(
         dataset_label = dataset_alias.replace("/", "_")
         label = synset_to_label[synset]
         if sample_range is not None:
-            base_stem = f"{dataset_label}_{synset}_{label}_{sample_idx}"
+            base_stem = f"{dataset_label}_{label}_{synset}_{sample_idx}"
         else:
-            base_stem = f"{dataset_label}_{synset}_{label}"
-        out_dir = Path(output_dir) / model_name / synset
+            base_stem = f"{dataset_label}_{label}_{synset}"
+        out_dir = Path(output_dir) / model_name / label
         output_path = out_dir / f"{model_name}_{base_stem}.png"
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -170,11 +176,24 @@ def run_xai(
             model, model_name, target_layer, input_tensor, target_idx, layer_ig=layer_ig
         )
 
-        save_xai_panel(explanations, img_path, output_path)
+        crop_size = input_tensor.shape[-1]
+
+        mean = torch.tensor([0.485, 0.456, 0.406])
+        std = torch.tensor([0.229, 0.224, 0.225])
+
+        display_tensor = input_tensor.squeeze(0).cpu() * std[:, None, None] + mean[:, None, None]
+        display_tensor = display_tensor.clamp(0, 1)
+        display_img = Image.fromarray(
+            (display_tensor.permute(1, 2, 0).numpy() * 255).astype(np.uint8)
+        )
+
+
+        # display_img = _center_crop_pil(img_pil, crop_size)
+        save_xai_panel(explanations, display_img, output_path)
 
         if save_individual:
             save_individual_explanations(
-                explanations, img_path, out_dir, model_name, base_stem
+                explanations, display_img, out_dir, model_name, base_stem
             )
 
         if sync_drive:

@@ -1,9 +1,0 @@
-model,attack,epsilon,synset,class_name,n_samples,baseline_acc,adv_acc,acc_drop,normalized_drop,is_fragile
-maxvit_t,fgsm,0.00392156862745098,n01697457,African_crocodile,50,0.86,0.78,0.08,0.093,1
-maxvit_t,fgsm,0.00784313725490196,n01697457,African_crocodile,50,0.86,0.74,0.12,0.1395,1
-maxvit_t,fgsm,0.01568627450980392,n01697457,African_crocodile,50,0.86,0.6,0.26,0.3023,1
-maxvit_t,fgsm,0.03137254901960784,n01697457,African_crocodile,50,0.86,0.32,0.54,0.6279,1
-maxvit_t,pgd,0.00392156862745098,n01697457,African_crocodile,50,0.86,0.52,0.34,0.3953,1
-maxvit_t,pgd,0.00784313725490196,n01697457,African_crocodile,50,0.86,0.16,0.7,0.814,1
-maxvit_t,pgd,0.01568627450980392,n01697457,African_crocodile,50,0.86,0.1,0.76,0.8837,1
-maxvit_t,pgd,0.03137254901960784,n01697457,African_crocodile,50,0.86,0.08,0.78,0.907,1

@@ -40,7 +40,7 @@ def build_group_table(
             try:
                 df = load_csv(data_path / name)
                 acc = synset_acc(df, synset)
-                row[sev] = f"{acc:.3f}" if acc is not None else "n/a"
+                row[sev] = f"{acc:.2f}" if acc is not None else "n/a"
             except FileNotFoundError:
                 row[sev] = "missing"
         rows.append(row)
@@ -65,7 +65,7 @@ def main() -> None:
     clean_path = args.data_path / f"{args.model}_imagenet.csv"
     try:
         clean_acc = synset_acc(load_csv(clean_path), args.synset)
-        clean_str = f"{clean_acc:.3f}" if clean_acc is not None else "n/a"
+        clean_str = f"{clean_acc:.2f}" if clean_acc is not None else "n/a"
     except FileNotFoundError:
         clean_str = "missing"
     print(f"Clean ImageNet accuracy: {clean_str}\n")

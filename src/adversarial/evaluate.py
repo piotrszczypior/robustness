@@ -110,7 +110,8 @@ def run_adversarial_evaluation(
     index_to_synset: dict,
     synset_to_label: dict,
     output_path: Path,
-    fragile_synsets: set[str],
+    output_name: str | None = None,
+    fragile_synsets: set[str] = set(),
     save_images_dir: Path | None = None,
     sync_drive: bool = False,
 ) -> None:
@@ -167,7 +168,7 @@ def run_adversarial_evaluation(
     df = pd.DataFrame(all_rows).sort_values(
         ["attack", "epsilon", "acc_drop"], ascending=[True, True, False]
     )
-    filename = f"{model_name}.csv"
+    filename = f"{output_name}.csv" if output_name else f"{model_name}.csv"
     out_file = export_results(
         df, filename, output_dir=output_path, backup_dir=backup_dir
     )

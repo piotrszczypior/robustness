@@ -31,10 +31,9 @@ def save_heatmap(heatmap: np.ndarray, original_img_path: Path, output_path: Path
 
 def save_xai_panel(
     explanations: dict[str, np.ndarray],
-    original_img_path: Path,
+    img: Image.Image,
     output_path: Path,
 ) -> None:
-    img = Image.open(original_img_path).convert("RGB")
     n = len(explanations) + 1
     fig, axes = plt.subplots(1, n, figsize=(4 * n, 4))
 
@@ -49,7 +48,7 @@ def save_xai_panel(
     # }
 
     for i, (name, heatmap) in enumerate(explanations.items(), start=1):
-        if name in ("integrated_gradients", "smoothgrad_ig"):
+        if name in ("smoothgrad_ig",):
             heatmap_resized = (
                 np.array(
                     Image.fromarray((heatmap * 255).astype(np.uint8)).resize(
@@ -66,28 +65,27 @@ def save_xai_panel(
                 img.size, resample=Image.BILINEAR
             )
             overlay = Image.blend(img, heatmap_img, alpha=0.5)
-            axes[i].imshow(overlay)
+            axes[i].imshow(overlay, aspect='equal')
 
         axes[i].axis("off")
 
     plt.tight_layout()
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    plt.savefig(output_path, dpi=150, bbox_inches="tight")
+    plt.savefig(output_path, dpi=300, bbox_inches="tight")
     plt.close(fig)
 
 
 def save_individual_explanations(
     explanations: dict[str, np.ndarray],
-    original_img_path: Path,
+    img: Image.Image,
     output_dir: Path,
     model_name: str,
     base_stem: str,
 ) -> None:
     """Save each method as a separate PNG: {model}_{method}_{base_stem}.png"""
-    img = Image.open(original_img_path).convert("RGB")
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    _GRAYSCALE = {"integrated_gradients", "smoothgrad_ig", "layer_ig"}
+    _GRAYSCALE = {"smoothgrad_ig", "layer_ig"}
 
     for method_name, heatmap in explanations.items():
         fig, axes = plt.subplots(1, 2, figsize=(8, 4))
@@ -108,7 +106,7 @@ def save_individual_explanations(
             heatmap_img = Image.fromarray(heatmap_colored).resize(
                 img.size, resample=Image.BILINEAR
             )
-            axes[1].imshow(Image.blend(img, heatmap_img, alpha=0.5))
+            axes[1].imshow(Image.blend(img, heatmap_img, alpha=0.3))
 
         axes[1].axis("off")
         plt.tight_layout()

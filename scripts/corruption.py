@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 from scipy.cluster.hierarchy import linkage, dendrogram
 from scipy.spatial.distance import squareform
 
-METRICS_PATH = Path("results/representations/resnet50_class_metrics.parquet")
-OUT_DIR = Path("representations/taxonomy3")
+METRICS_PATH = Path("results/representations/vit_b_16_class_metrics.parquet")
+OUT_DIR = Path("representations/taxonomy4")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 METRICS = ["angular_distance_median"]
@@ -71,7 +71,7 @@ def analyze(df, metric):
         sim = spearman_matrix(mat)
         Z = cluster(sim)
         heatmap(sim, labels, "Spearman rank correlation of corruption groups", OUT_DIR / f"cosine_distance_{tag}_heatmap.png", tag)
-        dendro(Z, labels, "Dendrogram of hierarchical clustering of corruptions for ResNet-50", OUT_DIR / f"cosine_distance_{tag}_dendro.png", tag)
+        dendro(Z, labels, "Dendrogram of hierarchical clustering of corruptions for ViT-B/16", OUT_DIR / f"cosine_distance_{tag}_dendro.png", tag)
 
 
 def main():
