@@ -11,12 +11,11 @@ from sklearn.decomposition import PCA
 from umap import UMAP
 from sklearn.manifold import TSNE
 
-from constants import IMAGENET_C_CORRUPTION_GROUPS
 from model import MODELS
 from paths import paths
 
 from .loader import Features, load_aligned
-from .naming import clean_name, condition_name
+from .naming import clean_name, condition_name, group_for_corruption
 
 __all__ = ["run_pca_scatter"]
 
@@ -34,14 +33,6 @@ _PALETTE = [
     "#bcbd22",
     "#17becf",
 ]
-
-
-def _group_for_corruption(corruption: str) -> str:
-    for group, corruptions in IMAGENET_C_CORRUPTION_GROUPS.items():
-        if corruption in corruptions:
-            return group
-    valid = sorted(c for cs in IMAGENET_C_CORRUPTION_GROUPS.values() for c in cs)
-    raise ValueError(f"Unknown corruption '{corruption}'. Valid: {valid}")
 
 
 def _load_class_index(path: Path) -> dict[str, str]:
@@ -86,7 +77,7 @@ def _filter_and_sample(
 
 
 def run_pca_scatter(args: argparse.Namespace) -> None:
-    group = _group_for_corruption(args.corruption)
+    group = group_for_corruption(args.corruption)
 
     clean_stem = clean_name(args.model)
     cond_stem = condition_name(args.model, group, args.corruption, args.severity)

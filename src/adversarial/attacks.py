@@ -1,43 +1,19 @@
 from __future__ import annotations
 
-import torch
 import torch.nn as nn
-from torch import Tensor
+import torchattacks
+
+IMAGENET_MEAN = [0.485, 0.456, 0.406]
+IMAGENET_STD = [0.229, 0.224, 0.225]
 
 
-def fgsm(
-    model: nn.Module,
-    images: Tensor,
-    labels: Tensor,
-    epsilon: float,
-    loss_fn: nn.Module,
-) -> Tensor:
-    images = images.clone().detach().requires_grad_(True)
-    loss = loss_fn(model(images), labels)
-    loss.backward()
-    return (images + epsilon * images.grad.sign()).detach()
+def get_fgsm(model: nn.Module, epsilon: float) -> torchattacks.Attack:
+    atk = torchattacks.FGSM(model, eps=epsilon)
+    atk.set_normalization_used(mean=IMAGENET_MEAN, std=IMAGENET_STD)
+    return atk
 
 
-def pgd(
-    model: nn.Module,
-    images: Tensor,
-    labels: Tensor,
-    epsilon: float,
-    loss_fn: nn.Module,
-    steps: int = 20,
-    alpha: float | None = None,
-) -> Tensor:
-    if alpha is None:
-        alpha = epsilon / 4
-
-    adv = images.clone().detach() + torch.empty_like(images).uniform_(-epsilon, epsilon)
-
-    for _ in range(steps):
-        adv = adv.clone().detach().requires_grad_(True)
-        loss = loss_fn(model(adv), labels)
-        loss.backward()
-        adv = (adv + alpha * adv.grad.sign()).detach()
-        # project back into epsilon-ball around original images
-        adv = images + (adv - images).clamp(-epsilon, epsilon)
-
-    return adv.detach()
+def get_pgd(model: nn.Module, epsilon: float, steps: int = 20) -> torchattacks.Attack:
+    atk = torchattacks.PGD(model, eps=epsilon, alpha=epsilon / 4, steps=steps)
+    atk.set_normalization_used(mean=IMAGENET_MEAN, std=IMAGENET_STD)
+    return atk

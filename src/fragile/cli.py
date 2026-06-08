@@ -2,6 +2,7 @@ from pathlib import Path
 
 from networkx import to_latex
 from task import Task
+from utils import get_synset_to_label_imagenet1k
 import argparse
 from .experiments import EXPERIMENTS, get_dfs_for_all_models, get_df_for_model, get_dfs_for_experiment, get_rmce_alexnet_df, get_alexnet_df_by_alias, get_df_by_alias_with_rmce
 from model import MODELS
@@ -185,7 +186,14 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     parser.add_argument(
         "--scatter",
         action="store_true",
-        help="Save scatter plot (rel_drop_cnn vs rel_drop_vit) for --arch-contrast",
+        help="Save scatter plot for --arch-contrast",
+    )
+    parser.add_argument(
+        "--scatter-metric",
+        type=str,
+        default="rel_drop",
+        choices=["rel_drop", "abs_drop", "acc_corrupt"],
+        help="Metric for scatter axes: rel_drop | abs_drop | acc_corrupt (default: rel_drop)",
     )
     parser.add_argument(
         "--arch-contrast-v2",
@@ -193,26 +201,19 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         help="Gap-based architecture contrast (delta_g method, see arch_contrast.py)",
     )
     parser.add_argument(
-        "--theta-a",
-        type=float,
-        default=0.3,
-        help="Minimum asymmetry score for --arch-contrast-v2 (default: 0.3)",
-    )
-    parser.add_argument(
-        "--theta-min",
-        type=float,
-        default=0.1,
-        help="Minimum absolute relative drop for --arch-contrast-v2 (default: 0.1)",
-    )
-    parser.add_argument(
-        "--no-pareto",
+        "--pareto",
         action="store_true",
-        help="Skip secondary Pareto filter in --arch-contrast-v2",
+        help="Use Pareto-based selection for --arch-contrast-v2 (default: exclusive A∩B per architecture)",
     )
     parser.add_argument(
         "--fisher-matrix",
         action="store_true",
         help="Compute Fisher exact test p-value matrix (20x20) for fragile class correlation between all model pairs",
+    )
+    parser.add_argument(
+        "--to-csv",
+        action="store_true",
+        help="Dump fragile classes to CSV with human-readable label column",
     )
 
 
@@ -294,6 +295,15 @@ def run(args: argparse.Namespace):
                 & (df["is_fragile_c"] == 0)
             ].sort_values(by="acc_corrupt", ascending=False)
             print(fragile)
+            if args.to_csv:
+                label_map = get_synset_to_label_imagenet1k()
+                out = fragile.copy()
+                out.insert(1, "label", out["synset"].map(label_map))
+                def_slug = next((k for k, v in DEFINITIONS.items() if v is definition), args.definition)
+                out_path = Path(args.output_dir) / f"{args.model}_{args.exp}_{def_slug}.csv"
+                out_path.parent.mkdir(parents=True, exist_ok=True)
+                out.to_csv(out_path, index=False)
+                print(f"Saved: {out_path}")
             if args.select_top_k:
                 top_k = select_top_k_fragile(df, args.select_top_k)
                 print(f"\n--- Top {args.select_top_k} (Pareto) ---")
@@ -477,7 +487,7 @@ def run_arch_contrast(args: argparse.Namespace) -> None:
 
 def run_arch_contrast_v2(args: argparse.Namespace) -> None:
     from model import MODELS
-    from .arch_contrast import compute_metrics, select_arch_fragile, plot_arch_contrast_scatter
+    from .arch_contrast import compute_metrics, select_arch_fragile, select_arch_exclusive_ab, plot_arch_contrast_scatter
 
     if not args.dataset and not args.group:
         raise ValueError("--arch-contrast-v2 requires --dataset or --group")
@@ -489,7 +499,7 @@ def run_arch_contrast_v2(args: argparse.Namespace) -> None:
     vit_label = MODELS[vit_keys[0]] if len(vit_keys) == 1 else "ViT (average)"
     cnn_label = MODELS[cnn_keys[0]] if len(cnn_keys) == 1 else "CNN (average)"
 
-    print(f"[arch-contrast-v2] {label}  theta_a={args.theta_a}  theta_min={args.theta_min}")
+    print(f"[arch-contrast-v2] {label}")
     print(f"  ViT: {vit_keys}  CNN: {cnn_keys}")
 
     if args.dataset:
@@ -514,14 +524,12 @@ def run_arch_contrast_v2(args: argparse.Namespace) -> None:
         "acc_corrupt_cnn": "acc_cnn_corrupt",
     })
 
-    vit_fragile, cnn_fragile, excluded = select_arch_fragile(
-        df,
-        theta_a=args.theta_a,
-        theta_min=args.theta_min,
-        apply_pareto=not args.no_pareto,
-    )
-    if not excluded.empty:
-        print(f"\n  [excluded — negative drop] {len(excluded)} synsets skipped")
+    if args.pareto:
+        vit_fragile, cnn_fragile, excluded = select_arch_fragile(df)
+        if not excluded.empty:
+            print(f"\n  [excluded — negative drop] {len(excluded)} synsets skipped")
+    else:
+        vit_fragile, cnn_fragile = select_arch_exclusive_ab(df)
 
     cols = ["synset", "y_true", "d_vit", "d_cnn", "asymmetry_vit", "asymmetry_cnn", "delta_g",
             "acc_vit_clean", "acc_vit_corrupt", "acc_cnn_clean", "acc_cnn_corrupt"]
@@ -536,7 +544,10 @@ def run_arch_contrast_v2(args: argparse.Namespace) -> None:
             enriched, vit_fragile, cnn_fragile,
             vit_label=vit_label,
             cnn_label=cnn_label,
-            title=label,
+            title=args.group or args.dataset or "",
+            severity=args.severity,
+            metric=args.scatter_metric,
+            synset_labels=get_synset_to_label_imagenet1k(),
         )
 
 
@@ -1004,8 +1015,8 @@ def run_robust_classes(args: argparse.Namespace) -> None:
         raise ValueError("--robust-classes requires --select-top-k")
 
     df = get_dfs_for_experiment(args.exp, args.model, args.data_path)
-    top_k = select_top_k_robust(df, args.select_top_k)
-    top_k = top_k.copy()
+    # top_k = select_top_k_robust(df, args.select_top_k)
+    top_k = df.copy()[:args.select_top_k]
     top_k["y_true"] = top_k.get("y_true", 0) if "y_true" in top_k.columns else 0
 
     print(top_k[["synset", "acc_clean", "acc_corrupt", "rel_drop", "abs_drop"]].to_string())

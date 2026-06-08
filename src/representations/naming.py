@@ -1,14 +1,25 @@
 from __future__ import annotations
 
+from constants import IMAGENET_C_CORRUPTION_GROUPS
+
 __all__ = [
     "EMBEDDING_SUFFIX",
     "clean_name",
     "condition_name",
+    "group_for_corruption",
 ]
 
 EMBEDDING_SUFFIX = "embeddings"
 
 _CLEAN_DATASET = "imagenet"
+
+
+def group_for_corruption(corruption: str) -> str:
+    for group, corruptions in IMAGENET_C_CORRUPTION_GROUPS.items():
+        if corruption in corruptions:
+            return group
+    valid = sorted(c for cs in IMAGENET_C_CORRUPTION_GROUPS.values() for c in cs)
+    raise ValueError(f"Unknown corruption '{corruption}'. Valid: {valid}")
 
 
 def clean_name(model: str) -> str:

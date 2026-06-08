@@ -41,6 +41,7 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     parser.add_argument("--output-dir", type=str, default=".", help="Base output directory (default: .)")
     parser.add_argument("--min-count", type=int, default=1, help="Minimum prediction count to include (default: 1)")
     parser.add_argument("--top-k", type=int, default=10, help="Top K wrong predictions per synset (default: 10)")
+    parser.add_argument("--transpose", action="store_true", help="Vertical layout: classes on X, count on Y")
 
 
 def _resolve_synsets(value: str) -> list[str]:
@@ -100,6 +101,6 @@ def run(args: argparse.Namespace) -> None:
             synset_label = synset
 
         out = out_base / f"{task_name}_{args.model}_{synset}_{label_slug}.png"
-        render(entries, synset, synset_label, model_label, task_name, out)
+        render(entries, synset, synset_label, model_label, task_name, out, transpose=args.transpose)
         if entries:
             print(f"  -> {out}")

@@ -54,11 +54,25 @@ def render(
     model_label: str,
     task_name: str,
     output_path: Path,
+    transpose: bool = False,
 ) -> None:
     if not entries:
         print(f"  No data for {synset}, skipping.")
         return
 
+    if transpose:
+        _render_transposed(entries, synset, synset_label, model_label, output_path)
+    else:
+        _render_horizontal(entries, synset, synset_label, model_label, output_path)
+
+
+def _render_horizontal(
+    entries: list[dict],
+    synset: str,
+    synset_label: str,
+    model_label: str,
+    output_path: Path,
+) -> None:
     y_labels = [f"{e['label']}\n({e['synset']})" for e in entries]
     counts = [e['count'] for e in entries]
     is_correct_list = [e['is_correct'] for e in entries]
@@ -97,6 +111,55 @@ def render(
         ax.spines[spine].set_visible(False)
     ax.tick_params(left=False)
     ax.grid(color="#eeeeee", linewidth=1, zorder=0)
+
+    ax.set_title(f"{synset_label}  ·  {model_label}", fontsize=14, pad=6)
+    fig.tight_layout()
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output_path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
+
+
+def _render_transposed(
+    entries: list[dict],
+    synset: str,
+    synset_label: str,
+    model_label: str,
+    output_path: Path,
+) -> None:
+    x_labels = [f"{e['label']}\n({e['synset']})" for e in entries]
+    counts = [e['count'] for e in entries]
+    is_correct_list = [e['is_correct'] for e in entries]
+    n = len(entries)
+    y_max = max(counts)
+
+    tick_step = max(1, round(y_max / 8))
+    yticks = list(range(0, y_max + tick_step + 1, tick_step))
+
+    fig, ax = plt.subplots(figsize=(max(8, n * 1.5 + 2), 5), dpi=150)
+    fig.patch.set_facecolor("white")
+
+    for i, (count, is_correct) in enumerate(zip(counts, is_correct_list)):
+        color = _COLOR_CORRECT if is_correct else _COLOR_MISTAKE
+        ax.vlines(i, 0, count, color=color, linewidth=1.5, zorder=2)
+        if is_correct:
+            ax.plot(i, count, "o", color=color, markersize=6, zorder=3)
+        else:
+            ax.plot(i, count, "o", color=color, markersize=6,
+                    markerfacecolor="white", markeredgewidth=1.5, zorder=3)
+
+    ax.set_xticks(range(n))
+    ax.set_xticklabels(x_labels, fontsize=12, rotation=30, ha="right")
+    ax.set_xlim(-0.6, n - 0.4)
+
+    ax.set_ylabel("Prediction Count", fontsize=14)
+    ax.set_ylim(0, y_max * 1.1)
+    ax.set_yticks(yticks)
+    ax.set_yticklabels([str(y) for y in yticks], fontsize=12)
+
+    for spine in ("top", "right"):
+        ax.spines[spine].set_visible(False)
+    ax.grid(color="#eeeeee", linewidth=1, zorder=0)
+    ax.tick_params(bottom=True, length=4)
 
     ax.set_title(f"{synset_label}  ·  {model_label}", fontsize=14, pad=6)
     fig.tight_layout()

@@ -9,6 +9,7 @@ from task import Task
 from . import dataset, runner
 from .loader import list_conditions
 from .pca_scatter import run_pca_scatter
+from .synset_distance import run_synset_distance
 
 __all__ = ["get_task", "register", "run"]
 
@@ -116,6 +117,63 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         help="Output PNG path (default: images/representations/pca/{model}_{corruption}_{severity}.png)",
     )
     pca_parser.set_defaults(representations_func=run_pca_scatter)
+
+    dist_parser = commands.add_parser(
+        "synset-distance",
+        help="Distance between clean and corrupted synset centroids/medians",
+    )
+    dist_parser.add_argument(
+        "--model", default="resnet50", help="Model whose embeddings to use"
+    )
+    dist_parser.add_argument(
+        "--synsets-clean",
+        nargs="+",
+        required=True,
+        dest="synsets_clean",
+        help="Synset IDs for the clean side (e.g. n01773157 n01774384)",
+    )
+    dist_parser.add_argument(
+        "--synsets-corr",
+        nargs="+",
+        default=None,
+        dest="synsets_corr",
+        help="Synset IDs for the corrupted side (omit for clean-vs-clean only)",
+    )
+    dist_parser.add_argument(
+        "--corruption",
+        default=None,
+        help="Required when --synsets-corr is given",
+    )
+    dist_parser.add_argument(
+        "--severity",
+        type=int,
+        default=None,
+        help="Required when --synsets-corr is given",
+    )
+    dist_parser.add_argument(
+        "--aggregate",
+        choices=["centroid", "median"],
+        default="centroid",
+        help="How to reduce per-synset vectors to a single representative (default: centroid)",
+    )
+    dist_parser.add_argument(
+        "--out",
+        default=None,
+        help="Optional output path (.csv or .parquet)",
+    )
+    dist_parser.add_argument(
+        "--heatmap",
+        action="store_true",
+        default=False,
+        help="Save cosine-similarity heatmaps (clean×clean and clean×corrupted)",
+    )
+    dist_parser.add_argument(
+        "--heatmap-out",
+        default=None,
+        dest="heatmap_out",
+        help="Output PNG path for heatmap (default: images/representations/synset_distance/{model}_{corruption}_{severity}.png)",
+    )
+    dist_parser.set_defaults(representations_func=run_synset_distance)
 
 
 def run(args: argparse.Namespace) -> None:

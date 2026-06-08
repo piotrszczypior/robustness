@@ -144,7 +144,7 @@ def _pareto_front(df: pd.DataFrame) -> pd.Index:
 
 
 def select_top_k_fragile(df: pd.DataFrame, k: int) -> pd.DataFrame:
-    return df.sort_values(by="RmCE", ascending=False)[:k]
+    return df.sort_values(by="acc_clean", ascending=True)[:k]
 
     if "is_strongly_fragile" in df.columns:
         candidates = df[df["is_strongly_fragile"] == 1].copy()

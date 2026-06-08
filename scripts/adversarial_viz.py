@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import sys
 from pathlib import Path
+from adjustText import adjust_text
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
@@ -113,10 +114,7 @@ def plot_scatter(df: pd.DataFrame, corruption_drop: pd.Series, out_dir: Path) ->
     eps4 = _round_eps(_EPSILON_4)
     sub = df[df["_eps"] == eps4].copy()
 
-    fig, axes = plt.subplots(1, 2, figsize=(13, 5))
-    fig.patch.set_facecolor("white")
-
-    for ax, attack in zip(axes, ["fgsm", "pgd"]):
+    for attack in ["fgsm", "pgd"]:
         att = sub[sub["attack"] == attack].copy()
 
         att = att.set_index("synset")
@@ -126,17 +124,33 @@ def plot_scatter(df: pd.DataFrame, corruption_drop: pd.Series, out_dir: Path) ->
 
         colors = [_COLOR_FRAGILE if f == 1 else _COLOR_NON_FRAGILE for f in att["is_fragile"]]
 
+        fig, ax = plt.subplots(figsize=(7, 5))
+        fig.patch.set_facecolor("white")
+
         ax.scatter(corr, att["acc_drop"], c=colors, s=50, alpha=0.8, zorder=3)
 
-        # label top-5 most adversarially vulnerable
-        top5 = att["acc_drop"].nlargest(5).index
+        top5 = att["acc_drop"].nlargest(10).index
+        texts = []
         for syn in top5:
             if syn in corr.index:
                 name = att.loc[syn, "class_name"]
-                ax.annotate(
-                    name, (corr[syn], att.loc[syn, "acc_drop"]),
-                    fontsize=8, xytext=(4, 4), textcoords="offset points",
+                t = ax.text(
+                    corr[syn], att.loc[syn, "acc_drop"],
+                    name, fontsize=8,
                 )
+                texts.append(t)
+
+        adjust_text(
+            texts,
+            x=corr.values,
+            y=att["acc_drop"].values,
+            ax=ax,
+            arrowprops=dict(arrowstyle="-", color="#aaaaaa", lw=0.8),
+            expand=(2.5, 3.0),
+            force_text=(1.0, 2.0),
+            force_points=(0.5, 1.0),
+            iter_lim=700,
+        )
 
         rho, pval = stats.spearmanr(corr, att["acc_drop"])
         ax.text(
@@ -147,23 +161,26 @@ def plot_scatter(df: pd.DataFrame, corruption_drop: pd.Series, out_dir: Path) ->
         )
 
         ax.set_xlabel("Mean acc drop — corruption", fontsize=14)
-        ax.set_ylabel("Adversarial accuracy drop —  (ε=4/255)", fontsize=14)
+        ax.set_ylabel("Adversarial accuracy drop  (ε=4/255)", fontsize=14)
         ax.set_title(attack.upper(), fontsize=14, pad=6)
         _style(ax)
 
-    fig.tight_layout()
-    for ext in ("png", "pdf"):
-        out = out_dir / f"adversarial_scatter.{ext}"
-        fig.savefig(out, dpi=300, bbox_inches="tight")
-        print(f"Saved: {out}")
-    plt.close(fig)
+        ax.spines["left"].set_visible(True)
+        ax.tick_params(left=True, labelsize=11)
+
+        fig.tight_layout()
+        for ext in ("png", "pdf"):
+            out = out_dir / f"adversarial_scatter_{attack}.{ext}"
+            fig.savefig(out, dpi=300, bbox_inches="tight")
+            print(f"Saved: {out}")
+        plt.close(fig)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Adversarial robustness visualizations")
-    parser.add_argument("--adv-dir", default="adversarial_results", help="Directory with adversarial CSVs")
+    parser.add_argument("--adv-dir", default="aversarial", help="Directory with adversarial CSVs")
     parser.add_argument("--results-dir", default="results", help="Directory with ImageNet-C result CSVs")
-    parser.add_argument("--model", default="maxvit_t")
+    parser.add_argument("--model", default="vit_b_16")
     parser.add_argument("--output-dir", default="images/adversarial/viz")
     args = parser.parse_args()
 
@@ -179,7 +196,7 @@ def main() -> None:
         if attack in df["attack"].unique():
             plot_line(df, attack, out_dir)
 
-    print("Loading corruption drop (this may take a moment)...", file=sys.stderr)
+    print("Loading corruption drop", file=sys.stderr)
     synsets = df["synset"].unique().tolist()
     corruption_drop = _load_corruption_acc_drop(results_dir, args.model, synsets)
 

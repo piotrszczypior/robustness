@@ -139,17 +139,7 @@ def _resolve_classes(value: str) -> list[str]:
 
 
 def run(args: argparse.Namespace) -> None:
-    fragile_synsets = set(_resolve_classes(args.fragile)) if args.fragile else set()
-    robust_synsets = set(_resolve_classes(args.robust)) if args.robust else set()
-    synsets = list(fragile_synsets | robust_synsets)
-    if not synsets:
-        raise ValueError("No classes provided — use --fragile and/or --robust")
-
     attacks = ["fgsm", "pgd"] if args.attack == "both" else [args.attack]
-
-    logger.info(f"Model: {args.model}")
-    logger.info(f"Fragile: {sorted(fragile_synsets)}, Robust: {sorted(robust_synsets)}")
-    logger.info(f"Attacks: {attacks}, epsilons: {args.epsilon}")
 
     model, transforms = get_model(args.model)
     device = resolve_device()
@@ -159,11 +149,18 @@ def run(args: argparse.Namespace) -> None:
     index_to_synset = get_index_to_synset_and_label_imagenet1k()
     synset_to_label = get_synset_to_label_imagenet1k()
 
-    unknown = [s for s in synsets if s not in synset_to_index]
-    if unknown:
-        raise ValueError(f"Unknown synsets: {unknown}")
+    fragile_synsets: set[str] = set()
+    if args.fragile:
+        fragile_synsets = set(_resolve_classes(args.fragile))
+        unknown = [s for s in fragile_synsets if s not in synset_to_index]
+        if unknown:
+            raise ValueError(f"Unknown fragile synsets: {unknown}")
 
-    target_indices = {synset_to_index[s] for s in synsets}
+    target_indices = set(synset_to_index.values())  # all 1000 classes
+
+    logger.info(f"Model: {args.model}")
+    logger.info(f"Attacks: {attacks}, epsilons: {args.epsilon}")
+    logger.info(f"Fragile synsets: {len(fragile_synsets)}, total classes: {len(target_indices)}")
 
     if args.source == "imagenet-c":
         if not args.corruption:
@@ -205,7 +202,7 @@ def run(args: argparse.Namespace) -> None:
         pin_memory=torch.cuda.is_available(),
     )
 
-    logger.info(f"Dataset: {len(dataset)} samples across {len(synsets)} classes")
+    logger.info(f"Dataset: {len(dataset)} samples across {len(target_indices)} classes")
 
     images_dir = (
         Path("images") / "adversarial" / "synsets" if args.save_images else None

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import logging
-from collections import defaultdict
 from pathlib import Path
 
 import pandas as pd
@@ -12,92 +11,67 @@ from torch.utils.data import DataLoader
 
 from checkpoint import export_results
 from paths import paths
-from .attacks import fgsm, pgd
+from .attacks import get_fgsm, get_pgd
 
 logger = logging.getLogger(__name__)
 
-_ATTACK_FNS = {"fgsm": fgsm, "pgd": pgd}
+_ATTACK_FACTORIES = {"fgsm": get_fgsm, "pgd": get_pgd}
 
 
-def _baseline_acc_per_synset(
+def _collect_predictions(
     model: nn.Module,
     dataloader: DataLoader,
     device: torch.device,
     index_to_synset: dict,
-    save_dir: Path | None = None,
-) -> dict[str, dict]:
-    """Returns {synset: {"correct": int, "total": int}} on clean images."""
-    stats: dict[str, dict] = defaultdict(lambda: {"correct": 0, "total": 0})
-    collected: dict[str, list[torch.Tensor]] = defaultdict(list) if save_dir else {}
-
-    model.eval()
-    with torch.inference_mode():
-        for images, labels in dataloader:
-            images, labels = images.to(device), labels.to(device)
-            preds = model(images).argmax(dim=1)
-            for i, (label, pred) in enumerate(zip(labels.tolist(), preds.tolist())):
-                synset = index_to_synset[label][0]
-                stats[synset]["total"] += 1
-                stats[synset]["correct"] += int(label == pred)
-                if save_dir and len(collected[synset]) < 5:
-                    collected[synset].append(images[i].cpu())
-
-    if save_dir and collected:
-        for synset, imgs in collected.items():
-            clean_dir = save_dir / synset / "clean"
-            clean_dir.mkdir(parents=True, exist_ok=True)
-            for idx, img in enumerate(imgs):
-                torchvision.utils.save_image(img, clean_dir / f"{idx:03d}.png")
-
-    return stats
-
-
-def _adv_acc_per_synset(
-    model: nn.Module,
-    dataloader: DataLoader,
-    device: torch.device,
-    index_to_synset: dict,
+    synset_to_label: dict,
+    model_name: str,
     attack_name: str,
     epsilon: float,
-    eps_idx: int = 1,
+    fragile_synsets: set[str],
+    attack_obj=None,
     save_dir: Path | None = None,
-) -> dict[str, dict]:
-    """Returns {synset: {"correct": int, "total": int}} on adversarial images."""
-    attack_fn = _ATTACK_FNS[attack_name]
-    loss_fn = nn.CrossEntropyLoss()
-    stats: dict[str, dict] = defaultdict(lambda: {"correct": 0, "total": 0})
-    collected: dict[str, list[torch.Tensor]] = defaultdict(list) if save_dir else {}
+) -> list[dict]:
+    rows = []
+    saved: dict[str, int] = {}
 
+    model.eval()
     for images, labels in dataloader:
         images, labels = images.to(device), labels.to(device)
 
-        model.train()  # enable gradients through BN/dropout
-        adv_images = attack_fn(model, images, labels, epsilon, loss_fn)
+        if attack_obj is not None:
+            adv_images = attack_obj(images, labels)
+        else:
+            adv_images = images
 
-        model.eval()
         with torch.inference_mode():
             preds = model(adv_images).argmax(dim=1)
 
         for i, (label, pred) in enumerate(zip(labels.tolist(), preds.tolist())):
-            synset = index_to_synset[label][0]
-            stats[synset]["total"] += 1
-            stats[synset]["correct"] += int(label == pred)
-            if save_dir and len(collected[synset]) < 5:
-                collected[synset].append(adv_images[i].detach().cpu())
+            synset, class_name = index_to_synset[label]
+            rows.append(
+                {
+                    "model": model_name,
+                    "attack": attack_name,
+                    "epsilon": epsilon,
+                    "synset": synset,
+                    "class_name": class_name,
+                    "y_true": label,
+                    "y_pred": pred,
+                    "is_correct": int(label == pred),
+                    "is_fragile": int(synset in fragile_synsets),
+                }
+            )
 
-    if save_dir and collected:
-        for synset, imgs in collected.items():
-            synset_dir = save_dir / synset / attack_name
-            synset_dir.mkdir(parents=True, exist_ok=True)
-            for idx, img in enumerate(imgs):
+            if save_dir and saved.get(synset, 0) < 5:
+                img_dir = save_dir / synset / attack_name
+                img_dir.mkdir(parents=True, exist_ok=True)
                 torchvision.utils.save_image(
-                    img, synset_dir / f"{idx:03d}_{eps_idx}.png"
+                    adv_images[i].detach().cpu(),
+                    img_dir / f"{saved.get(synset, 0):03d}.png",
                 )
-        logger.info(
-            f"Saved adversarial images for {len(collected)} synsets to {save_dir}"
-        )
+                saved[synset] = saved.get(synset, 0) + 1
 
-    return stats
+    return rows
 
 
 def run_adversarial_evaluation(
@@ -117,56 +91,43 @@ def run_adversarial_evaluation(
 ) -> None:
     backup_dir = paths.google_colab_gdrive_path if sync_drive else None
 
-    logger.info("Computing baseline accuracy per class")
-    baseline = _baseline_acc_per_synset(
-        model, dataloader, device, index_to_synset, save_dir=save_images_dir
+    logger.info("Collecting baseline (clean) predictions")
+    all_rows = _collect_predictions(
+        model=model,
+        dataloader=dataloader,
+        device=device,
+        index_to_synset=index_to_synset,
+        synset_to_label=synset_to_label,
+        model_name=model_name,
+        attack_name="clean",
+        epsilon=0.0,
+        fragile_synsets=fragile_synsets,
+        attack_obj=None,
+        save_dir=save_images_dir,
     )
 
-    all_rows = []
     for attack_name in attacks:
-        for eps_idx, epsilon in enumerate(epsilons, start=1):
-            logger.info(f"Running {attack_name.upper()} eps={epsilon:.4f}")
-            adv = _adv_acc_per_synset(
-                model,
-                dataloader,
-                device,
-                index_to_synset,
-                attack_name,
-                epsilon,
-                eps_idx=eps_idx,
+        factory = _ATTACK_FACTORIES[attack_name]
+        for epsilon in epsilons:
+            logger.info(f"Running {attack_name.upper()} eps={epsilon:.6f}")
+            attack_obj = factory(model, epsilon)
+            rows = _collect_predictions(
+                model=model,
+                dataloader=dataloader,
+                device=device,
+                index_to_synset=index_to_synset,
+                synset_to_label=synset_to_label,
+                model_name=model_name,
+                attack_name=attack_name,
+                epsilon=epsilon,
+                fragile_synsets=fragile_synsets,
+                attack_obj=attack_obj,
                 save_dir=save_images_dir,
             )
-
-            for synset, base_stats in baseline.items():
-                n = base_stats["total"]
-                baseline_acc = base_stats["correct"] / n if n > 0 else 0.0
-                adv_correct = adv[synset]["correct"]
-                adv_acc = adv_correct / n if n > 0 else 0.0
-                acc_drop = baseline_acc - adv_acc
-                normalized_drop = (
-                    acc_drop / baseline_acc if baseline_acc > 0 else float("nan")
-                )
-
-                all_rows.append(
-                    {
-                        "model": model_name,
-                        "attack": attack_name,
-                        "epsilon": epsilon,
-                        "synset": synset,
-                        "class_name": synset_to_label.get(synset, ""),
-                        "n_samples": n,
-                        "baseline_acc": round(baseline_acc, 4),
-                        "adv_acc": round(adv_acc, 4),
-                        "acc_drop": round(acc_drop, 4),
-                        "normalized_drop": round(normalized_drop, 4)
-                        if not pd.isna(normalized_drop)
-                        else float("nan"),
-                        "is_fragile": 1 if synset in fragile_synsets else 0,
-                    }
-                )
+            all_rows.extend(rows)
 
     df = pd.DataFrame(all_rows).sort_values(
-        ["attack", "epsilon", "acc_drop"], ascending=[True, True, False]
+        ["attack", "epsilon", "synset"], ascending=True
     )
     filename = f"{output_name}.csv" if output_name else f"{model_name}.csv"
     out_file = export_results(

@@ -4,11 +4,15 @@ __pycache__
 .ruff_cache
 data
 
+
 *.tar
 *.zip
-
 *.log
+*.png 
+*.csv 
+*.pdf
 
 # results in GDrive
 results/
 embeddings/
+output/
