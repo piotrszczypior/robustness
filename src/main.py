@@ -37,6 +37,7 @@ from plots_v2.mistake_models_dot import get_task as get_mistake_models_dot_task
 from plots_v2.synset_model_dot import get_task as get_synset_model_dot_task
 from corruptions.cli import get_task as get_corruptions_task
 from representations.cli import get_task as get_representations_task
+from plots_v2.adv_acc_scatter import get_task as get_adv_acc_scatter_task
 
 
 
@@ -66,6 +67,7 @@ TASK_REGISTRY: Dict[str, Task] = {
     "jaccard_v2": get_jaccard_task(),
     "corruptions": get_corruptions_task(),
     "representations": get_representations_task(),
+    "adv_acc_scatter": get_adv_acc_scatter_task(),
     "fragile_dot_v2": get_fragile_dot(),
     "model_dot_v2": get_model_dot(),
     "mistake_models_dot_v2": get_mistake_models_dot_task(),

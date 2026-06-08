@@ -10,7 +10,7 @@ import torchvision.datasets as datasets
 
 from task import Task
 from model import get_model
-from utils import resolve_device, get_index_to_synset_and_label_imagenet1k
+from utils import resolve_device, get_synset_to_label_imagenet1k
 from paths import paths
 from .evaluate import run_adversarial_evaluation
 
@@ -92,8 +92,6 @@ def run(args: argparse.Namespace) -> None:
     device = resolve_device()
     model = model.to(device)
 
-    index_to_synset = get_index_to_synset_and_label_imagenet1k()
-
     logger.info(f"Model: {args.model}")
     logger.info(f"Attacks: {attacks}, epsilons: {args.epsilon}")
 
@@ -115,27 +113,38 @@ def run(args: argparse.Namespace) -> None:
 
     full_dataset = datasets.ImageFolder(str(data_root), transform=transforms)
 
-    counts: dict[int, int] = {}
-    subset_indices = []
-    for i, (_, label) in enumerate(full_dataset.samples):
-        if counts.get(label, 0) >= args.samples_per_class:
-            continue
-        subset_indices.append(i)
-        counts[label] = counts.get(label, 0) + 1
+    if len(full_dataset.classes) != 1000:
+        logger.warning(
+            f"Expected 1000 classes, got {len(full_dataset.classes)} — check --data-path"
+        )
 
-    if not subset_indices:
-        raise ValueError("No samples found in the dataset")
+    synset_to_classname = get_synset_to_label_imagenet1k()
+    local_to_synset = {
+        local_idx: [synset_id, synset_to_classname.get(synset_id, synset_id)]
+        for synset_id, local_idx in full_dataset.class_to_idx.items()
+    }
 
-    dataset = Subset(full_dataset, subset_indices)
+    # counts: dict[int, int] = {}
+    # subset_indices = []
+    # for i, (_, label) in enumerate(full_dataset.samples):
+    #     if counts.get(label, 0) >= args.samples_per_class:
+    #         continue
+    #     subset_indices.append(i)
+    #     counts[label] = counts.get(label, 0) + 1
+
+    # if not subset_indices:
+    #     raise ValueError("No samples found in the dataset")
+
+    # dataset = Subset(full_dataset, subset_indices)
     dataloader = DataLoader(
-        dataset,
+        full_dataset,
         batch_size=args.batch_size,
         shuffle=False,
         num_workers=args.num_workers,
         pin_memory=torch.cuda.is_available(),
     )
 
-    logger.info(f"Dataset: {len(dataset)} samples across {len(counts)} classes")
+    logger.info(f"Dataset: {len(full_dataset)} samples across {len(full_dataset.classes)} classes")
 
     images_dir = (
         Path("images") / "adversarial" / "synsets" if args.save_images else None
@@ -148,7 +157,7 @@ def run(args: argparse.Namespace) -> None:
         epsilons=args.epsilon,
         device=device,
         model_name=args.model,
-        index_to_synset=index_to_synset,
+        index_to_synset=local_to_synset,
         output_path=Path(args.output),
         output_prefix=args.output_name,
         save_images_dir=images_dir,
