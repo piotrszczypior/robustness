@@ -10,11 +10,7 @@ import torchvision.datasets as datasets
 
 from task import Task
 from model import get_model
-from utils import (
-    resolve_device,
-    get_synset_to_index_imagenet1k,
-    get_index_to_synset_and_label_imagenet1k,
-)
+from utils import resolve_device, get_index_to_synset_and_label_imagenet1k
 from paths import paths
 from .evaluate import run_adversarial_evaluation
 
@@ -32,109 +28,61 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     parser = subparsers.add_parser(
         TASK_NAME, help="Per-class adversarial robustness evaluation (FGSM / PGD)"
     )
-    parser.add_argument(
-        "--model",
-        type=str,
-        required=True,
-        help="Model name (e.g. resnet50)",
-    )
-    parser.add_argument(
-        "--fragile",
-        type=str,
-        default=None,
-        help="Comma-separated synset IDs or file path — classes marked is_fragile=1",
-    )
-    parser.add_argument(
-        "--robust",
-        type=str,
-        default=None,
-        help="Comma-separated synset IDs or file path — classes marked is_fragile=0",
-    )
+    parser.add_argument("--model", type=str, required=True, help="Model name (e.g. vit_b_16)")
     parser.add_argument(
         "--attack",
         type=str,
         default="both",
         choices=["fgsm", "pgd", "both"],
-        help="Attack type to run (default: both)",
+        help="Attack type (default: both)",
     )
     parser.add_argument(
         "--epsilon",
         type=float,
         nargs="+",
         default=DEFAULT_EPSILONS,
-        help="Epsilon value(s) for the attack (default: 1/255 2/255 4/255 8/255)",
+        help="Epsilon value(s) (default: 1/255 2/255 4/255 8/255)",
     )
+    parser.add_argument("--batch-size", type=int, default=64)
+    parser.add_argument("--num-workers", type=int, default=4)
     parser.add_argument(
-        "--batch-size",
+        "--samples-per-class",
         type=int,
-        default=64,
-        help="Batch size for data loading (default: 64)",
-    )
-    parser.add_argument(
-        "--num-workers",
-        type=int,
-        default=4,
-        help="DataLoader workers (default: 4)",
+        default=50,
+        help="Max images per class (default: 50)",
     )
     parser.add_argument(
         "--data-path",
         type=str,
         default=None,
-        help="Path to ImageNet validation set (default: <project_root>/data/imagenet/val)",
-    )
-    parser.add_argument(
-        "--sync-drive", action="store_true", help="Sync results to Google Drive"
-    )
-    parser.add_argument(
-        "--samples-per-class",
-        type=int,
-        default=50,
-        help="Max images per class to evaluate (default: 50, i.e. full ImageNet val split)",
+        help="Path to ImageNet val directory",
     )
     parser.add_argument(
         "--output",
         type=str,
         default="aversarial",
-        help="Output directory for CSV files (default: aversarial)",
+        help="Output directory (default: aversarial)",
     )
     parser.add_argument(
         "--output-name",
         type=str,
         default=None,
-        help="Prefix for output CSV filenames (default: <model>); files named <prefix>_<attack>_<eps>.csv",
+        help="Filename prefix (default: <model>); files: <prefix>_<attack>_<eps>.csv",
     )
     parser.add_argument(
         "--save-images",
         action="store_true",
-        help="Save adversarial images to images/adversarial/synsets/{synset}/{attack}_eps{e}.png",
+        help="Save adversarial images to images/adversarial/synsets/",
     )
     parser.add_argument(
         "--source",
         type=str,
         default="imagenet",
         choices=["imagenet", "imagenet-c"],
-        help="Dataset source: clean ImageNet val or ImageNet-C (default: imagenet)",
     )
-    parser.add_argument(
-        "--corruption",
-        type=str,
-        default=None,
-        help="Corruption type for imagenet-c source (e.g. defocus_blur)",
-    )
-    parser.add_argument(
-        "--severity",
-        type=int,
-        default=1,
-        choices=[1, 2, 3, 4, 5],
-        help="Severity level for imagenet-c source (default: 1)",
-    )
-
-
-def _resolve_classes(value: str) -> list[str]:
-    p = Path(value)
-    if p.exists():
-        return [line.strip() for line in p.read_text().splitlines() if line.strip()]
-    return [s.strip() for s in value.split(",") if s.strip()]
+    parser.add_argument("--corruption", type=str, default=None)
+    parser.add_argument("--severity", type=int, default=1, choices=[1, 2, 3, 4, 5])
+    parser.add_argument("--sync-drive", action="store_true")
 
 
 def run(args: argparse.Namespace) -> None:
@@ -144,21 +92,10 @@ def run(args: argparse.Namespace) -> None:
     device = resolve_device()
     model = model.to(device)
 
-    synset_to_index = get_synset_to_index_imagenet1k()
     index_to_synset = get_index_to_synset_and_label_imagenet1k()
-
-    fragile_synsets: set[str] = set()
-    if args.fragile:
-        fragile_synsets = set(_resolve_classes(args.fragile))
-        unknown = [s for s in fragile_synsets if s not in synset_to_index]
-        if unknown:
-            raise ValueError(f"Unknown fragile synsets: {unknown}")
-
-    target_indices = set(synset_to_index.values())
 
     logger.info(f"Model: {args.model}")
     logger.info(f"Attacks: {attacks}, epsilons: {args.epsilon}")
-    logger.info(f"Fragile synsets: {len(fragile_synsets)}, total classes: {len(target_indices)}")
 
     if args.source == "imagenet-c":
         if not args.corruption:
@@ -174,22 +111,20 @@ def run(args: argparse.Namespace) -> None:
         data_root = Path(args.data_path) if args.data_path else paths.data / "imagenet"
 
     if not data_root.exists():
-        raise FileNotFoundError(f"Dataset directory not found: {data_root}")
+        raise FileNotFoundError(f"Dataset not found: {data_root}")
 
     full_dataset = datasets.ImageFolder(str(data_root), transform=transforms)
 
     counts: dict[int, int] = {}
     subset_indices = []
     for i, (_, label) in enumerate(full_dataset.samples):
-        if label not in target_indices:
-            continue
         if counts.get(label, 0) >= args.samples_per_class:
             continue
         subset_indices.append(i)
         counts[label] = counts.get(label, 0) + 1
 
     if not subset_indices:
-        raise ValueError("No samples found for the specified classes in the dataset")
+        raise ValueError("No samples found in the dataset")
 
     dataset = Subset(full_dataset, subset_indices)
     dataloader = DataLoader(
@@ -200,7 +135,7 @@ def run(args: argparse.Namespace) -> None:
         pin_memory=torch.cuda.is_available(),
     )
 
-    logger.info(f"Dataset: {len(dataset)} samples across {len(target_indices)} classes")
+    logger.info(f"Dataset: {len(dataset)} samples across {len(counts)} classes")
 
     images_dir = (
         Path("images") / "adversarial" / "synsets" if args.save_images else None
@@ -216,7 +151,6 @@ def run(args: argparse.Namespace) -> None:
         index_to_synset=index_to_synset,
         output_path=Path(args.output),
         output_prefix=args.output_name,
-        fragile_synsets=fragile_synsets,
         save_images_dir=images_dir,
         sync_drive=args.sync_drive,
     )

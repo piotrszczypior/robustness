@@ -34,7 +34,6 @@ def _collect_predictions(
     model_name: str,
     attack_name: str,
     epsilon: float,
-    fragile_synsets: set[str],
     attack_obj=None,
     save_dir: Path | None = None,
 ) -> list[dict]:
@@ -69,7 +68,6 @@ def _collect_predictions(
                     "y_true": label,
                     "y_pred": pred,
                     "is_correct": int(label == pred),
-                    "is_fragile": int(synset in fragile_synsets),
                 }
             )
 
@@ -95,11 +93,10 @@ def run_adversarial_evaluation(
     index_to_synset: dict,
     output_path: Path,
     output_prefix: str | None = None,
-    fragile_synsets: set[str] = set(),
     save_images_dir: Path | None = None,
     sync_drive: bool = False,
 ) -> None:
-    backup_dir = paths.google_colab_gdrive_path if sync_drive else None
+    backup_dir = paths.google_colab_gdrive_adversarial_path if sync_drive else None
     prefix = output_prefix or model_name
 
     for attack_name in attacks:
@@ -115,7 +112,6 @@ def run_adversarial_evaluation(
                 model_name=model_name,
                 attack_name=attack_name,
                 epsilon=epsilon,
-                fragile_synsets=fragile_synsets,
                 attack_obj=attack_obj,
                 save_dir=save_images_dir,
             )
