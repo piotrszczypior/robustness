@@ -54,9 +54,12 @@ def _collect_predictions(
             preds = model(adv_images).argmax(dim=1)
 
         for i, (label, pred) in enumerate(zip(labels.tolist(), preds.tolist())):
+
             synset, class_name = index_to_synset[label]
             img_idx = img_idx_per_class.get(label, 0)
             img_idx_per_class[label] = img_idx + 1
+
+
             rows.append(
                 {
                     "model": model_name,

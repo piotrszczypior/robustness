@@ -6,6 +6,7 @@ from typing import Optional
 from captum.attr import IntegratedGradients, LayerIntegratedGradients, NoiseTunnel, LayerGradCam
 import types
 from torchcam.methods import GradCAMpp
+from .vit_rollout import rollout as vit_rollout
 
 MODEL_FAMILY: dict[str, str] = {
     "alexnet": "cnn",
@@ -197,9 +198,8 @@ def _run_attention_rollout(
             def patched_forward(self, query, key, value, **kwargs):
                 kwargs["need_weights"] = True
                 kwargs["average_attn_weights"] = False
-
                 out, weights = original_forwards[self](query, key, value, **kwargs)
-                attention_maps.append(weights.detach())
+                attention_maps.append(weights.detach().cpu())
                 return out, weights
 
             module.forward = types.MethodType(patched_forward, module)
@@ -214,23 +214,8 @@ def _run_attention_rollout(
         h = w = input_tensor.shape[-1] // 16
         return np.ones((h, w))
 
-    result = torch.eye(attention_maps[0].shape[-1]).to(input_tensor.device)
-
-    for attn in attention_maps:
-        if attn.dim() == 4:
-            attn_avg = attn.mean(dim=1)
-        else:
-            attn_avg = attn
-
-        attn_avg = attn_avg + torch.eye(attn_avg.shape[-1]).to(attn_avg.device)
-        attn_avg = attn_avg / attn_avg.sum(dim=-1, keepdim=True)
-        result = attn_avg @ result
-
-    seq_len = result.shape[-1]
-    grid_size = int((seq_len - 1) ** 0.5)
-    mask = result[0, 0, 1:].reshape(grid_size, grid_size)
-
-    return _normalize(mask.cpu().numpy())
+    mask = vit_rollout(attention_maps, discard_ratio=0.9, head_fusion="mean")
+    return _normalize(mask)
 
 
 def get_all_explanations(

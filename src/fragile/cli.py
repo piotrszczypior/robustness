@@ -1,6 +1,8 @@
 from pathlib import Path
+from textwrap import indent
 
 from networkx import to_latex
+from space import CorruptionVariations
 from task import Task
 from utils import get_synset_to_label_imagenet1k
 import argparse
@@ -10,7 +12,7 @@ from .fragile import (
     get_absolute_fragile,
     get_relative_drop_fragile,
     get_rmce_fragile,
-    get_strongly_fragile,
+    get_fragile_by_definition,
     get_cross_model_fragile,
     get_cross_model_df,
     select_top_k_fragile,
@@ -738,11 +740,10 @@ def get_common_fragile_across_experiments(
 
 
 def _get_fragile(df, alexnet_df, definition: FragileDefinition):
-    df = calculate_relative_drop(df)
     df_a = get_absolute_fragile(df)
     df_b = get_relative_drop_fragile(df)
     df_c = get_rmce_fragile(df, alexnet_df)
-    strong_fragile = get_strongly_fragile(df_a, df_b, df_c, definition)
+    strong_fragile = get_fragile_by_definition(df_a, df_b, df_c, definition)
 
     # print(df.head())
     super_giga_fragile = strong_fragile[strong_fragile["is_strongly_fragile"] == 1]
@@ -750,6 +751,25 @@ def _get_fragile(df, alexnet_df, definition: FragileDefinition):
     # print(len(super_giga_fragile))
 
     return df.merge(strong_fragile, on="synset")
+
+
+def read_df_for_model(variation: CorruptionVariations, model: str, definition="ab", k=30, data_path="results"):
+    fragile_definition = DEFINITIONS[definition]
+    from .pareto import pareto_indices_max_max
+
+    df = get_df_for_model(variation, model)
+    df_a = get_absolute_fragile(df)
+    df_b = get_relative_drop_fragile(df)
+
+    fragiles = get_fragile_by_definition(df_a, df_b, fragile_definition)
+    df = df.merge(fragiles, on="synset")
+
+    robust_indices = df[(df["acc_corrupt"] > 0.7) & (df["acc_clean"] > 0.8)].index
+    df["robust"] = df.index.isin(robust_indices).astype(int)
+    
+    return df 
+
+
 
 
 def identify_fragile_cluster(

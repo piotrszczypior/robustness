@@ -26,6 +26,7 @@ torchcam
 upsetplot
 # imagecorruptions
 # setuptools<70
-ete3
-PyQt5
+timm
 torchattacks
+# vit-explain vendored as src/xai/vit_rollout.py (no installable package)
+# https://github.com/jacobgil/vit-explain

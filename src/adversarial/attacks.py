@@ -13,7 +13,7 @@ def get_fgsm(model: nn.Module, epsilon: float) -> torchattacks.Attack:
     return atk
 
 
-def get_pgd(model: nn.Module, epsilon: float, steps: int = 20) -> torchattacks.Attack:
+def get_pgd(model: nn.Module, epsilon: float, steps: int = 5) -> torchattacks.Attack:
     atk = torchattacks.PGD(model, eps=epsilon, alpha=epsilon / 4, steps=steps)
     atk.set_normalization_used(mean=IMAGENET_MEAN, std=IMAGENET_STD)
     return atk

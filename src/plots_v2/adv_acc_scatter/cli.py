@@ -4,8 +4,13 @@ import argparse
 import sys
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
+from scipy.stats import spearmanr
+from fragile import read_df_for_model
 
+from model import MODELS
+from space import CorruptionVariations
 from task import Task
 
 TASK_NAME = "adv_acc_scatter"
@@ -22,22 +27,21 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     )
     parser.add_argument("--model", type=str, required=True)
     parser.add_argument("--attack", type=str, required=True, choices=["fgsm", "pgd"])
-    parser.add_argument("--epsilon", type=float, required=True, help="e.g. 0.01568627450980392")
+    parser.add_argument("--epsilon", type=int, default=4, help="epsilon")
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--corruption", type=str, help="Specific corruption, e.g. shot_noise")
     group.add_argument("--group", type=str, help="Corruption group, e.g. noise (averages all)")
     parser.add_argument("--severity", type=int, default=3, choices=[1, 2, 3, 4, 5])
-    parser.add_argument("--adv-dir", type=str, default="aversarial")
+    parser.add_argument("--adv-dir", type=str, default="adversarial")
     parser.add_argument("--results-dir", type=str, default="results")
     parser.add_argument("--output-dir", type=str, default="images/adversarial/scatter")
     parser.add_argument("--top-n", type=int, default=10, help="Number of classes to label")
+    parser.add_argument("--robust", action="store_true", default=False)
+    parser.add_argument("--heatmap", action="store_true", default=False)
 
 
 def _eps_label(eps: float) -> str:
-    n = round(eps * 255)
-    if abs(n / 255 - eps) < 1e-9:
-        return f"{n}_255"
-    return f"{eps:.8f}".rstrip("0").rstrip(".")
+    return f"{eps}_255"
 
 
 def _load_adv_acc(adv_dir: Path, model: str, attack: str, epsilon: float) -> pd.DataFrame:
@@ -52,46 +56,111 @@ def _load_adv_acc(adv_dir: Path, model: str, attack: str, epsilon: float) -> pd.
     return acc
 
 
-def _load_corrupt_acc(results_dir: Path, model: str, corruption: str | None,
-                      group: str | None, severity: int) -> pd.DataFrame:
+def _load_corrupt_acc(model: str, 
+                      group: str | None, 
+                      corruption: str | None, 
+                      severity: int) -> pd.DataFrame:
+    
     if corruption:
-        pattern = f"{model}_imagenet_c_*_{corruption}_{severity}.csv"
-        files = sorted(results_dir.glob(pattern))
-        if not files:
-            raise FileNotFoundError(f"No file matching {pattern} in {results_dir}")
-        df = pd.read_csv(files[0])
-        label = f"{corruption} sev{severity}"
+        variation = CorruptionVariations(
+            corruptions=[corruption],
+            severities=[severity]
+        )
+        df = read_df_for_model(variation, model, definition="ab")
+        label = f"{corruption.replace("_", " ").capitalize()} severity {severity}"
     else:
-        pattern = f"{model}_imagenet_c_{group}_*_{severity}.csv"
-        files = sorted(results_dir.glob(pattern))
-        if not files:
-            raise FileNotFoundError(f"No files matching {pattern} in {results_dir}")
-        df = pd.concat([pd.read_csv(f) for f in files], ignore_index=True)
-        label = f"{group} sev{severity}"
+        variation = CorruptionVariations(
+            groups=[group],
+            severities=[severity]
+        )
+        df = read_df_for_model(variation, model, definition="ab")
+        label = f"{group.replace("_", " ").capitalize()} severity {severity}"
 
-    acc = df.groupby("synset")["is_correct"].mean().reset_index()
-    acc.columns = ["synset", "corrupt_acc"]
-    return acc, label
 
+    return df, label
+
+
+def get_full_df(model: str):
+    df = read_df_for_model(CorruptionVariations(), model, definition="ab")
+    return df
+
+
+def extend_with_adv_rel_drop(df):
+    df["adv_rel_drop"] = (df["acc_clean"] - df["adv_acc"]) / df["acc_clean"]
+    return df
+
+
+def _build_adv_spearman_matrix(adv: pd.DataFrame, model: str) -> pd.DataFrame:
+    from constants import IMAGENET_C_CORRUPTION_GROUPS, IMAGENET_C_SEVERITIES
+
+    data: dict[int, dict[str, float]] = {}
+    for severity in IMAGENET_C_SEVERITIES:
+        row: dict[str, float] = {}
+        for group, corruptions in IMAGENET_C_CORRUPTION_GROUPS.items():
+            for corruption in corruptions:
+                try:
+                    variation = CorruptionVariations(
+                        groups=[group], corruptions=[corruption], severities=[severity]
+                    )
+                    df = read_df_for_model(variation, model, definition="ab")
+                    merged = adv.merge(df[["synset", "acc_clean", "rel_drop"]], on="synset", how="inner")
+                    if len(merged) < 5:
+                        row[corruption] = float("nan")
+                        continue
+                    adv_rel_drop = (merged["acc_clean"] - merged["adv_acc"]) / merged["acc_clean"]
+                    rho, _ = spearmanr(merged["rel_drop"], adv_rel_drop)
+                    row[corruption] = float(rho)
+                except FileNotFoundError:
+                    row[corruption] = float("nan")
+        data[severity] = row
+
+    return pd.DataFrame(data).T
 
 def run(args: argparse.Namespace) -> None:
-    from .plot import plot_scatter
+    from .plot import plot_scatter, plot_scatter_robust
 
     adv_dir = Path(args.adv_dir)
     results_dir = Path(args.results_dir)
     output_dir = Path(args.output_dir)
 
     adv = _load_adv_acc(adv_dir, args.model, args.attack, args.epsilon)
-    corrupt, corruption_label = _load_corrupt_acc(
-        results_dir, args.model, args.corruption, args.group, args.severity
+    df, corruption_label = _load_corrupt_acc(
+        args.model, args.group, args.corruption, args.severity
     )
 
-    df = adv.merge(corrupt, on="synset", how="inner")
+    df = adv.merge(df, on="synset", how="inner")
+    df = extend_with_adv_rel_drop(df)
     if df.empty:
         print("ERROR: no common synsets after merge", file=sys.stderr)
         return
 
-    print(f"Plotting {len(df)} classes  (adv={len(adv)}, corrupt={len(corrupt)}, common={len(df)})")
+    print(f"Plotting {len(df)} classes  (adv={len(adv)}, corrupt={len(df)}, common={len(df)})")
+
+    if args.heatmap:
+        matrix = _build_adv_spearman_matrix(adv, args.model)
+        eps_label = f"{args.epsilon}_255"
+        out_heatmap = (
+            output_dir / f"{args.model}_{args.attack}_{eps_label}_spearman_adv.png"
+        )
+        out_heatmap.parent.mkdir(parents=True, exist_ok=True)
+        from .plot import heatmap as render_heatmap
+        render_heatmap(
+            matrix,
+            out_heatmap,
+            title=f"Spearman ρ ·  {MODELS[args.model]}  ·  {args.attack.upper()} ε={args.epsilon}/255",
+        )
+        return 
+
+    if args.robust:
+        plot_scatter_robust(
+            df=df,
+            model=args.model,
+            attack=args.attack,
+            epsilon=args.epsilon,
+            corruption_label=corruption_label,
+            output_dir=output_dir,
+        )
+        return 
 
     plot_scatter(
         df=df,
@@ -100,5 +169,5 @@ def run(args: argparse.Namespace) -> None:
         epsilon=args.epsilon,
         corruption_label=corruption_label,
         output_dir=output_dir,
-        top_n=args.top_n,
     )
+

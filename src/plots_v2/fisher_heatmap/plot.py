@@ -13,7 +13,7 @@ from fragile.fragile import (
     get_absolute_fragile,
     get_relative_drop_fragile,
     get_rmce_fragile,
-    get_strongly_fragile,
+    get_fragile_by_definition,
 )
 from fragile.methods import calculate_relative_drop
 
@@ -23,7 +23,7 @@ def _get_fragile(df: pd.DataFrame, alexnet_df: pd.DataFrame, definition) -> pd.D
     df_a = get_absolute_fragile(df)
     df_b = get_relative_drop_fragile(df)
     df_c = get_rmce_fragile(df, alexnet_df)
-    strong_fragile = get_strongly_fragile(df_a, df_b, df_c, definition)
+    strong_fragile = get_fragile_by_definition(df_a, df_b, df_c, definition)
     return df.merge(strong_fragile, on="synset")
 
 
