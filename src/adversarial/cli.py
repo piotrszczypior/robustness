@@ -14,7 +14,6 @@ from utils import (
     resolve_device,
     get_synset_to_index_imagenet1k,
     get_index_to_synset_and_label_imagenet1k,
-    get_synset_to_label_imagenet1k,
 )
 from paths import paths
 from .evaluate import run_adversarial_evaluation
@@ -102,7 +101,7 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         "--output-name",
         type=str,
         default=None,
-        help="Output CSV filename without extension (default: <model>)",
+        help="Prefix for output CSV filenames (default: <model>); files named <prefix>_<attack>_<eps>.csv",
     )
     parser.add_argument(
         "--save-images",
@@ -147,7 +146,6 @@ def run(args: argparse.Namespace) -> None:
 
     synset_to_index = get_synset_to_index_imagenet1k()
     index_to_synset = get_index_to_synset_and_label_imagenet1k()
-    synset_to_label = get_synset_to_label_imagenet1k()
 
     fragile_synsets: set[str] = set()
     if args.fragile:
@@ -156,7 +154,7 @@ def run(args: argparse.Namespace) -> None:
         if unknown:
             raise ValueError(f"Unknown fragile synsets: {unknown}")
 
-    target_indices = set(synset_to_index.values())  # all 1000 classes
+    target_indices = set(synset_to_index.values())
 
     logger.info(f"Model: {args.model}")
     logger.info(f"Attacks: {attacks}, epsilons: {args.epsilon}")
@@ -216,9 +214,8 @@ def run(args: argparse.Namespace) -> None:
         device=device,
         model_name=args.model,
         index_to_synset=index_to_synset,
-        synset_to_label=synset_to_label,
         output_path=Path(args.output),
-        output_name=args.output_name,
+        output_prefix=args.output_name,
         fragile_synsets=fragile_synsets,
         save_images_dir=images_dir,
         sync_drive=args.sync_drive,

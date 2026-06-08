@@ -18,12 +18,19 @@ logger = logging.getLogger(__name__)
 _ATTACK_FACTORIES = {"fgsm": get_fgsm, "pgd": get_pgd}
 
 
+def _eps_label(eps: float) -> str:
+    """Convert epsilon to a filename-safe string, e.g. 1/255 → '1_255'."""
+    n = round(eps * 255)
+    if abs(n / 255 - eps) < 1e-9:
+        return f"{n}_255"
+    return f"{eps:.8f}".rstrip("0").rstrip(".")
+
+
 def _collect_predictions(
     model: nn.Module,
     dataloader: DataLoader,
     device: torch.device,
     index_to_synset: dict,
-    synset_to_label: dict,
     model_name: str,
     attack_name: str,
     epsilon: float,
@@ -33,6 +40,7 @@ def _collect_predictions(
 ) -> list[dict]:
     rows = []
     saved: dict[str, int] = {}
+    img_idx_per_class: dict[int, int] = {}
 
     model.eval()
     for images, labels in dataloader:
@@ -48,12 +56,15 @@ def _collect_predictions(
 
         for i, (label, pred) in enumerate(zip(labels.tolist(), preds.tolist())):
             synset, class_name = index_to_synset[label]
+            img_idx = img_idx_per_class.get(label, 0)
+            img_idx_per_class[label] = img_idx + 1
             rows.append(
                 {
                     "model": model_name,
                     "attack": attack_name,
                     "epsilon": epsilon,
                     "synset": synset,
+                    "img_idx": img_idx,
                     "class_name": class_name,
                     "y_true": label,
                     "y_pred": pred,
@@ -82,29 +93,14 @@ def run_adversarial_evaluation(
     device: torch.device,
     model_name: str,
     index_to_synset: dict,
-    synset_to_label: dict,
     output_path: Path,
-    output_name: str | None = None,
+    output_prefix: str | None = None,
     fragile_synsets: set[str] = set(),
     save_images_dir: Path | None = None,
     sync_drive: bool = False,
 ) -> None:
     backup_dir = paths.google_colab_gdrive_path if sync_drive else None
-
-    logger.info("Collecting baseline (clean) predictions")
-    all_rows = _collect_predictions(
-        model=model,
-        dataloader=dataloader,
-        device=device,
-        index_to_synset=index_to_synset,
-        synset_to_label=synset_to_label,
-        model_name=model_name,
-        attack_name="clean",
-        epsilon=0.0,
-        fragile_synsets=fragile_synsets,
-        attack_obj=None,
-        save_dir=save_images_dir,
-    )
+    prefix = output_prefix or model_name
 
     for attack_name in attacks:
         factory = _ATTACK_FACTORIES[attack_name]
@@ -116,7 +112,6 @@ def run_adversarial_evaluation(
                 dataloader=dataloader,
                 device=device,
                 index_to_synset=index_to_synset,
-                synset_to_label=synset_to_label,
                 model_name=model_name,
                 attack_name=attack_name,
                 epsilon=epsilon,
@@ -124,13 +119,10 @@ def run_adversarial_evaluation(
                 attack_obj=attack_obj,
                 save_dir=save_images_dir,
             )
-            all_rows.extend(rows)
 
-    df = pd.DataFrame(all_rows).sort_values(
-        ["attack", "epsilon", "synset"], ascending=True
-    )
-    filename = f"{output_name}.csv" if output_name else f"{model_name}.csv"
-    out_file = export_results(
-        df, filename, output_dir=output_path, backup_dir=backup_dir
-    )
-    logger.info(f"Saved {len(df)} rows to {out_file}")
+            df = pd.DataFrame(rows).sort_values(["synset", "y_true"], ascending=True)
+            filename = f"{prefix}_{attack_name}_{_eps_label(epsilon)}.csv"
+            out_file = export_results(
+                df, filename, output_dir=output_path, backup_dir=backup_dir
+            )
+            logger.info(f"Saved {len(df)} rows → {out_file}")
