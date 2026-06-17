@@ -78,7 +78,7 @@ def render(
     plt.setp(
         ax.get_yticklabels(),
         fontfamily="monospace",
-        fontsize=12,
+        fontsize=13,
         rotation=0,
         color="#222222",
     )
@@ -98,14 +98,14 @@ def render(
     # else:
         # n_classes = 200
 
-    # ax.set_xlabel(xlabel, fontsize=13, color="#444444", labelpad=6)
+    ax.set_xlabel("ImageNet classes", fontsize=13, color="black", labelpad=6)
     ax.set_ylabel("")
     tick_positions = list(range(0, n_classes, 25)) + [n_classes - 1]
     ax.set_xticks([p + 0.5 for p in tick_positions])
     ax.set_xticklabels(
         [str(p) for p in tick_positions],
-        fontsize=11,
-        color="#555555",
+        fontsize=12,
+        color="black",
         rotation=0,
     )
 
@@ -117,5 +117,7 @@ def render(
     ax.set_ylim(len(matrix) + 0.1, -0.1)
 
     plt.tight_layout()
-    fig.savefig(out_path, dpi=150, bbox_inches="tight")
+    # fig.savefig(out_path, dpi=150, bbox_inches="tight")
+    from utils import save_as_pdf
+    save_as_pdf(fig, out_path)
     plt.close(fig)

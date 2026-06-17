@@ -10,6 +10,7 @@ from . import dataset, runner
 from .loader import list_conditions
 from .pca_scatter import run_pca_scatter
 from .synset_distance import run_synset_distance
+from utils import save_as_pdf
 
 __all__ = ["get_task", "register", "run"]
 
@@ -114,7 +115,7 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     pca_parser.add_argument("--seed", type=int, default=42)
     pca_parser.add_argument(
         "--out", default=None,
-        help="Output PNG path (default: images/representations/pca/{model}_{corruption}_{severity}.png)",
+        help="Output PNG path (default: images/v3/representations/pca/{model}_{corruption}_{severity}.png)",
     )
     pca_parser.set_defaults(representations_func=run_pca_scatter)
 

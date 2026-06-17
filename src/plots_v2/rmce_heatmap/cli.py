@@ -38,7 +38,7 @@ def run(args: argparse.Namespace) -> None:
         dfs = get_dfs_for_all_models(variations, args.data_path)
         named = {MODELS[k]: v for k, v in dfs.items() if k in MODELS}
         matrix = build_rmce_matrix(named)
-        out = out_base / "images" / "v2" / "rmce_heatmap" / f"{exp_name}.png"
+        out = out_base / "images" / "v3" / "rmce_heatmap" / f"{exp_name}.png"
         out.parent.mkdir(parents=True, exist_ok=True)
         render(matrix, out)
         print(f"  {exp_name}.png")

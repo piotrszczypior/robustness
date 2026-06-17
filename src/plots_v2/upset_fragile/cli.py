@@ -64,7 +64,7 @@ def register(subparsers: argparse._SubParsersAction) -> None:
 
 
 def _run_by_groups(args: argparse.Namespace) -> None:
-    out_base = Path(args.output_dir) / "images" / "v2" / "upset_fragile"
+    out_base = Path(args.output_dir) / "images" / "v3" / "upset_fragile"
 
     for model_key, model_label in _MODELS.items():
         print(f"[{TASK_NAME}] {model_key}")
@@ -79,7 +79,7 @@ def _run_by_groups(args: argparse.Namespace) -> None:
 
 
 def _run_by_corruptions(args: argparse.Namespace) -> None:
-    out_base = Path(args.output_dir) / "images" / "v2" / "upset_fragile" / "per_corruption"
+    out_base = Path(args.output_dir) / "images" / "v3" / "upset_fragile" / "per_corruption"
 
     for group, corruptions in IMAGENET_C_CORRUPTION_GROUPS.items():
         for model_key, model_label in _MODELS.items():
@@ -102,7 +102,7 @@ def _run_by_corruptions(args: argparse.Namespace) -> None:
 
 def _run_by_groups_severity(args: argparse.Namespace) -> None:
     severity = args.severity
-    out_base = Path(args.output_dir) / "images" / "v2" / "upset_fragile" / f"groups_sev{severity}"
+    out_base = Path(args.output_dir) / "images" / "v3" / "upset_fragile" / f"groups_sev{severity}"
 
     for model_key, model_label in _MODELS.items():
         print(f"[{TASK_NAME}] {model_key} / severity {severity}")
@@ -122,7 +122,7 @@ def _run_by_groups_severity(args: argparse.Namespace) -> None:
 
 def _run_by_severity(args: argparse.Namespace) -> None:
     corruption = args.corruption
-    out_base = Path(args.output_dir) / "images" / "v2" / "upset_fragile" / "per_severity"
+    out_base = Path(args.output_dir) / "images" / "v3" / "upset_fragile" / "per_severity"
     severity_labels = [f"Severity {s}" for s in IMAGENET_C_SEVERITIES]
 
     for model_key, model_label in _MODELS.items():
@@ -145,7 +145,7 @@ def _run_by_severity(args: argparse.Namespace) -> None:
 def _run_by_models(args: argparse.Namespace) -> None:
     corruption = args.corruption
     severity = args.severity
-    out_base = Path(args.output_dir) / "images" / "v2" / "upset_fragile" / "per_model"
+    out_base = Path(args.output_dir) / "images" / "v3" / "upset_fragile" / "per_model"
     model_labels = list(_MODELS.values())
 
     print(f"[{TASK_NAME}] {corruption} / severity {severity}")

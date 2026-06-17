@@ -54,5 +54,7 @@ def render(df: pd.DataFrame, output_path: Path, title: str = "") -> None:
     ax.spines["right"].set_visible(False)
 
     plt.tight_layout()
-    fig.savefig(output_path, dpi=150, bbox_inches="tight")
+    # fig.savefig(output_path, dpi=150, bbox_inches="tight")
+    from utils import save_as_pdf
+    save_as_pdf(fig, output_path)
     plt.close(fig)

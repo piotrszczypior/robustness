@@ -8,6 +8,7 @@ from paths import paths
 from constants import IMAGENET_C_CORRUPTION_GROUPS
 from utils import get_index_to_synset_and_label_imagenet1k, get_synset_to_index_imagenet1k
 from .plot import prepare_synset_data, render
+from utils import get_synset_to_label_imagenet1k
 
 TASK_NAME = "mistake_dot_v2"
 
@@ -53,6 +54,7 @@ def _resolve_synsets(value: str) -> list[str]:
 
 def run(args: argparse.Namespace) -> None:
     results_dir = Path(args.results_dir) if args.results_dir else paths.results
+    synset_to_label = get_synset_to_label_imagenet1k()
 
     if args.dataset == "imagenet_r":
         csv_path = results_dir / f"{args.model}_imagenet_r.csv"
@@ -79,9 +81,10 @@ def run(args: argparse.Namespace) -> None:
 
     synsets = _resolve_synsets(args.synsets)
     model_label = MODELS.get(args.model, args.model)
-    out_base = Path(args.output_dir) / "images" / "v2" / "mistake_dot"
 
     for synset in synsets:
+        out_base = Path(args.output_dir) / "images" / "v3" / "mistake_dot" / str(synset_to_label[synset])
+
         entries = prepare_synset_data(
             records=records,
             synset=synset,

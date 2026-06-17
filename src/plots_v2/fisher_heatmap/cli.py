@@ -101,7 +101,7 @@ def run(args: argparse.Namespace) -> None:
             p_matrix = compute_fisher_matrix(dfs, args.definition)
 
             out_path = (
-                out_base / "images" / "fisher" / args.definition / f"{exp_name}.png"
+                out_base / "images" / "v3" / "fisher" / f"{exp_name}.png"
             )
             out_path.parent.mkdir(parents=True, exist_ok=True)
             render(p_matrix, out_path, title=f"Fisher Test: {exp_name.replace('_', ' ').title()}")

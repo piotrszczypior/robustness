@@ -69,9 +69,9 @@ def render(
     selected_synsets: list[str],
 ) -> None:
     x = np.arange(len(selected_synsets))
-    n_plots = 1 + len(IMAGENET_C_SEVERITIES)
+    n_plots = len(IMAGENET_C_SEVERITIES)
 
-    fig, axes = plt.subplots(n_plots, 1, figsize=(16, 3 * n_plots), sharex=True)
+    fig, axes = plt.subplots(n_plots, 1, figsize=(16, 18), sharex=True)
     fig.patch.set_facecolor("white")
 
     top_n = _TOP_N
@@ -80,14 +80,8 @@ def render(
     clean_series = severity_dfs[1].set_index("synset")["acc_clean"]
     clean_vals = np.array([clean_series.get(s, np.nan) for s in selected_synsets])
 
-    axes[0].scatter(x, clean_vals, c=_COLORS[0], alpha=0.8, s=18)
-    axes[0].set_ylabel("Accuracy", fontsize=20)
-    axes[0].set_title("Clean", fontsize=20)
-    axes[0].set_ylim(0, 1.05)
-    axes[0].grid(True, linestyle=":", alpha=0.5)
-
     for sev in IMAGENET_C_SEVERITIES:
-        ax = axes[sev]
+        ax = axes[sev - 1]
         corrupt_series = severity_dfs[sev].set_index("synset")["acc_corrupt"]
         vals = np.array([corrupt_series.get(s, np.nan) for s in selected_synsets])
 
@@ -104,10 +98,11 @@ def render(
 
         ax.scatter(x, vals, c=_COLORS[sev], alpha=0.8, s=18)
         ax.scatter(x, clean_vals, c=_COLORS[0], alpha=0.3, s=12)
-        ax.set_ylabel("Accuracy", fontsize=20)
-        ax.set_title(f"Severity {sev}", fontsize=20)
+        ax.set_ylabel("Accuracy", fontsize=22)
+        ax.set_title(f"Severity {sev}", fontsize=22)
         ax.set_ylim(0, 1.05)
         ax.set_yticks(np.arange(0, 1.1, 0.1))
+        ax.tick_params(axis="y", labelsize=16)
         ax.grid(True, linestyle=":", alpha=0.5)
 
     for ax in axes:
@@ -119,19 +114,21 @@ def render(
 
     try:
         axes[-1].set_xticks(x)
-        axes[-1].set_xticklabels(selected_synsets, rotation=90, fontsize=14)
+        axes[-1].set_xticklabels(selected_synsets, rotation=90, fontsize=16)
     except Exception:
         axes[-1].set_xticks(x)
-        axes[-1].set_xticklabels(x, fontsize=14)
+        axes[-1].set_xticklabels(x, fontsize=16)
 
-    axes[-1].set_xlabel("Classes", labelpad=15, fontsize=20)
+    axes[-1].set_xlabel("Classes", labelpad=15, fontsize=22)
     fig.suptitle(
         f"Impact of {group_name} corruption severity on per-class accuracy - {MODELS[model_name]}",
-        fontsize=24,
+        fontsize=26,
         y=1.01,
     )
 
     plt.tight_layout()
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(output_path, dpi=150, bbox_inches="tight")
+    # fig.savefig(output_path, dpi=150, bbox_inches="tight")
+    from utils import save_as_pdf
+    save_as_pdf(fig, output_path)
     plt.close(fig)

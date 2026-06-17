@@ -90,7 +90,7 @@ def run(args: argparse.Namespace) -> None:
     synset_label = label_map.get(synset, synset).replace("_", " ")
     title = f"{synset_label} ({synset})"
 
-    out = Path(args.output_dir) / "images" / "v2" / "model_dot" / f"{synset_label}.png"
+    out = Path(args.output_dir) / "images" / "v3" / "model_dot" / f"{synset_label}.png"
     plot_model_dot(
         clean_acc=clean_acc,
         combo_acc=combo_acc,

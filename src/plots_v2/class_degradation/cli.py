@@ -50,7 +50,7 @@ def run(args: argparse.Namespace) -> None:
             out = (
                 out_base
                 / "images"
-                / "v2"
+                / "v3"
                 / "class_degradation"
                 / f"{exp_name}_{model_key}.png"
             )

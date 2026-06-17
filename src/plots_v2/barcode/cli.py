@@ -113,7 +113,7 @@ def run(args: argparse.Namespace) -> None:
         out = (
             out_base
             / "images"
-            / "v2"
+            / "v3"
             / "barcode"
             / exp_name
             / f"{exp_name}.png"

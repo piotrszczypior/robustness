@@ -63,7 +63,7 @@ def run(args: argparse.Namespace) -> None:
 
         selected_synsets = select_synsets_single_model(severity_dfs)
         model = args.model
-        out = out_base / "images" / "v2" / "severity_dot" / f"{group}_{model}.png"
+        out = out_base / "images" / "v3" / "severity_dot" / f"{group}_{model}.png"
         render(severity_dfs, model, group.capitalize(), out, selected_synsets)
         print(f"{group}_{model}.png")
 

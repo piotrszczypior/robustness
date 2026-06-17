@@ -1,9 +1,11 @@
 import argparse
 from pathlib import Path
 
+from narwhals import corr
+
 from task import Task
 from space import CorruptionVariations
-from constants import IMAGENET_C_SEVERITIES
+from constants import IMAGENET_C_CORRUPTION_GROUPS, IMAGENET_C_SEVERITIES
 from fragile.experiments import get_df_for_model
 from fragile.fragile import get_absolute_fragile, get_relative_drop_fragile
 from .plot import render
@@ -17,6 +19,12 @@ _MODELS = {
     "vit_b_16": "ViT-B/16",
     "convnext_base": "ConvNeXt-Base",
 }
+
+ALL_CORRUPTIONS = [
+    corruption 
+    for _, corruptions in IMAGENET_C_CORRUPTION_GROUPS.items()
+    for corruption in corruptions
+]
 
 
 def get_task() -> Task:
@@ -43,7 +51,7 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     parser.add_argument(
         "--corruption",
         type=str,
-        default="zoom_blur",
+        default=None,
         help="Corruption name to plot (default: zoom_blur)",
     )
 
@@ -55,23 +63,27 @@ def _fragile_count(df) -> int:
 
 
 def run(args: argparse.Namespace) -> None:
-    corruption = args.corruption
-    out_base = Path(args.output_dir) / "images" / "v2" / "fragile_severity_line"
+    out_base = Path(args.output_dir) / "images" / "v3" / "fragile_severity_line"
 
-    print(f"[{TASK_NAME}] {corruption}")
-    data: dict[str, list[int]] = {}
-    for model_key, model_label in _MODELS.items():
-        counts = []
-        for severity in IMAGENET_C_SEVERITIES:
-            variations = CorruptionVariations(
-                corruptions=[corruption],
-                severities=[severity],
-            )
-            df = get_df_for_model(variations, model_key, args.data_path)
-            counts.append(_fragile_count(df))
-        data[model_label] = counts
+    corruptions = [
+        args.corruption if args.corruption else ALL_CORRUPTIONS
+    ]
 
-    title = corruption.replace("_", " ").capitalize()
-    out = out_base / f"{corruption}.png"
-    render(data, title, out)
-    print(f"  -> {out}")
+    for corruption in corruptions:
+        print(f"[{TASK_NAME}] {corruption}")
+        data: dict[str, list[int]] = {}
+        for model_key, model_label in _MODELS.items():
+            counts = []
+            for severity in IMAGENET_C_SEVERITIES:
+                variations = CorruptionVariations(
+                    corruptions=[corruption],
+                    severities=[severity],
+                )
+                df = get_df_for_model(variations, model_key, args.data_path)
+                counts.append(_fragile_count(df))
+            data[model_label] = counts
+
+        title = corruption.replace("_", " ").capitalize()
+        out = out_base / f"{corruption}.png"
+        render(data, title, out)
+        print(f"  -> {out}")

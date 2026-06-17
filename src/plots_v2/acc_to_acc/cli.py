@@ -39,7 +39,7 @@ def run(args: argparse.Namespace) -> None:
         dfs = get_dfs_for_all_models(experiment)
 
         for model, model_label in MODELS.items():
-            out = out_base / "images" / "v2" / "acc_to_acc" / f"{name}_{model}.png"
+            out = out_base / "images" / "v3" / "acc_to_acc" / f"{name}_{model}.png"
             out.parent.mkdir(parents=True, exist_ok=True)
             plot(dfs[model], out, title=format_title(name, model_label))
             print(f"  {name}: {model}")

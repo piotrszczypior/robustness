@@ -40,7 +40,7 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     parser.add_argument(
         "--dataset",
         type=str,
-        default="imagenet_a",
+        default="imagenet_c",
         # choices=["imagenet_a", "imagenet_r", "imagenet_c", "imagenet"],
         help="Dataset to visualize",
     )
@@ -63,15 +63,15 @@ def register(subparsers: argparse._SubParsersAction) -> None:
 def run(args: argparse.Namespace) -> None:
     out_base = Path(args.output_dir)
 
-    if args.dataset:
-        print(f"[dataset_heatmap] loading data for {args.dataset}...")
-        dfs = get_dfs_for_dataset(args.dataset, args.data_path)
-        suffix = f"_sortby_{args.sort_by}" if args.sort_by else "_nosort"
-    else:
-        experiment = EXPERIMENTS[args.exp]
-        dfs = get_dfs_for_all_models(experiment, args.data_path)
-        suffix = f"_sortby_{args.sort_by}" if args.sort_by else "_nosort"
-        suffix = f"{suffix}_{args.exp}"
+    # if args.dataset:
+    #     print(f"[dataset_heatmap] loading data for {args.dataset}...")
+    #     dfs = get_dfs_for_dataset(args.dataset, args.data_path)
+    #     suffix = f"_sortby_{args.sort_by}" if args.sort_by else "_nosort"
+    # else:
+    experiment = EXPERIMENTS[args.exp]
+    dfs = get_dfs_for_all_models(experiment, args.data_path)
+    suffix = f"_sortby_{args.sort_by}" if args.sort_by else "_nosort"
+    suffix = f"{suffix}_{args.exp}"
 
     named = {MODELS[k]: v for k, v in dfs.items() if k in MODELS}
 
@@ -83,7 +83,7 @@ def run(args: argparse.Namespace) -> None:
         sort_by_label = None
 
     matrix = build_matrix(named, args.dataset, sort_by=sort_by_label)
-    out = out_base / "images" / "v2" / f"{args.dataset}_heatmap{suffix}.png"
+    out = out_base / "images" / "v3" / "dataset_heatmap" / f"{args.dataset}_heatmap{suffix}.png"
     out.parent.mkdir(parents=True, exist_ok=True)
     render(matrix, out, args.dataset, sort_by=sort_by_label)
     print(f"  {out.name} ({matrix.shape[1]} classes, {matrix.shape[0]} models)")

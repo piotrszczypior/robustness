@@ -69,12 +69,12 @@ def render(matrix: pd.DataFrame, out_path: Path, y_label = True) -> None:
     ax.set_xticks([p + 0.5 for p in tick_positions])
     ax.set_xticklabels(
         [str(p) for p in tick_positions],
-        fontsize=12,
-        color="#555555",
+        fontsize=13,
+        color="black",
         rotation=0,
     )
 
-    ax.set_xlabel("ImageNet classes", fontsize=18, color="#444444", labelpad=6)
+    ax.set_xlabel("ImageNet classes", fontsize=18, color="black", labelpad=6)
     ax.set_ylabel("")
     ax.tick_params(left=False)
     ax.spines[:].set_visible(False)
@@ -84,5 +84,7 @@ def render(matrix: pd.DataFrame, out_path: Path, y_label = True) -> None:
     ax.set_ylim(len(matrix) + 0.1, -0.1)
 
     plt.tight_layout()
-    fig.savefig(out_path, dpi=150, bbox_inches="tight")
+    # fig.savefig(out_path, dpi=150, bbox_inches="tight")
+    from utils import save_as_pdf
+    save_as_pdf(fig, out_path)
     plt.close(fig)

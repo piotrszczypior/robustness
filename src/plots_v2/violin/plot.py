@@ -54,7 +54,7 @@ def render(dfs: dict[str, pd.DataFrame], out_path: Path, title: str = "") -> Non
     fig, ax = plt.subplots(figsize=(12, max(4, n_models * 3)))
     fig.patch.set_facecolor("white")
 
-    ax.set_title(title, pad=20, fontsize=14, fontweight="bold")
+    ax.set_title(title, fontsize=16)
     ax.set_xlabel("Per-class accuracy")
 
     y_pos = 1
@@ -87,4 +87,7 @@ def render(dfs: dict[str, pd.DataFrame], out_path: Path, title: str = "") -> Non
 
     plt.tight_layout()
     fig.savefig(out_path, dpi=150, bbox_inches="tight")
+
+    from utils import save_as_pdf
+    save_as_pdf(fig, out_path)
     plt.close(fig)

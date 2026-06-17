@@ -94,5 +94,7 @@ def plot_model_dot(
     plt.tight_layout()
     out = Path(output_path)
     out.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out, dpi=300, bbox_inches="tight")
+    # fig.savefig(out, dpi=300, bbox_inches="tight")
+    from utils import save_as_pdf
+    save_as_pdf(fig, output_path)
     plt.close(fig)

@@ -99,7 +99,7 @@ def run(args: argparse.Namespace) -> None:
         label_slug = synset
 
     suffix = f"{args.corruption}_{args.severity}" if args.dataset == "imagenet_c" else "imagenet_r"
-    out = Path(args.output_dir) / "images" / "v2" / "mistake_models_dot" / f"{label_slug}_{suffix}.png"
+    out = Path(args.output_dir) / "images" / "v3" / "mistake_models_dot" / f"{label_slug}_{suffix}.png"
 
     render_models(
         model_entries=model_entries,

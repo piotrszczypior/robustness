@@ -56,5 +56,7 @@ def render(corr: pd.DataFrame, out_path: Path) -> None:
     plt.xticks(rotation=60, ha="left")
 
     fig.tight_layout()
-    fig.savefig(out_path, dpi=150, bbox_inches="tight")
+    # fig.savefig(out_path, dpi=150, bbox_inches="tight")
+    from utils import save_as_pdf
+    save_as_pdf(fig, out_path)
     plt.close(fig)

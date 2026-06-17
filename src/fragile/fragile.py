@@ -53,12 +53,12 @@ def get_rmce_fragile(
 def get_fragile_by_definition(
     df_a: pd.DataFrame,
     df_b: pd.DataFrame,
-    # df_c: pd.DataFrame,
+    df_c: pd.DataFrame,
     definition: FragileDefinition,
 ) -> pd.DataFrame:
     merged = df_a[["synset", "is_fragile_a"]]
     merged = merged.merge(df_b[["synset", "is_fragile_b"]], on="synset")
-    # merged = merged.merge(df_c[["synset", "is_fragile_c"]], on="synset")
+    merged = merged.merge(df_c[["synset", "is_fragile_c"]], on="synset")
     merged["is_strongly_fragile"] = definition.combine(merged).astype(int)
     return merged
 

@@ -7,12 +7,12 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-METRICS_PATH = Path("results/representations/resnet50_class_metrics.parquet")
+METRICS_PATH = Path("results/representations/vit_b_16_class_metrics.parquet")
 PRED_DIR = Path("embeddings")
-OUT_DIR = Path("results/representations/fragility")
+OUT_DIR = Path("images/v3/representations/spearman")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-MODEL = "resnet50"
+MODEL = "vit_b_16"
 METRIC = "angular_distance_median"
 
 
@@ -56,7 +56,10 @@ def heatmap(plot_matrix, path):
     fig.colorbar(im, ax=ax, label="Spearman rho")
     ax.set_title("Spearman rank correlation between per-class cosine distance and accuracy drop")
     fig.tight_layout()
-    fig.savefig(path, dpi=150, bbox_inches="tight")
+    # fig.savefig(path, dpi=150, bbox_inches="tight")
+    out = Path(path)
+    pdf_path = out.with_suffix(".pdf")
+    fig.savefig(pdf_path, bbox_inches="tight", dpi=300)
 
 
 def main():

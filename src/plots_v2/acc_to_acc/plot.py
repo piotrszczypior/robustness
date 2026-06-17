@@ -8,7 +8,7 @@ import numpy as np
 def plot(df, output_path: Path, title: str = ""):
     fig, ax = plt.subplots(figsize=(8, 8))
 
-    ax.set_title(title)
+    ax.set_title(title, fontsize=16)
     ax.set_xlabel("Clean accuracy")
     ax.set_ylabel("Corrupted accuracy")
 
@@ -30,4 +30,7 @@ def plot(df, output_path: Path, title: str = ""):
 
     plt.tight_layout()
     fig.savefig(output_path, dpi=150, bbox_inches="tight")
+    from utils import save_as_pdf
+    save_as_pdf(fig, output_path)
+
     plt.close(fig)

@@ -38,6 +38,9 @@ from plots_v2.synset_model_dot import get_task as get_synset_model_dot_task
 from corruptions.cli import get_task as get_corruptions_task
 from representations.cli import get_task as get_representations_task
 from plots_v2.adv_acc_scatter import get_task as get_adv_acc_scatter_task
+from plots_v2.corruption_taxonomy.cli import get_task as get_corruption_taxonomy_task
+from plots_v2.repr_drop_spearman.cli import get_task as get_repr_drop_spearman_task
+from plots_v2.rmce_overlap.cli import get_task as get_rmce_overlap_task
 
 
 
@@ -72,6 +75,9 @@ TASK_REGISTRY: Dict[str, Task] = {
     "model_dot_v2": get_model_dot(),
     "mistake_models_dot_v2": get_mistake_models_dot_task(),
     "synset_model_dot_v2": get_synset_model_dot_task(),
+    "corruption_taxonomy_v2": get_corruption_taxonomy_task(),
+    "repr_drop_spearman_v2": get_repr_drop_spearman_task(),
+    "rmce_overlap_v2": get_rmce_overlap_task(),
 }
 
 

@@ -115,5 +115,7 @@ def render_models(
 
     plt.tight_layout()
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(output_path, dpi=300, bbox_inches="tight")
+    # fig.savefig(output_path, dpi=300, bbox_inches="tight")
+    from utils import save_as_pdf
+    save_as_pdf(fig, output_path)
     plt.close(fig)

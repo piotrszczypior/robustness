@@ -3,7 +3,6 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import matplotlib.colors as mcolors
 import seaborn as sns
 from scipy.stats import fisher_exact
 
@@ -102,5 +101,7 @@ def render(p_matrix: pd.DataFrame, out_path: Path, title: str = "") -> None:
         ax.set_title(title, fontsize=14, pad=20)
 
     fig.tight_layout()
-    fig.savefig(out_path, dpi=150, bbox_inches="tight")
+    # fig.savefig(out_path, dpi=150, bbox_inches="tight")
+    from utils import save_as_pdf
+    save_as_pdf(fig, out_path)
     plt.close(fig)

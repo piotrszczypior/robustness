@@ -71,7 +71,7 @@ def run(args: argparse.Namespace) -> None:
     model_display = MODELS.get(args.model, args.model)
     title = f"{model_display}  {args.corruption.replace('_', ' ').capitalize()}"
 
-    out = Path(args.output_dir) / "images" / "fragile" / "dot" / f"{args.model}_{args.corruption}.png"
+    out = Path(args.output_dir) / "images" / "v3" / "fragile_dot" / f"{args.model}_{args.corruption}.png"
     plot_fragile_dot(
         clean_acc=clean_acc,
         severity_acc=severity_acc,

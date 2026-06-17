@@ -33,7 +33,7 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     parser.add_argument("--corruption", type=str, default=None, help="Specific corruption (e.g. defocus_blur) — alternative to --group")
     parser.add_argument("--severity", type=int, required=True, help="Severity level (1-5)")
     parser.add_argument("--data-path", type=str, default="results")
-    parser.add_argument("--output-dir", type=str, default=".")
+    parser.add_argument("--output-dir", type=str, default="images/v3/synset_model_dot")
 
 
 def _load_corrupt_acc(

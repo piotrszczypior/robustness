@@ -1,5 +1,5 @@
 import logging
-from regex import P
+from pathlib import Path
 import torch
 import json
 
@@ -69,3 +69,9 @@ def get_synset_to_imagenet_r_index():
     from constants import IMAGENET_R_SYNSETS
 
     return {synset: int(i) for i, synset in enumerate(IMAGENET_R_SYNSETS)}
+
+
+def save_as_pdf(fig, out: Path | str):
+    out = Path(out)
+    pdf_path = out.with_suffix(".pdf")
+    fig.savefig(pdf_path, bbox_inches="tight", dpi=300)

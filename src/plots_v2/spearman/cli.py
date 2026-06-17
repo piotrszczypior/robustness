@@ -53,7 +53,7 @@ def run(args: argparse.Namespace) -> None:
             }
             corr = compute_spearman(metric_dfs, metric)
             out_path = (
-                out_base / "images" / "spearman" / "v2" / metric / f"{exp_name}.png"
+                out_base / "images" / "v3" / "spearman" / metric / f"{exp_name}.png"
             )
             out_path.parent.mkdir(parents=True, exist_ok=True)
             render(corr, out_path)

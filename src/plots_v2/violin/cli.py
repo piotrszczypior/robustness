@@ -37,7 +37,7 @@ def run(args: argparse.Namespace) -> None:
         dfs = get_dfs_for_all_models(variations, args.data_path)
 
         for model, extern in MODELS.items():
-            out = out_base / "images" / "v2" / "violin" / f"{exp_name}_{model}.png"
+            out = out_base / "images" / "v3" / "violin" / f"{exp_name}_{model}.png"
             df_named = {extern: dfs[model]}
             out.parent.mkdir(parents=True, exist_ok=True)
             render(df_named, out, title=exp_name.replace("_", " ").capitalize())

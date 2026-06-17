@@ -46,7 +46,7 @@ def run(args: argparse.Namespace) -> None:
             out = (
                 out_base
                 / "images"
-                / "v2"
+                / "v3"
                 / "fragile_histogram"
                 / f"{exp_name}_{model_key}.png"
             )

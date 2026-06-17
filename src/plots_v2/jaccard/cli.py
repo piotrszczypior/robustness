@@ -75,7 +75,7 @@ def run(args: argparse.Namespace) -> None:
     definition = DEFINITIONS[def_name]
 
     jaccard = compute_jaccard(dfs, definition)
-    out_path = out_base / "images" / "v2" / "jaccard" / def_name / f"{condition}.png"
+    out_path = out_base / "images" / "v3" / "jaccard" / def_name / f"{condition}.png"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     render(jaccard, definition, out_path)
     print(f"  {def_name}/{condition}.png")

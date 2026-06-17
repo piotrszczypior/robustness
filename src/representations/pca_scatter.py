@@ -136,7 +136,7 @@ def run_pca_scatter(args: argparse.Namespace) -> None:
     legend1 = ax.legend(handles=synset_handles, title="Synset", loc="upper left",
                         fontsize=8, title_fontsize=8, framealpha=0.8)
     ax.add_artist(legend1)
-    ax.legend(handles=condition_handles, title="Condition", loc="lower right",
+    ax.legend(handles=condition_handles, title="Condition", loc="lower left",
               fontsize=8, title_fontsize=8, framealpha=0.8)
 
     ax.set_xlabel("t-SNE 1", fontsize=11)
@@ -151,12 +151,15 @@ def run_pca_scatter(args: argparse.Namespace) -> None:
     else:
         out_path = (
             paths.images
+            / "v3"
             / "representations"
             / "pca"
             / f"{args.model}_{args.corruption}_{args.severity}.png"
         )
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out_path, dpi=150, bbox_inches="tight")
+    # fig.savefig(out_path, dpi=150, bbox_inches="tight")
+    from utils import save_as_pdf
+    save_as_pdf(fig, out_path)
     plt.close(fig)
     print(f"Saved: {out_path}")
 
